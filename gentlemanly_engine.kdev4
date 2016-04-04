@@ -1,4 +1,4 @@
 [Project]
-Name=gentlemanly_engine
+CreatedFrom=CMakeLists.txt
 Manager=KDevCMakeManager
-VersionControl=kdevgit
+Name=gentlemanly_engine

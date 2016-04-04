@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 project(gentlemanly_engine)
 
 # update the module path so cmake can find libraries that don't have built in CMake support
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 # find packages
 find_package(SDL2 REQUIRED)
@@ -10,10 +10,15 @@ find_package(Boost REQUIRED)
 find_package(glm REQUIRED)
 
 set(GE_PRIVATE_FILES
+	src/application.cpp
 	src/window.cpp
 )
 
 set(GE_PUBLIC_FILES 
+	include/gentlemanly_engine/concept/subsystem.hpp
+	include/gentlemanly_engine/concept/variadic_concept.hpp
+	include/gentlemanly_engine/subsystem/graphics.hpp
+	include/gentlemanly_engine/application.hpp
 	include/gentlemanly_engine/window.hpp
 )
 
@@ -43,4 +48,5 @@ PUBLIC
 # so other people can use it
 install(TARGETS gentlemanly_engine DESTINATION lib EXPORT gentlemanly_engine-targets)
 install(EXPORT gentlemanly_engine-targets DESTINATION lib/gentlemanly_engine)
-install(FILES ${GE_PUBLIC_FILES} DESTINATION include/)
+install(FILES ${GE_PUBLIC_FILES} DESTINATION include/gentlemanly_engine/)
+install(FILES cmake/gentlemanly_engine-config.cmake DESTINATION lib/gentlemanly_engine)
