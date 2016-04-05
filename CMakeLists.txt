@@ -8,6 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 find_package(SDL2 REQUIRED)
 find_package(Boost REQUIRED)
 find_package(glm REQUIRED)
+find_package(OpenGL REQUIRED)
 
 set(GE_PRIVATE_FILES
 	src/application.cpp
@@ -28,6 +29,7 @@ add_library(gentlemanly_engine SHARED ${GE_PRIVATE_FILES} ${GE_PUBLIC_FILES})
 target_include_directories(gentlemanly_engine 
 PRIVATE 
 	include
+	${OPENGL_INCLUDE_DIR}
 INTERFACE 
 	${CMAKE_INSTALL_PREFIX}/include
 PUBLIC 
@@ -36,17 +38,20 @@ PUBLIC
 )
 
 target_link_libraries(gentlemanly_engine
-PRIVATE 
+PUBLIC
 	${SDL2_LIBRARY}
+PRIVATE 
+	${OPENGL_LIBRARIES}
 )
 
 target_compile_features(gentlemanly_engine
 PUBLIC
 	cxx_aggregate_default_initializers
+	cxx_generic_lambdas
 )
 
 # so other people can use it
 install(TARGETS gentlemanly_engine DESTINATION lib EXPORT gentlemanly_engine-targets)
 install(EXPORT gentlemanly_engine-targets DESTINATION lib/gentlemanly_engine)
-install(FILES ${GE_PUBLIC_FILES} DESTINATION include/gentlemanly_engine/)
+install(DIRECTORY include/gentlemanly_engine DESTINATION include)
 install(FILES cmake/gentlemanly_engine-config.cmake DESTINATION lib/gentlemanly_engine)

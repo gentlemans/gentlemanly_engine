@@ -17,12 +17,15 @@ struct Subsystem : boost::DefaultConstructible<X>
 	BOOST_CONCEPT_USAGE(Subsystem)
 	{
 		// use brackets to make sure that there is no type conversion
-		Uint32 flags{i.get_sdl_init_flags()};
+		Uint32 flags{i_c.get_sdl_init_flags()};
+		
+		i.post_init();
 	}
 	
 private:
 	
 	X i;
+	const X i_c;
 };
 
 } // namespace concept
