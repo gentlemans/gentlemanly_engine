@@ -9,18 +9,30 @@ find_package(SDL2 REQUIRED)
 find_package(Boost REQUIRED)
 find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(Qt5Widgets REQUIRED)
 
 set(GE_PRIVATE_FILES
 	src/application.cpp
-	src/window.cpp
+	src/window_backend/sdl_window.cpp
+	src/window_backend/qt_window.cpp
+	src/window_backend/qt.cpp
 )
 
 set(GE_PUBLIC_FILES 
-	include/gentlemanly_engine/concept/subsystem.hpp
-	include/gentlemanly_engine/concept/variadic_concept.hpp
-	include/gentlemanly_engine/subsystem/graphics.hpp
-	include/gentlemanly_engine/application.hpp
-	include/gentlemanly_engine/window.hpp
+	include/ge/concept/variadic_concept.hpp
+	include/ge/concept/viewport.hpp
+	include/ge/concept/window.hpp
+	include/ge/concept/window_backend.hpp
+	
+	include/ge/window_backend/qt.hpp
+	include/ge/window_backend/qt_window.hpp
+	include/ge/window_backend/qt_viewport.hpp
+	
+	include/ge/window_backend/sdl.hpp
+	include/ge/window_backend/sdl_window.hpp
+	include/ge/window_backend/sdl_viewport.hpp
+	
+	include/ge/application.hpp
 )
 
 
@@ -40,6 +52,7 @@ PUBLIC
 target_link_libraries(gentlemanly_engine
 PUBLIC
 	${SDL2_LIBRARY}
+	Qt5::Widgets
 PRIVATE 
 	${OPENGL_LIBRARIES}
 )
@@ -53,5 +66,5 @@ PUBLIC
 # so other people can use it
 install(TARGETS gentlemanly_engine DESTINATION lib EXPORT gentlemanly_engine-targets)
 install(EXPORT gentlemanly_engine-targets DESTINATION lib/gentlemanly_engine)
-install(DIRECTORY include/gentlemanly_engine DESTINATION include)
+install(DIRECTORY include/ge DESTINATION include)
 install(FILES cmake/gentlemanly_engine-config.cmake DESTINATION lib/gentlemanly_engine)
