@@ -9,6 +9,8 @@
 
 #include <memory>
 
+#include <glm/glm.hpp>
+
 namespace ge
 {
 
@@ -34,7 +36,7 @@ struct WindowBackend
 		char** argv;
 		X exp_construct(app, argc, argv);
 		
-		std::unique_ptr<window> win = i.create_window(
+		std::unique_ptr<window> win = i.make_window(
 			"Title", 						// title
 			boost::optional<glm::uvec2>(), 	// location on sceen
 			glm::uvec2(), 					// size
@@ -42,6 +44,9 @@ struct WindowBackend
 			false 							// decorated
 		);
 		
+		std::unique_ptr<viewport> view = i.make_viewport(
+			*win	// window
+		);
 	}
 	
 private:

@@ -13,9 +13,13 @@ find_package(Qt5Widgets REQUIRED)
 
 set(GE_PRIVATE_FILES
 	src/application.cpp
+	
 	src/window_backend/sdl_window.cpp
-	src/window_backend/qt_window.cpp
+	src/window_backend/sdl_viewport.cpp
+	
 	src/window_backend/qt.cpp
+	src/window_backend/qt_window.cpp
+	src/window_backend/qt_viewport.cpp
 )
 
 set(GE_PUBLIC_FILES 

@@ -5,6 +5,7 @@ namespace window_backend {
 
 class sdl_viewport
 {
+public:
 	
 };
 

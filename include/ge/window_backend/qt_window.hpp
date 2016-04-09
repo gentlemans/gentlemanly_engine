@@ -15,7 +15,7 @@ namespace window_backend {
 
 class qt;
 
-class qt_window : QMainWindow
+class qt_window : public QMainWindow
 {
 	qt& qt_inst;
 public:

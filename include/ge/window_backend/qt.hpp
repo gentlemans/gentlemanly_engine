@@ -24,9 +24,14 @@ public:
 	
 	qt(const qt&) = delete;
 	
-	std::unique_ptr<window> create_window(const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size, bool fullscreen, bool decorated)
+	std::unique_ptr<window> make_window(const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size, bool fullscreen, bool decorated)
 	{
 		return std::make_unique<window>(*this, title, loc, size, fullscreen, decorated);
+	}
+	
+	std::unique_ptr<viewport> make_viewport(window& window)
+	{
+		return std::make_unique<viewport>(*this, window);
 	}
 };
 
