@@ -40,8 +40,11 @@ public:
 	application& operator=(application&&) = default;
 	
 	// destructor
-	~application()
+	~application() = default;
+	
+	void execute(int& argc, char** argv)
 	{
+		window_backend->execute(argc, argv);
 	}
 	
 	boost::signals2::signal<void()> update;

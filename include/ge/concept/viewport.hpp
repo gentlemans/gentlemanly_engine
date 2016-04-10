@@ -14,7 +14,7 @@ struct Viewport
 {
 	BOOST_CONCEPT_USAGE(Viewport)
 	{
-		
+		i.set_background_color(glm::vec4{});
 	}
 	
 private:

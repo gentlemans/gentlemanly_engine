@@ -33,6 +33,8 @@ public:
 	{
 		return std::make_unique<viewport>(*this, window);
 	}
+	
+	void execute();
 };
 
 } // namespace window_backend

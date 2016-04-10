@@ -17,6 +17,10 @@ qt::qt(application<qt>& _app, int& argc, char** argv)
 	);
 }
 
+void qt::execute()
+{
+	qt_app.exec();
+}
 
 } // namespace ge
 } // namespace window_backend

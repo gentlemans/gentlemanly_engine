@@ -56,6 +56,7 @@ public:
 	boost::signals2::signal<void()> sig_quit;
 	
 	
+	
 
 };
 BOOST_CONCEPT_ASSERT((ge::concept::Window<qt_window>));

@@ -21,6 +21,7 @@ namespace window_backend {
 
 class sdl
 {
+	bool running = true;
 public:
 	application<sdl>& app;
 	
@@ -42,6 +43,10 @@ public:
 	{
 		return nullptr;
 	}
+	
+	void execute();
+	
+	void request_exit() { running = false; }
 	
 };
 BOOST_CONCEPT_ASSERT((ge::concept::WindowBackend<sdl>));

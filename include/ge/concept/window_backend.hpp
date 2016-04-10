@@ -36,6 +36,8 @@ struct WindowBackend
 		char** argv;
 		X exp_construct(app, argc, argv);
 		
+		i.execute();
+		
 		std::unique_ptr<window> win = i.make_window(
 			"Title", 						// title
 			boost::optional<glm::uvec2>(), 	// location on sceen
@@ -47,6 +49,8 @@ struct WindowBackend
 		std::unique_ptr<viewport> view = i.make_viewport(
 			*win	// window
 		);
+		
+		
 	}
 	
 private:
