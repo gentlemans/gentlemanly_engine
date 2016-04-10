@@ -42,12 +42,13 @@ public:
 	// destructor
 	~application() = default;
 	
-	void execute(int& argc, char** argv)
+	void execute()
 	{
-		window_backend->execute(argc, argv);
+		window_backend.execute();
 	}
 	
 	boost::signals2::signal<void()> update;
+	boost::signals2::signal<void()> init;
 	
 	_window_backend window_backend;
 };

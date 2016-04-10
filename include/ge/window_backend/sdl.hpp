@@ -11,8 +11,6 @@
 
 #include <boost/optional.hpp>
 
-#include <SDL.h>
-
 #include <memory>
 
 namespace ge {
@@ -25,11 +23,7 @@ class sdl
 public:
 	application<sdl>& app;
 	
-	sdl(application<sdl>& app_, int&, char**)
-		:app(app_)
-	{
-		SDL_Init(SDL_INIT_VIDEO);
-	}
+	sdl(application<sdl>& app_, int&, char**);
 	
 	using window = sdl_window;
 	using viewport = sdl_viewport;

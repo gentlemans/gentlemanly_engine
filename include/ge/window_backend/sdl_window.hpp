@@ -1,14 +1,14 @@
 #pragma once
 
-#include <SDL.h>
-
-
 #include "ge/concept/window.hpp"
 #include "ge/application.hpp"
 
 #include <boost/optional.hpp>
 
 #include <boost/signals2.hpp>
+
+class SDL_Window;
+using SDL_GLContext = void*;
 
 namespace ge {
 namespace window_backend {
@@ -64,15 +64,9 @@ public:
 		return m_window != nullptr;
 	}
 	
-	void set_title(const char* new_title)
-	{
-		SDL_SetWindowTitle(m_window, new_title);
-	}
+	void set_title(const char* new_title);
 	
-	std::string get_title() const
-	{
-		return SDL_GetWindowTitle(m_window);
-	}
+	std::string get_title() const;
 	
 	boost::signals2::signal<void()> sig_quit;
 

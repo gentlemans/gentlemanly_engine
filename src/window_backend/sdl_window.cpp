@@ -51,12 +51,18 @@ sdl_window::~sdl_window()
 {
 	
 	if(m_context) SDL_GL_DeleteContext(m_context);
-	
 	if(m_window) SDL_DestroyWindow(m_window);
 }
 
+void sdl_window::set_title(const char* new_title)
+{
+	SDL_SetWindowTitle(m_window, new_title);
+}
 
-
+std::string sdl_window::get_title() const
+{
+	return SDL_GetWindowTitle(m_window);
+}
 
 } // namespace window_backend
 } // namespace ge

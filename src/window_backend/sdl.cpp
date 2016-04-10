@@ -5,6 +5,12 @@
 namespace ge {
 namespace window_backend {
 
+sdl::sdl(application<sdl>& app_, int&, char**)
+	:app(app_)
+{
+	SDL_Init(SDL_INIT_VIDEO);
+}
+
 void sdl::execute()
 {
 	while(running)

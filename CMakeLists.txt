@@ -10,9 +10,9 @@ find_package(Boost REQUIRED)
 find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Qt5Widgets REQUIRED)
+find_package(TinyObjLoader REQUIRED)
 
 set(GE_PRIVATE_FILES
-	src/application.cpp
 	
 	src/window_backend/sdl_window.cpp
 	src/window_backend/sdl_viewport.cpp
@@ -20,6 +20,12 @@ set(GE_PRIVATE_FILES
 	src/window_backend/qt.cpp
 	src/window_backend/qt_window.cpp
 	src/window_backend/qt_viewport.cpp
+	
+	src/actor.cpp
+	src/application.cpp
+	src/mesh.cpp
+	src/model.cpp
+	src/shader.cpp
 )
 
 set(GE_PUBLIC_FILES 
@@ -36,7 +42,10 @@ set(GE_PUBLIC_FILES
 	include/ge/window_backend/sdl_window.hpp
 	include/ge/window_backend/sdl_viewport.hpp
 	
+	include/ge/actor.hpp
 	include/ge/application.hpp
+	include/ge/mesh.hpp
+	include/ge/model.hpp
 )
 
 
@@ -46,19 +55,21 @@ target_include_directories(gentlemanly_engine
 PRIVATE 
 	include
 	${OPENGL_INCLUDE_DIR}
+	${TINYOBJLOADER_INCLUDE_DIR}
+	${SDL2_INCLUDE_DIR}
 INTERFACE 
 	${CMAKE_INSTALL_PREFIX}/include
 PUBLIC 
-	${SDL2_INCLUDE_DIR}
 	${Boost_INCLUDE_DIR}
 )
 
 target_link_libraries(gentlemanly_engine
 PUBLIC
-	${SDL2_LIBRARY}
 	Qt5::Widgets
 PRIVATE 
+	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
+	${TINYOBJLOADER_LIBRARY}
 )
 
 target_compile_features(gentlemanly_engine

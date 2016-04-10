@@ -1,0 +1,28 @@
+
+# locate files for TinyObjLoader
+# sets 	TINYOBJLOADER_INCLUDE_DIR
+# and	TINYOBJLOADER_LIBRARY
+
+find_path(
+	TINYOBJLOADER_INCLUDE_DIR
+NAMES
+	tiny_obj_loader.h
+HINTS 
+	$ENV{TINYOBJDIR}
+	PATH_SUFFIXES include
+	PATHS ${TINYOBJ_SEARCH_PATHS}
+)
+
+find_library(
+	TINYOBJLOADER_LIBRARY
+NAMES 
+	tinyobjloader
+HINTS
+	$ENV{TINYOBJDIR}
+	PATH_SUFFIXES lib64 lib
+	PATHS ${TINYOBJ_SEARCH_PATHS}
+)
+
+include(FindPackageHandleStandardArgs)
+
+find_package_handle_standard_args(TinyObjLoader REQUIRED_VARS TINYOBJLOADER_INCLUDE_DIR TINYOBJLOADER_LIBRARY)
