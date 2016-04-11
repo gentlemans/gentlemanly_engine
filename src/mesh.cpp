@@ -22,7 +22,13 @@ mesh::mesh(std::istream& stream)
 	
 	std::cout << "Loading mesh named: " << shapes[0].name;
 	
+	
 	auto& mesh = shapes[0].mesh;
+	
+	num_triangles = mesh.indices.size() / 3;
+	
+	glGenVertexArrays(1, &vertex_array);
+	glBindVertexArray(vertex_array);
 	
 	// make buffers
 	glGenBuffers(1, &vertex_buffer);

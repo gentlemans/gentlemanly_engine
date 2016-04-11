@@ -4,6 +4,8 @@ project(gentlemanly_engine)
 # update the module path so cmake can find libraries that don't have built in CMake support
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+
 # find packages
 find_package(SDL2 REQUIRED)
 find_package(Boost REQUIRED)
@@ -14,6 +16,7 @@ find_package(TinyObjLoader REQUIRED)
 
 set(GE_PRIVATE_FILES
 	
+	src/window_backend/sdl.cpp
 	src/window_backend/sdl_window.cpp
 	src/window_backend/sdl_viewport.cpp
 	
@@ -23,6 +26,7 @@ set(GE_PRIVATE_FILES
 	
 	src/actor.cpp
 	src/application.cpp
+	src/material.cpp
 	src/mesh.cpp
 	src/model.cpp
 	src/shader.cpp

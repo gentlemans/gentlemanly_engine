@@ -42,15 +42,15 @@ public:
 	const actor* get_parent() const { return parent; };
 	actor* get_parent() { return parent; }
 	
-	virtual void render(){}
+	virtual void render(const glm::mat3& view_projection_matrix){}
 	
-	void render_tree()
+	void render_tree(const glm::mat3& view_projection_matrix)
 	{
-		render();
+		render(view_projection_matrix);
 		
 		for(auto child : children)
 		{
-			child->render_tree();
+			child->render_tree(view_projection_matrix);
 		}
 	}
 };

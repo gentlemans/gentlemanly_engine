@@ -7,6 +7,8 @@ namespace ge {
 
 class mesh 
 {
+public:
+	
 	mesh(std::istream& stream);
 	mesh(std::istream&& stream) : mesh(stream){}
 	mesh(const char* filename) : mesh(std::ifstream{filename}){}
@@ -19,11 +21,12 @@ class mesh
 	
 	~mesh();
 	
-private:
-	
+	uint32_t vertex_array;
 	uint32_t vertex_buffer;
 	uint32_t uv_buffer;
 	uint32_t element_buffer;
+	
+	size_t num_triangles;
 };
 
 }

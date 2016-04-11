@@ -13,6 +13,8 @@ class qt_window;
 
 class qt_viewport : public QOpenGLWidget
 {
+	qt_window& m_window;
+	
 	void initializeGL() override;
 	void paintGL() override;
 	void resizeGL(int w, int h) override;

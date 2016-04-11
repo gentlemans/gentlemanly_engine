@@ -14,7 +14,8 @@ namespace ge  {
 namespace window_backend {
 
 qt_viewport::qt_viewport(qt& backend, qt_window& window)
-	:QOpenGLWidget(&window)
+	:QOpenGLWidget(&window),
+	m_window(window)
 {
 	std::cout << "INit" << std::endl;
 	
@@ -28,16 +29,18 @@ qt_viewport::qt_viewport(qt& backend, qt_window& window)
 }
 
 void qt_viewport::initializeGL()
-{    
-	glClearColor(1,0,0,1);
+{
+	m_window.qt_inst.app.init();
+	
 
 }
 
 void qt_viewport::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	m_window.qt_inst.app.update();
+	
 }
 
 void qt_viewport::resizeGL(int w, int h)

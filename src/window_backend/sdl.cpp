@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <SDL.h>
+
 namespace ge {
 namespace window_backend {
 

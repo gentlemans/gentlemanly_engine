@@ -11,7 +11,14 @@ class material;
 
 class model : public actor
 {
-	model(actor* parent, std::shared_ptr<mesh> mesh, std::shared_ptr<material> mat);
+	std::shared_ptr<mesh> mesh_for_model;
+	std::shared_ptr<material> material_for_model;
+	
+public:
+	
+	virtual void render(const glm::mat3& view_projection_matrix) override;
+	
+	model(actor* parent, const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& material);
 	
 };
 

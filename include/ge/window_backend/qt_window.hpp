@@ -17,8 +17,8 @@ class qt;
 
 class qt_window : public QMainWindow
 {
-	qt& qt_inst;
 public:
+	qt& qt_inst;
 	
 	qt_window(qt& app, const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size, bool fullscreen, bool decorated);
 	

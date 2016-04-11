@@ -11,11 +11,10 @@ namespace ge
 namespace window_backend
 {
 
-struct qt 
+class qt 
 {
-private:
-	application<qt>& app;
 public:
+	application<qt>& app;
 	QApplication qt_app;
 	using window = qt_window;
 	using viewport = qt_viewport;
