@@ -3,6 +3,7 @@
 #include "ge/concept/window.hpp"
 #include "ge/application.hpp"
 
+#include <glm/glm.hpp>
 
 #include <boost/optional.hpp>
 
@@ -47,10 +48,21 @@ public:
 	
 	void set_title(const char* new_title)
 	{
+		// TODO: implemtn
 	}
 	
 	std::string get_title() const
 	{
+		// TODO: implement
+	}
+	
+	void set_size(glm::uvec2 new_size)
+	{
+		setFixedSize(new_size.x, new_size.y);
+	}
+	glm::uvec2 get_size() const
+	{
+		return {width(), height()};
 	}
 	
 	boost::signals2::signal<void()> sig_quit;

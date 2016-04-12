@@ -15,6 +15,8 @@ sdl::sdl(application<sdl>& app_, int&, char**)
 
 void sdl::execute()
 {
+	app.init();
+	
 	while(running)
 	{
 		app.update();

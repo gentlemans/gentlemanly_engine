@@ -19,6 +19,8 @@ namespace window_backend {
 
 class sdl
 {
+	friend class sdl_window;
+	
 	bool running = true;
 public:
 	application<sdl>& app;
@@ -35,7 +37,7 @@ public:
 	
 	std::unique_ptr<viewport> make_viewport(window& win)
 	{
-		return nullptr;
+		return std::make_unique<viewport>(&win);
 	}
 	
 	void execute();

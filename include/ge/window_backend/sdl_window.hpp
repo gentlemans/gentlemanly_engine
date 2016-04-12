@@ -7,6 +7,8 @@
 
 #include <boost/signals2.hpp>
 
+#include <glm/glm.hpp>
+
 class SDL_Window;
 using SDL_GLContext = void*;
 
@@ -65,8 +67,10 @@ public:
 	}
 	
 	void set_title(const char* new_title);
-	
 	std::string get_title() const;
+	
+	void set_size(glm::uvec2 new_size);
+	glm::uvec2 get_size() const;
 	
 	boost::signals2::signal<void()> sig_quit;
 

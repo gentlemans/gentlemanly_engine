@@ -16,9 +16,9 @@ class model : public actor
 	
 public:
 	
-	virtual void render(const glm::mat3& view_projection_matrix) override;
-	
 	model(actor* parent, const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& material);
+	
+	virtual void render(const glm::mat3& view_projection_matrix) override;
 	
 };
 

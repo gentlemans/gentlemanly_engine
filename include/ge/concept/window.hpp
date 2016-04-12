@@ -24,6 +24,9 @@ struct Window
 		// operator bool
 		bool does = i_c;
 		
+		i.set_size(glm::uvec2(100, 200));
+		glm::uvec2 size = i_c.get_size();
+		
 		boost::signals2::signal<void()>& quit = i.sig_quit;
 	}
 	

@@ -7,16 +7,20 @@
 #include <GL/gl.h>
 #include <GL/glext.h>
 
+#include <iostream>
+
 namespace ge {
 
 model::model(actor* parent, const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& mat)
 	:actor(parent), mesh_for_model(mesh), material_for_model(mat)
 {
-	
+	std::cout << std::endl << mesh_for_model->element_buffer << " " << mesh_for_model->num_triangles << std::endl;
 }
 
 void model::render(const glm::mat3& view_projection_matrix )
 {
+	std::cout << std::endl << mesh_for_model->element_buffer << " " << mesh_for_model->num_triangles << std::endl;
+
 	auto mvp = view_projection_matrix * calculate_model_matrix();
 	auto& shader_ref = *material_for_model->shader_for_material;
 	auto& mesh_ref = *mesh_for_model;
@@ -38,9 +42,11 @@ void model::render(const glm::mat3& view_projection_matrix )
 	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh_ref.element_buffer);
 	glDrawElements(GL_TRIANGLES, mesh_ref.num_triangles * 3, GL_UNSIGNED_INT, nullptr);
-// 	
-// 	glDisableVertexAttribArray(0);
-// 	glDisableVertexAttribArray(1);
+	
+	
+	
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 }
 
 }

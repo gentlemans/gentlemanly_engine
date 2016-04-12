@@ -40,6 +40,7 @@ sdl_window::sdl_window(sdl& sdl_inst_, const char* title, boost::optional<glm::u
 			if(event.type == SDL_QUIT)
 			{
 				sig_quit();
+				sdl_inst->running = false;
 			}
 		}
 		glFlush();
@@ -62,6 +63,19 @@ void sdl_window::set_title(const char* new_title)
 std::string sdl_window::get_title() const
 {
 	return SDL_GetWindowTitle(m_window);
+}
+
+void sdl_window::set_size(glm::uvec2 new_size)
+{
+	SDL_SetWindowSize(m_window, new_size.x, new_size.y);
+}
+
+glm::uvec2 sdl_window::get_size() const 
+{
+	glm::ivec2 ret; // needs to be ivec because SDL_GetWindowSize only accepts ints
+	SDL_GetWindowSize(m_window, &ret.x, &ret.y);
+	
+	return ret;
 }
 
 } // namespace window_backend

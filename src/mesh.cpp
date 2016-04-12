@@ -3,10 +3,13 @@
 #include <tiny_obj_loader.h>
 
 #include <iostream>
+#include <algorithm>
 
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
 #include <GL/glext.h>
+
+#include <glm/glm.hpp>
 
 namespace ge {
 
@@ -20,12 +23,15 @@ mesh::mesh(std::istream& stream)
 	
 	if(shapes.size() == 0) throw std::runtime_error("Error: No shapes in OBJ. Error: " + err);
 	
-	std::cout << "Loading mesh named: " << shapes[0].name;
-	
-	
 	auto& mesh = shapes[0].mesh;
 	
 	num_triangles = mesh.indices.size() / 3;
+	
+	// remove Z's
+	for(size_t index = 2; index < mesh.positions.size(); index+=2)
+	{
+		mesh.positions.erase(mesh.positions.begin() + index);
+	}
 	
 	glGenVertexArrays(1, &vertex_array);
 	glBindVertexArray(vertex_array);
@@ -41,7 +47,7 @@ mesh::mesh(std::istream& stream)
 	
 	glGenBuffers(1, &element_buffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.positions.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh.indices.size(), mesh.indices.data(), GL_STATIC_DRAW);
 	
 	
 }

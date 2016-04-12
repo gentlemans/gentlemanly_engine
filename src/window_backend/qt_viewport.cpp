@@ -3,12 +3,22 @@
 #include "ge/window_backend/qt_window.hpp"
 #include "ge/window_backend/qt.hpp"
 
+#include "ge/actor.hpp"
+#include "ge/camera.hpp"
+
+#include "ge/ortho2d.hpp"
+
 #include <GL/gl.h>
 
 #include <iostream>
+#include <stdexcept>
 
 #include <QSurfaceFormat>
 #include <QSurface>
+
+#include <glm/gtx/matrix_transform_2d.hpp>
+
+
 
 namespace ge  {
 namespace window_backend {
@@ -53,6 +63,28 @@ void qt_viewport::set_background_color(const glm::vec4 newColor)
 	glClearColor(newColor.r, newColor.g, newColor.b, newColor.a);
 }
 
+void qt_viewport::render_actor(ge::actor* actor)
+{
+	if(!current_camera) throw std::runtime_error("Cannot call render_actor with a null camera");
+	
+	float aspect = (float)width() / (float)height();
+	
+	glm::mat3 projection = glm::ortho2d( -aspect * current_camera->vertical_units, aspect * current_camera->vertical_units, -current_camera->vertical_units, current_camera->vertical_units);
+	glm::mat3 vp = projection * current_camera->calculate_model_matrix();
+	
+	actor->render_tree(vp);
+	
+}
+
+void qt_viewport::set_camera(ge::camera* camera)
+{
+	current_camera = camera;
+}
+
+ge::camera* qt_viewport::get_camera() const
+{
+	return current_camera;
+}
 
 
 } // namespace window_backend
