@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 2.6)
 project(gentlemanly_engine)
 
+set(PROJECT_VERSION_MAJOR 0)
+set(PROJECT_VERSION_MINOR 1)
+set(PROJECT_VERSION_PATCH 0)
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+
+set(DOXYGEN_EXTRA_FLAGS "" CACHE STRING "Extra flags to be sent to doxygen.")
+
 # update the module path so cmake can find libraries that don't have built in CMake support
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
@@ -87,3 +94,23 @@ install(TARGETS gentlemanly_engine DESTINATION lib EXPORT gentlemanly_engine-tar
 install(EXPORT gentlemanly_engine-targets DESTINATION lib/gentlemanly_engine)
 install(DIRECTORY include/ge DESTINATION include)
 install(FILES cmake/gentlemanly_engine-config.cmake DESTINATION lib/gentlemanly_engine)
+
+# Documentation
+
+find_package(Doxygen)
+
+if(DOXYGEN_FOUND)
+
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile)
+
+	add_custom_target(doc
+		COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_EXTRA_FLAGS}
+		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+		COMMENT "Generating Doxygen documentation..."
+		DEPENDS ${GE_PRIVATE_FILES} ${GE_PUBLIC_FILES}
+	)
+		
+else()
+	message("If you want the target \"doc\" to be avaliable to build doxygen documentation, 
+	then install Doxygen or if it is already installed, set DOXYGEN_EXECUTABLE with a path to doxygen.")
+endif()

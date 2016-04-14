@@ -14,12 +14,10 @@ namespace ge {
 model::model(actor* parent, const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& mat)
 	:actor(parent), mesh_for_model(mesh), material_for_model(mat)
 {
-	std::cout << std::endl << mesh_for_model->element_buffer << " " << mesh_for_model->num_triangles << std::endl;
 }
 
 void model::render(const glm::mat3& view_projection_matrix )
 {
-	std::cout << std::endl << mesh_for_model->element_buffer << " " << mesh_for_model->num_triangles << std::endl;
 
 	auto mvp = view_projection_matrix * calculate_model_matrix();
 	auto& shader_ref = *material_for_model->shader_for_material;

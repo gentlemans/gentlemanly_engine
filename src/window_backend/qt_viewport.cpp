@@ -27,8 +27,6 @@ qt_viewport::qt_viewport(qt& backend, qt_window& window)
 	:QOpenGLWidget(&window),
 	m_window(window)
 {
-	std::cout << "INit" << std::endl;
-	
 	window.setCentralWidget(this);
 	
 	QSurfaceFormat format;

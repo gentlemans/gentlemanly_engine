@@ -1,0 +1,15 @@
+PROJECT_NAME           = "Space Engine"
+PROJECT_NUMBER         = @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@
+STRIP_FROM_PATH        = @PROJECT_SOURCE_DIR@
+INPUT                  = @PROJECT_SOURCE_DIR@/include \
+                         @PROJECT_SOURCE_DIR@/src
+FILE_PATTERNS          = *.hpp \
+                         *.cpp
+RECURSIVE              = YES
+OUTPUT_DIRECTORY       = doc
+JAVADOC_AUTOBRIEF      = YES
+HTML_EXTRA_STYLESHEET  = @PROJECT_SOURCE_DIR@/doc/customdoxygen.css
+HTML_HEADER            = @PROJECT_SOURCE_DIR@/doc/header.html
+HTML_FOOTER            = @PROJECT_SOURCE_DIR@/doc/footer.html
+HTML_EXTRA_FILES       = @PROJECT_SOURCE_DIR@/doc/doxy-boot.js
+PREDEFINED             = DOXYGEN_SHOULD_SKIP_THIS
