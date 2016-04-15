@@ -31,6 +31,8 @@ qt_viewport::qt_viewport(qt& backend, qt_window& window) : QOpenGLWidget(&window
 	format.setVersion(3, 3);
 	format.setProfile(QSurfaceFormat::CoreProfile);
 	setFormat(format);
+	
+	root = new actor(nullptr);
 }
 
 void qt_viewport::initializeGL() { m_window.qt_inst.app.init(); }
@@ -47,7 +49,7 @@ void qt_viewport::set_background_color(const glm::vec4 newColor)
 	glClearColor(newColor.r, newColor.g, newColor.b, newColor.a);
 }
 
-void qt_viewport::render_actor(ge::actor* actor)
+void qt_viewport::render()
 {
 	if (!current_camera) throw std::runtime_error("Cannot call render_actor with a null camera");
 
@@ -58,7 +60,7 @@ void qt_viewport::render_actor(ge::actor* actor)
 		-current_camera->vertical_units, current_camera->vertical_units);
 	glm::mat3 vp = projection * current_camera->calculate_model_matrix();
 
-	actor->render_tree(vp);
+	root->render_tree(vp);
 }
 
 void qt_viewport::set_camera(ge::camera* camera) { current_camera = camera; }

@@ -19,7 +19,7 @@ namespace window_backend
 {
 sdl_viewport::sdl_viewport(ge::window_backend::sdl_window* window_arg) : m_window{window_arg} 
 {
-	root = new actor;
+	root = new actor(nullptr);
 }
 
 void sdl_viewport::set_background_color(const glm::vec4& newColor)

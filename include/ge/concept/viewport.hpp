@@ -21,11 +21,12 @@ struct Viewport
 
 		i.render();
 
-		i.set_camera(new camera);
-		camera* cam = i_c.get_camera();
-		
 		actor* root_actor = i.root_actor();
 		const actor* root_actor_c = i_c.root_actor();
+		
+		i.set_camera(new camera(root_actor));
+		camera* cam = i_c.get_camera();
+		
 	}
 
 private:
