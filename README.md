@@ -13,6 +13,10 @@ Want to just get started quickly and get some `actor`s on the screen? No problem
 ##Modern C++
 Written entirely in modern C++, we use modern strategies like `std::shared_ptr`, `auto`, move semantics, etc to make the developing experience better.
 
+##No large confusing hierarchies
+We use the linux philosophy here and thing that each component should do one thing and do it well, so all of the classes are very simple but together they fit to make a well-oiled machine.
+
+
 ##Multiple windowing backends
 SDL is a very popular window backend for games, but it can be a real pain when trying to make an editor, where a GUI toolkit like Qt will fit your needs much better. There is no `window` class, just a concept that you can use. We have supplied window backends for Qt and SDL. Example:
 ```C++
