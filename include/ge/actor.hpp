@@ -13,7 +13,7 @@ class actor
 	std::unordered_set<actor*> children;
 
 public:
-	actor(actor* parent = nullptr);
+	actor(actor* parent);
 
 	// no move or copy
 	actor(const actor&) = delete;

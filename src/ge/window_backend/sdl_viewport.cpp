@@ -17,13 +17,18 @@ namespace ge
 {
 namespace window_backend
 {
-sdl_viewport::sdl_viewport(ge::window_backend::sdl_window* window_arg) : m_window{window_arg} {}
+sdl_viewport::sdl_viewport(ge::window_backend::sdl_window* window_arg) : m_window{window_arg} 
+{
+	root = new actor;
+}
+
 void sdl_viewport::set_background_color(const glm::vec4& newColor)
 {
 	glClearColor(newColor.r, newColor.g, newColor.b, newColor.a);
+	
 }
 
-void sdl_viewport::render_actor(ge::actor* actor)
+void sdl_viewport::render()
 {
 	if (!current_camera) throw std::runtime_error("Cannot call render_actor with a null camera");
 
@@ -34,7 +39,7 @@ void sdl_viewport::render_actor(ge::actor* actor)
 		-current_camera->vertical_units, current_camera->vertical_units);
 	glm::mat3 vp = projection * current_camera->calculate_model_matrix();
 
-	actor->render_tree(vp);
+	root->render_tree(vp);
 }
 
 void sdl_viewport::set_camera(ge::camera* camera) { current_camera = camera; }

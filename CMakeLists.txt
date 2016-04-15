@@ -18,6 +18,7 @@ find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(TinyObjLoader REQUIRED)
+find_package(Box2D REQUIRED)
 
 set(GE_PRIVATE_FILES
 	
@@ -37,6 +38,7 @@ set(GE_PRIVATE_FILES
 	src/ge/mesh.cpp
 	src/ge/mesh_asset.cpp
 	src/ge/model.cpp
+	src/ge/physics_world.cpp
 	src/ge/shader.cpp
 	
 	# JSONCPP
@@ -70,6 +72,7 @@ set(GE_PUBLIC_FILES
 	include/ge/mesh.hpp
 	include/ge/model.hpp
 	include/ge/ortho2d.hpp
+	include/ge/physics_world.hpp
 	include/ge/shader.hpp
 	
 	#JSONCPP
@@ -96,15 +99,17 @@ PRIVATE
 	${OPENGL_INCLUDE_DIR}
 	${TINYOBJLOADER_INCLUDE_DIR}
 	${SDL2_INCLUDE_DIR}
+	${Boost_INCLUDE_DIR}
 INTERFACE 
 	${CMAKE_INSTALL_PREFIX}/include
 PUBLIC 
-	${Boost_INCLUDE_DIR}
+	${BOX2D_INCLUDE_DIRS}
 )
 
 target_link_libraries(gentlemanly_engine
 PUBLIC
 	Qt5::Widgets
+	${BOX2D_LIBRARIES}
 PRIVATE 
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}

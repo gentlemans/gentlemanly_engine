@@ -19,10 +19,13 @@ struct Viewport
 	{
 		i.set_background_color(glm::vec4{});
 
-		i.render_actor(new actor);
+		i.render();
 
 		i.set_camera(new camera);
 		camera* cam = i_c.get_camera();
+		
+		actor* root_actor = i.root_actor();
+		const actor* root_actor_c = i_c.root_actor();
 	}
 
 private:
