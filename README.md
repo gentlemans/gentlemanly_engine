@@ -36,5 +36,18 @@ int main(int argc, char** argv)
 That's all there is to it to open a window. Want a Qt window instead? Just use `ge::window_backend::qt` instead of `ge::window_backend::sdl`. That `window` object you have received will be subclassed off `QMainWindow`, so start building the widgets off that. 
 
 
-##Extensible powerful asset system
-It is totally impractical to load all you assets (textures, models, animations, etc) 
+##Extensible, powerful asset system
+It is totally impractical to load all you assets (textures, models, animations, etc) by hand by hard-coding paths in your source code. The idea is `asset` classes create primitives like `shader`, `material`, `model`, etc using the asset system. 
+
+###How it works
+First, you define search paths by calling `app.asset_manager.add_asset_path` until you have covered all the places you would like `gentlemanly_engine` to search for assets. Classes are then registered with the `asset_manager` to be able to load an asset. Each type of asset has a unique ID; for example the `material_asset` class that loads `material`s has the ID of `material`. 
+
+
+When you request the asset system to load an asset, it starts to look through the asset directories for a directory with the name of the asset. When it has found this, it looks for an `asset.json` file. This holds all of the metadata for the asset, but the only required field is `asset_type`, which tells the asset system which class to use to parse the file and create objects based on that. For example, an `asset.json` for a model might look like this:
+```JSON
+{
+	"asset_type": "model",
+	"obj_data": "model.obj"
+}
+```
+Keep in mind: this is all decentralized and you can easily and you are encouraged to make you own assets. 
