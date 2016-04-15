@@ -2,7 +2,6 @@
 
 #include <glm/glm.hpp>
 
-
 // a quick ortho 2D
 namespace glm
 {

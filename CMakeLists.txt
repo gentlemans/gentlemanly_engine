@@ -11,11 +11,9 @@ set(DOXYGEN_EXTRA_FLAGS "" CACHE STRING "Extra flags to be sent to doxygen.")
 # update the module path so cmake can find libraries that don't have built in CMake support
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
-
 # find packages
 find_package(SDL2 REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system filesystem)
 find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Qt5Widgets REQUIRED)
@@ -23,20 +21,30 @@ find_package(TinyObjLoader REQUIRED)
 
 set(GE_PRIVATE_FILES
 	
-	src/window_backend/sdl.cpp
-	src/window_backend/sdl_window.cpp
-	src/window_backend/sdl_viewport.cpp
+	src/ge/window_backend/sdl.cpp
+	src/ge/window_backend/sdl_window.cpp
+	src/ge/window_backend/sdl_viewport.cpp
 	
-	src/window_backend/qt.cpp
-	src/window_backend/qt_window.cpp
-	src/window_backend/qt_viewport.cpp
+	src/ge/window_backend/qt.cpp
+	src/ge/window_backend/qt_window.cpp
+	src/ge/window_backend/qt_viewport.cpp
 	
-	src/actor.cpp
-	src/application.cpp
-	src/material.cpp
-	src/mesh.cpp
-	src/model.cpp
-	src/shader.cpp
+	src/ge/actor.cpp
+	src/ge/application.cpp
+	src/ge/asset_manager.cpp
+	src/ge/material.cpp
+	src/ge/material_asset.cpp
+	src/ge/mesh.cpp
+	src/ge/mesh_asset.cpp
+	src/ge/model.cpp
+	src/ge/shader.cpp
+	
+	# JSONCPP
+	src/ge/json/json_reader.cpp
+	src/ge/json/json_tool.h
+	src/ge/json/json_value.cpp
+	src/ge/json/json_valueiterator.inl
+	src/ge/json/json_writer.cpp
 )
 
 set(GE_PUBLIC_FILES 
@@ -55,8 +63,28 @@ set(GE_PUBLIC_FILES
 	
 	include/ge/actor.hpp
 	include/ge/application.hpp
+	include/ge/asset.hpp
+	include/ge/asset_manager.hpp
+	include/ge/camera.hpp
+	include/ge/material.hpp
 	include/ge/mesh.hpp
 	include/ge/model.hpp
+	include/ge/ortho2d.hpp
+	include/ge/shader.hpp
+	
+	#JSONCPP
+	include/ge/json/allocator.h
+	include/ge/json/assertions.h
+	include/ge/json/autolink.h
+	include/ge/json/config.h
+	include/ge/json/features.h
+	include/ge/json/forwards.h
+	include/ge/json/json.h
+	include/ge/json/reader.h
+	include/ge/json/value.h
+	include/ge/json/version.h
+	include/ge/json/writer.h
+
 )
 
 
@@ -81,6 +109,8 @@ PRIVATE
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
 	${TINYOBJLOADER_LIBRARY}
+	debug ${Boost_SYSTEM_LIBRARY_DEBUG} ${Boost_FILESYSTEM_LIBRARY_DEBUG}
+	optimized ${Boost_SYSTEM_LIBRARY_RELEASE} ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 )
 
 target_compile_features(gentlemanly_engine

@@ -4,22 +4,17 @@
 
 #include <glm/glm.hpp>
 
-namespace ge {
-
+namespace ge
+{
 class shader;
 
-class material {
-	
+class material
+{
 public:
-	
 	std::shared_ptr<shader> shader_for_material;
-	
-	
+
 	material(const std::shared_ptr<shader>& shader);
-	
+
 	~material();
-	
 };
-
 }
-

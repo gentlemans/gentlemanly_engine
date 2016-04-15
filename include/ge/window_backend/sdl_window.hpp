@@ -12,71 +12,63 @@
 class SDL_Window;
 using SDL_GLContext = void*;
 
-namespace ge {
-namespace window_backend {
-
+namespace ge
+{
+namespace window_backend
+{
 class sdl;
 
 class sdl_window
-{	
+{
 	SDL_Window* m_window;
 	SDL_GLContext m_context;
 	glm::vec4 m_background_color;
 	sdl* sdl_inst;
+
 public:
-	
-	sdl_window(sdl& sdl, const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size, bool fullscreen, bool decorated);
-	
+	sdl_window(sdl& sdl, const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size,
+			   bool fullscreen, bool decorated);
+
 	// can't really copy OpenGL context, so don't allow copying of windows
 	sdl_window(const sdl_window&) = delete;
-	
+
 	// move constructor
 	sdl_window(sdl_window&& other)
-		:m_window{ other.m_window },
-		m_context{ other.m_context },
-		sdl_inst{other.sdl_inst}
+		: m_window{other.m_window}, m_context{other.m_context}, sdl_inst{other.sdl_inst}
 	{
 		// invalidate `other`
 		other.m_window = nullptr;
 		other.m_context = nullptr;
 		other.sdl_inst = nullptr;
 	}
-	
+
 	// again, can't copy a context, no copy operator
 	sdl_window& operator=(const sdl_window&) = delete;
-	
+
 	// move operator
 	sdl_window& operator=(sdl_window&& other)
 	{
 		this->m_window = other.m_window;
 		this->m_context = other.m_context;
-		
+
 		// invalidate other
 		other.m_window = nullptr;
 		other.m_context = nullptr;
-		
+
 		return *this;
 	}
-	
+
 	~sdl_window();
-	
-	// checking if it is valid
-	operator bool() const
-	{
-		return m_window != nullptr;
-	}
-	
+
 	void set_title(const char* new_title);
 	std::string get_title() const;
-	
+
 	void set_size(glm::uvec2 new_size);
 	glm::uvec2 get_size() const;
-	
-	boost::signals2::signal<void()> sig_quit;
 
+	boost::signals2::signal<void()> sig_quit;
 };
 BOOST_CONCEPT_ASSERT((ge::concept::Window<sdl_window>));
-	
 
-} // namespace window_backend
-} // namespace ge
+}  // namespace window_backend
+}  // namespace ge

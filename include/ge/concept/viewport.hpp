@@ -7,28 +7,25 @@
 
 namespace ge
 {
-
 namespace concept
 {
-
 // we only want to document the basic class that implements it
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-template<typename X>
+template <typename X>
 struct Viewport
 {
 	BOOST_CONCEPT_USAGE(Viewport)
 	{
 		i.set_background_color(glm::vec4{});
-		
+
 		i.render_actor(new actor);
-		
+
 		i.set_camera(new camera);
 		camera* cam = i_c.get_camera();
 	}
-	
+
 private:
-	
 	X i;
 	const X i_c;
 };
@@ -37,14 +34,16 @@ private:
 // for doxygen only
 
 /**
- * The concept for the viewport. 
- * 
+ * The concept for the viewport.
+ *
  * To check if a class is a conforming Viewport, use BOOST_CONCEPT_ASSERT(ge::concept::Viewport<X>).
- * 
- * A viewport is an object that represents somewhere on a Window that is drawable. For many window_backend implemtations, like SDL,
- * this is just the entire window, but others not. For example, the Qt window_backend implements Viewport as a QOpenGLWidget.
+ *
+ * A viewport is an object that represents somewhere on a Window that is drawable. For many
+ * window_backend implemtations, like SDL,
+ * this is just the entire window, but others not. For example, the Qt window_backend implements
+ * Viewport as a QOpenGLWidget.
  */
-struct Viewport 
+struct Viewport
 {
 	/**
 	 * Sets the color of the background of the viewport.
@@ -54,6 +53,6 @@ struct Viewport
 
 #endif
 
-} // namespace concept
+}  // namespace concept
 
-} // namespace ge
+}  // namespace ge
