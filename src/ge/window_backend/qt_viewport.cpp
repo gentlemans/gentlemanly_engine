@@ -31,7 +31,7 @@ qt_viewport::qt_viewport(qt& backend, qt_window& window) : QOpenGLWidget(&window
 	format.setVersion(3, 3);
 	format.setProfile(QSurfaceFormat::CoreProfile);
 	setFormat(format);
-	
+
 	root = new actor(nullptr);
 }
 

@@ -1,9 +1,9 @@
 #include "ge/window_backend/sdl_window.hpp"
 #include "ge/window_backend/sdl.hpp"
 
-#include <GL/gl.h>
+#include "SDL.h"
 
-#include <SDL.h>
+#include <GL/gl.h>
 
 namespace ge
 {
@@ -32,13 +32,13 @@ sdl_window::sdl_window(sdl& sdl_inst_, const char* title, boost::optional<glm::u
 								 {
 									 SDL_Event event;
 									 while (SDL_PollEvent(&event))
+									 {
+										 if (event.type == SDL_QUIT)
 										 {
-											 if (event.type == SDL_QUIT)
-												 {
-													 sig_quit();
-													 sdl_inst->running = false;
-												 }
+											 sig_quit();
+											 sdl_inst->running = false;
 										 }
+									 }
 									 glFlush();
 									 SDL_GL_SwapWindow(m_window);
 								 });

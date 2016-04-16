@@ -32,12 +32,14 @@ public:
 				 const std::string& abs_filepath, const Json::Value& json_data)
 		: asset{asset_name(), arg_name, abs_filepath}
 	{
-		std::string vert_path = absolute_path + "/" + json_data.get("vert_source", "vert.glsl").asString();
-		std::string frag_path = absolute_path + "/" + json_data.get("frag_source", "frag.glsl").asString();
+		std::string vert_path =
+			absolute_path + "/" + json_data.get("vert_source", "vert.glsl").asString();
+		std::string frag_path =
+			absolute_path + "/" + json_data.get("frag_source", "frag.glsl").asString();
 		// just load the shader
 		data = std::make_shared<shader>(vert_path.c_str(), frag_path.c_str());
 	}
-	
+
 	static std::string asset_name() { return "shader"; }
 };
 }

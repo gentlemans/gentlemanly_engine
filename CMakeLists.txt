@@ -8,17 +8,26 @@ set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_
 
 set(DOXYGEN_EXTRA_FLAGS "" CACHE STRING "Extra flags to be sent to doxygen.")
 
+
 # update the module path so cmake can find libraries that don't have built in CMake support
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
+
 # find packages
-find_package(SDL2 REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system filesystem)
-find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(Qt5Widgets REQUIRED)
+find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(TinyObjLoader REQUIRED)
 find_package(Box2D REQUIRED)
+
+
+find_package(Qt5Widgets REQUIRED)
+
+# emscripten includes this automatially
+find_package(SDL2 REQUIRED)
+
+# GLM_INCLUDE_DIR has to be manually set
+find_package(glm REQUIRED)
+
 
 set(GE_PRIVATE_FILES
 	
@@ -26,9 +35,6 @@ set(GE_PRIVATE_FILES
 	src/ge/window_backend/sdl_window.cpp
 	src/ge/window_backend/sdl_viewport.cpp
 	
-	src/ge/window_backend/qt.cpp
-	src/ge/window_backend/qt_window.cpp
-	src/ge/window_backend/qt_viewport.cpp
 	
 	src/ge/actor.cpp
 	src/ge/application.cpp
@@ -47,6 +53,11 @@ set(GE_PRIVATE_FILES
 	src/ge/json/json_value.cpp
 	src/ge/json/json_valueiterator.inl
 	src/ge/json/json_writer.cpp
+	
+	src/ge/window_backend/qt.cpp
+	src/ge/window_backend/qt_window.cpp
+	src/ge/window_backend/qt_viewport.cpp
+	
 )
 
 set(GE_PUBLIC_FILES 
@@ -87,11 +98,12 @@ set(GE_PUBLIC_FILES
 	include/ge/json/value.h
 	include/ge/json/version.h
 	include/ge/json/writer.h
-
 )
 
 
+
 add_library(gentlemanly_engine SHARED ${GE_PRIVATE_FILES} ${GE_PUBLIC_FILES})
+
 
 target_include_directories(gentlemanly_engine 
 PRIVATE 
@@ -99,24 +111,25 @@ PRIVATE
 	${OPENGL_INCLUDE_DIR}
 	${TINYOBJLOADER_INCLUDE_DIR}
 	${SDL2_INCLUDE_DIR}
-	${Boost_INCLUDE_DIR}
 INTERFACE 
 	${CMAKE_INSTALL_PREFIX}/include
 PUBLIC 
 	${BOX2D_INCLUDE_DIRS}
+	${Boost_INCLUDE_DIRS}
+	${GLM_INCLUDE_DIR}
 )
 
 target_link_libraries(gentlemanly_engine
 PUBLIC
 	Qt5::Widgets
-	${BOX2D_LIBRARIES}
 PRIVATE 
+	${BOX2D_LIBRARIES}
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
 	${TINYOBJLOADER_LIBRARY}
-	debug ${Boost_SYSTEM_LIBRARY_DEBUG} ${Boost_FILESYSTEM_LIBRARY_DEBUG}
-	optimized ${Boost_SYSTEM_LIBRARY_RELEASE} ${Boost_FILESYSTEM_LIBRARY_RELEASE}
+	Boost::filesystem
 )
+
 
 target_compile_features(gentlemanly_engine
 PUBLIC

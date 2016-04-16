@@ -47,9 +47,9 @@ public:
 		render(view_projection_matrix);
 
 		for (auto child : children)
-			{
-				child->render_tree(view_projection_matrix);
-			}
+		{
+			child->render_tree(view_projection_matrix);
+		}
 	}
 };
 

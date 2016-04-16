@@ -7,12 +7,11 @@
 #include <GL/gl.h>
 #include <GL/glext.h>
 
-#include <iostream>
-
 namespace ge
 {
-model::model(actor* parent, const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& mat)
-	: actor(parent), mesh_for_model(mesh), material_for_model(mat)
+model::model(actor* parent, const std::shared_ptr<mesh>& arg_mesh,
+			 const std::shared_ptr<material>& mat)
+	: actor(parent), mesh_for_model(arg_mesh), material_for_model(mat)
 {
 }
 

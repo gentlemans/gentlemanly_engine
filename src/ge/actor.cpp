@@ -11,17 +11,17 @@ namespace ge
 actor::actor(actor* arg_parent) : parent{arg_parent}
 {
 	if (parent)
-		{
-			parent->children.insert(this);
-		}
+	{
+		parent->children.insert(this);
+	}
 }
 
 actor::~actor()
 {
 	if (parent)
-		{
-			parent->children.erase(this);
-		}
+	{
+		parent->children.erase(this);
+	}
 }
 
 glm::vec2 actor::calcuate_absolute_location() const

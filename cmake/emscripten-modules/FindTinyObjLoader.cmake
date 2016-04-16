@@ -1,0 +1,1 @@
+set(TINYOBJLOADER_LIBRARY ${CMAKE_CURRENT_SOURCE_DIR}/precompiled_emscripten_binaries/libtinyobjloader.a)

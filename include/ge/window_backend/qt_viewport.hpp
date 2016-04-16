@@ -24,7 +24,7 @@ class qt_viewport : public QOpenGLWidget
 	void resizeGL(int w, int h) override;
 
 	camera* current_camera = nullptr;
-	
+
 	actor* root;
 
 public:
@@ -36,10 +36,9 @@ public:
 
 	void set_camera(camera* camera);
 	camera* get_camera() const;
-	
-	
-	actor* root_actor(){ return root; }
-	const actor* root_actor() const{ return root; }
+
+	actor* root_actor() { return root; }
+	const actor* root_actor() const { return root; }
 };
 
 }  // namespace window_backend

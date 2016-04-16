@@ -32,21 +32,21 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	glGetShaderiv(vert_shader, GL_COMPILE_STATUS, &res);
 	glGetShaderiv(vert_shader, GL_INFO_LOG_LENGTH, &info_length);
 	if (info_length > 1)
-		{
-			std::string info_log(info_length + 1, '\n');
-			glGetShaderInfoLog(vert_shader, info_length, nullptr, &info_log[0]);
-			throw std::runtime_error("Failed to compile vertex shader: " + info_log);
-		}
+	{
+		std::string info_log(info_length + 1, '\n');
+		glGetShaderInfoLog(vert_shader, info_length, nullptr, &info_log[0]);
+		throw std::runtime_error("Failed to compile vertex shader: " + info_log);
+	}
 
 	// check fragment shader
 	glGetShaderiv(frag_shader, GL_COMPILE_STATUS, &res);
 	glGetShaderiv(frag_shader, GL_INFO_LOG_LENGTH, &info_length);
 	if (info_length > 1)
-		{
-			std::string info_log(info_length + 1, '\n');
-			glGetShaderInfoLog(frag_shader, info_length, nullptr, &info_log[0]);
-			throw std::runtime_error("Failed to compile fragment shader: " + info_log);
-		}
+	{
+		std::string info_log(info_length + 1, '\n');
+		glGetShaderInfoLog(frag_shader, info_length, nullptr, &info_log[0]);
+		throw std::runtime_error("Failed to compile fragment shader: " + info_log);
+	}
 
 	// link the shaders together
 	program_name = glCreateProgram();
@@ -59,11 +59,11 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	glGetProgramiv(program_name, GL_LINK_STATUS, &res);
 	glGetProgramiv(program_name, GL_INFO_LOG_LENGTH, &info_length);
 	if (info_length > 1)
-		{
-			std::string info_log(info_length + 1, '\0');
-			glGetProgramInfoLog(program_name, info_length, nullptr, &info_log[0]);
-			throw std::runtime_error("Failed to link program: " + info_log);
-		}
+	{
+		std::string info_log(info_length + 1, '\0');
+		glGetProgramInfoLog(program_name, info_length, nullptr, &info_log[0]);
+		throw std::runtime_error("Failed to link program: " + info_log);
+	}
 
 	// delete the shaders--they will stay alive until the program is deleted
 	glDeleteShader(vert_shader);

@@ -6,14 +6,10 @@
 
 #include <memory>
 
-namespace ge {
-
+namespace ge
+{
 physics_world::physics_world(glm::vec2 gravity)
 {
 	world = std::make_unique<b2World>(b2Vec2{gravity.x, gravity.y});
-	
-	
 }
-
-
 }

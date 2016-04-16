@@ -10,7 +10,8 @@ namespace ge
 class mesh
 {
 public:
-	mesh(const glm::vec2* points, const glm::vec2* texcoords, const size_t num_points, const glm::uvec3* indicies, const size_t num_indicies);
+	mesh(const glm::vec2* points, const glm::vec2* texcoords, const size_t num_points,
+		 const glm::uvec3* indicies, const size_t num_indicies);
 	// no move or copy, pointer only
 	mesh(const mesh&) = delete;
 	mesh(mesh&&) = delete;

@@ -16,7 +16,7 @@ class sdl_viewport
 	camera* current_camera = nullptr;
 
 	sdl_window* m_window;
-	
+
 	actor* root;
 
 public:
@@ -28,9 +28,9 @@ public:
 
 	void set_camera(camera* camera);
 	camera* get_camera() const;
-	
-	actor* root_actor(){ return root; }
-	const actor* root_actor() const{ return root; }
+
+	actor* root_actor() { return root; }
+	const actor* root_actor() const { return root; }
 };
 
 }  // namespace window_backend

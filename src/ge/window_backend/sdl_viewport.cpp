@@ -7,6 +7,8 @@
 
 #include "ge/ortho2d.hpp"
 
+#include "SDL.h"
+
 #include <GL/gl.h>
 
 #include <stdexcept>
@@ -17,7 +19,7 @@ namespace ge
 {
 namespace window_backend
 {
-sdl_viewport::sdl_viewport(ge::window_backend::sdl_window* window_arg) : m_window{window_arg} 
+sdl_viewport::sdl_viewport(ge::window_backend::sdl_window* window_arg) : m_window{window_arg}
 {
 	root = new actor(nullptr);
 }
@@ -25,7 +27,6 @@ sdl_viewport::sdl_viewport(ge::window_backend::sdl_window* window_arg) : m_windo
 void sdl_viewport::set_background_color(const glm::vec4& newColor)
 {
 	glClearColor(newColor.r, newColor.g, newColor.b, newColor.a);
-	
 }
 
 void sdl_viewport::render()
