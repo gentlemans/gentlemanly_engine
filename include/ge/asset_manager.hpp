@@ -17,9 +17,9 @@ namespace ge
 class asset_manager
 {
 public:
-	using asset_create_function = std::function<std::unique_ptr<asset>(
-		asset_manager& manager, const std::string& asset_name, const std::string& asset_directory,
-		const Json::Value& json_data)>;
+	using asset_create_function =
+		std::function<std::unique_ptr<asset>(asset_manager& manager, const std::string& asset_name,
+			const std::string& asset_directory, const Json::Value& json_data)>;
 
 private:
 	// not unordered because we need to traverse in order
@@ -43,25 +43,25 @@ public:
 	void add_asset_path(std::string path, uint8_t priority = 0);
 
 	template <typename asset_type = asset,
-			  typename = std::enable_if_t<std::is_base_of<asset, asset_type>::value>>
+		typename = std::enable_if_t<std::is_base_of<asset, asset_type>::value>>
 	asset_type& get_asset(const char* name)
 	{
 		return static_cast<asset_type&>(get_asset_impl(name));
 	}
 
-	void register_asset_type(const std::string& asset_type_name,
-							 const asset_create_function& function_to_create_asset);
+	void register_asset_type(
+		const std::string& asset_type_name, const asset_create_function& function_to_create_asset);
 
 	template <typename asset_type,
-			  typename = std::enable_if_t<std::is_base_of<asset, asset_type>::value>>
+		typename = std::enable_if_t<std::is_base_of<asset, asset_type>::value>>
 	void register_asset_type()
 	{
 		register_asset_type(asset_type::asset_name(),
-							[](asset_manager& manager, const std::string& name,
-							   const std::string& abs_path, const Json::Value& value)
-							{
-								return std::make_unique<asset_type>(manager, name, abs_path, value);
-							});
+			[](asset_manager& manager, const std::string& name, const std::string& abs_path,
+								const Json::Value& value)
+			{
+				return std::make_unique<asset_type>(manager, name, abs_path, value);
+			});
 	}
 };
 }

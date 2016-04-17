@@ -14,7 +14,8 @@
  *
  * {
  *   "asset_type": "shader",
- *   "vert_source": "/path/to/glsl/file" ** NOTE: if this is not set it defaults to vert.glsl in the
+ *   "vert_source": "/path/to/glsl/file" ** NOTE: if this is not set it defaults
+ * to vert.glsl in the
  * same directory
  *   "frag_source": "/path/to/glsl/file" ** Same here except to frag.glsl
  * }
@@ -29,7 +30,7 @@ public:
 	std::shared_ptr<shader> data;
 
 	shader_asset(asset_manager& manager, const std::string& arg_name,
-				 const std::string& abs_filepath, const Json::Value& json_data)
+		const std::string& abs_filepath, const Json::Value& json_data)
 		: asset{asset_name(), arg_name, abs_filepath}
 	{
 		std::string vert_path =

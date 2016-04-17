@@ -41,8 +41,8 @@ asset& asset_manager::get_asset_impl(const char* name)
 
 	if (abs_path.empty())
 	{
-		throw std::runtime_error("Could not find asset named "s + name +
-								 " in any of the search paths");
+		throw std::runtime_error(
+			"Could not find asset named "s + name + " in any of the search paths");
 	}
 
 	if (!boost::filesystem::exists(abs_path + "/asset.json"))
@@ -72,8 +72,8 @@ asset& asset_manager::get_asset_impl(const char* name)
 	return ret;
 }
 
-void asset_manager::register_asset_type(const std::string& asset_type_name,
-										const asset_create_function& function_to_create_asset)
+void asset_manager::register_asset_type(
+	const std::string& asset_type_name, const asset_create_function& function_to_create_asset)
 {
 	asset_types[asset_type_name] = function_to_create_asset;
 }

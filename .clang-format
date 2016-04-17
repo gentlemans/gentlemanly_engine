@@ -15,3 +15,9 @@ BreakBeforeBraces: Allman
 
 UseTab: Always
 TabWidth: 4
+
+AlignAfterOpenBracket: false
+
+PointerAlignment: Left
+
+DerivePointerAlignment: false

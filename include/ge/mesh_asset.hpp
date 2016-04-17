@@ -12,7 +12,8 @@
  *
  * {
  *   "asset_type": "mesh",
- *   "obj_data": "/path/to/model.obj" # if this is omitted, then it defaults to ./model.obj TODO:
+ *   "obj_data": "/path/to/model.obj" # if this is omitted, then it defaults to
+ * ./model.obj TODO:
  * add more file types
  * }
  *
@@ -26,7 +27,7 @@ public:
 	std::shared_ptr<mesh> data;
 
 	mesh_asset(asset_manager& manager, const std::string& arg_name, const std::string& abs_filepath,
-			   const Json::Value& json_data);
+		const Json::Value& json_data);
 
 	static std::string asset_name() { return "mesh"; }
 };

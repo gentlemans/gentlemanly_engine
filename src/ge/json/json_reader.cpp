@@ -539,8 +539,8 @@ bool Reader::readObject(Token& tokenStart)
 		Token colon;
 		if (!readToken(colon) || colon.type_ != tokenMemberSeparator)
 		{
-			return addErrorAndRecover("Missing ':' after object member name", colon,
-									  tokenObjectEnd);
+			return addErrorAndRecover(
+				"Missing ':' after object member name", colon, tokenObjectEnd);
 		}
 		Value& value = currentValue()[name];
 		nodes_.push(&value);
@@ -552,10 +552,10 @@ bool Reader::readObject(Token& tokenStart)
 		Token comma;
 		if (!readToken(comma) ||
 			(comma.type_ != tokenObjectEnd && comma.type_ != tokenArraySeparator &&
-			 comma.type_ != tokenComment))
+				comma.type_ != tokenComment))
 		{
-			return addErrorAndRecover("Missing ',' or '}' in object declaration", comma,
-									  tokenObjectEnd);
+			return addErrorAndRecover(
+				"Missing ',' or '}' in object declaration", comma, tokenObjectEnd);
 		}
 		bool finalizeTokenOk = true;
 		while (comma.type_ == tokenComment && finalizeTokenOk) finalizeTokenOk = readToken(comma);
@@ -596,8 +596,8 @@ bool Reader::readArray(Token& tokenStart)
 		bool badTokenType = (token.type_ != tokenArraySeparator && token.type_ != tokenArrayEnd);
 		if (!ok || badTokenType)
 		{
-			return addErrorAndRecover("Missing ',' or ']' in array declaration", token,
-									  tokenArrayEnd);
+			return addErrorAndRecover(
+				"Missing ',' or ']' in array declaration", token, tokenArrayEnd);
 		}
 		if (token.type_ == tokenArrayEnd) break;
 	}
@@ -622,7 +622,8 @@ bool Reader::decodeNumber(Token& token, Value& decoded)
 	Location current = token.start_;
 	bool isNegative = *current == '-';
 	if (isNegative) ++current;
-	// TODO: Help the compiler do the div and mod at compile time or get rid of them.
+	// TODO: Help the compiler do the div and mod at compile time or get rid of
+	// them.
 	Value::LargestUInt maxIntegerValue =
 		isNegative ? Value::LargestUInt(Value::maxLargestInt) + 1 : Value::maxLargestUInt;
 	Value::LargestUInt threshold = maxIntegerValue / 10;
@@ -672,8 +673,8 @@ bool Reader::decodeDouble(Token& token, Value& decoded)
 	JSONCPP_STRING buffer(token.start_, token.end_);
 	JSONCPP_ISTRINGSTREAM is(buffer);
 	if (!(is >> value))
-		return addError("'" + JSONCPP_STRING(token.start_, token.end_) + "' is not a number.",
-						token);
+		return addError(
+			"'" + JSONCPP_STRING(token.start_, token.end_) + "' is not a number.", token);
 	decoded = value;
 	return true;
 }
@@ -748,8 +749,8 @@ bool Reader::decodeString(Token& token, JSONCPP_STRING& decoded)
 	return true;
 }
 
-bool Reader::decodeUnicodeCodePoint(Token& token, Location& current, Location end,
-									unsigned int& unicode)
+bool Reader::decodeUnicodeCodePoint(
+	Token& token, Location& current, Location end, unsigned int& unicode)
 {
 	if (!decodeUnicodeEscapeSequence(token, current, end, unicode)) return false;
 	if (unicode >= 0xD800 && unicode <= 0xDBFF)
@@ -757,7 +758,7 @@ bool Reader::decodeUnicodeCodePoint(Token& token, Location& current, Location en
 		// surrogate pairs
 		if (end - current < 6)
 			return addError("additional six characters expected to parse unicode surrogate pair.",
-							token, current);
+				token, current);
 		unsigned int surrogatePair;
 		if (*(current++) == '\\' && *(current++) == 'u')
 		{
@@ -777,12 +778,12 @@ bool Reader::decodeUnicodeCodePoint(Token& token, Location& current, Location en
 	return true;
 }
 
-bool Reader::decodeUnicodeEscapeSequence(Token& token, Location& current, Location end,
-										 unsigned int& ret_unicode)
+bool Reader::decodeUnicodeEscapeSequence(
+	Token& token, Location& current, Location end, unsigned int& ret_unicode)
 {
 	if (end - current < 4)
-		return addError("Bad unicode escape sequence in string: four digits expected.", token,
-						current);
+		return addError(
+			"Bad unicode escape sequence in string: four digits expected.", token, current);
 	int unicode = 0;
 	for (int index = 0; index < 4; ++index)
 	{
@@ -796,7 +797,7 @@ bool Reader::decodeUnicodeEscapeSequence(Token& token, Location& current, Locati
 			unicode += c - 'A' + 10;
 		else
 			return addError("Bad unicode escape sequence in string: hexadecimal digit expected.",
-							token, current);
+				token, current);
 	}
 	ret_unicode = static_cast<unsigned int>(unicode);
 	return true;
@@ -825,8 +826,8 @@ bool Reader::recoverFromError(TokenType skipUntilToken)
 	return false;
 }
 
-bool Reader::addErrorAndRecover(const JSONCPP_STRING& message, Token& token,
-								TokenType skipUntilToken)
+bool Reader::addErrorAndRecover(
+	const JSONCPP_STRING& message, Token& token, TokenType skipUntilToken)
 {
 	addError(message, token);
 	return recoverFromError(skipUntilToken);
@@ -1044,10 +1045,10 @@ private:
 	bool decodeString(Token& token, JSONCPP_STRING& decoded);
 	bool decodeDouble(Token& token);
 	bool decodeDouble(Token& token, Value& decoded);
-	bool decodeUnicodeCodePoint(Token& token, Location& current, Location end,
-								unsigned int& unicode);
-	bool decodeUnicodeEscapeSequence(Token& token, Location& current, Location end,
-									 unsigned int& unicode);
+	bool decodeUnicodeCodePoint(
+		Token& token, Location& current, Location end, unsigned int& unicode);
+	bool decodeUnicodeEscapeSequence(
+		Token& token, Location& current, Location end, unsigned int& unicode);
 	bool addError(const JSONCPP_STRING& message, Token& token, Location extra = 0);
 	bool recoverFromError(TokenType skipUntilToken);
 	bool addErrorAndRecover(const JSONCPP_STRING& message, Token& token, TokenType skipUntilToken);
@@ -1552,8 +1553,8 @@ bool OurReader::readObject(Token& tokenStart)
 		Token colon;
 		if (!readToken(colon) || colon.type_ != tokenMemberSeparator)
 		{
-			return addErrorAndRecover("Missing ':' after object member name", colon,
-									  tokenObjectEnd);
+			return addErrorAndRecover(
+				"Missing ':' after object member name", colon, tokenObjectEnd);
 		}
 		if (name.length() >= (1U << 30)) throwRuntimeError("keylength >= 2^30");
 		if (features_.rejectDupKeys_ && currentValue().isMember(name))
@@ -1571,10 +1572,10 @@ bool OurReader::readObject(Token& tokenStart)
 		Token comma;
 		if (!readToken(comma) ||
 			(comma.type_ != tokenObjectEnd && comma.type_ != tokenArraySeparator &&
-			 comma.type_ != tokenComment))
+				comma.type_ != tokenComment))
 		{
-			return addErrorAndRecover("Missing ',' or '}' in object declaration", comma,
-									  tokenObjectEnd);
+			return addErrorAndRecover(
+				"Missing ',' or '}' in object declaration", comma, tokenObjectEnd);
 		}
 		bool finalizeTokenOk = true;
 		while (comma.type_ == tokenComment && finalizeTokenOk) finalizeTokenOk = readToken(comma);
@@ -1615,8 +1616,8 @@ bool OurReader::readArray(Token& tokenStart)
 		bool badTokenType = (token.type_ != tokenArraySeparator && token.type_ != tokenArrayEnd);
 		if (!ok || badTokenType)
 		{
-			return addErrorAndRecover("Missing ',' or ']' in array declaration", token,
-									  tokenArrayEnd);
+			return addErrorAndRecover(
+				"Missing ',' or ']' in array declaration", token, tokenArrayEnd);
 		}
 		if (token.type_ == tokenArrayEnd) break;
 	}
@@ -1641,7 +1642,8 @@ bool OurReader::decodeNumber(Token& token, Value& decoded)
 	Location current = token.start_;
 	bool isNegative = *current == '-';
 	if (isNegative) ++current;
-	// TODO: Help the compiler do the div and mod at compile time or get rid of them.
+	// TODO: Help the compiler do the div and mod at compile time or get rid of
+	// them.
 	Value::LargestUInt maxIntegerValue =
 		isNegative ? Value::LargestUInt(-Value::minLargestInt) : Value::maxLargestUInt;
 	Value::LargestUInt threshold = maxIntegerValue / 10;
@@ -1718,8 +1720,8 @@ bool OurReader::decodeDouble(Token& token, Value& decoded)
 	}
 
 	if (count != 1)
-		return addError("'" + JSONCPP_STRING(token.start_, token.end_) + "' is not a number.",
-						token);
+		return addError(
+			"'" + JSONCPP_STRING(token.start_, token.end_) + "' is not a number.", token);
 	decoded = value;
 	return true;
 }
@@ -1794,8 +1796,8 @@ bool OurReader::decodeString(Token& token, JSONCPP_STRING& decoded)
 	return true;
 }
 
-bool OurReader::decodeUnicodeCodePoint(Token& token, Location& current, Location end,
-									   unsigned int& unicode)
+bool OurReader::decodeUnicodeCodePoint(
+	Token& token, Location& current, Location end, unsigned int& unicode)
 {
 	if (!decodeUnicodeEscapeSequence(token, current, end, unicode)) return false;
 	if (unicode >= 0xD800 && unicode <= 0xDBFF)
@@ -1803,7 +1805,7 @@ bool OurReader::decodeUnicodeCodePoint(Token& token, Location& current, Location
 		// surrogate pairs
 		if (end - current < 6)
 			return addError("additional six characters expected to parse unicode surrogate pair.",
-							token, current);
+				token, current);
 		unsigned int surrogatePair;
 		if (*(current++) == '\\' && *(current++) == 'u')
 		{
@@ -1823,12 +1825,12 @@ bool OurReader::decodeUnicodeCodePoint(Token& token, Location& current, Location
 	return true;
 }
 
-bool OurReader::decodeUnicodeEscapeSequence(Token& token, Location& current, Location end,
-											unsigned int& ret_unicode)
+bool OurReader::decodeUnicodeEscapeSequence(
+	Token& token, Location& current, Location end, unsigned int& ret_unicode)
 {
 	if (end - current < 4)
-		return addError("Bad unicode escape sequence in string: four digits expected.", token,
-						current);
+		return addError(
+			"Bad unicode escape sequence in string: four digits expected.", token, current);
 	int unicode = 0;
 	for (int index = 0; index < 4; ++index)
 	{
@@ -1842,7 +1844,7 @@ bool OurReader::decodeUnicodeEscapeSequence(Token& token, Location& current, Loc
 			unicode += c - 'A' + 10;
 		else
 			return addError("Bad unicode escape sequence in string: hexadecimal digit expected.",
-							token, current);
+				token, current);
 	}
 	ret_unicode = static_cast<unsigned int>(unicode);
 	return true;
@@ -1871,8 +1873,8 @@ bool OurReader::recoverFromError(TokenType skipUntilToken)
 	return false;
 }
 
-bool OurReader::addErrorAndRecover(const JSONCPP_STRING& message, Token& token,
-								   TokenType skipUntilToken)
+bool OurReader::addErrorAndRecover(
+	const JSONCPP_STRING& message, Token& token, TokenType skipUntilToken)
 {
 	addError(message, token);
 	return recoverFromError(skipUntilToken);
@@ -1994,7 +1996,7 @@ public:
 	{
 	}
 	bool parse(char const* beginDoc, char const* endDoc, Value* root,
-			   JSONCPP_STRING* errs) JSONCPP_OVERRIDE
+		JSONCPP_STRING* errs) JSONCPP_OVERRIDE
 	{
 		bool ok = reader_.parse(beginDoc, endDoc, *root, collectComments_);
 		if (errs)
@@ -2091,8 +2093,8 @@ void CharReaderBuilder::setDefaults(Json::Value* settings)
 //////////////////////////////////
 // global functions
 
-bool parseFromStream(CharReader::Factory const& fact, JSONCPP_ISTREAM& sin, Value* root,
-					 JSONCPP_STRING* errs)
+bool parseFromStream(
+	CharReader::Factory const& fact, JSONCPP_ISTREAM& sin, Value* root, JSONCPP_STRING* errs)
 {
 	JSONCPP_OSTRINGSTREAM ssin;
 	ssin << sin.rdbuf();

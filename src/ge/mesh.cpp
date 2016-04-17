@@ -12,7 +12,7 @@
 namespace ge
 {
 mesh::mesh(const glm::vec2* points, const glm::vec2* texcoords, const size_t num_points,
-		   const glm::uvec3* indicies, const size_t num_indicies)
+	const glm::uvec3* indicies, const size_t num_indicies)
 	: num_triangles{num_indicies}
 {
 	glGenVertexArrays(1, &vertex_array);
@@ -29,8 +29,8 @@ mesh::mesh(const glm::vec2* points, const glm::vec2* texcoords, const size_t num
 
 	glGenBuffers(1, &element_buffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(glm::uvec3) * num_indicies, indicies,
-				 GL_STATIC_DRAW);
+	glBufferData(
+		GL_ELEMENT_ARRAY_BUFFER, sizeof(glm::uvec3) * num_indicies, indicies, GL_STATIC_DRAW);
 }
 
 mesh::~mesh()

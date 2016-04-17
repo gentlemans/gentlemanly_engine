@@ -3,7 +3,8 @@
  *
  * \author Russell Greene
  *
- * Defines a concept that lets you apply a concpet for a varaidic conecpt, checking each one.
+ * Defines a concept that lets you apply a concpet for a varaidic conecpt,
+ * checking each one.
  *
  *
  */
@@ -17,11 +18,14 @@ namespace ge
 namespace concept
 {
 /**
- * A concept (to be used with BOOST_CONCEPT_ASSERT((...))) that applys a single unary concept to a
+ * A concept (to be used with BOOST_CONCEPT_ASSERT((...))) that applys a single
+ * unary concept to a
  * varaidc template (as many types as you want!!)
  *
- * The first template parameter is actually a template template that takes in a unary concept.
- * The second parameter is a varaidic template that is the types to be checked. This will give a
+ * The first template parameter is actually a template template that takes in a
+ * unary concept.
+ * The second parameter is a varaidic template that is the types to be checked.
+ * This will give a
  * compile error
  * if any of the types in to_check don't comply with Concept.
  */
@@ -30,7 +34,8 @@ struct variadic_concept
 {
 };
 
-// this is just an implementation class, don't include this in the documentation.
+// this is just an implementation class, don't include this in the
+// documentation.
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 template <template <typename> typename Concept, typename first, typename... rest>

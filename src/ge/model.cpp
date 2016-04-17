@@ -9,9 +9,9 @@
 
 namespace ge
 {
-model::model(actor* parent, const std::shared_ptr<mesh>& arg_mesh,
-			 const std::shared_ptr<material>& mat)
-	: actor(parent), mesh_for_model(arg_mesh), material_for_model(mat)
+model::model(world& world, actor* parent, const std::shared_ptr<mesh>& arg_mesh,
+	const std::shared_ptr<material>& mat)
+	: actor(world, parent), mesh_for_model(arg_mesh), material_for_model(mat)
 {
 }
 

@@ -12,10 +12,10 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	GLuint frag_shader = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// load source
-	std::string vert_source((std::istreambuf_iterator<char>(vertex_stream)),
-							std::istreambuf_iterator<char>());
-	std::string frag_source((std::istreambuf_iterator<char>(frag_stream)),
-							std::istreambuf_iterator<char>());
+	std::string vert_source(
+		(std::istreambuf_iterator<char>(vertex_stream)), std::istreambuf_iterator<char>());
+	std::string frag_source(
+		(std::istreambuf_iterator<char>(frag_stream)), std::istreambuf_iterator<char>());
 
 	GLint res = GL_NO_ERROR;
 	int info_length;

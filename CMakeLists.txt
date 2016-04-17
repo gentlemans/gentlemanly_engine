@@ -31,13 +31,15 @@ find_package(glm REQUIRED)
 
 set(GE_PRIVATE_FILES
 	
-	src/ge/window_backend/sdl.cpp
-	src/ge/window_backend/sdl_window.cpp
-	src/ge/window_backend/sdl_viewport.cpp
+	src/ge/sdl_application.cpp
+	src/ge/sdl_window.cpp
+	src/ge/sdl_viewport.cpp
 	
+	src/ge/qt_application.cpp
+	src/ge/qt_window.cpp
+	src/ge/qt_viewport.cpp
 	
 	src/ge/actor.cpp
-	src/ge/application.cpp
 	src/ge/asset_manager.cpp
 	src/ge/material.cpp
 	src/ge/material_asset.cpp
@@ -54,9 +56,6 @@ set(GE_PRIVATE_FILES
 	src/ge/json/json_valueiterator.inl
 	src/ge/json/json_writer.cpp
 	
-	src/ge/window_backend/qt.cpp
-	src/ge/window_backend/qt_window.cpp
-	src/ge/window_backend/qt_viewport.cpp
 	
 )
 
@@ -64,18 +63,17 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/variadic_concept.hpp
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
-	include/ge/concept/window_backend.hpp
+	include/ge/concept/application.hpp
 	
-	include/ge/window_backend/qt.hpp
-	include/ge/window_backend/qt_window.hpp
-	include/ge/window_backend/qt_viewport.hpp
+	include/ge/qt_application.hpp
+	include/ge/qt_window.hpp
+	include/ge/qt_viewport.hpp
 	
-	include/ge/window_backend/sdl.hpp
-	include/ge/window_backend/sdl_window.hpp
-	include/ge/window_backend/sdl_viewport.hpp
+	include/ge/sdl_application.hpp
+	include/ge/sdl_window.hpp
+	include/ge/sdl_viewport.hpp
 	
 	include/ge/actor.hpp
-	include/ge/application.hpp
 	include/ge/asset.hpp
 	include/ge/asset_manager.hpp
 	include/ge/camera.hpp

@@ -4,6 +4,7 @@
 
 #include "ge/actor.hpp"
 #include "ge/camera.hpp"
+#include "ge/world.hpp"
 
 namespace ge
 {
@@ -17,20 +18,23 @@ struct Viewport
 {
 	BOOST_CONCEPT_USAGE(Viewport)
 	{
+		const X& i_c = i;
+
 		i.set_background_color(glm::vec4{});
 
 		i.render();
 
-		actor* root_actor = i.root_actor();
-		const actor* root_actor_c = i_c.root_actor();
+		auto my_world = std::make_unique<world>();
+		i.set_world(std::move(my_world));
 
-		i.set_camera(new camera(root_actor));
-		camera* cam = i_c.get_camera();
+		world& w = i_c.get_world();
+
+		i.set_camera(*new camera(*my_world, (actor*)nullptr));
+		camera& cam = i_c.get_camera();
 	}
 
 private:
 	X i;
-	const X i_c;
 };
 
 #else
@@ -39,11 +43,14 @@ private:
 /**
  * The concept for the viewport.
  *
- * To check if a class is a conforming Viewport, use BOOST_CONCEPT_ASSERT(ge::concept::Viewport<X>).
+ * To check if a class is a conforming Viewport, use
+ * BOOST_CONCEPT_ASSERT(ge::concept::Viewport<X>).
  *
- * A viewport is an object that represents somewhere on a Window that is drawable. For many
+ * A viewport is an object that represents somewhere on a Window that is
+ * drawable. For many
  * window_backend implemtations, like SDL,
- * this is just the entire window, but others not. For example, the Qt window_backend implements
+ * this is just the entire window, but others not. For example, the Qt
+ * window_backend implements
  * Viewport as a QOpenGLWidget.
  */
 struct Viewport

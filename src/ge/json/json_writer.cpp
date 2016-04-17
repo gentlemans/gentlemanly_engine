@@ -905,9 +905,8 @@ struct CommentStyle
 struct BuiltStyledStreamWriter : public StreamWriter
 {
 	BuiltStyledStreamWriter(JSONCPP_STRING const& indentation, CommentStyle::Enum cs,
-							JSONCPP_STRING const& colonSymbol, JSONCPP_STRING const& nullSymbol,
-							JSONCPP_STRING const& endingLineFeedSymbol, bool useSpecialFloats,
-							unsigned int precision);
+		JSONCPP_STRING const& colonSymbol, JSONCPP_STRING const& nullSymbol,
+		JSONCPP_STRING const& endingLineFeedSymbol, bool useSpecialFloats, unsigned int precision);
 	int write(Value const& root, JSONCPP_OSTREAM* sout) JSONCPP_OVERRIDE;
 
 private:
@@ -939,11 +938,8 @@ private:
 	unsigned int precision_;
 };
 BuiltStyledStreamWriter::BuiltStyledStreamWriter(JSONCPP_STRING const& indentation,
-												 CommentStyle::Enum cs,
-												 JSONCPP_STRING const& colonSymbol,
-												 JSONCPP_STRING const& nullSymbol,
-												 JSONCPP_STRING const& endingLineFeedSymbol,
-												 bool useSpecialFloats, unsigned int precision)
+	CommentStyle::Enum cs, JSONCPP_STRING const& colonSymbol, JSONCPP_STRING const& nullSymbol,
+	JSONCPP_STRING const& endingLineFeedSymbol, bool useSpecialFloats, unsigned int precision)
 	: rightMargin_(74),
 	  indentation_(indentation),
 	  cs_(cs),
@@ -1244,8 +1240,8 @@ StreamWriter* StreamWriterBuilder::newStreamWriter() const
 	}
 	if (pre > 17) pre = 17;
 	JSONCPP_STRING endingLineFeedSymbol = "";
-	return new BuiltStyledStreamWriter(indentation, cs, colonSymbol, nullSymbol,
-									   endingLineFeedSymbol, usf, pre);
+	return new BuiltStyledStreamWriter(
+		indentation, cs, colonSymbol, nullSymbol, endingLineFeedSymbol, usf, pre);
 }
 static void getValidWriterKeys(std::set<JSONCPP_STRING>* valid_keys)
 {

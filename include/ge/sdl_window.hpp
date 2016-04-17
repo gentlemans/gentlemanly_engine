@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ge/concept/window.hpp"
-#include "ge/application.hpp"
 
 #include <boost/optional.hpp>
 
@@ -14,20 +13,18 @@ using SDL_GLContext = void*;
 
 namespace ge
 {
-namespace window_backend
-{
-class sdl;
+class sdl_application;
 
 class sdl_window
 {
 	SDL_Window* m_window;
 	SDL_GLContext m_context;
 	glm::vec4 m_background_color;
-	sdl* sdl_inst;
+	sdl_application* sdl_inst;
 
 public:
-	sdl_window(sdl& sdl, const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size,
-			   bool fullscreen, bool decorated);
+	sdl_window(sdl_application& sdl, const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size,
+		bool fullscreen, bool decorated);
 
 	// can't really copy OpenGL context, so don't allow copying of windows
 	sdl_window(const sdl_window&) = delete;
@@ -70,5 +67,4 @@ public:
 };
 BOOST_CONCEPT_ASSERT((ge::concept::Window<sdl_window>));
 
-}  // namespace window_backend
 }  // namespace ge

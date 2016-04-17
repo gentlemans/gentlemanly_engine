@@ -2,18 +2,24 @@
 
 #include <glm/glm.hpp>
 
-#include <unordered_set>
+#include <boost/container/flat_set.hpp>
 
 namespace ge
 {
+class world;
+
 class actor
 {
-	actor* parent = nullptr;
+	actor* m_parent = nullptr;
 
-	std::unordered_set<actor*> children;
+	boost::container::flat_set<actor*> m_children;
+
+	world* m_world;
+	
+	size_t m_id_in_world;
 
 public:
-	actor(actor* parent);
+	actor(world& world, actor* parent);
 
 	// no move or copy
 	actor(const actor&) = delete;
@@ -36,21 +42,13 @@ public:
 
 	void set_parent(actor* new_parent)
 	{
-		new_parent->children.insert(this);
-		parent = new_parent;
+		new_parent->m_children.insert(this);
+		m_parent = new_parent;
 	}
-	const actor* get_parent() const { return parent; };
-	actor* get_parent() { return parent; }
-	virtual void render(const glm::mat3& view_projection_matrix) {}
-	void render_tree(const glm::mat3& view_projection_matrix)
-	{
-		render(view_projection_matrix);
 
-		for (auto child : children)
-		{
-			child->render_tree(view_projection_matrix);
-		}
-	}
+	world& get_world() const { return *m_world; }
+	actor* get_parent() const { return m_parent; }
+	virtual void render(const glm::mat3& view_projection_matrix) {}
 };
 
 }  // namespace ge

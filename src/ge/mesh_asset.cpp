@@ -7,7 +7,7 @@
 namespace ge
 {
 mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
-					   const std::string& abs_filepath, const Json::Value& json_data)
+	const std::string& abs_filepath, const Json::Value& json_data)
 	: asset(asset_name(), arg_name, abs_filepath)
 {
 	auto path = json_data.get("obj_data", "mesh.obj").asString();
@@ -28,9 +28,9 @@ mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
 		mesh_ref.positions.erase(mesh_ref.positions.begin() + index);
 	}
 
-	// these reinterpret_casts are safe because glm makes sure to not have any padding
-	data = std::make_shared<mesh>(
-		reinterpret_cast<glm::vec2*>(mesh_ref.positions.data()),
+	// these reinterpret_casts are safe because glm makes sure to not have any
+	// padding
+	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(mesh_ref.positions.data()),
 		reinterpret_cast<glm::vec2*>(mesh_ref.texcoords.data()), mesh_ref.positions.size() / 2,
 		reinterpret_cast<glm::uvec3*>(mesh_ref.indices.data()), mesh_ref.indices.size() / 3);
 }

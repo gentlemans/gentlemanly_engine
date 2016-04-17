@@ -1,24 +1,24 @@
-#include "ge/window_backend/sdl_window.hpp"
-#include "ge/window_backend/sdl.hpp"
+#include "ge/sdl_window.hpp"
+#include "ge/sdl_application.hpp"
 
 #include "SDL.h"
 
 #include <GL/gl.h>
 
+
 namespace ge
 {
-namespace window_backend
-{
-sdl_window::sdl_window(sdl& sdl_inst_, const char* title, boost::optional<glm::uvec2> loc,
-					   glm::uvec2 size, bool fullscreen, bool decorated)
+sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title, boost::optional<glm::uvec2> loc,
+	glm::uvec2 size, bool fullscreen, bool decorated)
 	: sdl_inst(&sdl_inst_)
 {
-	int flags = SDL_WINDOW_OPENGL | (fullscreen ? SDL_WINDOW_FULLSCREEN : 0) |
+	int flags = SDL_WINDOW_OPENGL | (fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) |
 				(decorated ? 0 : SDL_WINDOW_BORDERLESS);
 
 	// initalize the window
 	m_window = SDL_CreateWindow(title, loc ? loc.get().x : SDL_WINDOWPOS_UNDEFINED,
-								loc ? loc.get().y : SDL_WINDOWPOS_UNDEFINED, size.x, size.y, flags);
+		loc ? loc.get().y : SDL_WINDOWPOS_UNDEFINED, size.x, size.y, flags);
+	
 
 	using namespace std::string_literals;
 	if (!m_window) throw std::runtime_error("Error initalizing SDL window"s + SDL_GetError());
@@ -28,20 +28,20 @@ sdl_window::sdl_window(sdl& sdl_inst_, const char* title, boost::optional<glm::u
 
 	glEnable(GL_DEPTH_TEST);
 
-	sdl_inst->app.update.connect([this]
-								 {
-									 SDL_Event event;
-									 while (SDL_PollEvent(&event))
-									 {
-										 if (event.type == SDL_QUIT)
-										 {
-											 sig_quit();
-											 sdl_inst->running = false;
-										 }
-									 }
-									 glFlush();
-									 SDL_GL_SwapWindow(m_window);
-								 });
+	sdl_inst->signal_update.connect([this](float)
+		{
+			SDL_Event event;
+			while (SDL_PollEvent(&event))
+			{
+				if (event.type == SDL_QUIT)
+				{
+					sig_quit();
+					sdl_inst->running = false;
+				}
+			}
+			glFlush();
+			SDL_GL_SwapWindow(m_window);
+		});
 }
 
 sdl_window::~sdl_window()
@@ -65,5 +65,4 @@ glm::uvec2 sdl_window::get_size() const
 	return ret;
 }
 
-}  // namespace window_backend
 }  // namespace ge

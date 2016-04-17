@@ -7,7 +7,7 @@ namespace ge
 class camera : public actor
 {
 public:
-	camera(actor* parent) : actor(parent) {}
+	camera(world& world, actor* parent) : actor(world, parent) {}
 	float vertical_units = 10.f;
 
 	~camera() = default;
