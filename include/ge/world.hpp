@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ge/concept/application.hpp"
+
 #include <boost/signals2.hpp>
 
 #include <deque>
@@ -24,7 +26,16 @@ class world
 	b2World m_b2_world;
 
 public:
-	world() : m_b2_world{{0, 0}} {}
+	template<typename app_type>
+	world(app_type& app) : m_b2_world{{0, 0}} {
+		BOOST_CONCEPT_ASSERT((concept::Application<app_type>));
+		
+		app.signal_update.connect([this](float delta)
+		{
+			m_b2_world.Step(delta, 1, 1);
+			signal_update(delta);
+		});
+	}
 	~world() = default;
 
 	boost::signals2::signal<void(float delta_time)> signal_update;

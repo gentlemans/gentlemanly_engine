@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ge/asset_manager.hpp"
-
 #include "ge/json/json.h"
 
 #include <boost/concept_check.hpp>

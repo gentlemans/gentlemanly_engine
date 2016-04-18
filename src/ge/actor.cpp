@@ -17,16 +17,16 @@ actor::actor(world& arg_containing_world, actor* arg_parent)
 		get_parent().m_children.insert(this);
 	}
 
-	if (m_world->empty_slots.size() != 0)
+	if (get_world().empty_slots.size() != 0)
 	{
-		m_world->actors[m_world->empty_slots.back()] = this;
-		m_id_in_world = m_world->empty_slots.back();
-		m_world->empty_slots.pop_back();
+		get_world().actors[get_world().empty_slots.back()] = this;
+		m_id_in_world = get_world().empty_slots.back();
+		get_world().empty_slots.pop_back();
 	}
 	else
 	{
-		m_world->actors.push_back(this);
-		m_id_in_world = m_world->actors.size();
+		get_world().actors.push_back(this);
+		m_id_in_world = get_world().actors.size();
 	}
 }
 
@@ -45,7 +45,7 @@ glm::vec2 actor::calcuate_absolute_location() const
 	glm::vec2 parent_loc = has_parent() ? get_parent().calcuate_absolute_location() : glm::vec2{0, 0};
 	float parent_rot = has_parent() ? get_parent().calcuate_absolute_rotation() : 0.f;
 
-	return parent_loc + glm::rotate(m_relative_location * get_parent().calcuate_absolute_scale(), glm::radians(parent_rot));
+	return parent_loc + glm::rotate(m_relative_location * (has_parent() ? get_parent().calcuate_absolute_scale() : glm::vec2(1.f, 1.f)), glm::radians(parent_rot));
 }
 
 float actor::calcuate_absolute_rotation() const

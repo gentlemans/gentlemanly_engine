@@ -38,4 +38,5 @@ void sdl_viewport::render()
 			actor_to_render->render(vp);
 		});
 }
+
 }

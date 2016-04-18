@@ -8,8 +8,9 @@ physics_controller::physics_controller(actor& actor_to_control) : m_actor{&actor
 	b2BodyDef body_def;
 	body_def.active = true;
 	body_def.userData = this;
+	body_def.type = b2BodyType::b2_dynamicBody;
 
-	actor_to_control.get_world().m_b2_world.CreateBody(&body_def);
+	m_b2_body = actor_to_control.get_world().m_b2_world.CreateBody(&body_def);
 
 	actor_to_control.signal_transform_changed.connect([this](actor& act)
 		{

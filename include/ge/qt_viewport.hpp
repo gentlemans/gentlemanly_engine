@@ -1,5 +1,8 @@
 #pragma once
 
+#include "ge/concept/viewport.hpp"
+#include "ge/world.hpp"
+
 #include <glm/glm.hpp>
 
 #include <QOpenGLWidget>
@@ -7,7 +10,6 @@
 
 #include <memory>
 
-#include "ge/concept/viewport.hpp"
 
 namespace ge
 {

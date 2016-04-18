@@ -2,12 +2,15 @@
 
 #include <boost/concept_check.hpp>
 
-#include "ge/actor.hpp"
-#include "ge/camera_actor.hpp"
-#include "ge/world.hpp"
+#include <glm/glm.hpp>
+
+#include <memory>
 
 namespace ge
 {
+class actor;
+class camera_actor;
+class world;
 namespace concept
 {
 template <typename X>
@@ -21,8 +24,7 @@ struct Viewport
 
 		i.render();
 
-		auto my_world = std::make_unique<world>();
-		i.set_world(std::move(my_world));
+		i.set_world(std::unique_ptr<world>{}); 
 
 		world& w = i_c.get_world();
 
