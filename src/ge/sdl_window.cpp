@@ -5,11 +5,10 @@
 
 #include <GL/gl.h>
 
-
 namespace ge
 {
-sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title, boost::optional<glm::uvec2> loc,
-	glm::uvec2 size, bool fullscreen, bool decorated)
+sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
+	boost::optional<glm::uvec2> loc, glm::uvec2 size, bool fullscreen, bool decorated)
 	: sdl_inst(&sdl_inst_)
 {
 	int flags = SDL_WINDOW_OPENGL | (fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) |
@@ -18,7 +17,6 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title, boost::opt
 	// initalize the window
 	m_window = SDL_CreateWindow(title, loc ? loc.get().x : SDL_WINDOWPOS_UNDEFINED,
 		loc ? loc.get().y : SDL_WINDOWPOS_UNDEFINED, size.x, size.y, flags);
-	
 
 	using namespace std::string_literals;
 	if (!m_window) throw std::runtime_error("Error initalizing SDL window"s + SDL_GetError());

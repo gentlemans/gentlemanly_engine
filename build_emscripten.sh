@@ -10,27 +10,24 @@ if [ ! -f $EMSCRIPTEN_DIR/emcc ]; then
 	exit 
 fi
 
-SOURCES="src/ge/window_backend/sdl.cpp
-	src/ge/window_backend/sdl_window.cpp
-	src/ge/window_backend/sdl_viewport.cpp
-	
-	src/ge/actor.cpp
-	src/ge/application.cpp
-	src/ge/asset_manager.cpp
-	src/ge/material.cpp
-	src/ge/material_asset.cpp
-	src/ge/mesh.cpp
-	src/ge/mesh_asset.cpp
-	src/ge/model.cpp
-	src/ge/physics_world.cpp
-	src/ge/shader.cpp
-	
-	src/ge/json/json_reader.cpp
-	src/ge/json/json_value.cpp
-	src/ge/json/json_writer.cpp"
+SOURCES="src/ge/material.cpp
+src/ge/sdl_viewport.cpp
+src/ge/shader.cpp
+src/ge/collision_controller.cpp
+src/ge/json/json_reader.cpp
+src/ge/json/json_value.cpp
+src/ge/json/json_writer.cpp
+src/ge/material_asset.cpp
+src/ge/sdl_application.cpp
+src/ge/mesh.cpp
+src/ge/sdl_window.cpp
+src/ge/actor.cpp
+src/ge/model_actor.cpp
+src/ge/mesh_asset.cpp
+src/ge/asset_manager.cpp"
 
 EXTRA_FLAGS="$@"
 
 mkdir -p build
 
-$EMSCRIPTEN_DIR/emcc -s -DEMSCRIPTEN=1 USE_SDL=2 $SOURCES $DIR/precompiled_emscripten_binaries/libboost_filesystem.bc $DIR/precompiled_emscripten_binaries/libboost_system.bc $DIR/precompiled_emscripten_binaries/libtinyobjloader.bc $DIR/precompiled_emscripten_binaries/libBox2D.bc -I $DIR/include $EXTRA_FLAGS -std=c++14 -o build/libgentlemanly_engine.bc
+$EMSCRIPTEN_DIR/emcc -DEMSCRIPTEN=1 -s USE_SDL=2 $SOURCES $DIR/precompiled_emscripten_binaries/libboost_filesystem.bc $DIR/precompiled_emscripten_binaries/libboost_system.bc $DIR/precompiled_emscripten_binaries/libtinyobjloader.bc $DIR/precompiled_emscripten_binaries/libBox2D.bc -I $DIR/include $EXTRA_FLAGS -std=c++14 -o build/libgentlemanly_engine.bc

@@ -4,6 +4,7 @@
 # Defines the imported target: gentlemanly_engine
 
 find_package(Qt5Widgets REQUIRED)
+find_package(Boost REQUIRED COMPONENTS filesystem)
 
 get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 include(${SELF_DIR}/gentlemanly_engine-targets.cmake)

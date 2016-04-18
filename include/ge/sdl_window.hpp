@@ -23,8 +23,8 @@ class sdl_window
 	sdl_application* sdl_inst;
 
 public:
-	sdl_window(sdl_application& sdl, const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size,
-		bool fullscreen, bool decorated);
+	sdl_window(sdl_application& sdl, const char* title, boost::optional<glm::uvec2> loc,
+		glm::uvec2 size, bool fullscreen, bool decorated);
 
 	// can't really copy OpenGL context, so don't allow copying of windows
 	sdl_window(const sdl_window&) = delete;

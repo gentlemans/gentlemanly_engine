@@ -1,4 +1,4 @@
-#include "ge/model.hpp"
+#include "ge/model_actor.hpp"
 #include "ge/material.hpp"
 #include "ge/shader.hpp"
 #include "ge/mesh.hpp"
@@ -9,13 +9,13 @@
 
 namespace ge
 {
-model::model(world& world, actor* parent, const std::shared_ptr<mesh>& arg_mesh,
+model_actor::model_actor(world& world, actor* parent, const std::shared_ptr<mesh>& arg_mesh,
 	const std::shared_ptr<material>& mat)
 	: actor(world, parent), mesh_for_model(arg_mesh), material_for_model(mat)
 {
 }
 
-void model::render(const glm::mat3& view_projection_matrix)
+void model_actor::render(const glm::mat3& view_projection_matrix)
 {
 	auto mvp = view_projection_matrix * calculate_model_matrix();
 	auto& shader_ref = *material_for_model->shader_for_material;

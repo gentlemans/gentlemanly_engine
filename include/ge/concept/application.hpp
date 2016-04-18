@@ -44,9 +44,10 @@ struct Application
 
 		std::unique_ptr<viewport> view = i.make_viewport(*win  // window
 			);
-		
+
 		boost::signals2::signal<void(float)>& update = i.signal_update;
 		boost::signals2::signal<void()>& init = i.signal_init;
+		boost::signals2::signal<void()>& quit = i.signal_quit;
 	}
 
 private:

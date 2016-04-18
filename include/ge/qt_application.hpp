@@ -36,8 +36,10 @@ public:
 
 	boost::signals2::signal<void(float)> signal_update;
 	boost::signals2::signal<void()> signal_init;
+	boost::signals2::signal<void()> signal_quit;
 
 	void execute();
 };
+BOOST_CONCEPT_ASSERT((concept::Application<qt_application>));
 
 }  // namespace ge

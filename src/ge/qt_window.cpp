@@ -3,8 +3,8 @@
 
 namespace ge
 {
-qt_window::qt_window(qt_application& app, const char* title, boost::optional<glm::uvec2> loc, glm::uvec2 size,
-	bool fullscreen, bool decorated)
+qt_window::qt_window(qt_application& app, const char* title, boost::optional<glm::uvec2> loc,
+	glm::uvec2 size, bool fullscreen, bool decorated)
 	: qt_inst(app)
 {
 	setWindowTitle(QLatin1String(title));
@@ -18,7 +18,7 @@ qt_window::qt_window(qt_application& app, const char* title, boost::optional<glm
 
 	connect(&qt_inst.qt_app, &QApplication::aboutToQuit, [this]
 		{
-			sig_quit();
+			qt_inst.signal_quit();
 		});
 }
 

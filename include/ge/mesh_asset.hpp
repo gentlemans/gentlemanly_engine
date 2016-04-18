@@ -1,6 +1,5 @@
 #pragma once
 
-#include "ge/asset.hpp"
 #include "ge/mesh.hpp"
 #include "ge/asset_manager.hpp"
 #include "ge/json/json.h"
@@ -12,16 +11,15 @@
  *
  * {
  *   "asset_type": "mesh",
- *   "obj_data": "/path/to/model.obj" # if this is omitted, then it defaults to
- * ./model.obj TODO:
- * add more file types
+ *   "obj_data": "/path/to/model.obj, defauts to model.obj"
+ *   "default_material": "/path/to/material/asset"
  * }
  *
  */
 
 namespace ge
 {
-class mesh_asset : public asset
+class mesh_asset
 {
 public:
 	std::shared_ptr<mesh> data;
@@ -29,6 +27,7 @@ public:
 	mesh_asset(asset_manager& manager, const std::string& arg_name, const std::string& abs_filepath,
 		const Json::Value& json_data);
 
-	static std::string asset_name() { return "mesh"; }
+	static const char* asset_type() { return "mesh"; }
 };
+BOOST_CONCEPT_ASSERT((concept::Asset<mesh_asset>));
 }

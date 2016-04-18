@@ -1,7 +1,7 @@
 #include "ge/sdl_viewport.hpp"
 #include "ge/sdl_window.hpp"
 #include "ge/actor.hpp"
-#include "ge/camera.hpp"
+#include "ge/camera_actor.hpp"
 #include "ge/world.hpp"
 
 #include "ge/ortho2d.hpp"
@@ -33,8 +33,9 @@ void sdl_viewport::render()
 		aspect * m_camera->vertical_units, -m_camera->vertical_units, m_camera->vertical_units);
 	glm::mat3 vp = projection * m_camera->calculate_model_matrix();
 
-	m_world->for_each_actor([&vp](actor* actor_to_render) {
-		actor_to_render->render(vp);
-	});
+	m_world->for_each_actor([&vp](actor* actor_to_render)
+		{
+			actor_to_render->render(vp);
+		});
 }
 }

@@ -3,7 +3,7 @@
 #include "ge/qt_application.hpp"
 #include "ge/world.hpp"
 #include "ge/actor.hpp"
-#include "ge/camera.hpp"
+#include "ge/camera_actor.hpp"
 
 #include "ge/ortho2d.hpp"
 
@@ -20,7 +20,8 @@
 
 namespace ge
 {
-qt_viewport::qt_viewport(qt_application& backend, qt_window& window) : QOpenGLWidget(&window), m_window(window)
+qt_viewport::qt_viewport(qt_application& backend, qt_window& window)
+	: QOpenGLWidget(&window), m_window(window)
 {
 	window.setCentralWidget(this);
 
@@ -38,11 +39,11 @@ void qt_viewport::paintGL()
 
 	static auto last_tick = std::chrono::system_clock::now();
 	auto now = std::chrono::system_clock::now();
-	
-	std::chrono::duration<float> diff =  now - last_tick;
-	
+
+	std::chrono::duration<float> diff = now - last_tick;
+
 	last_tick = now;
-	
+
 	m_window.qt_inst.signal_update(diff.count());
 }
 
@@ -60,14 +61,13 @@ void qt_viewport::render()
 	float aspect = (float)width() / (float)height();
 
 	glm::mat3 projection = glm::ortho2d(-aspect * m_camera->vertical_units,
-		aspect * m_camera->vertical_units, -m_camera->vertical_units,
-		m_camera->vertical_units);
+		aspect * m_camera->vertical_units, -m_camera->vertical_units, m_camera->vertical_units);
 	glm::mat3 vp = projection * m_camera->calculate_model_matrix();
 
-	
-	m_world->for_each_actor([&vp](actor* actor_to_render) {
-		actor_to_render->render(vp);
-	});
+	m_world->for_each_actor([&vp](actor* actor_to_render)
+		{
+			actor_to_render->render(vp);
+		});
 }
 
 }  // namespace ge

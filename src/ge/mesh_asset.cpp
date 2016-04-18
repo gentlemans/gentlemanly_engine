@@ -8,7 +8,6 @@ namespace ge
 {
 mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
 	const std::string& abs_filepath, const Json::Value& json_data)
-	: asset(asset_name(), arg_name, abs_filepath)
 {
 	auto path = json_data.get("obj_data", "mesh.obj").asString();
 	path = boost::filesystem::absolute(path, abs_filepath).string();

@@ -18,14 +18,8 @@ find_package(OpenGL REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(TinyObjLoader REQUIRED)
 find_package(Box2D REQUIRED)
-
-
 find_package(Qt5Widgets REQUIRED)
-
-# emscripten includes this automatially
 find_package(SDL2 REQUIRED)
-
-# GLM_INCLUDE_DIR has to be manually set
 find_package(glm REQUIRED)
 
 
@@ -41,12 +35,13 @@ set(GE_PRIVATE_FILES
 	
 	src/ge/actor.cpp
 	src/ge/asset_manager.cpp
+	src/ge/physics_controller.cpp
 	src/ge/material.cpp
+	src/ge/collision_body.cpp
 	src/ge/material_asset.cpp
 	src/ge/mesh.cpp
 	src/ge/mesh_asset.cpp
-	src/ge/model.cpp
-	src/ge/physics_world.cpp
+	src/ge/model_actor.cpp
 	src/ge/shader.cpp
 	
 	# JSONCPP
@@ -60,6 +55,7 @@ set(GE_PRIVATE_FILES
 )
 
 set(GE_PUBLIC_FILES 
+	include/ge/concept/asset.hpp
 	include/ge/concept/variadic_concept.hpp
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
@@ -74,14 +70,13 @@ set(GE_PUBLIC_FILES
 	include/ge/sdl_viewport.hpp
 	
 	include/ge/actor.hpp
-	include/ge/asset.hpp
 	include/ge/asset_manager.hpp
-	include/ge/camera.hpp
+	include/ge/camera_actor.hpp
+	include/ge/physics_controller.hpp
 	include/ge/material.hpp
 	include/ge/mesh.hpp
-	include/ge/model.hpp
+	include/ge/model_actor.hpp
 	include/ge/ortho2d.hpp
-	include/ge/physics_world.hpp
 	include/ge/shader.hpp
 	
 	#JSONCPP
@@ -118,14 +113,14 @@ PUBLIC
 )
 
 target_link_libraries(gentlemanly_engine
-PUBLIC
-	Qt5::Widgets
 PRIVATE 
-	${BOX2D_LIBRARIES}
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
 	${TINYOBJLOADER_LIBRARY}
+PUBLIC
+	Qt5::Widgets
 	Boost::filesystem
+	${BOX2D_LIBRARIES}
 )
 
 

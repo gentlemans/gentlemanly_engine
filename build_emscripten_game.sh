@@ -19,6 +19,6 @@ fi
 
 EXTRA_FLAGS="$@"
 
-$EMSCRIPTEN_DIR/emcc -s -DEMSCRIPTEN=1 USE_SDL=2 $EXTRA_FLAGS $DIR/build/libgentlemanly_engine.bc -I $DIR/include -o index.html -std=c++14
+$EMSCRIPTEN_DIR/emcc -DEMSCRIPTEN=1 -s USE_SDL=2 $EXTRA_FLAGS $DIR/build/libgentlemanly_engine.bc -I $DIR/include -o index.html -std=c++14
 
 
