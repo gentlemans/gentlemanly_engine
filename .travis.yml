@@ -1,3 +1,2 @@
-install: cmake get-deps
 language: cpp
 script: mkdir build && cd build && cmake .. && make test
