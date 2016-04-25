@@ -1,3 +1,4 @@
+#include "ge/entity.hpp"
 #include "ge/actor.hpp"
 #include "ge/world.hpp"
 
