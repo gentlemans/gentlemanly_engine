@@ -1,2 +1,14 @@
 language: cpp
-script: mkdir build && cd build && cmake .. && make test
+os: 
+    - linux
+    - osx
+
+compiler:
+    - gcc
+    - clang
+    
+script: 
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make test
