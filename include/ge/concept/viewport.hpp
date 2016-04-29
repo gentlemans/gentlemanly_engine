@@ -21,9 +21,6 @@ struct Viewport
 
 		i.set_background_color(glm::vec4{});
 
-		const model_system& models = *(model_system*)0;
-		const camera_component& c = *(camera_component*)0;
-		i.render(models, c);
 
 	}
 

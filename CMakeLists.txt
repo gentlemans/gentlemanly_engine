@@ -115,6 +115,7 @@ PRIVATE
 	${OPENGL_LIBRARIES}
 	TinyObjLoader
 PUBLIC
+	anax
 	Qt5::Widgets
 	Boost::filesystem
 	${BOX2D_LIBRARIES}
