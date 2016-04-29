@@ -8,9 +8,8 @@
 
 namespace ge
 {
-class actor;
-class camera_actor;
-class world;
+class camera_component;
+class model_system;
 namespace concept
 {
 template <typename X>
@@ -22,14 +21,10 @@ struct Viewport
 
 		i.set_background_color(glm::vec4{});
 
-		i.render();
+		const model_system& models = *(model_system*)0;
+		const camera_component& c = *(camera_component*)0;
+		i.render(models, c);
 
-		i.set_world(std::unique_ptr<world>{}); 
-
-		world& w = i_c.get_world();
-
-		i.set_camera(*(camera_actor*)nullptr);
-		camera_actor& cam = i_c.get_camera();
 	}
 
 private:

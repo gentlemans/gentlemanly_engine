@@ -21,65 +21,42 @@ find_package(Box2D REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
+find_package(anax REQUIRED)
 
 
 set(GE_PRIVATE_FILES
 	
-	src/ge/sdl_application.cpp
-	src/ge/sdl_window.cpp
-	src/ge/sdl_viewport.cpp
-	
-	src/ge/qt_application.cpp
-	src/ge/qt_window.cpp
-	src/ge/qt_viewport.cpp
-	
-	src/ge/actor.cpp
 	src/ge/asset_manager.cpp
-	src/ge/physics_controller.cpp
-	src/ge/material.cpp
-	src/ge/collision_body.cpp
-	src/ge/material_asset.cpp
-	src/ge/mesh.cpp
-	src/ge/mesh_asset.cpp
-	src/ge/model_actor.cpp
-	src/ge/shader.cpp
-	
-	# JSONCPP
+	src/ge/collision_component.cpp
 	src/ge/json/json_reader.cpp
 	src/ge/json/json_tool.h
 	src/ge/json/json_value.cpp
 	src/ge/json/json_valueiterator.inl
 	src/ge/json/json_writer.cpp
-	
-	
+	src/ge/material_asset.cpp
+	src/ge/material.cpp
+	src/ge/mesh_asset.cpp
+	src/ge/mesh.cpp
+	src/ge/qt_application.cpp
+	src/ge/qt_viewport.cpp
+	src/ge/qt_window.cpp
+	src/ge/sdl_application.cpp
+	src/ge/sdl_viewport.cpp
+	src/ge/sdl_window.cpp
+	src/ge/shader.cpp
+
 )
 
 set(GE_PUBLIC_FILES 
+	include/ge/asset_manager.hpp
+	include/ge/camera_component.hpp
+	include/ge/collision_component.hpp
+	include/ge/concept/application.hpp
 	include/ge/concept/asset.hpp
+	include/ge/concept/component.hpp
 	include/ge/concept/variadic_concept.hpp
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
-	include/ge/concept/application.hpp
-	
-	include/ge/qt_application.hpp
-	include/ge/qt_window.hpp
-	include/ge/qt_viewport.hpp
-	
-	include/ge/sdl_application.hpp
-	include/ge/sdl_window.hpp
-	include/ge/sdl_viewport.hpp
-	
-	include/ge/actor.hpp
-	include/ge/asset_manager.hpp
-	include/ge/camera_actor.hpp
-	include/ge/physics_controller.hpp
-	include/ge/material.hpp
-	include/ge/mesh.hpp
-	include/ge/model_actor.hpp
-	include/ge/ortho2d.hpp
-	include/ge/shader.hpp
-	
-	#JSONCPP
 	include/ge/json/allocator.h
 	include/ge/json/assertions.h
 	include/ge/json/autolink.h
@@ -91,6 +68,27 @@ set(GE_PUBLIC_FILES
 	include/ge/json/value.h
 	include/ge/json/version.h
 	include/ge/json/writer.h
+	include/ge/material_asset.hpp
+	include/ge/material.hpp
+	include/ge/mesh_asset.hpp
+	include/ge/mesh.hpp
+	include/ge/model_component.hpp
+	include/ge/model_system.hpp
+	include/ge/ortho2d.hpp
+	include/ge/physics_system.hpp
+	include/ge/qt_application.hpp
+	include/ge/qt_viewport.hpp
+	include/ge/qt_window.hpp
+	include/ge/sdl_application.hpp
+	include/ge/sdl_viewport.hpp
+	include/ge/sdl_window.hpp
+	include/ge/shader_asset.hpp
+	include/ge/shader.hpp
+	include/ge/transform_component.hpp
+	include/ge/transform.hpp
+	include/ge/velocity_component.hpp
+
+
 )
 
 
@@ -102,7 +100,6 @@ target_include_directories(gentlemanly_engine
 PRIVATE 
 	include
 	${OPENGL_INCLUDE_DIR}
-	${TINYOBJLOADER_INCLUDE_DIR}
 	${SDL2_INCLUDE_DIR}
 INTERFACE 
 	${CMAKE_INSTALL_PREFIX}/include
@@ -116,7 +113,7 @@ target_link_libraries(gentlemanly_engine
 PRIVATE 
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
-	${TINYOBJLOADER_LIBRARY}
+	TinyObjLoader
 PUBLIC
 	Qt5::Widgets
 	Boost::filesystem

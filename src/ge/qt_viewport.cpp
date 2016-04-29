@@ -1,9 +1,8 @@
 #include "ge/qt_viewport.hpp"
 #include "ge/qt_window.hpp"
 #include "ge/qt_application.hpp"
-#include "ge/world.hpp"
-#include "ge/actor.hpp"
-#include "ge/camera_actor.hpp"
+#include "ge/camera_component.hpp"
+#include "ge/model_system.hpp"
 
 #include "ge/ortho2d.hpp"
 
@@ -21,7 +20,7 @@
 namespace ge
 {
 qt_viewport::qt_viewport(qt_application& backend, qt_window& window)
-	: QOpenGLWidget(&window), m_window(window)
+	: QOpenGLWidget(&window), m_window(&window)
 {
 	window.setCentralWidget(this);
 
@@ -32,7 +31,7 @@ qt_viewport::qt_viewport(qt_application& backend, qt_window& window)
 	setFormat(format);
 }
 
-void qt_viewport::initializeGL() { m_window.qt_inst.signal_init(); }
+void qt_viewport::initializeGL() { m_window->qt_inst.signal_init(); }
 void qt_viewport::paintGL()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -44,7 +43,7 @@ void qt_viewport::paintGL()
 
 	last_tick = now;
 
-	m_window.qt_inst.signal_update(diff.count());
+	m_window->qt_inst.signal_update(diff.count());
 	
 	update();
 }
@@ -55,21 +54,18 @@ void qt_viewport::set_background_color(const glm::vec4 newColor)
 	glClearColor(newColor.r, newColor.g, newColor.b, newColor.a);
 }
 
-void qt_viewport::render()
+void qt_viewport::render(const model_system& models, const camera_component& camera)
 {
-	if (!m_camera) throw std::runtime_error("Cannot call render_actor with a null camera");
-	if (!m_world) throw std::runtime_error("Cannot call render_actor with a null world");
+	float aspect = (float)m_window->get_size().x / (float)m_window->get_size().y;
 
-	float aspect = (float)width() / (float)height();
-
-	glm::mat3 projection = glm::ortho2d(-aspect * m_camera->vertical_units,
-		aspect * m_camera->vertical_units, -m_camera->vertical_units, m_camera->vertical_units);
-	glm::mat3 vp = projection * m_camera->calculate_model_matrix();
-
-	m_world->for_each_actor([&vp](actor* actor_to_render)
-		{
-			actor_to_render->render(vp);
-		});
+	glm::mat3 projection = glm::ortho2d(-aspect * camera.vertical_units,
+		aspect * camera.vertical_units, -camera.vertical_units, camera.vertical_units);
+	glm::mat3 vp = projection; // TODO:  * camera.calculate_model_matrix();
+	
+	for(auto& ent : models.entities)
+	{
+		ent.getComponent<model_component>().render(vp);
+	}
 }
 
 }  // namespace ge
