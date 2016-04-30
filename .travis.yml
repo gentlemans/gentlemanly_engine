@@ -19,6 +19,8 @@ arch:
         - git clone https://github.com/syoyo/tinyobjloader
         - mkdir tinyobjloader/build
         - cd tinyobjloader/build
+        - pwd 
+        - pwd
         - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
         - make
         - sudo make install
