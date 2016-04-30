@@ -15,6 +15,5 @@ class model_component : public anax::Component
 {
 public:
 	std::shared_ptr<mesh> m_mesh;
-	std::shared_ptr<material> m_material;
 };
 }

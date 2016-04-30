@@ -31,22 +31,22 @@ void model_system::render_all(const anax::Entity& camera, float aspect)
 		assert(ent.hasComponent<model_component>());
 
 		auto& model = ent.getComponent<model_component>();
+		auto& material = *model.m_mesh->m_material;
+		auto& shader = *material.m_shader;
 
 		auto mvp = vp;  // TODO: * calculate_model_matrix();
-		shader& shader_ref = *model.m_material->m_shader;
+		
 		mesh& mesh_ref = *model.m_mesh;
 
-		material& mat_ref = *model.m_material;
-
-		glUseProgram(shader_ref.program_name);
+		glUseProgram(shader.program_name);
 		// set parameters
-		for (auto& param : shader_ref.parameters)
+		for (auto& param : shader.parameters)
 		{
 			shader::parameter_type value;
 
 			// check if it is in the material
-			auto iter_in_mat = mat_ref.property_values.find(param.first);
-			if (iter_in_mat != mat_ref.property_values.end())
+			auto iter_in_mat = material.property_values.find(param.first);
+			if (iter_in_mat != material.property_values.end())
 			{
 				value = iter_in_mat->second;
 			}
@@ -57,14 +57,14 @@ void model_system::render_all(const anax::Entity& camera, float aspect)
 			// set it
 			parameter_setter_visitor v;
 			v.uniform_index =
-				glGetUniformLocation(shader_ref.program_name, param.second.glsl_name.c_str()) +
+				glGetUniformLocation(shader.program_name, param.second.glsl_name.c_str()) +
 				param.second.offset;
 
 			value.apply_visitor(v);
 		}
 
 		// set uniform in shader
-		glUniformMatrix3fv(shader_ref.mvp_uniform_location, 1, GL_FALSE, &mvp[0][0]);
+		glUniformMatrix3fv(shader.mvp_uniform_location, 1, GL_FALSE, &mvp[0][0]);
 
 		glBindVertexArray(mesh_ref.vertex_array);
 

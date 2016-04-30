@@ -7,6 +7,37 @@ compiler:
 os: linux
 before_install:
     - sudo apt-get update -qq
-    - sudo apt-get install libboost-filesystem-dev
+    - sudo apt-get install libboost-filesystem-dev libglm-dev qtbase5-dev libsdl2-dev
     # TINYOBJLOADER
-    - 
+    - git clone https://github.com/syoyo/tinyobjloader
+    - mkdir tinyobjloader/build
+    - cd tinyobjloader/build
+    - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
+    - make
+    - sudo make install
+    - cd ../..
+    # anax
+    - git clone https://github.com/miguelmartin75/anax
+    - mkdir anax/build
+    - cd anax/build
+    - cmake  -DCMAKE_INSTALL_PREFIX=/usr/ ..
+    - make
+    - sudo make install
+    - cd ../..
+    # BOX2D
+    - git clone https://github.com/erincatto/Box2D
+    - mkdir Box2D/Box2D/build
+    - cd Box2D/Box2D/build
+    - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
+    - make 
+    - sudo make install
+    - cd ../../..
+
+before_script:
+    - mkdir build
+    - cd build
+    - cmake ..
+
+script:
+    - make 
+
