@@ -1,50 +1,44 @@
 language: cpp
 sudo: required
-dist: trusty
+
 compiler: 
     -clang
     -gcc
 os: linux
-before_install:
-    - sudo apt-get -y update -qq
-    - sudo apt-get -y install g++-5 libboost-filesystem-dev qtbase5-dev libsdl2-dev > /dev/null
-    # TINYOBJLOADER
-    - git clone https://github.com/syoyo/tinyobjloader
-    - mkdir tinyobjloader/build
-    - cd tinyobjloader/build
-    - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
-    - make
-    - sudo make install
-    - cd ../..
-    # anax
-    - git clone https://github.com/miguelmartin75/anax
-    - mkdir anax/build
-    - cd anax/build
-    - cmake  -DCMAKE_INSTALL_PREFIX=/usr/ ..
-    - make
-    - sudo make install
-    - cd ../..
-    # BOX2D
-    - git clone https://github.com/erincatto/Box2D
-    - mkdir Box2D/Box2D/build
-    - cd Box2D/Box2D/build
-    - cmake -DCMAKE_INSTALL_PREFIX=/usr/ -DBOX2D_BUILD_EXAMPLES=OFF ..
-    - make 
-    - sudo make install
-    - cd ../../..
-    # GLM
-    - git clone https://github.com/g-truc/glm
-    - mkdir glm/build
-    - cd glm/build
-    - cmake ..
-    - sudo make install
-    - cd ../..
 
-before_script:
-    - mkdir build
-    - cd build
-    - cmake ..
+arch: 
+    packages:
+        - boost
+        - qt5-base
+        - sdl2
+        - glm
+        - box2d
+        - cmake
+    before_script:
+        - sudo apt-get -y update -qq
+        - sudo apt-get -y install g++-5 libboost-filesystem-dev qtbase5-dev libsdl2-dev > /dev/null
+        # TINYOBJLOADER
+        - git clone https://github.com/syoyo/tinyobjloader
+        - mkdir tinyobjloader/build
+        - cd tinyobjloader/build
+        - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
+        - make
+        - sudo make install
+        - cd ../..
+        # anax
+        - git clone https://github.com/miguelmartin75/anax
+        - mkdir anax/build
+        - cd anax/build
+        - cmake  -DCMAKE_INSTALL_PREFIX=/usr/ ..
+        - make
+        - sudo make install
+        - cd ../..
+
+    script:
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make 
 
 script:
-    - make 
-
+  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
