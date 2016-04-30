@@ -16,11 +16,14 @@ class sdl_viewport
 	sdl_window* m_window;
 
 public:
+	
 	explicit sdl_viewport(sdl_window& window);
 
 	void set_background_color(const glm::vec4& newColor);
 
-	void render(const model_system& models, const camera_component& camera);
+	sdl_window& get_window() const {
+		return *m_window;
+	}
 
 };
 BOOST_CONCEPT_ASSERT((concept::Viewport<sdl_viewport>));

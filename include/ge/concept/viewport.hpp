@@ -8,8 +8,8 @@
 
 namespace ge
 {
-class camera_component;
-class model_system;
+struct camera_component;
+struct model_system;
 namespace concept
 {
 template <typename X>
@@ -21,7 +21,9 @@ struct Viewport
 
 		i.set_background_color(glm::vec4{});
 
-
+		// this should be a Window<>
+		auto& win = i_c.get_window();
+		
 	}
 
 private:

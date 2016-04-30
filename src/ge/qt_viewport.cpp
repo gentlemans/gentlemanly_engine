@@ -54,18 +54,4 @@ void qt_viewport::set_background_color(const glm::vec4 newColor)
 	glClearColor(newColor.r, newColor.g, newColor.b, newColor.a);
 }
 
-void qt_viewport::render(const model_system& models, const camera_component& camera)
-{
-	float aspect = (float)m_window->get_size().x / (float)m_window->get_size().y;
-
-	glm::mat3 projection = glm::ortho2d(-aspect * camera.vertical_units,
-		aspect * camera.vertical_units, -camera.vertical_units, camera.vertical_units);
-	glm::mat3 vp = projection; // TODO:  * camera.calculate_model_matrix();
-	
-	for(auto& ent : models.entities)
-	{
-		ent.getComponent<model_component>().render(vp);
-	}
-}
-
 }  // namespace ge

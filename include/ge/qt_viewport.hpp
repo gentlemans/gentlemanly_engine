@@ -32,7 +32,9 @@ public:
 
 	void set_background_color(const glm::vec4 newColor);
 
-	void render(const model_system& models, const camera_component& camera);
+	qt_window& get_window() const  {
+		return *m_window;
+	}
 
 };
 BOOST_CONCEPT_ASSERT((concept::Viewport<qt_viewport>));

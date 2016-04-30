@@ -37,6 +37,7 @@ set(GE_PRIVATE_FILES
 	src/ge/material.cpp
 	src/ge/mesh_asset.cpp
 	src/ge/mesh.cpp
+	src/ge/model_system.cpp
 	src/ge/qt_application.cpp
 	src/ge/qt_viewport.cpp
 	src/ge/qt_window.cpp
