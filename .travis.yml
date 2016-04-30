@@ -38,6 +38,7 @@ before_install:
     - cd glm/build
     - cmake ..
     - sudo make install
+    - cd ../..
 
 before_script:
     - mkdir build
