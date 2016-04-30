@@ -15,6 +15,9 @@ arch:
         - box2d
         - cmake
     before_script:
+        - pwd
+        - pwd
+        - pwd
         - sudo apt-get -y update -qq
         - sudo apt-get -y install g++-5 libboost-filesystem-dev qtbase5-dev libsdl2-dev > /dev/null
         # TINYOBJLOADER
