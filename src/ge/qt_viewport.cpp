@@ -44,7 +44,7 @@ void qt_viewport::paintGL()
 	last_tick = now;
 
 	m_window->qt_inst.signal_update(diff.count());
-	
+
 	update();
 }
 

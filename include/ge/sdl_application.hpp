@@ -5,7 +5,6 @@
 #include "ge/sdl_window.hpp"
 #include "ge/sdl_viewport.hpp"
 
-
 #include <glm/glm.hpp>
 
 #include <boost/optional.hpp>

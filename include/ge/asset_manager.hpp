@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ge/json/json.h"
+#include "ge/json.hpp"
 
 #include <vector>
 #include <string>
@@ -67,18 +67,11 @@ public:
 									 " does not have a asset.json file");
 		}
 
-		Json::Reader json_read;
-
-		Json::Value root;
+		nlohmann::json root;
 		std::ifstream asset_file(abs_path + "/asset.json");
-		if (!json_read.parse(asset_file, root, false))
-		{
-			throw std::runtime_error("Could not parse file " + abs_path +
-									 "/asset.json. Error message: " +
-									 json_read.getFormattedErrorMessages());
-		}
+		asset_file >> root;
 
-		std::string asset_type_from_json = root["asset_type"].asString();
+		std::string asset_type_from_json = root["asset_type"];
 
 		if (std::string(asset_type::asset_type()) != asset_type_from_json)
 		{

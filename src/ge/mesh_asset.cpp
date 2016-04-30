@@ -7,9 +7,18 @@
 namespace ge
 {
 mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
-	const std::string& abs_filepath, const Json::Value& json_data)
+	const std::string& abs_filepath, const nlohmann::json& json_data)
 {
-	auto path = json_data.get("obj_data", "mesh.obj").asString();
+	std::string path;
+	if (json_data["obj_data"].is_string())
+	{
+		path = json_data["obj_data"];
+	}
+	else
+	{
+		path = "object.obj";
+	}
+
 	path = boost::filesystem::absolute(path, abs_filepath).string();
 
 	std::vector<tinyobj::shape_t> shapes;
@@ -32,5 +41,8 @@ mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
 	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(mesh_ref.positions.data()),
 		reinterpret_cast<glm::vec2*>(mesh_ref.texcoords.data()), mesh_ref.positions.size() / 2,
 		reinterpret_cast<glm::uvec3*>(mesh_ref.indices.data()), mesh_ref.indices.size() / 3);
+	
+	// load up materials
+	
 }
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ge/json/json.h"
+#include "ge/json.hpp"
 
 #include <boost/concept_check.hpp>
 
@@ -15,7 +15,7 @@ struct Asset
 {
 	BOOST_CONCEPT_USAGE(Asset)
 	{
-		X i(*(asset_manager*)nullptr, "name", "filepath", Json::Value{});
+		X i(*(asset_manager*)nullptr, "name", "filepath", nlohmann::json{});
 
 		const char* type = X::asset_type();
 	}

@@ -28,11 +28,6 @@ set(GE_PRIVATE_FILES
 	
 	src/ge/asset_manager.cpp
 	src/ge/collision_component.cpp
-	src/ge/json/json_reader.cpp
-	src/ge/json/json_tool.h
-	src/ge/json/json_value.cpp
-	src/ge/json/json_valueiterator.inl
-	src/ge/json/json_writer.cpp
 	src/ge/material_asset.cpp
 	src/ge/material.cpp
 	src/ge/mesh_asset.cpp
@@ -58,17 +53,7 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/variadic_concept.hpp
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
-	include/ge/json/allocator.h
-	include/ge/json/assertions.h
-	include/ge/json/autolink.h
-	include/ge/json/config.h
-	include/ge/json/features.h
-	include/ge/json/forwards.h
-	include/ge/json/json.h
-	include/ge/json/reader.h
-	include/ge/json/value.h
-	include/ge/json/version.h
-	include/ge/json/writer.h
+	include/ge/json.hpp
 	include/ge/material_asset.hpp
 	include/ge/material.hpp
 	include/ge/mesh_asset.hpp

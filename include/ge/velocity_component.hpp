@@ -1,11 +1,8 @@
 #pragma once
 
-namespace ge {
-	
-	struct velocity_component {
-		
-		
-		
-	};
-	
+namespace ge
+{
+struct velocity_component
+{
+};
 }

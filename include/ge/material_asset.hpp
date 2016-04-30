@@ -3,7 +3,7 @@
 #include "ge/material.hpp"
 #include "ge/asset_manager.hpp"
 
-#include "ge/json/json.h"
+#include "ge/json.hpp"
 
 #include <memory>
 #include <string>
@@ -15,7 +15,12 @@
  * {
  *   "asset_type": "material",
  *   "shader": "/asset/name/for/shader",
- *
+ *   "parameters": [
+ *     {
+ *       "name": "the name from the shader",
+ *       "value": "the value, use JSON arrays ([2.0, 2.1]) for vectors."
+ *     }
+ *   ]
  * }
  *
  */
@@ -28,7 +33,7 @@ public:
 	std::shared_ptr<material> data;
 
 	material_asset(asset_manager& manager, const char* name, const char* filepath,
-		const Json::Value& json_data);
+		const nlohmann::json& json_data);
 
 	static const char* asset_type() { return "material"; }
 };

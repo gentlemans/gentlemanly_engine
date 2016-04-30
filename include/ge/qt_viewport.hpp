@@ -11,10 +11,8 @@
 
 #include <anax/World.hpp>
 
-
 namespace ge
 {
-
 class qt_application;
 class qt_window;
 class camera_component;
@@ -32,10 +30,7 @@ public:
 
 	void set_background_color(const glm::vec4 newColor);
 
-	qt_window& get_window() const  {
-		return *m_window;
-	}
-
+	qt_window& get_window() const { return *m_window; }
 };
 BOOST_CONCEPT_ASSERT((concept::Viewport<qt_viewport>));
 

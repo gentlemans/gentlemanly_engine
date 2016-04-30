@@ -23,7 +23,6 @@ struct Viewport
 
 		// this should be a Window<>
 		auto& win = i_c.get_window();
-		
 	}
 
 private:

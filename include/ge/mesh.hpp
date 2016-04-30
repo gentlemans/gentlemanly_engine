@@ -1,15 +1,19 @@
 #pragma once
 
 #include <cstdint>
-#include <fstream>
+#include <memory>
 
 #include <glm/glm.hpp>
 
 namespace ge
 {
+class material;
 class mesh
 {
 public:
+	
+	std::shared_ptr<material> m_material;
+	
 	mesh(const glm::vec2* points, const glm::vec2* texcoords, const size_t num_points,
 		const glm::uvec3* indicies, const size_t num_indicies);
 	// no move or copy, pointer only

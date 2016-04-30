@@ -2,7 +2,7 @@
 
 #include "ge/mesh.hpp"
 #include "ge/asset_manager.hpp"
-#include "ge/json/json.h"
+#include "ge/json.hpp"
 
 #include <memory>
 
@@ -12,7 +12,7 @@
  * {
  *   "asset_type": "mesh",
  *   "obj_data": "/path/to/model.obj, defauts to model.obj"
- *   "default_material": "/path/to/material/asset"
+ *   "material": "/path/to/material/asset"
  * }
  *
  */
@@ -25,7 +25,7 @@ public:
 	std::shared_ptr<mesh> data;
 
 	mesh_asset(asset_manager& manager, const std::string& arg_name, const std::string& abs_filepath,
-		const Json::Value& json_data);
+		const nlohmann::json& json_data);
 
 	static const char* asset_type() { return "mesh"; }
 };

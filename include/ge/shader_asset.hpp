@@ -4,7 +4,8 @@
 #include "ge/shader.hpp"
 #include "ge/concept/asset.hpp"
 
-#include <ge/json/json.h>
+#include "ge/json.hpp"
+#include "ge/json_helper.hpp"
 
 #include <string>
 
@@ -19,21 +20,16 @@
  *   "asset_type": "shader",
  *   "vert_source": "/path/to/glsl/file, defaults to vert.glsl"
  *   "frag_source": "/path/to/glsl/file, defaults to frag.glsl"
- *   "textures": [
- *     {
- *       "name": "uniform name in glsl",
- *       "offset": "the offset of this texture if the uniform is an array, defaults to 0",
- *       "default": "/asset/name/for/texture"
- *     }
- *   ],
  *   "parameters": [
  *     {
- *       "name_in_glsl": "vec{x} or float",
- *       "min": "minimum value. If vector, use {x, y} syntax. This is for GUI building.",
- *       "max": "maximum value. See minimum value for syntax.",
- *       "default": "default value, use above syntax"
+ *       "type": "vec{x} or float or texture",
+ *       "glsl_name": "name_of_uniform",
+ *       "glsl_offset": "some int, 0 by default"
+ *       "name": "the name that will be exposed to the interface"
+ *       "default": "default value, use json for vectors",
+ *       "description": "Brief description of what this prop does (optional)
  *     }
- *   ]
+ *   ] (optional)
  * }
  *
  */
@@ -51,19 +47,66 @@ public:
 	std::shared_ptr<shader> data;
 
 	shader_asset(asset_manager& manager, const std::string& arg_name,
-		const std::string& abs_filepath, const Json::Value& json_data)
+		const std::string& abs_filepath, const nlohmann::json& json_data)
 	{
+		using namespace std::string_literals;
+
 		std::string vert_path =
 			boost::filesystem::absolute(
-				json_data.get("vert_source", "vert.glsl").asString(), abs_filepath)
+				json_get_value_with_fallback(json_data, "vert_source"s, "vert.glsl"s), abs_filepath)
 				.string();
 		std::string frag_path =
 			boost::filesystem::absolute(
-				json_data.get("frag_source", "frag.glsl").asString(), abs_filepath)
+				json_get_value_with_fallback(json_data, "frag_source"s, "frag.glsl"s), abs_filepath)
 				.string();
 
 		// just load the shader
 		data = std::make_shared<shader>(vert_path.c_str(), frag_path.c_str());
+
+		// load in the parameters
+		nlohmann::json parameters = json_data["parameters"];
+		if (parameters.is_array())
+		{
+			for (auto& parameter : parameters)
+			{
+				// required
+				std::string type = parameter["type"];
+				std::string glsl_name = parameter["glsl_name"];
+				std::string name = parameter["name"];
+				std::string description = parameter["description"];
+
+				// optional
+				uint32_t offset =
+					parameter["offset"].is_number_integer() ? (uint32_t)parameter["offset"] : 0;
+
+				shader::parameter_type param_data;
+
+				// figure out type
+				if (type == "float")
+				{
+					param_data = (float)parameter["default"];
+				}
+				else if (type == "vec2")
+				{
+					glm::vec2 vector = {parameter["default"][0], parameter["default"][1]};
+					param_data = vector;
+				}
+				else if (type == "vec3")
+				{
+					glm::vec3 vector = {parameter["default"][0], parameter["default"][1],
+						parameter["default"][2]};
+					param_data = vector;
+				}
+				else if (type == "vec4")
+				{
+					glm::vec4 vector = {parameter["default"][0], parameter["default"][1],
+						parameter["default"][2], parameter["default"][3]};
+					param_data = vector;
+				}
+
+				data->parameters[name] = {param_data, glsl_name, description, offset};
+			}
+		}
 	}
 
 	static const char* asset_type() { return "shader"; }
