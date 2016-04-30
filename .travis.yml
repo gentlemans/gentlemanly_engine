@@ -28,7 +28,7 @@ before_install:
     - git clone https://github.com/erincatto/Box2D
     - mkdir Box2D/Box2D/build
     - cd Box2D/Box2D/build
-    - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
+    - cmake -DCMAKE_INSTALL_PREFIX=/usr/ -DBOX2D_BUILD_EXAMPLES=OFF ..
     - make 
     - sudo make install
     - cd ../../..
