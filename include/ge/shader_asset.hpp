@@ -3,6 +3,7 @@
 #include "ge/asset_manager.hpp"
 #include "ge/shader.hpp"
 #include "ge/concept/asset.hpp"
+#include "ge/texture_asset.hpp"
 
 #include "ge/json.hpp"
 #include "ge/json_helper.hpp"
@@ -105,6 +106,8 @@ public:
 				}
 				else if (type == "texture")
 				{
+					
+					param_data = manager.get_asset<texture_asset>(parameter["default"].get<std::string>().c_str()).data;
 				}
 
 				data->parameters[name] = {param_data, glsl_name, description, offset};

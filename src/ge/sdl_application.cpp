@@ -8,6 +8,11 @@
 
 #include <chrono>
 
+
+#define GL_GLEXT_PROTOTYPES
+#include <GL/gl.h>
+#include <GL/glext.h>
+
 namespace ge
 {
 sdl_application::sdl_application(int&, char**) { SDL_Init(SDL_INIT_VIDEO); }
@@ -23,9 +28,10 @@ void update_c_function(void* void_app)
 	app->signal_update(std::chrono::duration_cast<std::chrono::seconds>(diff).count());
 
 	last_tick = now;
+	
 }
 
-void sdl_application::execute()
+void sdl_application::execute(window& win)
 {
 	signal_init();
 
@@ -37,9 +43,15 @@ void sdl_application::execute()
 
 #else
 
+	SDL_GL_SetSwapInterval(0);
+
 	while (running)
 	{
+		
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		update_c_function(this);
+		SDL_GL_SwapWindow(win.m_window);
+		
 	}
 
 #endif

@@ -38,7 +38,7 @@ public:
 	boost::signals2::signal<void()> signal_init;
 	boost::signals2::signal<void()> signal_quit;
 
-	void execute();
+	void execute(window& win);
 };
 BOOST_CONCEPT_ASSERT((concept::Application<qt_application>));
 

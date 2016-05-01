@@ -33,8 +33,6 @@ struct Application
 		char** argv;
 		X exp_construct(argc, argv);
 
-		i.execute();
-
 		std::unique_ptr<window> win = i.make_window("Title",  // title
 			boost::optional<glm::uvec2>(),					  // location on sceen
 			glm::uvec2(),									  // size
@@ -44,6 +42,8 @@ struct Application
 
 		std::unique_ptr<viewport> view = i.make_viewport(*win  // window
 			);
+		
+		i.execute(*win);
 
 		boost::signals2::signal<void(float)>& update = i.signal_update;
 		boost::signals2::signal<void()>& init = i.signal_init;

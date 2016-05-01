@@ -60,7 +60,7 @@ struct texture_asset
 			case type::DDS:
 			{
 				// just load file and sent it to the texture
-				std::ifstream ifs{filepath};
+				std::ifstream ifs{boost::filesystem::absolute(filepath, abs_filepath).string()};
 				std::string dds_data(
 					(std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
 
@@ -74,7 +74,7 @@ struct texture_asset
 				std::vector<unsigned char> image_raw_data;
 				glm::uvec2 size;
 
-				lodepng::decode(image_raw_data, size.x, size.y, filepath.c_str(), LCT_RGBA, 8);
+				lodepng::decode(image_raw_data, size.x, size.y, boost::filesystem::absolute(filepath.c_str(), abs_filepath).c_str(), LCT_RGBA, 8);
 
 				data = std::make_shared<texture>(image_raw_data.data(), size);
 			}

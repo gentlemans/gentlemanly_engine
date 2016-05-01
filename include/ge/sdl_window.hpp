@@ -17,12 +17,14 @@ class sdl_application;
 
 class sdl_window
 {
-	SDL_Window* m_window;
 	SDL_GLContext m_context;
 	glm::vec4 m_background_color;
 	sdl_application* sdl_inst;
 
 public:
+	
+	SDL_Window* m_window;
+	
 	sdl_window(sdl_application& sdl, const char* title, boost::optional<glm::uvec2> loc,
 		glm::uvec2 size, bool fullscreen, bool decorated);
 
@@ -56,6 +58,8 @@ public:
 	}
 
 	~sdl_window();
+	
+	void execute();
 
 	void set_title(const char* new_title);
 	std::string get_title() const;
@@ -64,6 +68,7 @@ public:
 	glm::uvec2 get_size() const;
 
 	boost::signals2::signal<void()> sig_quit;
+	
 };
 BOOST_CONCEPT_ASSERT((ge::concept::Window<sdl_window>));
 

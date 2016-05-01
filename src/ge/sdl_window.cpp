@@ -25,6 +25,8 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
 	m_context = SDL_GL_CreateContext(m_window);
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	sdl_inst->signal_update.connect([this](float)
 		{
@@ -37,8 +39,6 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
 					sdl_inst->running = false;
 				}
 			}
-			glFlush();
-			SDL_GL_SwapWindow(m_window);
 		});
 }
 
@@ -62,5 +62,7 @@ glm::uvec2 sdl_window::get_size() const
 
 	return ret;
 }
+
+
 
 }  // namespace ge

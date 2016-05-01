@@ -11,13 +11,19 @@ struct parameter_setter_visitor : boost::static_visitor<void>
 {
 	int uniform_index;
 
+	int bind_loc = 0;
+	
 	void operator()(float f) { glUniform1f(uniform_index, f); }
 	void operator()(glm::vec2 vec) { glUniform2f(uniform_index, vec.x, vec.y); }
 	void operator()(glm::vec3 vec) { glUniform3f(uniform_index, vec.x, vec.y, vec.z); }
 	void operator()(glm::vec4 vec) { glUniform4f(uniform_index, vec.x, vec.y, vec.z, vec.w); }
 	void operator()(const std::shared_ptr<texture>& tex)
 	{
-		// TODO: bind texture
+		glUniform1i(uniform_index, bind_loc);
+		
+		glActiveTexture(GL_TEXTURE0 + bind_loc);
+		glBindTexture(GL_TEXTURE_2D, tex->texture_name);
+		
 	}
 };
 
