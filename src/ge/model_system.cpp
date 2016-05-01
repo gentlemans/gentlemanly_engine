@@ -15,6 +15,10 @@ struct parameter_setter_visitor : boost::static_visitor<void>
 	void operator()(glm::vec2 vec) { glUniform2f(uniform_index, vec.x, vec.y); }
 	void operator()(glm::vec3 vec) { glUniform3f(uniform_index, vec.x, vec.y, vec.z); }
 	void operator()(glm::vec4 vec) { glUniform4f(uniform_index, vec.x, vec.y, vec.z, vec.w); }
+	void operator()(const std::shared_ptr<texture>& tex)
+	{
+		// TODO: bind texture
+	}
 };
 
 void model_system::render_all(const anax::Entity& camera, float aspect)
@@ -35,7 +39,7 @@ void model_system::render_all(const anax::Entity& camera, float aspect)
 		auto& shader = *material.m_shader;
 
 		auto mvp = vp;  // TODO: * calculate_model_matrix();
-		
+
 		mesh& mesh_ref = *model.m_mesh;
 
 		glUseProgram(shader.program_name);

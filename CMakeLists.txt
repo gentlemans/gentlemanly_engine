@@ -28,6 +28,8 @@ set(GE_PRIVATE_FILES
 	
 	src/ge/asset_manager.cpp
 	src/ge/collision_component.cpp
+	src/ge/texture.cpp
+	src/ge/lodepng.cpp
 	src/ge/material_asset.cpp
 	src/ge/material.cpp
 	src/ge/mesh_asset.cpp
@@ -54,6 +56,7 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
 	include/ge/json.hpp
+	include/ge/lodepng.h
 	include/ge/material_asset.hpp
 	include/ge/material.hpp
 	include/ge/mesh_asset.hpp
@@ -70,6 +73,8 @@ set(GE_PUBLIC_FILES
 	include/ge/sdl_window.hpp
 	include/ge/shader_asset.hpp
 	include/ge/shader.hpp
+	include/ge/texture.hpp
+	include/ge/texture_asset.hpp
 	include/ge/transform_component.hpp
 	include/ge/transform.hpp
 	include/ge/velocity_component.hpp

@@ -22,11 +22,11 @@
  *   "frag_source": "/path/to/glsl/file, defaults to frag.glsl"
  *   "parameters": [
  *     {
- *       "type": "vec{x} or float or texture",
+ *       "type": "vec{x}|float|texture",
  *       "glsl_name": "name_of_uniform",
  *       "glsl_offset": "some int, 0 by default"
  *       "name": "the name that will be exposed to the interface"
- *       "default": "default value, use json for vectors",
+ *       "default": "default value, use json for vectors ([x,y]) or asset path for textures",
  *       "description": "Brief description of what this prop does (optional)
  *     }
  *   ] (optional)
@@ -93,8 +93,8 @@ public:
 				}
 				else if (type == "vec3")
 				{
-					glm::vec3 vector = {parameter["default"][0], parameter["default"][1],
-						parameter["default"][2]};
+					glm::vec3 vector = {
+						parameter["default"][0], parameter["default"][1], parameter["default"][2]};
 					param_data = vector;
 				}
 				else if (type == "vec4")
@@ -102,6 +102,9 @@ public:
 					glm::vec4 vector = {parameter["default"][0], parameter["default"][1],
 						parameter["default"][2], parameter["default"][3]};
 					param_data = vector;
+				}
+				else if (type == "texture")
+				{
 				}
 
 				data->parameters[name] = {param_data, glsl_name, description, offset};

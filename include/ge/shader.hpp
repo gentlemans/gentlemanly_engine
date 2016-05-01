@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ge/texture.hpp"
+
 #include <fstream>
 #include <cstdint>
 #include <unordered_map>
@@ -16,7 +18,8 @@ class shader
 public:
 	uint32_t program_name;
 
-	using parameter_type = boost::variant<float, glm::vec2, glm::vec3, glm::vec4>;
+	using parameter_type =
+		boost::variant<float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr<texture>>;
 
 	struct parameter
 	{

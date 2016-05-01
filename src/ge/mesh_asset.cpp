@@ -42,12 +42,11 @@ mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
 	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(mesh_ref.positions.data()),
 		reinterpret_cast<glm::vec2*>(mesh_ref.texcoords.data()), mesh_ref.positions.size() / 2,
 		reinterpret_cast<glm::uvec3*>(mesh_ref.indices.data()), mesh_ref.indices.size() / 3);
-	
+
 	// load up material
 	std::string material_asset_path = json_data["material"];
 	auto mat = manager.get_asset<material_asset>(material_asset_path.c_str());
-	
+
 	data->m_material = std::move(mat.data);
-	
 }
 }
