@@ -1,5 +1,7 @@
 #pragma once
 
+#include <entityx/entityx.h>
+
 #include "ge/concept/viewport.hpp"
 
 #include <glm/glm.hpp>
@@ -8,8 +10,6 @@
 #include <QOpenGLFunctions>
 
 #include <memory>
-
-#include <anax/World.hpp>
 
 namespace ge
 {

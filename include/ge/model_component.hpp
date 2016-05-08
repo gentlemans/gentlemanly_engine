@@ -1,9 +1,5 @@
 #pragma once
 
-#include <anax/Component.hpp>
-
-#include <memory>
-
 #include <glm/glm.hpp>
 
 namespace ge
@@ -11,9 +7,9 @@ namespace ge
 class mesh;
 class material;
 
-class model_component : public anax::Component
+struct model_component
 {
-public:
+	model_component(std::shared_ptr<mesh> arg_mesh) : m_mesh{std::move(arg_mesh)} {}
 	std::shared_ptr<mesh> m_mesh;
 };
 }

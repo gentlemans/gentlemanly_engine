@@ -42,7 +42,7 @@ struct Application
 
 		std::unique_ptr<viewport> view = i.make_viewport(*win  // window
 			);
-		
+
 		i.execute(*win);
 
 		boost::signals2::signal<void(float)>& update = i.signal_update;

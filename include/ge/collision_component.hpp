@@ -4,8 +4,6 @@
 
 #include <Box2D/Box2D.h>
 
-#include <anax/Component.hpp>
-
 #include <boost/concept_check.hpp>
 
 #include <algorithm>
@@ -16,22 +14,22 @@ namespace ge
 {
 class transform_component;
 
-struct collison_component : public anax::Component
+struct collision_component
 {
 	// box
-	collison_component(transform_component& trans, glm::vec2 size);
+	collision_component(transform_component& trans, glm::vec2 size);
 
 	// circle
-	collison_component(transform_component& trans, float radius);
+	collision_component(transform_component& trans, float radius);
 
 	// custom poly
 	template <typename InputIterator>
-	collison_component(transform_component& trans, InputIterator begin, InputIterator end)
+	collision_component(transform_component& trans, InputIterator begin, InputIterator end)
 	{
 		BOOST_CONCEPT_ASSERT((boost::InputIterator<InputIterator>));
 		static_assert(
 			std::is_same<std::remove_const_t<std::decay_t<decltype(*begin)>>, glm::vec2>::value,
-			"collison_component::collison_component custom poly constructor expects an "
+			"collision_component::collision_component custom poly constructor expects an "
 			"InputIterator that dereferences to a glm::vec2");
 
 		auto entity_loc = trans.get_relative_transform().location;
@@ -49,7 +47,7 @@ struct collison_component : public anax::Component
 		def.shape = &shape;
 		def.userData = this;
 
-		trans.body->CreateFixture(&def);
+		trans.m_b2_body->CreateFixture(&def);
 	}
 
 	b2Fixture* m_fixture;

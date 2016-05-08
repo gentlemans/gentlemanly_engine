@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ge/qt_window.hpp"
 #include "ge/qt_viewport.hpp"
+#include "ge/qt_window.hpp"
 
 #include "ge/concept/application.hpp"
 

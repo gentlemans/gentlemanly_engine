@@ -8,7 +8,6 @@
 
 #include <chrono>
 
-
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
 #include <GL/glext.h>
@@ -25,10 +24,9 @@ void update_c_function(void* void_app)
 
 	std::chrono::duration<float> diff = now - last_tick;
 
-	app->signal_update(std::chrono::duration_cast<std::chrono::seconds>(diff).count());
+	app->signal_update(diff.count());
 
 	last_tick = now;
-	
 }
 
 void sdl_application::execute(window& win)
@@ -47,11 +45,9 @@ void sdl_application::execute(window& win)
 
 	while (running)
 	{
-		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		update_c_function(this);
 		SDL_GL_SwapWindow(win.m_window);
-		
 	}
 
 #endif

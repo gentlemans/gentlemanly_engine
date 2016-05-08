@@ -2,6 +2,8 @@
 
 #include "ge/concept/window.hpp"
 
+#include <entityx/entityx.h>
+
 #include <glm/glm.hpp>
 
 #include <boost/optional.hpp>

@@ -21,7 +21,7 @@ find_package(Box2D REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
-find_package(anax REQUIRED)
+find_package(EntityX REQUIRED)
 
 
 set(GE_PRIVATE_FILES
@@ -96,7 +96,6 @@ INTERFACE
 	${CMAKE_INSTALL_PREFIX}/include
 PUBLIC 
 	${BOX2D_INCLUDE_DIRS}
-	${Boost_INCLUDE_DIRS}
 	${GLM_INCLUDE_DIR}
 )
 
@@ -106,7 +105,7 @@ PRIVATE
 	${OPENGL_LIBRARIES}
 	TinyObjLoader
 PUBLIC
-	anax
+	EntityX
 	Qt5::Widgets
 	Boost::filesystem
 	${BOX2D_LIBRARIES}
@@ -117,6 +116,7 @@ target_compile_features(gentlemanly_engine
 PUBLIC
 	cxx_aggregate_default_initializers
 	cxx_generic_lambdas
+	cxx_variadic_templates
 )
 
 # so other people can use it

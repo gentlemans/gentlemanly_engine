@@ -106,8 +106,9 @@ public:
 				}
 				else if (type == "texture")
 				{
-					
-					param_data = manager.get_asset<texture_asset>(parameter["default"].get<std::string>().c_str()).data;
+					param_data = manager.get_asset<texture_asset>(
+											parameter["default"].get<std::string>().c_str())
+									 .data;
 				}
 
 				data->parameters[name] = {param_data, glsl_name, description, offset};

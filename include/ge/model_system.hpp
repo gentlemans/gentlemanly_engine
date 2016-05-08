@@ -1,5 +1,7 @@
 #pragma once
 
+#include <entityx/entityx.h>
+
 #include "ge/model_component.hpp"
 #include "ge/transform_component.hpp"
 
@@ -10,24 +12,17 @@
 
 #include "ge/ortho2d.hpp"
 
-#include <anax/anax.hpp>
-
 #include <vector>
 #include <algorithm>
 
 namespace ge
 {
-struct model_system : anax::System<anax::Requires<model_component, transform_component> >
+struct model_system : entityx::System<model_system>
 {
-	virtual void onEntityAdded(anax::Entity& ent) override { entities.push_back(ent); }
-	virtual void onEntityRemoved(anax::Entity& ent) override
-	{
-		entities.erase(std::find(entities.begin(), entities.end(), ent));
-	}
+	model_system(float arg_aspect) : aspect{arg_aspect} {}
+	float aspect;
 
-	// anax::Entity objects are really just pointers, so they don't copy underlying data
-	std::vector<anax::Entity> entities;
-
-	void render_all(const anax::Entity& camera, float aspect);
+	virtual void update(
+		entityx::EntityManager& em, entityx::EventManager& events, entityx::TimeDelta) override;
 };
 }

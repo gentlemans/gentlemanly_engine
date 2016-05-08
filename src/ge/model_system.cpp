@@ -12,7 +12,7 @@ struct parameter_setter_visitor : boost::static_visitor<void>
 	int uniform_index;
 
 	int bind_loc = 0;
-	
+
 	void operator()(float f) { glUniform1f(uniform_index, f); }
 	void operator()(glm::vec2 vec) { glUniform2f(uniform_index, vec.x, vec.y); }
 	void operator()(glm::vec3 vec) { glUniform3f(uniform_index, vec.x, vec.y, vec.z); }
@@ -20,31 +20,34 @@ struct parameter_setter_visitor : boost::static_visitor<void>
 	void operator()(const std::shared_ptr<texture>& tex)
 	{
 		glUniform1i(uniform_index, bind_loc);
-		
+
 		glActiveTexture(GL_TEXTURE0 + bind_loc);
 		glBindTexture(GL_TEXTURE_2D, tex->texture_name);
-		
 	}
 };
 
-void model_system::render_all(const anax::Entity& camera, float aspect)
+void model_system::update(
+	entityx::EntityManager& em, entityx::EventManager& events, entityx::TimeDelta)
 {
-	auto& camera_comp = camera.getComponent<camera_component>();
+	auto camera_ent = *em.entities_with_components<camera_component>().begin();
+
+	auto& camera_comp = *camera_ent.component<camera_component>().get();
 
 	glm::mat3 projection =
 		glm::ortho2d(-aspect * camera_comp.vertical_units, aspect * camera_comp.vertical_units,
 			-camera_comp.vertical_units, camera_comp.vertical_units);
-	glm::mat3 vp = projection;  // TODO:  * camera_comp.calculate_model_matrix();
+	glm::mat3 vp =
+		projection * camera_ent.component<transform_component>()->calculate_model_matrix();
 
-	for (auto& ent : entities)
+	for (auto ent : em.entities_with_components<model_component>())
 	{
-		assert(ent.hasComponent<model_component>());
+		assert(ent.has_component<model_component>());
 
-		auto& model = ent.getComponent<model_component>();
+		auto& model = *ent.component<model_component>().get();
 		auto& material = *model.m_mesh->m_material;
 		auto& shader = *material.m_shader;
 
-		auto mvp = vp;  // TODO: * calculate_model_matrix();
+		auto mvp = vp * ent.component<transform_component>()->calculate_model_matrix();
 
 		mesh& mesh_ref = *model.m_mesh;
 

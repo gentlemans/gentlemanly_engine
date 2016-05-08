@@ -3,7 +3,7 @@
 
 namespace ge
 {
-collison_component::collison_component(ge::transform_component& trans, glm::vec2 size)
+collision_component::collision_component(ge::transform_component& trans, glm::vec2 size)
 {
 	b2PolygonShape shape;
 	auto tmp_vec = trans.get_relative_transform().location;
@@ -14,10 +14,10 @@ collison_component::collison_component(ge::transform_component& trans, glm::vec2
 	def.shape = &shape;
 	def.userData = this;
 
-	trans.body->CreateFixture(&def);
+	trans.m_b2_body->CreateFixture(&def);
 }
 
-collison_component::collison_component(ge::transform_component& trans, float radius)
+collision_component::collision_component(ge::transform_component& trans, float radius)
 {
 	b2CircleShape shape;
 	auto tmp_vec = trans.get_relative_transform().location;
@@ -28,7 +28,7 @@ collison_component::collison_component(ge::transform_component& trans, float rad
 	def.shape = &shape;
 	def.userData = this;
 
-	trans.body->CreateFixture(&def);
+	trans.m_b2_body->CreateFixture(&def);
 }
 
 }  // namespace ge

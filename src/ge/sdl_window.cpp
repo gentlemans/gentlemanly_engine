@@ -63,6 +63,4 @@ glm::uvec2 sdl_window::get_size() const
 	return ret;
 }
 
-
-
 }  // namespace ge
