@@ -16,8 +16,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 # find packages
 find_package(OpenGL REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
-find_package(TinyObjLoader REQUIRED)
-find_package(Box2D REQUIRED)
+find_package(assimp REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
@@ -48,7 +47,6 @@ set(GE_PRIVATE_FILES
 set(GE_PUBLIC_FILES 
 	include/ge/asset_manager.hpp
 	include/ge/camera_component.hpp
-	include/ge/collision_component.hpp
 	include/ge/concept/application.hpp
 	include/ge/concept/asset.hpp
 	include/ge/concept/component.hpp
@@ -64,7 +62,6 @@ set(GE_PUBLIC_FILES
 	include/ge/model_component.hpp
 	include/ge/model_system.hpp
 	include/ge/ortho2d.hpp
-	include/ge/physics_system.hpp
 	include/ge/qt_application.hpp
 	include/ge/qt_viewport.hpp
 	include/ge/qt_window.hpp
@@ -75,7 +72,6 @@ set(GE_PUBLIC_FILES
 	include/ge/shader.hpp
 	include/ge/texture.hpp
 	include/ge/texture_asset.hpp
-	include/ge/transform_component.hpp
 	include/ge/transform.hpp
 	include/ge/velocity_component.hpp
 
@@ -92,10 +88,10 @@ PRIVATE
 	include
 	${OPENGL_INCLUDE_DIR}
 	${SDL2_INCLUDE_DIR}
+	${ASSIMP_INCLUDE_DIRS}
 INTERFACE 
 	${CMAKE_INSTALL_PREFIX}/include
-PUBLIC 
-	${BOX2D_INCLUDE_DIRS}
+PUBLIC
 	${GLM_INCLUDE_DIR}
 )
 
@@ -103,12 +99,11 @@ target_link_libraries(gentlemanly_engine
 PRIVATE 
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
-	TinyObjLoader
+	${ASSIMP_LIBRARIES}
 PUBLIC
 	EntityX
 	Qt5::Widgets
 	Boost::filesystem
-	${BOX2D_LIBRARIES}
 )
 
 
