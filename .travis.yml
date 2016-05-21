@@ -4,6 +4,7 @@ arch:
     packages:
         - sdl2
         - qt5-base
+        - cmake
         - assimp
         - boost
     script:
