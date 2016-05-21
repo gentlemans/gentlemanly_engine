@@ -1,23 +1,23 @@
 sudo: required
 
-language: c++
-
-dist: trusty
-
-before_install:
-    - sudo apt-get update
-    - sudo apt-get install libassimp-dev-
-    - git clone https://github.com/alecthomas/entityx
-    - mkdir -p entityx/build
-    - cd entityx/build
-    - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
-    - make
-    - sudo make install
-    - cd ../..
-
+arch:
+    repos:
+        - git
+        - sdl2
+        - qt5-base
+    script:
+        - git clone https://github.com/alecthomas/entityx
+        - mkdir -p entityx/build
+        - cd entityx/build
+        - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
+        - make
+        - sudo make install
+        - cd ../..
+        - mkidr build
+        - cd build
+        - cmake ..
+        - make
+        
 script:
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
+  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
 
