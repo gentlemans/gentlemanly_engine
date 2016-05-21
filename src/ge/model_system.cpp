@@ -1,5 +1,6 @@
 #include "ge/model_system.hpp"
 #include "ge/camera_component.hpp"
+#include "ge/transform_component.hpp"
 
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
@@ -37,7 +38,7 @@ void model_system::update(
 		glm::ortho2d(-aspect * camera_comp.vertical_units, aspect * camera_comp.vertical_units,
 			-camera_comp.vertical_units, camera_comp.vertical_units);
 	glm::mat3 vp =
-		projection * camera_ent.component<transform>()->calculate_model_matrix();
+		projection * camera_ent.component<transform_component>()->calculate_model_matrix();
 
 	for (auto ent : em.entities_with_components<model_component>())
 	{
