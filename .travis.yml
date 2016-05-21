@@ -9,6 +9,7 @@ before_install:
     - mkdir -p entityx/build
     - cd entityx/build
     - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
+    - make
     - sudo make install
     - cd ../..
 
