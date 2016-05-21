@@ -3,7 +3,6 @@
 #include <entityx/entityx.h>
 
 #include "ge/model_component.hpp"
-#include "ge/transform_component.hpp"
 
 #include "ge/concept/viewport.hpp"
 #include "ge/material.hpp"

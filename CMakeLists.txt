@@ -26,7 +26,6 @@ find_package(EntityX REQUIRED)
 set(GE_PRIVATE_FILES
 	
 	src/ge/asset_manager.cpp
-	src/ge/collision_component.cpp
 	src/ge/texture.cpp
 	src/ge/lodepng.cpp
 	src/ge/material_asset.cpp
