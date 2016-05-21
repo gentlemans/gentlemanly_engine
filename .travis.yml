@@ -5,6 +5,8 @@ language: c++
 dist: trusty
 
 before_install:
+    - sudo apt-get update
+    - sudo apt-get install libassimp-dev-
     - git clone https://github.com/alecthomas/entityx
     - mkdir -p entityx/build
     - cd entityx/build
