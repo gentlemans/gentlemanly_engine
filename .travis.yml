@@ -5,16 +5,10 @@ arch:
         - sdl2
         - qt5-base
         - cmake
+        - entityx
         - assimp
         - boost
     script:
-        - git clone https://github.com/alecthomas/entityx
-        - mkdir -p entityx/build
-        - cd entityx/build
-        - cmake -DCMAKE_INSTALL_PREFIX=/usr/ ..
-        - make
-        - sudo make install
-        - cd ../..
         - mkidr build
         - cd build
         - cmake ..
