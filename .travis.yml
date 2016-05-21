@@ -1,10 +1,11 @@
 sudo: required
 
 arch:
-    repos:
-        - git
+    packages:
         - sdl2
         - qt5-base
+        - assimp
+        - boost
     script:
         - git clone https://github.com/alecthomas/entityx
         - mkdir -p entityx/build
