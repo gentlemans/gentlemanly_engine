@@ -2,6 +2,8 @@ sudo: required
 
 language: c++
 
+dist: trusty
+
 before_install:
     - git clone https://github.com/alecthomas/entityx
     - mkdir -p entityx/build
