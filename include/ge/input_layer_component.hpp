@@ -2,5 +2,8 @@
 
 namespace ge
 {
-struct input_layer
+struct input_layer_component {
+	
+};
+
 }

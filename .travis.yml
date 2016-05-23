@@ -8,9 +8,7 @@ arch:
         - assimp
         - boost
     script:
-        - mkdir build
-        - cd build
-        - cmake ..
+        - cmake .
         - make
         
 script:
