@@ -2,8 +2,8 @@
 
 #include <boost/filesystem.hpp>
 
-#include <fstream>
 #include <algorithm>
+#include <fstream>
 
 namespace ge
 {

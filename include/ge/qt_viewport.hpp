@@ -6,8 +6,8 @@
 
 #include <glm/glm.hpp>
 
-#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QOpenGLWidget>
 
 #include <memory>
 

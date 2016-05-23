@@ -104,7 +104,7 @@ private:
 	template <typename C>
 	static char test(typename C::mapped_type*);
 	template <typename C>
-	static char(&test(...))[2];
+	static char (&test(...))[2];
 
 public:
 	static constexpr bool value = sizeof(test<T>(0)) == 1;
@@ -616,10 +616,7 @@ private:
 	static T* create(Args&&... args)
 	{
 		AllocatorType<T> alloc;
-		auto deleter = [&](T* object)
-		{
-			alloc.deallocate(object, 1);
-		};
+		auto deleter = [&](T* object) { alloc.deallocate(object, 1); };
 		std::unique_ptr<T, decltype(deleter)> object(alloc.allocate(1), deleter);
 		alloc.construct(object.get(), std::forward<Args>(args)...);
 		return object.release();
@@ -636,8 +633,7 @@ private:
 
 	@since version 1.0.0
 	*/
-	union json_value
-	{
+	union json_value {
 		/// object (stored with pointer to save storage)
 		object_t* object;
 		/// array (stored with pointer to save storage)
@@ -937,8 +933,7 @@ public:
 									std::is_constructible<basic_json,
 										typename CompatibleObjectType::mapped_type>::value,
 			int>::type = 0>
-	basic_json(const CompatibleObjectType& val)
-		: m_type(value_t::object)
+	basic_json(const CompatibleObjectType& val) : m_type(value_t::object)
 	{
 		using std::begin;
 		using std::end;
@@ -1001,8 +996,7 @@ public:
 				not std::is_same<CompatibleArrayType, typename array_t::const_iterator>::value and
 				std::is_constructible<basic_json, typename CompatibleArrayType::value_type>::value,
 			int>::type = 0>
-	basic_json(const CompatibleArrayType& val)
-		: m_type(value_t::array)
+	basic_json(const CompatibleArrayType& val) : m_type(value_t::array)
 	{
 		using std::begin;
 		using std::end;
@@ -1078,8 +1072,7 @@ public:
 	template <class CompatibleStringType,
 		typename std::enable_if<std::is_constructible<string_t, CompatibleStringType>::value,
 			int>::type = 0>
-	basic_json(const CompatibleStringType& val)
-		: basic_json(string_t(val))
+	basic_json(const CompatibleStringType& val) : basic_json(string_t(val))
 	{
 	}
 
@@ -1126,8 +1119,7 @@ public:
 	template <typename T, typename std::enable_if<not(std::is_same<T, int>::value) and
 													  std::is_same<T, number_integer_t>::value,
 							  int>::type = 0>
-	basic_json(const number_integer_t val)
-		: m_type(value_t::number_integer), m_value(val)
+	basic_json(const number_integer_t val) : m_type(value_t::number_integer), m_value(val)
 	{
 	}
 
@@ -1537,8 +1529,7 @@ public:
 			std::is_same<InputIT, typename basic_json_t::iterator>::value or
 				std::is_same<InputIT, typename basic_json_t::const_iterator>::value,
 			int>::type = 0>
-	basic_json(InputIT first, InputIT last)
-		: m_type(first.m_object->m_type)
+	basic_json(InputIT first, InputIT last) : m_type(first.m_object->m_type)
 	{
 		// make sure iterator fits the current value
 		if (first.m_object != last.m_object)
@@ -2128,10 +2119,8 @@ private:
 			T to_vector;
 			assert(m_value.array != nullptr);
 			std::transform(m_value.array->begin(), m_value.array->end(),
-				std::inserter(to_vector, to_vector.end()), [](basic_json i)
-				{
-					return i.get<typename T::value_type>();
-				});
+				std::inserter(to_vector, to_vector.end()),
+				[](basic_json i) { return i.get<typename T::value_type>(); });
 			return to_vector;
 		}
 		else
@@ -2152,10 +2141,7 @@ private:
 			assert(m_value.array != nullptr);
 			to_vector.reserve(m_value.array->size());
 			std::transform(m_value.array->begin(), m_value.array->end(),
-				std::inserter(to_vector, to_vector.end()), [](basic_json i)
-				{
-					return i.get<T>();
-				});
+				std::inserter(to_vector, to_vector.end()), [](basic_json i) { return i.get<T>(); });
 			return to_vector;
 		}
 		else
@@ -2964,7 +2950,7 @@ public:
 	@since version 1.0.0
 	*/
 	template <typename T, std::size_t n>
-	reference operator[](T*(&key)[n])
+	reference operator[](T* (&key)[n])
 	{
 		return operator[](static_cast<const T>(key));
 	}
@@ -2999,7 +2985,7 @@ public:
 	@since version 1.0.0
 	*/
 	template <typename T, std::size_t n>
-	const_reference operator[](T*(&key)[n]) const
+	const_reference operator[](T* (&key)[n]) const
 	{
 		return operator[](static_cast<const T>(key));
 	}
@@ -5249,10 +5235,8 @@ private:
 					if (c >= 0x00 and c <= 0x1f)
 					{
 						// convert a number 0..15 to its hex representation (0..f)
-						auto hexify = [](const char v) -> char
-						{
-							return (v < 10) ? ('0' + v) : ('a' + v - 10);
-						};
+						auto hexify = [](
+							const char v) -> char { return (v < 10) ? ('0' + v) : ('a' + v - 10); };
 
 						// print character c as \uxxxx
 						for (const char m : {'u', '0', '0', hexify(c >> 4), hexify(c & 0x0f)})

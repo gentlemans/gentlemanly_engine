@@ -11,8 +11,8 @@
 
 #include "ge/ortho2d.hpp"
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 namespace ge
 {

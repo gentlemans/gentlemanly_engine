@@ -1,7 +1,7 @@
 #include "ge/mesh.hpp"
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>

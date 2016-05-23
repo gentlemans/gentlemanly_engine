@@ -2,8 +2,8 @@
 
 #include "ge/concept/application.hpp"
 
-#include "ge/sdl_window.hpp"
 #include "ge/sdl_viewport.hpp"
+#include "ge/sdl_window.hpp"
 
 #include <glm/glm.hpp>
 

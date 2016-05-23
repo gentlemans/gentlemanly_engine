@@ -1,20 +1,20 @@
 
 #include "ge/qt_viewport.hpp"
-#include "ge/qt_window.hpp"
-#include "ge/qt_application.hpp"
 #include "ge/camera_component.hpp"
 #include "ge/model_system.hpp"
+#include "ge/qt_application.hpp"
+#include "ge/qt_window.hpp"
 
 #include "ge/ortho2d.hpp"
 
 #include <GL/gl.h>
 
+#include <chrono>
 #include <iostream>
 #include <stdexcept>
-#include <chrono>
 
-#include <QSurfaceFormat>
 #include <QSurface>
+#include <QSurfaceFormat>
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 

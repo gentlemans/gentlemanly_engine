@@ -1,15 +1,15 @@
 #pragma once
 
-#include "ge/concept/asset.hpp"
 #include "ge/asset_manager.hpp"
+#include "ge/concept/asset.hpp"
 #include "ge/texture.hpp"
 
-#include "ge/lodepng.h"
 #include "ge/json.hpp"
+#include "ge/lodepng.h"
 
-#include <string>
-#include <stdexcept>
 #include <iterator>
+#include <stdexcept>
+#include <string>
 
 /*
  * ASSET SPEC:

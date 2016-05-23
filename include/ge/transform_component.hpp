@@ -4,20 +4,21 @@
 
 #include <entityx/Entity.h>
 
-#include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
-namespace ge {
+namespace ge
+{
+struct transform_component
+{
+	transform_component(transform trans, entityx::Entity parent = {})
+		: m_relative_transform{trans}, m_parent{parent}
+	{
+	}
 
-struct transform_component {
-	
-	transform_component(transform trans, entityx::Entity parent = {}) : m_relative_transform{trans}, m_parent{parent}
-	{}
-	
 	transform m_relative_transform;
 	entityx::Entity m_parent;
-	
-	
+
 	transform calculate_absolute_transform() const
 	{
 		if (m_parent.valid())
@@ -52,8 +53,5 @@ struct transform_component {
 						 m_parent.component<const transform_component>()->calculate_model_matrix()
 				   : this_model;
 	}
-
-	
 };
-
 }

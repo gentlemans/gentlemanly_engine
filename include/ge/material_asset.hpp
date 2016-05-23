@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ge/material.hpp"
 #include "ge/asset_manager.hpp"
+#include "ge/material.hpp"
 
 #include "ge/json.hpp"
 

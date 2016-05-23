@@ -1,8 +1,8 @@
 #include "ge/sdl_viewport.hpp"
-#include "ge/sdl_window.hpp"
 #include "ge/camera_component.hpp"
 #include "ge/model_system.hpp"
 #include "ge/ortho2d.hpp"
+#include "ge/sdl_window.hpp"
 
 #include "SDL.h"
 

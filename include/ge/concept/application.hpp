@@ -4,8 +4,8 @@
 
 #include <boost/optional.hpp>
 
-#include "ge/concept/window.hpp"
 #include "ge/concept/viewport.hpp"
+#include "ge/concept/window.hpp"
 
 #include <memory>
 

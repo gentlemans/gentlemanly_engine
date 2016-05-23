@@ -2,10 +2,10 @@
 
 #include "ge/texture.hpp"
 
-#include <fstream>
 #include <cstdint>
-#include <unordered_map>
+#include <fstream>
 #include <string>
+#include <unordered_map>
 
 #include <glm/glm.hpp>
 

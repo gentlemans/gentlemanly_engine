@@ -16,10 +16,7 @@ qt_window::qt_window(qt_application& app, const char* title, boost::optional<glm
 
 	show();
 
-	connect(&qt_inst.qt_app, &QApplication::aboutToQuit, [this]
-		{
-			qt_inst.signal_quit();
-		});
+	connect(&qt_inst.qt_app, &QApplication::aboutToQuit, [this] { qt_inst.signal_quit(); });
 }
 
 qt_window::~qt_window() {}
