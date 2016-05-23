@@ -6,6 +6,7 @@ arch:
         - qt5-base
         - cmake
         - assimp
+        - glm
         - boost
     script:
         - cmake .
