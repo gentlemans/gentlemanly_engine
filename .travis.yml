@@ -5,11 +5,10 @@ arch:
         - sdl2
         - qt5-base
         - cmake
-        - entityx
         - assimp
         - boost
     script:
-        - mkidr build
+        - mkdir build
         - cd build
         - cmake ..
         - make
