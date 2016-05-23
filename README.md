@@ -1,6 +1,6 @@
 # gentlemanly_engine
 
-[![Build Status](https://travis-ci.org/gentlemans/gentlemanly_engine.svg?branch=master)](https://travis-ci.org/gentlemans/gentlemanly_engine)
+[![Build Status](https://codeship.com/projects/ce6ee280-02b3-0134-dd21-2e4599e21570/status?branch=master)
 
 A super standard C++ game engine
 
