@@ -1,0 +1,12 @@
+{
+ "asset_type": "shader",
+  "parameters": [
+    {
+      "glsl_name": "tex",
+      "type": "texture",
+      "name": "Texture",
+      "default": "target",
+      "description": "The texture color to show"
+    }
+  ]
+}

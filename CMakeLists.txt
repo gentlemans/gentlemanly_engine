@@ -6,7 +6,8 @@ set(PROJECT_VERSION_MINOR 1)
 set(PROJECT_VERSION_PATCH 0)
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 
-set(DOXYGEN_EXTRA_FLAGS "" CACHE STRING "Extra flags to be sent to doxygen.")
+option(DOXYGEN_EXTRA_FLAGS "Extra flags to be sent to doxygen." "")
+option(BUILD_SAMPLES "Should the samples be built?" ON)
 
 
 # update the module path so cmake can find libraries that don't have built in CMake support
@@ -84,13 +85,11 @@ add_library(gentlemanly_engine SHARED ${GE_PRIVATE_FILES} ${GE_PUBLIC_FILES})
 
 target_include_directories(gentlemanly_engine 
 PRIVATE 
-	include
 	${OPENGL_INCLUDE_DIR}
 	${SDL2_INCLUDE_DIR}
 	${ASSIMP_INCLUDE_DIRS}
-INTERFACE 
-	${CMAKE_INSTALL_PREFIX}/include
 PUBLIC
+	include
 	${GLM_INCLUDE_DIR}
 )
 
@@ -114,10 +113,14 @@ PUBLIC
 )
 
 # so other people can use it
-install(TARGETS gentlemanly_engine DESTINATION lib EXPORT gentlemanly_engine-targets)
-install(EXPORT gentlemanly_engine-targets DESTINATION lib/gentlemanly_engine)
 install(DIRECTORY include/ge DESTINATION include)
-install(FILES cmake/gentlemanly_engine-config.cmake DESTINATION lib/gentlemanly_engine)
+install(FILES cmake/gentlemanly_engine-config.cmake cmake/modules/FindEntityX.cmake DESTINATION lib/gentlemanly_engine)
+
+# Samples
+
+if(BUILD_SAMPLES)
+	add_subdirectory(samples)
+endif()
 
 # Documentation
 
