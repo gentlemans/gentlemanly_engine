@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
-project(gentlemanly_engine)
 
-set(PROJECT_VERSION_MAJOR 0)
-set(PROJECT_VERSION_MINOR 1)
-set(PROJECT_VERSION_PATCH 0)
-set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+# Allow VERSION in project()
+cmake_policy(SET CMP0048 NEW)
+
+project(gentlemanly_engine VERSION 0.1.0)
+
 
 option(DOXYGEN_EXTRA_FLAGS "Extra flags to be sent to doxygen." "")
 option(BUILD_SAMPLES "Should the samples be built?" ON)
@@ -22,6 +22,8 @@ find_package(Qt5Widgets REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 
+
+set(ENTITYX_BUILD_TESTING OFF)
 add_subdirectory(entityx)
 
 
@@ -75,8 +77,6 @@ set(GE_PUBLIC_FILES
 	include/ge/texture_asset.hpp
 	include/ge/transform.hpp
 	include/ge/velocity_component.hpp
-
-
 )
 
 
@@ -92,6 +92,7 @@ PRIVATE
 PUBLIC
 	include
 	${GLM_INCLUDE_DIR}
+	entityx/
 )
 
 target_link_libraries(gentlemanly_engine
@@ -100,7 +101,7 @@ PRIVATE
 	${OPENGL_LIBRARIES}
 	${ASSIMP_LIBRARIES}
 PUBLIC
-	EntityX
+	entityx_shared
 	Qt5::Widgets
 	Boost::filesystem
 )
