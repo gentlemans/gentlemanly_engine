@@ -9,7 +9,7 @@ arch:
         - glm
         - boost
     script:
-        - cmake .
+        - cmake -DENTITYX_BUILD_TESTING=OFF .
         - make
         
 script:

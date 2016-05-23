@@ -23,7 +23,6 @@ find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 
 
-set(ENTITYX_BUILD_TESTING OFF)
 add_subdirectory(entityx)
 
 
