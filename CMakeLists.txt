@@ -21,7 +21,8 @@ find_package(assimp REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
-find_package(EntityX REQUIRED)
+
+add_subdirectory(entityx)
 
 
 set(GE_PRIVATE_FILES
