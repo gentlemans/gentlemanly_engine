@@ -4,6 +4,8 @@
 
 #include <glm/glm.hpp>
 
+#include "ge/input_event.hpp"
+
 #include <memory>
 
 namespace ge
@@ -23,6 +25,8 @@ struct Viewport
 
 		// this should be a Window<>
 		auto& win = i_c.get_window();
+		
+		input_event ev = i.get_next_input_event();
 	}
 
 private:

@@ -10,6 +10,7 @@
 #include <QOpenGLWidget>
 
 #include <memory>
+#include <vector>
 
 namespace ge
 {
@@ -24,6 +25,8 @@ class qt_viewport : public QOpenGLWidget
 	void initializeGL() override;
 	void paintGL() override;
 	void resizeGL(int w, int h) override;
+	
+	std::vector<input_event> events;
 
 public:
 	qt_viewport(qt_application& backend, qt_window& window);
@@ -31,6 +34,12 @@ public:
 	void set_background_color(const glm::vec4 newColor);
 
 	qt_window& get_window() const { return *m_window; }
+	
+	input_event get_next_input_event();
+	
+	virtual bool event(QEvent* event) override;
+	
+	
 };
 BOOST_CONCEPT_ASSERT((concept::Viewport<qt_viewport>));
 
