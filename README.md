@@ -1,4 +1,5 @@
-# gentlemanly_engine
+
+![Gentlemanly Engine](logo.png)
 
 [![Build Status](https://travis-ci.org/gentlemans/gentlemanly_engine.svg?branch=master)](https://travis-ci.org/gentlemans/gentlemanly_engine)
 
