@@ -1,3 +1,4 @@
+#include "ge/gl.hpp"
 #include "ge/sdl_application.hpp"
 
 #include "SDL.h"
@@ -8,9 +9,6 @@
 
 #include <chrono>
 
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
-#include <GL/glext.h>
 
 namespace ge
 {

@@ -75,7 +75,7 @@ struct texture_asset
 				glm::uvec2 size;
 
 				lodepng::decode(image_raw_data, size.x, size.y,
-					boost::filesystem::absolute(filepath.c_str(), abs_filepath).c_str(), LCT_RGBA,
+					boost::filesystem::absolute(filepath.c_str(), abs_filepath).string(), LCT_RGBA,
 					8);
 
 				data = std::make_shared<texture>(image_raw_data.data(), size);

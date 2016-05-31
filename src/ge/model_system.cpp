@@ -1,10 +1,7 @@
+#include "ge/gl.hpp"
 #include "ge/model_system.hpp"
 #include "ge/camera_component.hpp"
 #include "ge/transform_component.hpp"
-
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
-#include <GL/glext.h>
 
 namespace ge
 {

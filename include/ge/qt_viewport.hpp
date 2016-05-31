@@ -10,13 +10,13 @@
 #include <QOpenGLWidget>
 
 #include <memory>
-#include <vector>
+#include <deque>
 
 namespace ge
 {
 class qt_application;
 class qt_window;
-class camera_component;
+struct camera_component;
 
 class qt_viewport : public QOpenGLWidget
 {
@@ -26,7 +26,7 @@ class qt_viewport : public QOpenGLWidget
 	void paintGL() override;
 	void resizeGL(int w, int h) override;
 	
-	std::vector<input_event> events;
+	std::deque<input_event> events;
 
 public:
 	qt_viewport(qt_application& backend, qt_window& window);

@@ -22,6 +22,10 @@ find_package(Qt5Widgets REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 
+if(WIN32)
+    # we use GLEW because it is hard to get GL3 support in win without it
+    find_package(glew REQUIRED)
+endif()
 
 add_subdirectory(entityx)
 
@@ -90,25 +94,47 @@ PRIVATE
 	${ASSIMP_INCLUDE_DIRS}
 PUBLIC
 	include
-	${GLM_INCLUDE_DIR}
+	${GLM_INCLUDE_DIRS}
 	entityx/
+	${Boost_INCLUDE_DIR}
 )
+
+link_directories(${ASSIMP_LIBRARY_DIRS})
+
+if(WIN32)
+    target_include_directories(gentlemanly_engine
+    PRIVATE
+        ${GLEW_INCLUDE_DIRS}
+    )
+endif()
 
 target_link_libraries(gentlemanly_engine
 PRIVATE 
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
-	${ASSIMP_LIBRARIES}
 PUBLIC
 	entityx_shared
 	Qt5::Widgets
-	Boost::filesystem
+	debug ${Boost_FILESYSTEM_LIBRARY_DEBUG}
+	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 )
 
+if(WIN32)
+    target_link_libraries(gentlemanly_engine
+    PRIVATE
+        ${GLEW_LIBRARIES}
+        debug assimpd
+        optimized assimp
+    )
+else()
+    target_link_libraries(gentlemanly_engine
+    PRIVATE
+        ${ASSIMP_LIBRARIES}
+    )
+endif()
 
 target_compile_features(gentlemanly_engine
 PUBLIC
-	cxx_aggregate_default_initializers
 	cxx_generic_lambdas
 	cxx_variadic_templates
 )
