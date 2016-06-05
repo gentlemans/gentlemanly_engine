@@ -1,4 +1,4 @@
-
+#include "ge/gl.hpp"
 #include "ge/qt_viewport.hpp"
 #include "ge/camera_component.hpp"
 #include "ge/qt_application.hpp"
@@ -6,7 +6,6 @@
 
 #include "ge/ortho2d.hpp"
 
-#include <GL/gl.h>
 
 #include <chrono>
 #include <iostream>
@@ -198,8 +197,10 @@ bool qt_viewport::event(QEvent* event) {
 
 input_event qt_viewport::get_next_input_event() {
 	
-	
-	
+	auto cpy = *events.begin();
+	events.pop_front();
+
+	return cpy;
 }
 
 }  // namespace ge

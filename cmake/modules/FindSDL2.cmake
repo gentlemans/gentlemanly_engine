@@ -1,4 +1,4 @@
-# Locate SDL2 library
+
 # This module defines
 # SDL2_LIBRARY, the name of the library to link against
 # SDL2_FOUND, if false, do not try to link to SDL2
@@ -65,6 +65,8 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+message("<FindSDL2.cmake>")
+
 SET(SDL2_SEARCH_PATHS
 	~/Library/Frameworks
 	/Library/Frameworks
@@ -74,6 +76,7 @@ SET(SDL2_SEARCH_PATHS
 	/opt/local # DarwinPorts
 	/opt/csw # Blastwave
 	/opt
+	${SDL2_PATH}
 )
 
 FIND_PATH(SDL2_INCLUDE_DIR SDL.h
@@ -158,7 +161,8 @@ IF(SDL2_LIBRARY_TEMP)
 	SET(SDL2_LIBRARY_TEMP "${SDL2_LIBRARY_TEMP}" CACHE INTERNAL "")
 ENDIF(SDL2_LIBRARY_TEMP)
 
-INCLUDE(FindPackageHandleStandardArgs)
+message("</FindSDL2.cmake>")
 
+INCLUDE(FindPackageHandleStandardArgs)
 
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(SDL2 REQUIRED_VARS SDL2_LIBRARY SDL2_INCLUDE_DIR)

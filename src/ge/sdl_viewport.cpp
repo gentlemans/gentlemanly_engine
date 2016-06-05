@@ -1,11 +1,10 @@
+#include "ge/gl.hpp"
 #include "ge/sdl_viewport.hpp"
 #include "ge/camera_component.hpp"
 #include "ge/ortho2d.hpp"
 #include "ge/sdl_window.hpp"
 
 #include "SDL.h"
-
-#include <GL/gl.h>
 
 #include <stdexcept>
 

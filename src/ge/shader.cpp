@@ -1,8 +1,5 @@
+#include "ge/gl.hpp"
 #include "ge/shader.hpp"
-
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
-#include <GL/glext.h>
 
 namespace ge
 {
