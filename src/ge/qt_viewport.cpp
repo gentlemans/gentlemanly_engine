@@ -1,7 +1,6 @@
 
 #include "ge/qt_viewport.hpp"
 #include "ge/camera_component.hpp"
-#include "ge/model_system.hpp"
 #include "ge/qt_application.hpp"
 #include "ge/qt_window.hpp"
 

@@ -1,12 +1,10 @@
-#include <ge/model_system.hpp>
 #include <ge/qt_application.hpp>
 
 #include <ge/asset_manager.hpp>
 #include <ge/camera_component.hpp>
 #include <ge/material_asset.hpp>
 #include <ge/mesh_asset.hpp>
-#include <ge/transform_component.hpp>
-#include <ge/world.hpp>
+#include <ge/actor.hpp>
 
 #include <iostream>
 #include <memory>
@@ -22,12 +20,12 @@ int main(int argc, char** argv)
 			"gentlemanly_engine_example_opening_window", {}, {1280, 720}, false, true);
 		auto viewport = app.make_viewport(*window);
 
-		ge::world world;
+		auto root_actor = actor::factory(nullptr);
 
 		asset_manager asset_man;
 		asset_man.add_asset_path("data/");
 
-		entityx::Entity camera;
+		
 
 		app.signal_init.connect([&] {
 

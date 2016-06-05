@@ -6,7 +6,7 @@
 
 namespace ge
 {
-struct input_layer_component
+struct input_layer
 {
 	std::function<bool(input_event)> func;
 };

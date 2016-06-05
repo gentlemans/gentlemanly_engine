@@ -23,9 +23,6 @@ find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 
 
-add_subdirectory(entityx)
-
-
 set(GE_PRIVATE_FILES
 	
 	src/ge/asset_manager.cpp
@@ -35,7 +32,6 @@ set(GE_PRIVATE_FILES
 	src/ge/material.cpp
 	src/ge/mesh_asset.cpp
 	src/ge/mesh.cpp
-	src/ge/model_system.cpp
 	src/ge/qt_application.cpp
 	src/ge/qt_viewport.cpp
 	src/ge/qt_window.cpp
@@ -62,7 +58,6 @@ set(GE_PUBLIC_FILES
 	include/ge/mesh_asset.hpp
 	include/ge/mesh.hpp
 	include/ge/model_component.hpp
-	include/ge/model_system.hpp
 	include/ge/ortho2d.hpp
 	include/ge/qt_application.hpp
 	include/ge/qt_viewport.hpp
@@ -91,7 +86,6 @@ PRIVATE
 PUBLIC
 	include
 	${GLM_INCLUDE_DIR}
-	entityx/
 )
 
 target_link_libraries(gentlemanly_engine
@@ -100,7 +94,6 @@ PRIVATE
 	${OPENGL_LIBRARIES}
 	${ASSIMP_LIBRARIES}
 PUBLIC
-	entityx_shared
 	Qt5::Widgets
 	Boost::filesystem
 )
