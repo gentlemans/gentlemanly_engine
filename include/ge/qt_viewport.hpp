@@ -26,6 +26,9 @@ class qt_viewport : public QOpenGLWidget
 	
 	std::deque<input_event> events;
 
+	virtual bool event(QEvent* event) override;
+	
+	
 public:
 	qt_viewport(qt_application& backend, qt_window& window);
 
@@ -35,8 +38,9 @@ public:
 	
 	input_event get_next_input_event();
 	
-	virtual bool event(QEvent* event) override;
-	
+	float get_aspect_ratio() const {
+		return width() / height();
+	}
 	
 };
 BOOST_CONCEPT_ASSERT((concept::Viewport<qt_viewport>));

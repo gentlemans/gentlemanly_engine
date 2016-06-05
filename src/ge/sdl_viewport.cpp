@@ -1,6 +1,6 @@
 #include "ge/gl.hpp"
 #include "ge/sdl_viewport.hpp"
-#include "ge/camera_component.hpp"
+#include "ge/camera_actor.hpp"
 #include "ge/ortho2d.hpp"
 #include "ge/sdl_window.hpp"
 
@@ -127,6 +127,14 @@ input_event sdl_viewport::get_next_input_event() {
 			return input_mouse_button{sdl_mb_to_ge(event.button.button), true};
 	}
 	
+}
+
+float sdl_viewport::get_aspect_ratio() const {
+	int x, y;
+	
+	SDL_GetWindowSize(m_window->m_window, &x, &y);
+	
+	return (float)x / (float)y;
 }
 
 }

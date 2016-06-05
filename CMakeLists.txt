@@ -28,12 +28,12 @@ if(WIN32)
 endif()
 
 set(GE_PRIVATE_FILES
-	
+	src/ge/actor.cpp
 	src/ge/asset_manager.cpp
-	src/ge/texture.cpp
 	src/ge/lodepng.cpp
 	src/ge/material_asset.cpp
 	src/ge/material.cpp
+	src/ge/mesh_actor.cpp
 	src/ge/mesh_asset.cpp
 	src/ge/mesh.cpp
 	src/ge/qt_application.cpp
@@ -43,25 +43,30 @@ set(GE_PRIVATE_FILES
 	src/ge/sdl_viewport.cpp
 	src/ge/sdl_window.cpp
 	src/ge/shader.cpp
-
+	src/ge/texture.cpp
 )
 
 set(GE_PUBLIC_FILES 
+	include/ge/actor.hpp
 	include/ge/asset_manager.hpp
-	include/ge/camera_component.hpp
+	include/ge/camera_actor.hpp
 	include/ge/concept/application.hpp
 	include/ge/concept/asset.hpp
 	include/ge/concept/component.hpp
 	include/ge/concept/variadic_concept.hpp
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
+	include/ge/gl.hpp
+	include/ge/input_event.hpp
+	include/ge/input_layer.hpp
+	include/ge/json_helper.hpp
 	include/ge/json.hpp
 	include/ge/lodepng.h
 	include/ge/material_asset.hpp
 	include/ge/material.hpp
+	include/ge/mesh_actor.hpp
 	include/ge/mesh_asset.hpp
 	include/ge/mesh.hpp
-	include/ge/model_component.hpp
 	include/ge/ortho2d.hpp
 	include/ge/qt_application.hpp
 	include/ge/qt_viewport.hpp
@@ -71,8 +76,8 @@ set(GE_PUBLIC_FILES
 	include/ge/sdl_window.hpp
 	include/ge/shader_asset.hpp
 	include/ge/shader.hpp
-	include/ge/texture.hpp
 	include/ge/texture_asset.hpp
+	include/ge/texture.hpp
 	include/ge/transform.hpp
 	include/ge/velocity_component.hpp
 )
@@ -110,6 +115,8 @@ PUBLIC
 	Qt5::Widgets
 	debug ${Boost_FILESYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
+	debug ${Boost_SYSTEM_LIBRARY_DEBUG}
+	optimized ${Boost_SYSTEM_LIBRARY_RELEASE}
 )
 
 if(WIN32)

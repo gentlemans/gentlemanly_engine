@@ -10,8 +10,7 @@
 
 namespace ge
 {
-struct camera_component;
-struct model_system;
+	
 namespace concept
 {
 template <typename X>
@@ -27,6 +26,8 @@ struct Viewport
 		auto& win = i_c.get_window();
 		
 		input_event ev = i.get_next_input_event();
+		
+		float aspect = i_c.get_aspect_ratio();
 	}
 
 private:

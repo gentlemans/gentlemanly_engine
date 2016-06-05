@@ -16,9 +16,9 @@
 namespace ge
 {
 
-class actor : std::enable_shared_from_this<actor>
+class actor : public std::enable_shared_from_this<actor>
 {
-	// no shared_ptr because that would be cyclic reference
+	// no shared_ptr because that would be a cyclic reference
 	actor* m_parent = nullptr;
 
 	// set for find -- we don't care much about insertion speed, but iteration is more important.
@@ -26,22 +26,27 @@ class actor : std::enable_shared_from_this<actor>
 
 	transform m_transform;
 	
+protected:
+	
 	// called from `factory`
-	actor();
+	actor(){};
 	
 	// so we can use make_shared
 	
-	friend std::shared_ptr<actor> std::make_shared<actor>();
 	
 public:
 	
-	
-	template<typename ActorType = actor, typename... InitParams, typename = std::enable_if_t<std::is_base_of<actor, ActorType>::value>>
+	/// Creates an actor of type ActorType 
+	/// \param parent The parent actor, null for a root actor
+	/// \param init_params The initialization paramters, will be passed to ActorType::initialize
+	template<typename ActorType = actor, typename... InitParams>
 	static std::shared_ptr<ActorType> factory(actor* parent, InitParams&&... init_params) {
 		
-		auto ret = std::make_shared<actor>();
+		static_assert(std::is_base_of<actor, ActorType>::value, "Cannot use actor::factory on non-actor type.");
 		
-		ret->set_parent(parent);
+		auto ret = std::shared_ptr<ActorType>(new ActorType());
+		
+		if(parent) ret->set_parent(parent);
 		ret->initialize(std::forward<InitParams>(init_params)...);
 		
 		return ret;
@@ -191,8 +196,15 @@ public:
 	actor* get_parent() const { return m_parent; }
 	bool has_parent() const { return m_parent; }
 	
-	// override this for custom rendering
-	virtual void render(const glm::mat3& view_projection_matrix) {}
+	// rendering
+	
+	void render_all(const glm::mat3& view_projection_matrix) {
+		this->render(view_projection_matrix);
+		
+		for(auto child : m_children) {
+			child->render_all(view_projection_matrix);
+		}
+	}
 	
 	// SIGNALS
 	//////////
@@ -200,6 +212,12 @@ public:
 	boost::signals2::signal<void(actor& actor_that_changed)> signal_rotation_changed;
 	boost::signals2::signal<void(actor& actor_that_changed)> signal_scale_changed;
 	boost::signals2::signal<void(actor& actor_that_changed)> signal_transform_changed;
+	
+protected:
+	
+	// override this for custom rendering
+	virtual void render(const glm::mat3& view_projection_matrix) {}
+	
 };
 
 }  // namespace ge

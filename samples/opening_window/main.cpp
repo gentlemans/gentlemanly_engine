@@ -1,9 +1,11 @@
 #include <ge/qt_application.hpp>
+#include <ge/sdl_application.hpp>
 
 #include <ge/asset_manager.hpp>
-#include <ge/camera_component.hpp>
+#include <ge/camera_actor.hpp>
 #include <ge/material_asset.hpp>
 #include <ge/mesh_asset.hpp>
+#include <ge/mesh_actor.hpp>
 #include <ge/actor.hpp>
 
 #include <iostream>
@@ -15,7 +17,7 @@ int main(int argc, char** argv)
 {
 	try
 	{
-		qt_application app(argc, argv);
+		sdl_application app(argc, argv);
 		auto window = app.make_window(
 			"gentlemanly_engine_example_opening_window", {}, {1280, 720}, false, true);
 		auto viewport = app.make_viewport(*window);
@@ -25,7 +27,7 @@ int main(int argc, char** argv)
 		asset_manager asset_man;
 		asset_man.add_asset_path("data/");
 
-		
+		std::shared_ptr<camera_actor> camera;
 
 		app.signal_init.connect([&] {
 
@@ -35,18 +37,16 @@ int main(int argc, char** argv)
 			auto wallMesh = asset_man.get_asset<mesh_asset>("ground");
 
 			// wall
-			auto wall = world.entities.create();
-			wall.assign<model_component>(wallMesh.data);
-			wall.assign<transform_component>(transform{{4.f, 0.f}, 3.f});
+			auto wall = actor::factory<mesh_actor>(root_actor.get(), meshasset.data);
 
 			// init camera
-			camera = world.entities.create();
-			auto trans = camera.assign<transform_component>(transform{{-0.f, 0.f}, 0.f});
-			camera.assign<camera_component>(20.f);
+			camera = actor::factory<camera_actor>(root_actor.get(), 5.f);
 
 		});
 
-		app.signal_update.connect([&](float dt) { world.update(dt); });
+		app.signal_update.connect([&](float dt) { 
+			camera->render(*root_actor, viewport->get_aspect_ratio());
+		});
 
 		app.execute(*window);
 	}

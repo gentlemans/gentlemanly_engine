@@ -30,7 +30,9 @@ public:
 	asset_manager& operator=(const asset_manager&) = default;
 	asset_manager& operator=(asset_manager&&) = default;
 
-	// lower priority is earlier
+	/// Adds a search path to find assets
+	/// \param path The path to add 
+	/// \param priority The priority of the path, the lower the priority the earlier it gets checked
 	void add_asset_path(std::string path, uint8_t priority = 0);
 
 	template <typename asset_type>
