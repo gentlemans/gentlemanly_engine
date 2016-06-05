@@ -6,12 +6,39 @@
 #include <ge/camera_actor.hpp>
 #include <ge/material_asset.hpp>
 #include <ge/mesh_actor.hpp>
+#include <ge/mesh.hpp>
 #include <ge/mesh_asset.hpp>
+#include <ge/input_layer.hpp>
 
 #include <iostream>
 #include <memory>
 
 using namespace ge;
+
+struct wall_actor : actor {
+	
+	mesh_actor* m_mesh; // this doesn't need to be a shared_ptr because the actor already tracks it
+	
+	input_layer m_input;
+	
+	void initialize(const std::shared_ptr<mesh>& mesh) {
+		m_mesh = actor::factory<mesh_actor>(this, mesh).get();
+		
+		m_input.func = [this] (input_event in) -> bool{
+			if(in == input_event{input_keyboard{key::e_w, true}}) {
+				m_mesh->set_relative_location(m_mesh->get_relative_location() + glm::vec2{1.f, 1.f});
+				return true;
+			} 
+			if(in == input_event{input_keyboard{key::e_s, true}}) {
+				m_mesh->set_relative_location(m_mesh->get_relative_location() - glm::vec2{1.f, 1.f});
+				return true;
+			}
+			return false;
+		};
+		
+	}
+	
+};
 
 int main(int argc, char** argv)
 {
