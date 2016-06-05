@@ -35,6 +35,9 @@ public:
 	/// \param priority The priority of the path, the lower the priority the earlier it gets checked
 	void add_asset_path(std::string path, uint8_t priority = 0);
 
+	/// Loads an asset from disk
+	/// \param name The name of the asset, which is a folder inside an asset path
+	/// \return The asset
 	template <typename asset_type>
 	asset_type get_asset(const char* name)
 	{

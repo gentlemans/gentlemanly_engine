@@ -10,7 +10,7 @@ struct camera_actor : actor
 	void initialize(float arg_vert_units) { m_vertical_units = arg_vert_units; }
 	float m_vertical_units;
 
-	void render(actor& root, float aspect)
+	void render_actors(actor& root, float aspect)
 	{
 		glm::mat3 p = glm::ortho2d(-aspect * m_vertical_units, aspect * m_vertical_units,
 			-m_vertical_units, m_vertical_units);
@@ -18,7 +18,9 @@ struct camera_actor : actor
 
 		glm::mat3 vp = p * v;
 
-		root.render_all(vp);
+		root.propagate_to_children([&vp](actor& act) {
+			act.render(vp);
+		});
 	}
 };
 }

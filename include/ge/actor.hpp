@@ -13,6 +13,8 @@
 
 namespace ge
 {
+	
+/// The class that represents anything that can be placed in the world.
 class actor : public std::enable_shared_from_this<actor>
 {
 	// no shared_ptr because that would be a cyclic reference
@@ -51,7 +53,7 @@ public:
 	actor(const actor&) = delete;
 	actor(actor&&) = delete;
 
-	// default version, can be overidden in children
+	/// initializes that class--create another version of this in child actors with parameters
 	void initialize(){};
 
 	actor& operator=(const actor&) = delete;
@@ -59,6 +61,7 @@ public:
 
 	virtual ~actor();
 
+	/// Gets a std::shared_ptr<actor> from the actor
 	std::shared_ptr<actor> shared() { return shared_from_this(); }
 	// transform transformation functions
 	/////////////////////////////////////
@@ -163,9 +166,9 @@ public:
 	{
 		glm::mat3 this_model;
 
-		glm::scale(this_model, get_relative_scale());
-		glm::translate(this_model, get_relative_location());
-		glm::rotate(this_model, get_relative_rotation());
+		this_model = glm::scale(this_model, get_relative_scale());
+		this_model = glm::translate(this_model, get_relative_location());
+		this_model = glm::rotate(this_model, get_relative_rotation());
 
 		return has_parent() ? this_model * get_parent()->calculate_model_matrix() : this_model;
 	}
@@ -189,17 +192,24 @@ public:
 		m_parent = new_parent;
 	}
 
+	/// Gets the parent actor
+	/// \return The parent actor if present, otherwise `nullptr`
 	actor* get_parent() const { return m_parent; }
+	/// Gets if the actor has a parent. 
+	/// \return Has a parent?
 	bool has_parent() const { return m_parent; }
 	// rendering
 
-	void render_all(const glm::mat3& view_projection_matrix)
+	/// Propagates  function to all the children
+	/// \param func The function to propagate
+	template<typename F>
+	void propagate_to_children(F&& func)
 	{
-		this->render(view_projection_matrix);
-
+		std::forward<F>(func)(*this);
+		
 		for (auto child : m_children)
 		{
-			child->render_all(view_projection_matrix);
+			child->propagate_to_children(std::forward<F>(func));
 		}
 	}
 
@@ -210,8 +220,9 @@ public:
 	boost::signals2::signal<void(actor& actor_that_changed)> signal_scale_changed;
 	boost::signals2::signal<void(actor& actor_that_changed)> signal_transform_changed;
 
-protected:
-	// override this for custom rendering
+	
+	/// Override this for custom rendering. This should produce GL calls.
+	/// \param view_projection_matrix The VP of the MVP matrix
 	virtual void render(const glm::mat3& view_projection_matrix) {}
 };
 

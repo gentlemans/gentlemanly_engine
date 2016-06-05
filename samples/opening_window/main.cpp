@@ -31,13 +31,14 @@ int main(int argc, char** argv)
 
 		app.signal_init.connect([&] {
 
-			viewport->set_background_color({1.f, 0.f, 0.f, 1.f});
+			viewport->set_background_color({.2f, .2f, .2f, 1.f});
 
 			auto meshasset = asset_man.get_asset<mesh_asset>("square");
 			auto wallMesh = asset_man.get_asset<mesh_asset>("ground");
 
 			// wall
 			auto wall = actor::factory<mesh_actor>(root_actor.get(), meshasset.data);
+			wall->set_relative_location({1.f, 3.f});
 
 			// init camera
 			camera = actor::factory<camera_actor>(root_actor.get(), 5.f);
@@ -45,7 +46,7 @@ int main(int argc, char** argv)
 		});
 
 		app.signal_update.connect(
-			[&](float dt) { camera->render(*root_actor, viewport->get_aspect_ratio()); });
+			[&](float dt) { camera->render_actors(*root_actor, viewport->get_aspect_ratio()); });
 
 		app.execute(*window);
 	}
