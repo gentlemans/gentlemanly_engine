@@ -1,5 +1,5 @@
-#include "ge/gl.hpp"
 #include "ge/sdl_window.hpp"
+#include "ge/gl.hpp"
 #include "ge/sdl_application.hpp"
 
 #include "SDL.h"

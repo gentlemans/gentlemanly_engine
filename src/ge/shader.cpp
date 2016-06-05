@@ -1,5 +1,5 @@
-#include "ge/gl.hpp"
 #include "ge/shader.hpp"
+#include "ge/gl.hpp"
 
 namespace ge
 {

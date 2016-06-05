@@ -21,11 +21,9 @@ public:
 	void set_background_color(const glm::vec4& newColor);
 
 	sdl_window& get_window() const { return *m_window; }
-	
 	input_event get_next_input_event();
-	
+
 	float get_aspect_ratio() const;
-	
 };
 BOOST_CONCEPT_ASSERT((concept::Viewport<sdl_viewport>));
 

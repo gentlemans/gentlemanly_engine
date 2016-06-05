@@ -12,9 +12,8 @@ struct transform
 
 	bool operator==(const transform& other)
 	{
-		return this->location == other.location &&
-			this->rotation == other.rotation &&
-			this->scale == other.scale;
+		return this->location == other.location && this->rotation == other.rotation &&
+			   this->scale == other.scale;
 	}
 
 	bool operator!=(const transform& other) { return !(*this == other); }

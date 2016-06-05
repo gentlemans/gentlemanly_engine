@@ -1,5 +1,5 @@
-#include "ge/gl.hpp"
 #include "ge/sdl_application.hpp"
+#include "ge/gl.hpp"
 
 #include "SDL.h"
 
@@ -8,7 +8,6 @@
 #endif
 
 #include <chrono>
-
 
 namespace ge
 {

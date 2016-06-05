@@ -1,11 +1,11 @@
 #include "ge/mesh_actor.hpp"
 #include "ge/gl.hpp"
-#include "ge/mesh.hpp"
 #include "ge/material.hpp"
+#include "ge/mesh.hpp"
 #include "ge/shader.hpp"
 
-namespace ge {
-	
+namespace ge
+{
 struct parameter_setter_visitor : boost::static_visitor<void>
 {
 	int uniform_index;
@@ -25,8 +25,8 @@ struct parameter_setter_visitor : boost::static_visitor<void>
 	}
 };
 
-void mesh_actor::render(const glm::mat3& vp_mat) {
-	
+void mesh_actor::render(const glm::mat3& vp_mat)
+{
 	auto mvp = vp_mat * calculate_model_matrix();
 	auto& mesh_ref = *m_mesh;
 	auto& material_ref = *mesh_ref.m_material;
@@ -75,8 +75,5 @@ void mesh_actor::render(const glm::mat3& vp_mat) {
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-
-	
 }
-
 }

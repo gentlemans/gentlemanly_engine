@@ -17,7 +17,7 @@ enum class key
 	e_right_alt,
 	e_left_ctrl,
 	e_right_ctrl,
-	
+
 	e_0 = '0',
 	e_1 = '1',
 	e_2 = '2',
@@ -30,7 +30,7 @@ enum class key
 	e_9 = '9',
 	e_minus = '-',
 	e_equals = '=',
-	
+
 	e_a = 'a',
 	e_b = 'b',
 	e_c = 'c',
@@ -68,9 +68,9 @@ enum class key
 	e_apostrophe = '\'',
 	e_back_tick = '`',
 	e_space = ' ',
-	
+
 	e_escape = '\033',
-	
+
 	e_insert,
 	e_delete = '\177',
 	e_home,
@@ -80,13 +80,13 @@ enum class key
 	e_print_screen,
 	e_scroll_lock,
 	e_pause,
-	
+
 	e_left_bracket = '[',
 	e_right_bracket = ']',
-	
+
 	e_tab = '\t',
 	e_caps_lock,
-	
+
 	e_F0,
 	e_F1,
 	e_F2,
@@ -100,7 +100,7 @@ enum class key
 	e_F10,
 	e_F11,
 	e_F12,
-	
+
 	// numpad
 	e_numpad_0,
 	e_numpad_1,
@@ -112,7 +112,7 @@ enum class key
 	e_numpad_7,
 	e_numpad_8,
 	e_numpad_9,
-	
+
 	e_num_lock,
 	e_numpad_divide,
 	e_numpad_times,
@@ -120,24 +120,24 @@ enum class key
 	e_numpad_plus,
 	e_numpad_enter,
 	e_numpad_period,
-	
+
 	e_left,
 	e_up,
 	e_down,
 	e_right,
-	
-	
+
 };
 
 struct input_keyboard
 {
 	key input_key;
-	
+
 	// false for released
 	bool pressed;
 };
 
-enum class mouse_button {
+enum class mouse_button
+{
 	e_left_button,
 	e_right_button,
 	e_middle_button,
@@ -145,20 +145,21 @@ enum class mouse_button {
 	e_button_2,
 };
 
-struct input_mouse_move 
+struct input_mouse_move
 {
 	glm::vec2 new_location;
-	
 };
 
-struct input_mouse_button 
+struct input_mouse_button
 {
 	mouse_button m_button;
-	bool pressed; // false for released
+	bool pressed;  // false for released
 };
 
-struct input_none {};
+struct input_none
+{
+};
 
-using input_event = boost::variant<input_keyboard, input_mouse_move, input_mouse_button, input_none>;
-
+using input_event =
+	boost::variant<input_keyboard, input_mouse_move, input_mouse_button, input_none>;
 }

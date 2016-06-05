@@ -1,11 +1,10 @@
-#include "ge/gl.hpp"
 #include "ge/texture.hpp"
+#include "ge/gl.hpp"
 
 #include <cassert>
 #include <cstdio>
 
 #include <stdexcept>
-
 
 namespace ge
 {

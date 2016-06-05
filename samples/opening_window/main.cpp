@@ -1,12 +1,12 @@
 #include <ge/qt_application.hpp>
 #include <ge/sdl_application.hpp>
 
+#include <ge/actor.hpp>
 #include <ge/asset_manager.hpp>
 #include <ge/camera_actor.hpp>
 #include <ge/material_asset.hpp>
-#include <ge/mesh_asset.hpp>
 #include <ge/mesh_actor.hpp>
-#include <ge/actor.hpp>
+#include <ge/mesh_asset.hpp>
 
 #include <iostream>
 #include <memory>
@@ -44,9 +44,8 @@ int main(int argc, char** argv)
 
 		});
 
-		app.signal_update.connect([&](float dt) { 
-			camera->render(*root_actor, viewport->get_aspect_ratio());
-		});
+		app.signal_update.connect(
+			[&](float dt) { camera->render(*root_actor, viewport->get_aspect_ratio()); });
 
 		app.execute(*window);
 	}
