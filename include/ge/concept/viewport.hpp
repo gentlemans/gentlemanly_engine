@@ -7,6 +7,7 @@
 #include "ge/input_event.hpp"
 
 #include <memory>
+#include <vector>
 
 namespace ge
 {
@@ -24,7 +25,7 @@ struct Viewport
 		// this should be a Window<>
 		auto& win = i_c.get_window();
 
-		input_event ev = i.get_next_input_event();
+		std::vector<input_event> ev = i.get_input_events();
 
 		float aspect = i_c.get_aspect_ratio();
 	}

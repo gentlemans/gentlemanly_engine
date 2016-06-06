@@ -18,7 +18,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 find_package(OpenGL REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(assimp REQUIRED)
-find_package(Qt5Widgets REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 
@@ -36,14 +35,12 @@ set(GE_PRIVATE_FILES
 	src/ge/mesh_actor.cpp
 	src/ge/mesh_asset.cpp
 	src/ge/mesh.cpp
-	src/ge/qt_application.cpp
-	src/ge/qt_viewport.cpp
-	src/ge/qt_window.cpp
 	src/ge/sdl_application.cpp
 	src/ge/sdl_viewport.cpp
 	src/ge/sdl_window.cpp
 	src/ge/shader.cpp
 	src/ge/texture.cpp
+	src/ge/input_consumer.cpp
 )
 
 set(GE_PUBLIC_FILES 
@@ -58,7 +55,7 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/window.hpp
 	include/ge/gl.hpp
 	include/ge/input_event.hpp
-	include/ge/input_layer.hpp
+	include/ge/input_consumer.hpp
 	include/ge/json_helper.hpp
 	include/ge/json.hpp
 	include/ge/lodepng.h
@@ -68,9 +65,6 @@ set(GE_PUBLIC_FILES
 	include/ge/mesh_asset.hpp
 	include/ge/mesh.hpp
 	include/ge/ortho2d.hpp
-	include/ge/qt_application.hpp
-	include/ge/qt_viewport.hpp
-	include/ge/qt_window.hpp
 	include/ge/sdl_application.hpp
 	include/ge/sdl_viewport.hpp
 	include/ge/sdl_window.hpp
@@ -112,7 +106,6 @@ PRIVATE
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
 PUBLIC
-	Qt5::Widgets
 	debug ${Boost_FILESYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 	debug ${Boost_SYSTEM_LIBRARY_DEBUG}

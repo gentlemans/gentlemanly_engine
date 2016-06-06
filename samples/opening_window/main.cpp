@@ -1,4 +1,3 @@
-#include <ge/qt_application.hpp>
 #include <ge/sdl_application.hpp>
 
 #include <ge/actor.hpp>
@@ -8,34 +7,33 @@
 #include <ge/mesh_actor.hpp>
 #include <ge/mesh.hpp>
 #include <ge/mesh_asset.hpp>
-#include <ge/input_layer.hpp>
+#include <ge/input_consumer.hpp>
+#include <ge/input_consumer.hpp>
 
 #include <iostream>
 #include <memory>
 
 using namespace ge;
 
-struct wall_actor : actor {
+struct wall_actor : actor, input_consumer<wall_actor> {
 	
 	mesh_actor* m_mesh; // this doesn't need to be a shared_ptr because the actor already tracks it
-	
-	input_layer m_input;
+
 	
 	void initialize(const std::shared_ptr<mesh>& mesh) {
 		m_mesh = actor::factory<mesh_actor>(this, mesh).get();
 		
-		m_input.func = [this] (input_event in) -> bool{
-			if(in == input_event{input_keyboard{key::e_w, true}}) {
-				m_mesh->set_relative_location(m_mesh->get_relative_location() + glm::vec2{1.f, 1.f});
-				return true;
-			} 
-			if(in == input_event{input_keyboard{key::e_s, true}}) {
-				m_mesh->set_relative_location(m_mesh->get_relative_location() - glm::vec2{1.f, 1.f});
-				return true;
-			}
-			return false;
-		};
+		steal_input();
 		
+	}
+	
+	void handle_input(const input_event& ev) {
+		if(ev == input_event{input_keyboard{key::e_w, true}}) {
+			m_mesh->set_relative_location(m_mesh->get_relative_location() + glm::vec2{1.f, 1.f});
+		} 
+		else if(ev == input_event{input_keyboard{key::e_s, true}}) {
+			m_mesh->set_relative_location(m_mesh->get_relative_location() - glm::vec2{1.f, 1.f});
+		}
 	}
 	
 };
@@ -64,7 +62,7 @@ int main(int argc, char** argv)
 			auto wallMesh = asset_man.get_asset<mesh_asset>("ground");
 
 			// wall
-			auto wall = actor::factory<mesh_actor>(root_actor.get(), meshasset.data);
+			auto wall = actor::factory<wall_actor>(root_actor.get(), meshasset.data);
 			wall->set_relative_location({1.f, 3.f});
 
 			// init camera
@@ -73,7 +71,10 @@ int main(int argc, char** argv)
 		});
 
 		app.signal_update.connect(
-			[&](float dt) { camera->render_actors(*root_actor, viewport->get_aspect_ratio()); });
+			[&](float dt) {
+				camera->render_actors(*root_actor, viewport->get_aspect_ratio()); 
+				input_consumer_manager::process_events(*viewport);
+			});
 
 		app.execute(*window);
 	}

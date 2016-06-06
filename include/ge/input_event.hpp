@@ -180,12 +180,6 @@ struct input_mouse_button
 	}
 };
 
-struct input_none
-{
-	bool operator==(input_none) const { return true; }
-	bool operator!=(input_none) const { return false; }
-};
-
 using input_event =
-	boost::variant<input_keyboard, input_mouse_move, input_mouse_button, input_none>;
+	boost::variant<input_keyboard, input_mouse_move, input_mouse_button>;
 }

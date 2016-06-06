@@ -175,23 +175,30 @@ void sdl_viewport::set_background_color(const glm::vec4& newColor)
 	glClearColor(newColor.r, newColor.g, newColor.b, newColor.a);
 }
 
-input_event sdl_viewport::get_next_input_event()
+std::vector<input_event> sdl_viewport::get_input_events()
 {
 	SDL_Event event;
 
-	SDL_PollEvent(&event);
-
-	switch (event.type)
-	{
-		case SDL_KEYDOWN:
-			return input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true};
-		case SDL_KEYUP:
-			return input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false};
-		case SDL_MOUSEMOTION:
-			return input_mouse_move{{event.motion.x, event.motion.y}};
-		case SDL_MOUSEBUTTONDOWN:
-			return input_mouse_button{sdl_mb_to_ge(event.button.button), true};
+	std::vector<input_event> events;
+	
+	// run until there is an event that we recognize
+	while(SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+			case SDL_KEYDOWN:
+				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true}); break;
+			case SDL_KEYUP:
+				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false}); break;
+			case SDL_MOUSEMOTION:
+				events.push_back(input_mouse_move{{event.motion.x, event.motion.y}}); break;
+			case SDL_MOUSEBUTTONDOWN:
+				events.push_back(input_mouse_button{sdl_mb_to_ge(event.button.button), true}); break;
+		}
 	}
+	
+	return std::move(events);
+
+
 }
 
 float sdl_viewport::get_aspect_ratio() const
