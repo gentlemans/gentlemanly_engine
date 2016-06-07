@@ -25,6 +25,23 @@ struct parameter_setter_visitor : boost::static_visitor<void>
 	}
 };
 
+struct attr_applying_visitor : boost::static_visitor<void>
+{
+	unsigned attrib_id;
+	mesh* m;
+	std::pair<const std::string, shader::attribute>* attr;
+	
+	
+	template<typename T>
+	void operator()(T atrtype) {
+			glEnableVertexAttribArray(attrib_id);
+			glBindBuffer(GL_ARRAY_BUFFER, m->additonal_vertex_data[attr->first]);
+			glVertexAttribPointer(attr->second.attribute_id, sizeof(atrtype) / sizeof(float), GL_FLOAT, GL_FALSE, sizeof(atrtype), nullptr);
+		}
+	
+};
+
+
 void mesh_actor::render(const glm::mat3& vp_mat)
 {
 	auto mvp = vp_mat * calculate_model_matrix();
@@ -66,16 +83,20 @@ void mesh_actor::render(const glm::mat3& vp_mat)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh_ref.vertex_buffer);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh_ref.uv_buffer);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
-	
-	
+	size_t next_attribarray = 1;
+	for(auto& attr : shader_ref.attributes) {
+		attr_applying_visitor visitor;
+		visitor.attrib_id = next_attribarray++;
+		visitor.m = &mesh_ref;
+		visitor.attr = &attr;
+		
+		attr.second.type.apply_visitor(visitor);
+	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh_ref.element_buffer);
 	glDrawElements(GL_TRIANGLES, mesh_ref.num_triangles * 3, GL_UNSIGNED_INT, nullptr);
 
 	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
+	while(--next_attribarray) glDisableVertexAttribArray(next_attribarray);
 }
 }

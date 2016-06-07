@@ -8,5 +8,12 @@
       "default": "target",
       "description": "The texture color to show"
     }
+  ],
+  "vertex_attributes": [
+    {
+      "type": "vec2",
+      "glsl_id": 1,
+      "name": "uv"
+    }
   ]
 }

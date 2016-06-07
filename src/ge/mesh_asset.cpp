@@ -68,8 +68,11 @@ mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
 
 	// these reinterpret_casts are safe because glm makes sure to not have any
 	// padding
-	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(locs.data()), texcoords.data(),
+	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(locs.data()),
 		locs.size(), elements.data(), mesh_ref.mNumFaces);
+	
+	
+	data->add_additonal_data("uv", texcoords.data(), texcoords.size() * sizeof(glm::vec2));
 
 	// load up material
 	std::string material_asset_path = json_data["material"];

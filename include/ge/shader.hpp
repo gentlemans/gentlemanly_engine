@@ -39,9 +39,14 @@ public:
 		: shader{std::ifstream{vertex_filename}, std::ifstream{frag_filename}}
 	{
 	}
+	
+	struct attribute {
+		attribute_type type;
+		unsigned attribute_id;
+	};
 
 	std::unordered_map<std::string, parameter> parameters;
-	std::unordered_map<std::string, std::pair<attribute_type, unsigned>> attributes;
+	std::unordered_map<std::string, attribute> attributes;
 
 	int32_t mvp_uniform_location;
 };

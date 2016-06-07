@@ -39,6 +39,6 @@ public:
 	size_t num_triangles;
 	
 	// additional data
-	boost::container::flat_map<std::string, std::pair<shader::attribute_type, unsigned>> additonal_vertex_data;
+	boost::container::flat_map<std::string, unsigned> additonal_vertex_data;
 };
 }
