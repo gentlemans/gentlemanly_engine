@@ -8,7 +8,7 @@
 
 namespace ge
 {
-texture::texture(const unsigned char* data, glm::uvec2 size)
+texture::texture(const unsigned char* data, glm::uvec2 arg_size) : size{arg_size}
 {
 	// just load straight up
 	glGenTextures(1, &texture_name);
@@ -35,6 +35,8 @@ texture::texture::texture(const unsigned char* data)
 	unsigned int linearSize = *(unsigned int*)&(header[16]);
 	unsigned int mipMapCount = *(unsigned int*)&(header[24]);
 	unsigned int fourCC = *(unsigned int*)&(header[80]);
+	
+	size = {width, height};
 
 	const unsigned char* buffer = data + 124;
 	unsigned int bufsize;

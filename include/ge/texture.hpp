@@ -10,12 +10,19 @@ namespace ge
 class texture
 {
 public:
-	// from uncompressed RGBA
+	
+	// a null object
+	texture(){};
+	
+	/// from uncompressed RGBA
 	texture(const unsigned char* data, glm::uvec2 size);
 
-	// from compressed DXT -- no need for size, because YOU ARE GOING TO ALSO PASS THE HEADER!!!
+	/// from compressed DXT -- no need for size, because YOU ARE GOING TO ALSO PASS THE HEADER!!!
 	texture(const unsigned char* data);
+	
+	glm::uvec2 size = {};
 
-	unsigned int texture_name;
+	unsigned int texture_name = {};
+	
 };
 }
