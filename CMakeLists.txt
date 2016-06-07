@@ -21,6 +21,11 @@ find_package(assimp REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 
+
+# LIBROCKET
+
+
+
 if(WIN32)
     # we use GLEW because it is hard to get GL3 support in win without it
     find_package(glew REQUIRED)

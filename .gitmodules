@@ -1,0 +1,3 @@
+[submodule "librocket"]
+	path = librocket
+	url = https://github.com/librocket/librocket
