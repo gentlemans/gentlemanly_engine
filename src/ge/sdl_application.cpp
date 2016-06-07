@@ -46,7 +46,6 @@ void sdl_application::execute(window& win)
 		update_c_function(this);
 		SDL_GL_SwapWindow(win.m_window);
 	}
-
 #endif
 
 	signal_quit();

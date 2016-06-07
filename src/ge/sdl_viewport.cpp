@@ -189,8 +189,7 @@ std::vector<input_event> sdl_viewport::get_input_events()
 		switch (event.type)
 		{
 			case SDL_QUIT:
-				m_window->sig_quit();
-				m_window->sdl_inst->running = false;
+				m_window->get_application().request_quit();
 				break;
 			case SDL_KEYDOWN:
 				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true});
