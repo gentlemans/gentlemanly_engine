@@ -180,25 +180,28 @@ std::vector<input_event> sdl_viewport::get_input_events()
 	SDL_Event event;
 
 	std::vector<input_event> events;
-	
+
 	// run until there is an event that we recognize
-	while(SDL_PollEvent(&event)) {
+	while (SDL_PollEvent(&event))
+	{
 		switch (event.type)
 		{
 			case SDL_KEYDOWN:
-				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true}); break;
+				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true});
+				break;
 			case SDL_KEYUP:
-				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false}); break;
+				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false});
+				break;
 			case SDL_MOUSEMOTION:
-				events.push_back(input_mouse_move{{event.motion.x, event.motion.y}}); break;
+				events.push_back(input_mouse_move{{event.motion.x, event.motion.y}});
+				break;
 			case SDL_MOUSEBUTTONDOWN:
-				events.push_back(input_mouse_button{sdl_mb_to_ge(event.button.button), true}); break;
+				events.push_back(input_mouse_button{sdl_mb_to_ge(event.button.button), true});
+				break;
 		}
 	}
-	
+
 	return std::move(events);
-
-
 }
 
 float sdl_viewport::get_aspect_ratio() const

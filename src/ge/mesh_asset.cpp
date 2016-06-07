@@ -60,15 +60,16 @@ mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
 
 	// load in texture coordinates()
 	std::vector<glm::vec2> texcoords(mesh_ref.mNumVertices);
-	for (auto vert_id = 0; vert_id < mesh_ref.mNumVertices; ++vert_id) {
-		texcoords[vert_id] = {mesh_ref.mTextureCoords[0][vert_id].x, mesh_ref.mTextureCoords[0][vert_id].y};
+	for (auto vert_id = 0; vert_id < mesh_ref.mNumVertices; ++vert_id)
+	{
+		texcoords[vert_id] = {
+			mesh_ref.mTextureCoords[0][vert_id].x, mesh_ref.mTextureCoords[0][vert_id].y};
 	}
-	
+
 	// these reinterpret_casts are safe because glm makes sure to not have any
 	// padding
-	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(locs.data()),
-		texcoords.data(), locs.size(), elements.data(),
-		mesh_ref.mNumFaces);
+	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(locs.data()), texcoords.data(),
+		locs.size(), elements.data(), mesh_ref.mNumFaces);
 
 	// load up material
 	std::string material_asset_path = json_data["material"];

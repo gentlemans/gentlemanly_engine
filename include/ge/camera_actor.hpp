@@ -18,9 +18,7 @@ struct camera_actor : actor
 
 		glm::mat3 vp = p * v;
 
-		root.propagate_to_children([&vp](actor& act) {
-			act.render(vp);
-		});
+		root.propagate_to_children([&vp](actor& act) { act.render(vp); });
 	}
 };
 }

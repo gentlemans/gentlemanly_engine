@@ -3,39 +3,40 @@
 #include <ge/actor.hpp>
 #include <ge/asset_manager.hpp>
 #include <ge/camera_actor.hpp>
+#include <ge/input_consumer.hpp>
+#include <ge/input_consumer.hpp>
 #include <ge/material_asset.hpp>
-#include <ge/mesh_actor.hpp>
 #include <ge/mesh.hpp>
+#include <ge/mesh_actor.hpp>
 #include <ge/mesh_asset.hpp>
-#include <ge/input_consumer.hpp>
-#include <ge/input_consumer.hpp>
 
 #include <iostream>
 #include <memory>
 
 using namespace ge;
 
-struct wall_actor : actor, input_consumer<wall_actor> {
-	
-	mesh_actor* m_mesh; // this doesn't need to be a shared_ptr because the actor already tracks it
+struct wall_actor : actor, input_consumer<wall_actor>
+{
+	mesh_actor* m_mesh;  // this doesn't need to be a shared_ptr because the actor already tracks it
 
-	
-	void initialize(const std::shared_ptr<mesh>& mesh) {
+	void initialize(const std::shared_ptr<mesh>& mesh)
+	{
 		m_mesh = actor::factory<mesh_actor>(this, mesh).get();
-		
+
 		steal_input();
-		
 	}
-	
-	void handle_input(const input_event& ev) {
-		if(ev == input_event{input_keyboard{key::e_w, true}}) {
+
+	void handle_input(const input_event& ev)
+	{
+		if (ev == input_event{input_keyboard{key::e_w, true}})
+		{
 			m_mesh->set_relative_location(m_mesh->get_relative_location() + glm::vec2{1.f, 1.f});
-		} 
-		else if(ev == input_event{input_keyboard{key::e_s, true}}) {
+		}
+		else if (ev == input_event{input_keyboard{key::e_s, true}})
+		{
 			m_mesh->set_relative_location(m_mesh->get_relative_location() - glm::vec2{1.f, 1.f});
 		}
 	}
-	
 };
 
 int main(int argc, char** argv)
@@ -70,11 +71,10 @@ int main(int argc, char** argv)
 
 		});
 
-		app.signal_update.connect(
-			[&](float dt) {
-				camera->render_actors(*root_actor, viewport->get_aspect_ratio()); 
-				input_consumer_manager::process_events(*viewport);
-			});
+		app.signal_update.connect([&](float dt) {
+			camera->render_actors(*root_actor, viewport->get_aspect_ratio());
+			input_consumer_manager::process_events(*viewport);
+		});
 
 		app.execute(*window);
 	}

@@ -134,15 +134,13 @@ struct input_keyboard
 
 	// false for released
 	bool pressed;
-	
-	bool operator==(const input_keyboard& other) const {
-		return this->input_key == other.input_key &&
-			this->pressed == other.pressed;
+
+	bool operator==(const input_keyboard& other) const
+	{
+		return this->input_key == other.input_key && this->pressed == other.pressed;
 	}
-	
-	bool operator!=(const input_keyboard& other) const {
-		return !(*this == other);
-	}
+
+	bool operator!=(const input_keyboard& other) const { return !(*this == other); }
 };
 
 enum class mouse_button
@@ -157,29 +155,25 @@ enum class mouse_button
 struct input_mouse_move
 {
 	glm::vec2 new_location;
-	
-	bool operator==(const input_mouse_move& other) const {
+
+	bool operator==(const input_mouse_move& other) const
+	{
 		return new_location == other.new_location;
 	}
-	bool operator!=(const input_mouse_move& other) const {
-		return !(*this == other);
-	}
+	bool operator!=(const input_mouse_move& other) const { return !(*this == other); }
 };
 
 struct input_mouse_button
 {
 	mouse_button m_button;
 	bool pressed;  // false for released
-	
-		bool operator==(const input_mouse_button& other) const {
-		return m_button == other.m_button &&
-			pressed == other.pressed;
+
+	bool operator==(const input_mouse_button& other) const
+	{
+		return m_button == other.m_button && pressed == other.pressed;
 	}
-	bool operator!=(const input_mouse_button& other) const {
-		return !(*this == other);
-	}
+	bool operator!=(const input_mouse_button& other) const { return !(*this == other); }
 };
 
-using input_event =
-	boost::variant<input_keyboard, input_mouse_move, input_mouse_button>;
+using input_event = boost::variant<input_keyboard, input_mouse_move, input_mouse_button>;
 }
