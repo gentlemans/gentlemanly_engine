@@ -31,6 +31,8 @@ public:
 	
 	void add_additonal_data(const char* name, void* data, size_t size);
 
+	void render(const glm::mat3& mvp) const;
+	
 	// required data
 	unsigned vertex_array;
 	unsigned vertex_buffer;
