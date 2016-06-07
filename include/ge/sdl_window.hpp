@@ -21,22 +21,15 @@ class sdl_window
 	SDL_GLContext m_context;
 	glm::vec4 m_background_color;
 	sdl_application* sdl_inst;
-	
+
 public:
-	
 	using application = sdl_application;
 	using window = sdl_window;
-	
-	SDL_Window* m_window;
-	
-	const application& get_application() const {
-		return *sdl_inst;
-	}
-	
-	application& get_application() {
-		return *sdl_inst;
-	}
 
+	SDL_Window* m_window;
+
+	const application& get_application() const { return *sdl_inst; }
+	application& get_application() { return *sdl_inst; }
 	sdl_window(sdl_application& sdl, const char* title, boost::optional<glm::uvec2> loc,
 		glm::uvec2 size, bool fullscreen, bool decorated);
 

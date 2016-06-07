@@ -2,8 +2,8 @@
 #include "ge/camera_actor.hpp"
 #include "ge/gl.hpp"
 #include "ge/ortho2d.hpp"
-#include "ge/sdl_window.hpp"
 #include "ge/sdl_application.hpp"
+#include "ge/sdl_window.hpp"
 
 #include "SDL.h"
 

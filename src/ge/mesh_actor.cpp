@@ -69,6 +69,8 @@ void mesh_actor::render(const glm::mat3& vp_mat)
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh_ref.uv_buffer);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+	
+	
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh_ref.element_buffer);
 	glDrawElements(GL_TRIANGLES, mesh_ref.num_triangles * 3, GL_UNSIGNED_INT, nullptr);

@@ -20,6 +20,7 @@ public:
 
 	using parameter_type =
 		boost::variant<float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr<texture>>;
+	using attribute_type = boost::variant<float, glm::vec2, glm::vec3, glm::vec4>;
 
 	struct parameter
 	{
@@ -40,6 +41,7 @@ public:
 	}
 
 	std::unordered_map<std::string, parameter> parameters;
+	std::unordered_map<std::string, std::pair<attribute_type, unsigned>> attributes;
 
 	int32_t mvp_uniform_location;
 };

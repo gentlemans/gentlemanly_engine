@@ -1,7 +1,13 @@
 #pragma once
 
+#include "ge/shader.hpp"
+
 #include <cstdint>
 #include <memory>
+#include <string>
+#include <utility>
+
+#include <boost/container/flat_map.hpp>
 
 #include <glm/glm.hpp>
 
@@ -13,7 +19,7 @@ class mesh
 public:
 	std::shared_ptr<material> m_material;
 
-	mesh(const glm::vec2* points, const glm::vec2* texcoords, const size_t num_points,
+	mesh(const glm::vec2* points, const size_t num_points,
 		const glm::uvec3* indicies, const size_t num_indicies);
 	// no move or copy, pointer only
 	mesh(const mesh&) = delete;
@@ -22,12 +28,17 @@ public:
 	mesh& operator=(mesh&&) = delete;
 
 	~mesh();
+	
+	void add_additonal_data(const char* name, void* data, size_t size);
 
-	uint32_t vertex_array;
-	uint32_t vertex_buffer;
-	uint32_t uv_buffer;
-	uint32_t element_buffer;
-
+	// required data
+	unsigned vertex_array;
+	unsigned vertex_buffer;
+	
+	unsigned element_buffer;
 	size_t num_triangles;
+	
+	// additional data
+	boost::container::flat_map<std::string, std::pair<shader::attribute_type, unsigned>> additonal_vertex_data;
 };
 }

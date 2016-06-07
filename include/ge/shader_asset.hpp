@@ -21,6 +21,13 @@
  *   "asset_type": "shader",
  *   "vert_source": "/path/to/glsl/file, defaults to vert.glsl"
  *   "frag_source": "/path/to/glsl/file, defaults to frag.glsl"
+ *   "vertex_attributes": [
+ *     {
+ *       "name": "name in the mesh",
+ *       "glsl_id": "the attribute id in the shader (layout(locatio = n))"
+ *       "type": "vec{x}|float",
+ *     }
+ *   ], (optional)
  *   "parameters": [
  *     {
  *       "type": "vec{x}|float|texture",

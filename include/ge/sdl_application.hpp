@@ -38,11 +38,8 @@ public:
 	{
 		return std::make_unique<viewport>(window);
 	}
-	
-	void request_quit() {
-		running = false;
-	}
 
+	void request_quit() { running = false; }
 	// signals
 	boost::signals2::signal<void(float)> signal_update;
 	boost::signals2::signal<void()> signal_init;

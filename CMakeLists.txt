@@ -6,8 +6,8 @@ cmake_policy(SET CMP0048 NEW)
 project(gentlemanly_engine VERSION 0.1.0)
 
 
-option(DOXYGEN_EXTRA_FLAGS "Extra flags to be sent to doxygen." "")
-option(BUILD_SAMPLES "Should the samples be built?" ON)
+option(GE_DOXYGEN_EXTRA_FLAGS "Extra flags to be sent to doxygen." "")
+option(GE_BUILD_SAMPLES "Should the samples be built?" ON)
 
 
 # update the module path so cmake can find libraries that don't have built in CMake support
@@ -24,7 +24,8 @@ find_package(glm REQUIRED)
 
 # LIBROCKET
 
-
+set(BUILD_SAMPLES OFF CACHE BOOL "")
+add_subdirectory(librocket/Build)
 
 if(WIN32)
     # we use GLEW because it is hard to get GL3 support in win without it
@@ -38,6 +39,7 @@ set(GE_PRIVATE_FILES
 	src/ge/material_asset.cpp
 	src/ge/material.cpp
 	src/ge/mesh_actor.cpp
+	src/ge/ui/render_interface.cpp
 	src/ge/mesh_asset.cpp
 	src/ge/mesh.cpp
 	src/ge/sdl_application.cpp
@@ -58,6 +60,7 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/variadic_concept.hpp
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
+	include/ge/ui/render_interface.hpp
 	include/ge/gl.hpp
 	include/ge/input_event.hpp
 	include/ge/input_consumer.hpp
@@ -96,6 +99,7 @@ PUBLIC
 	include
 	${GLM_INCLUDE_DIRS}
 	${Boost_INCLUDE_DIR}
+	librocket/Include/
 )
 
 link_directories(${ASSIMP_LIBRARY_DIRS})
@@ -116,6 +120,7 @@ PUBLIC
 	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 	debug ${Boost_SYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_SYSTEM_LIBRARY_RELEASE}
+	RocketCore
 )
 
 if(WIN32)
@@ -144,7 +149,7 @@ install(FILES cmake/gentlemanly_engine-config.cmake cmake/modules/FindEntityX.cm
 
 # Samples
 
-if(BUILD_SAMPLES)
+if(GE_BUILD_SAMPLES)
 	add_subdirectory(samples)
 endif()
 
@@ -157,7 +162,7 @@ if(DOXYGEN_FOUND)
 	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile)
 
 	add_custom_target(doc
-		COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_EXTRA_FLAGS}
+		COMMAND ${DOXYGEN_EXECUTABLE} ${GE_DOXYGEN_EXTRA_FLAGS}
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 		COMMENT "Generating Doxygen documentation..."
 		DEPENDS ${GE_PRIVATE_FILES} ${GE_PUBLIC_FILES}
