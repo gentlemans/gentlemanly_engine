@@ -56,6 +56,7 @@ set(GE_PUBLIC_FILES
 	include/ge/gl.hpp
 	include/ge/input_event.hpp
 	include/ge/input_consumer.hpp
+	include/ge/timer_manager.hpp
 	include/ge/json_helper.hpp
 	include/ge/json.hpp
 	include/ge/lodepng.h

@@ -21,6 +21,8 @@ class sdl_window
 	glm::vec4 m_background_color;
 	sdl_application* sdl_inst;
 
+	friend class sdl_viewport;
+	
 public:
 	SDL_Window* m_window;
 

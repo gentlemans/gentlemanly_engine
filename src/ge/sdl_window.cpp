@@ -27,17 +27,6 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	sdl_inst->signal_update.connect([this](float) {
-		SDL_Event event;
-		while (SDL_PollEvent(&event))
-		{
-			if (event.type == SDL_QUIT)
-			{
-				sig_quit();
-				sdl_inst->running = false;
-			}
-		}
-	});
 }
 
 sdl_window::~sdl_window()

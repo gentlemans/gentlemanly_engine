@@ -3,9 +3,11 @@
 #include "ge/gl.hpp"
 #include "ge/ortho2d.hpp"
 #include "ge/sdl_window.hpp"
+#include "ge/sdl_application.hpp"
 
 #include "SDL.h"
 
+#include <iostream>
 #include <stdexcept>
 
 #include <glm/glm.hpp>
@@ -186,6 +188,10 @@ std::vector<input_event> sdl_viewport::get_input_events()
 	{
 		switch (event.type)
 		{
+			case SDL_QUIT:
+				m_window->sig_quit();
+				m_window->sdl_inst->running = false;
+				break;
 			case SDL_KEYDOWN:
 				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true});
 				break;

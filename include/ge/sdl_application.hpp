@@ -18,6 +18,7 @@ namespace ge
 class sdl_application
 {
 	friend class sdl_window;
+	friend class sdl_viewport;
 
 	bool running = true;
 
