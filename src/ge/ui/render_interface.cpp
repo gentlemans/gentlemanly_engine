@@ -134,33 +134,25 @@ bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 bool render_interface::GenerateTexture(Rocket::Core::TextureHandle& texture_handle,
 	const Rocket::Core::byte* source, const Rocket::Core::Vector2i& source_dimensions)
 {
-	GLuint texture_id = 0;
-	glGenTextures(1, &texture_id);
-	if (texture_id == 0)
-	{
-		printf("Failed to generate textures\n");
+	try {
+	
+		auto ret = new texture(source, {source_dimensions.x, source_dimensions.y});
+		
+		texture_handle = reinterpret_cast<intptr_t>(ret);
+		
+	} catch(std::exception&) {
 		return false;
 	}
-
-	glBindTexture(GL_TEXTURE_2D, texture_id);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, source_dimensions.x, source_dimensions.y, 0, GL_RGBA,
-		GL_UNSIGNED_BYTE, source);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	texture_handle = (Rocket::Core::TextureHandle)texture_id;
-
+	
 	return true;
+	
+	
 }
 
 // Called by Rocket when a loaded texture is no longer required.
 void render_interface::ReleaseTexture(Rocket::Core::TextureHandle texture_handle)
 {
-	glDeleteTextures(1, (GLuint*)&texture_handle);
+	delete reinterpret_cast<texture*>(texture_handle);
 }
-}
-}
+} // namespace ui
+} // namespace ge
