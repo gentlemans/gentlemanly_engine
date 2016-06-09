@@ -99,7 +99,7 @@ void render_interface::EnableScissorRegion(bool enable)
 // Called by Rocket when it wants to change the scissor region.
 void render_interface::SetScissorRegion(int x, int y, int width, int height)
 {
-	//glScissor(x, m_height - (y + height), width, height);
+	glScissor(x, viewport_size.y - (y + height), width, height);
 }
 
 

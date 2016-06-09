@@ -192,10 +192,10 @@ std::vector<input_event> sdl_viewport::get_input_events()
 				m_window->get_application().request_quit();
 				break;
 			case SDL_KEYDOWN:
-				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true});
+				if(!event.key.repeat) events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true});
 				break;
 			case SDL_KEYUP:
-				events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false});
+				if(!event.key.repeat) events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false});
 				break;
 			case SDL_MOUSEMOTION:
 				events.push_back(input_mouse_move{{event.motion.x, event.motion.y}});

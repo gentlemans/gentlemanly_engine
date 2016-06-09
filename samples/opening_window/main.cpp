@@ -9,6 +9,10 @@
 #include <ge/mesh.hpp>
 #include <ge/mesh_actor.hpp>
 #include <ge/mesh_asset.hpp>
+#include <ge/ui/render_interface.hpp>
+#include <ge/ui/system_interface.hpp>
+
+#include <Rocket/Core.h>
 
 #include <iostream>
 #include <memory>
@@ -54,6 +58,9 @@ int main(int argc, char** argv)
 		asset_man.add_asset_path("data/");
 
 		std::shared_ptr<camera_actor> camera;
+		
+		Rocket::Core::SetSystemInterface(new ui::system_interface<sdl_application>{app});
+		Rocket::Core::SetRenderInterface(new ui::render_interface(asset_man));
 
 		app.signal_init.connect([&] {
 

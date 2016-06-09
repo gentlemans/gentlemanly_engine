@@ -3,6 +3,8 @@
 
 #include "ge/asset_manager.hpp"
 
+#include <glm/glm.hpp>
+
 #include "Rocket/Core/RenderInterface.h"
 
 
@@ -13,10 +15,10 @@ namespace ui
 
 class render_interface : public Rocket::Core::RenderInterface
 {
-	
+public:
 	render_interface(asset_manager& asset_man) : m_asset_manager{&asset_man}
 		{}
-
+private:
 	/// Called by Rocket when it wants to render geometry that it does not wish to optimise.
 	virtual void RenderGeometry(Rocket::Core::Vertex* vertices, int num_vertices, int* indices,
 		int num_indices, Rocket::Core::TextureHandle texture,
@@ -47,6 +49,8 @@ class render_interface : public Rocket::Core::RenderInterface
 		const Rocket::Core::byte* source, const Rocket::Core::Vector2i& source_dimensions);
 	/// Called by Rocket when a loaded texture is no longer required.
 	virtual void ReleaseTexture(Rocket::Core::TextureHandle texture_handle);
+	
+	glm::uvec2 viewport_size;
 	
 private:
 	

@@ -22,8 +22,10 @@ void update_c_function(void* void_app)
 	std::chrono::duration<float> diff = now - last_tick;
 
 	app->signal_update(diff.count());
+	app->elapsed_time += diff.count();
 
 	last_tick = now;
+	
 }
 
 void sdl_application::execute(window& win)
