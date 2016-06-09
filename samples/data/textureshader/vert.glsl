@@ -1,11 +1,11 @@
-#version 100
+#version 330 core
 
-attribute vec2 loc;
-attribute vec2 uvs;
+layout(location = 0) in vec2 loc;
+layout(location = 1) in vec2 uvs;
 
 uniform mat3 mvp_matrix;
 
-varying vec2 tex_coords;
+out vec2 tex_coords;
 
 void main()
 {
