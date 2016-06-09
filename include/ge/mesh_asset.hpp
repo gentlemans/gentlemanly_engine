@@ -22,12 +22,13 @@ namespace ge
 class mesh_asset
 {
 public:
-	std::shared_ptr<mesh> data;
+	using loaded_type = mesh;
 
-	mesh_asset(asset_manager& manager, const std::string& arg_name, const std::string& abs_filepath,
-		const nlohmann::json& json_data);
+	static std::shared_ptr<mesh> load_asset(asset_manager& manager, const std::string& arg_name,
+		const std::string& abs_filepath, const nlohmann::json& json_data);
 
 	static const char* asset_type() { return "mesh"; }
 };
+
 BOOST_CONCEPT_ASSERT((concept::Asset<mesh_asset>));
 }

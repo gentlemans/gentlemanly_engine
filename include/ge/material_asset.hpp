@@ -30,10 +30,10 @@ namespace ge
 class material_asset
 {
 public:
-	std::shared_ptr<material> data;
+	using loaded_type = material;
 
-	material_asset(asset_manager& manager, const char* name, const char* filepath,
-		const nlohmann::json& json_data);
+	static std::shared_ptr<material> load_asset(asset_manager& manager, const char* name,
+		const char* filepath, const nlohmann::json& json_data);
 
 	static const char* asset_type() { return "material"; }
 };

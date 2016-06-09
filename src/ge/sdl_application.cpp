@@ -25,7 +25,6 @@ void update_c_function(void* void_app)
 	app->elapsed_time += diff.count();
 
 	last_tick = now;
-	
 }
 
 void sdl_application::execute(window& win)

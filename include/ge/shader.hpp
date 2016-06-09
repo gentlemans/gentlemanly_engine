@@ -39,8 +39,9 @@ public:
 		: shader{std::ifstream{vertex_filename}, std::ifstream{frag_filename}}
 	{
 	}
-	
-	struct attribute {
+
+	struct attribute
+	{
 		attribute_type type;
 		unsigned attribute_id;
 	};

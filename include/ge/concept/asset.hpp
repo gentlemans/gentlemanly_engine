@@ -13,12 +13,9 @@ namespace concept
 template <typename X>
 struct Asset
 {
-	BOOST_CONCEPT_USAGE(Asset)
-	{
-		X i(*(asset_manager*)nullptr, "name", "filepath", nlohmann::json{});
+	using loaded_type = typename X::loaded_type;
 
-		const char* type = X::asset_type();
-	}
+	BOOST_CONCEPT_USAGE(Asset) { const char* type = X::asset_type(); }
 };
 }
 }

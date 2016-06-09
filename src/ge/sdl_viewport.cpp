@@ -192,10 +192,12 @@ std::vector<input_event> sdl_viewport::get_input_events()
 				m_window->get_application().request_quit();
 				break;
 			case SDL_KEYDOWN:
-				if(!event.key.repeat) events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true});
+				if (!event.key.repeat)
+					events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true});
 				break;
 			case SDL_KEYUP:
-				if(!event.key.repeat) events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false});
+				if (!event.key.repeat)
+					events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false});
 				break;
 			case SDL_MOUSEMOTION:
 				events.push_back(input_mouse_move{{event.motion.x, event.motion.y}});
@@ -207,6 +209,15 @@ std::vector<input_event> sdl_viewport::get_input_events()
 	}
 
 	return std::move(events);
+}
+
+glm::uvec2 sdl_viewport::get_size() const
+{
+	int x, y;
+
+	SDL_GetWindowSize(m_window->m_window, &x, &y);
+
+	return {x, y};
 }
 
 float sdl_viewport::get_aspect_ratio() const

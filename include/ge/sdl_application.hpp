@@ -21,7 +21,6 @@ class sdl_application
 	friend class sdl_viewport;
 
 	bool running = true;
-	
 
 public:
 	sdl_application(int&, char**);
@@ -47,13 +46,9 @@ public:
 	boost::signals2::signal<void()> signal_quit;
 
 	void execute(window& win);
-	
-	float get_elapsed_time() const {
-		return elapsed_time;
-	}
-	
+
+	float get_elapsed_time() const { return elapsed_time; }
 	float elapsed_time = 0.f;
-	
 };
 BOOST_CONCEPT_ASSERT((ge::concept::Application<sdl_application>));
 

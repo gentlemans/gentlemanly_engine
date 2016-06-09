@@ -1,7 +1,7 @@
 #include "ge/gl.hpp"
 
-#include "ge/mesh.hpp"
 #include "ge/material.hpp"
+#include "ge/mesh.hpp"
 #include "ge/shader.hpp"
 
 #include <algorithm>
@@ -9,11 +9,9 @@
 
 #include <glm/glm.hpp>
 
-
 namespace ge
 {
-	
-	struct parameter_setter_visitor : boost::static_visitor<void>
+struct parameter_setter_visitor : boost::static_visitor<void>
 {
 	int uniform_index;
 
@@ -37,21 +35,19 @@ struct attr_applying_visitor : boost::static_visitor<void>
 	unsigned attrib_id;
 	mesh const* m;
 	std::pair<const std::string, shader::attribute>* attr;
-	
-	
-	template<typename T>
-	void operator()(T atrtype) {
-			glEnableVertexAttribArray(attrib_id);
-			glBindBuffer(GL_ARRAY_BUFFER, m->additonal_vertex_data.find(attr->first)->second);
-			glVertexAttribPointer(attr->second.attribute_id, sizeof(atrtype) / sizeof(float), GL_FLOAT, GL_FALSE, sizeof(atrtype), nullptr);
-		}
-	
+
+	template <typename T>
+	void operator()(T atrtype)
+	{
+		glEnableVertexAttribArray(attrib_id);
+		glBindBuffer(GL_ARRAY_BUFFER, m->additonal_vertex_data.find(attr->first)->second);
+		glVertexAttribPointer(attr->second.attribute_id, sizeof(atrtype) / sizeof(float), GL_FLOAT,
+			GL_FALSE, sizeof(atrtype), nullptr);
+	}
 };
 
-
-	
-mesh::mesh(const glm::vec2* points, const size_t num_points,
-	const glm::uvec3* indicies, const size_t num_indicies)
+mesh::mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
+	const size_t num_indicies)
 	: num_triangles{num_indicies}
 {
 	glGenVertexArrays(1, &vertex_array);
@@ -68,21 +64,22 @@ mesh::mesh(const glm::vec2* points, const size_t num_points,
 		GL_ELEMENT_ARRAY_BUFFER, sizeof(glm::uvec3) * num_indicies, indicies, GL_STATIC_DRAW);
 }
 
-void mesh::add_additonal_data(const char* name, void* data, size_t size) {
-	
+void mesh::add_additonal_data(const char* name, void* data, size_t size)
+{
 	unsigned gl_name;
 	glGenBuffers(1, &gl_name);
 	glBindBuffer(GL_ARRAY_BUFFER, gl_name);
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
-	
-	additonal_vertex_data.insert(decltype(additonal_vertex_data)::value_type{std::string(name), gl_name});
+
+	additonal_vertex_data.insert(
+		decltype(additonal_vertex_data)::value_type{std::string(name), gl_name});
 }
 
-void mesh::render(const glm::mat3& mvp) const {
-	
+void mesh::render(const glm::mat3& mvp) const
+{
 	auto material_ref = *m_material;
 	auto shader_ref = *material_ref.m_shader;
-	
+
 	glUseProgram(shader_ref.program_name);
 	// set parameters
 	for (auto& param : shader_ref.parameters)
@@ -118,13 +115,14 @@ void mesh::render(const glm::mat3& mvp) const {
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
 	size_t next_attribarray = 1;
-	for(auto& attr : shader_ref.attributes) {
+	for (auto& attr : shader_ref.attributes)
+	{
 		assert(additonal_vertex_data.find(attr.first) != additonal_vertex_data.end());
 		attr_applying_visitor visitor;
 		visitor.attrib_id = next_attribarray++;
 		visitor.m = this;
 		visitor.attr = &attr;
-		
+
 		attr.second.type.apply_visitor(visitor);
 	}
 
@@ -132,7 +130,7 @@ void mesh::render(const glm::mat3& mvp) const {
 	glDrawElements(GL_TRIANGLES, num_triangles * 3, GL_UNSIGNED_INT, nullptr);
 
 	glDisableVertexAttribArray(0);
-	while(--next_attribarray) glDisableVertexAttribArray(next_attribarray);
+	while (--next_attribarray) glDisableVertexAttribArray(next_attribarray);
 }
 
 mesh::~mesh()

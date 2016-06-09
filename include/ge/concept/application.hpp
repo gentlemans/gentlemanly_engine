@@ -50,8 +50,8 @@ struct Application
 		boost::signals2::signal<void()>& quit = i.signal_quit;
 
 		i.request_quit();
-		
-		float time = i_c.get_elapsed_time(); 
+
+		float time = i_c.get_elapsed_time();
 	}
 
 private:

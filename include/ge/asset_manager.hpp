@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ge/concept/asset.hpp"
 #include "ge/json.hpp"
 
 #include <functional>
@@ -12,8 +13,6 @@
 
 #include <boost/filesystem.hpp>
 
-#include "ge/concept/asset.hpp"
-
 namespace ge
 {
 class asset_manager
@@ -21,6 +20,9 @@ class asset_manager
 private:
 	// not unordered because we need to traverse in order
 	std::map<uint8_t, std::vector<std::string>> search_paths;
+
+	// we don't know this type, but we will when it is asked for.
+	std::map<std::string, std::weak_ptr<void>> cache;
 
 public:
 	asset_manager() = default;
@@ -37,14 +39,27 @@ public:
 
 	/// Loads an asset from disk
 	/// \param name The name of the asset, which is a folder inside an asset path
+	/// \param extra_args Extra arguments to be passed to the loader
 	/// \return The asset
-	template <typename asset_type>
-	asset_type get_asset(const char* name)
+	template <typename asset_type, typename... extra_args_types>
+	std::shared_ptr<typename asset_type::loaded_type> get_asset(
+		const char* name, extra_args_types&&... extra_args)
 	{
-		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
-
 		using namespace std::string_literals;
 
+		// make sure it's an asset
+		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
+
+		// check if it's in the cache
+		{
+			auto iter = cache.find(name);
+			if (iter != cache.end())
+			{
+				if (!iter->second.expired())
+					return std::static_pointer_cast<typename asset_type::loaded_type>(
+						iter->second.lock());
+			}
+		}
 		std::string abs_path;
 		// acquire absolute path
 		for (auto& priority_and_paths : search_paths)
@@ -85,7 +100,14 @@ public:
 									 " had asset type " + asset_type_from_json);
 		}
 
-		return asset_type(*this, name, abs_path.c_str(), root);
+		auto shared = asset_type::load_asset(
+			*this, name, abs_path.c_str(), root, std::forward<extra_args_types>(extra_args)...);
+
+		// add it to the cache
+		auto weak = std::weak_ptr<void>(shared);
+		cache.insert({name, weak});
+
+		return shared;
 	}
 };
 }

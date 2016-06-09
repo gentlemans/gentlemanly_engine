@@ -28,6 +28,7 @@ struct Viewport
 		std::vector<input_event> ev = i.get_input_events();
 
 		float aspect = i_c.get_aspect_ratio();
+		glm::uvec2 size = i_c.get_size();
 
 		window& win = i.get_window();
 		const window& cwin = i_c.get_window();

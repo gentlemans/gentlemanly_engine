@@ -9,7 +9,7 @@
 
 namespace ge
 {
-mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
+std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::string& arg_name,
 	const std::string& abs_filepath, const nlohmann::json& json_data)
 {
 	std::string path;
@@ -68,16 +68,17 @@ mesh_asset::mesh_asset(asset_manager& manager, const std::string& arg_name,
 
 	// these reinterpret_casts are safe because glm makes sure to not have any
 	// padding
-	data = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(locs.data()),
-		locs.size(), elements.data(), mesh_ref.mNumFaces);
-	
-	
-	data->add_additonal_data("uv", texcoords.data(), texcoords.size() * sizeof(glm::vec2));
+	auto ret = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(locs.data()), locs.size(),
+		elements.data(), mesh_ref.mNumFaces);
+
+	ret->add_additonal_data("uv", texcoords.data(), texcoords.size() * sizeof(glm::vec2));
 
 	// load up material
 	std::string material_asset_path = json_data["material"];
 	auto mat = manager.get_asset<material_asset>(material_asset_path.c_str());
 
-	data->m_material = std::move(mat.data);
+	ret->m_material = mat;
+
+	return ret;
 }
 }

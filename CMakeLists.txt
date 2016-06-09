@@ -35,19 +35,21 @@ endif()
 set(GE_PRIVATE_FILES
 	src/ge/actor.cpp
 	src/ge/asset_manager.cpp
+	src/ge/input_consumer.cpp
 	src/ge/lodepng.cpp
 	src/ge/material_asset.cpp
 	src/ge/material.cpp
 	src/ge/mesh_actor.cpp
-	src/ge/ui/render_interface.cpp
 	src/ge/mesh_asset.cpp
 	src/ge/mesh.cpp
 	src/ge/sdl_application.cpp
 	src/ge/sdl_viewport.cpp
 	src/ge/sdl_window.cpp
+	src/ge/shader_asset.cpp
 	src/ge/shader.cpp
+	src/ge/texture_asset.cpp
 	src/ge/texture.cpp
-	src/ge/input_consumer.cpp
+	src/ge/ui/render_interface.cpp
 )
 
 set(GE_PUBLIC_FILES 
@@ -60,11 +62,9 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/variadic_concept.hpp
 	include/ge/concept/viewport.hpp
 	include/ge/concept/window.hpp
-	include/ge/ui/render_interface.hpp
 	include/ge/gl.hpp
-	include/ge/input_event.hpp
 	include/ge/input_consumer.hpp
-	include/ge/timer_manager.hpp
+	include/ge/input_event.hpp
 	include/ge/json_helper.hpp
 	include/ge/json.hpp
 	include/ge/lodepng.h
@@ -81,7 +81,10 @@ set(GE_PUBLIC_FILES
 	include/ge/shader.hpp
 	include/ge/texture_asset.hpp
 	include/ge/texture.hpp
+	include/ge/timer_manager.hpp
 	include/ge/transform.hpp
+	include/ge/ui/render_interface.hpp
+	include/ge/ui/system_interface.hpp
 	include/ge/velocity_component.hpp
 )
 

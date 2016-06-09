@@ -35,7 +35,7 @@ texture::texture::texture(const unsigned char* data)
 	unsigned int linearSize = *(unsigned int*)&(header[16]);
 	unsigned int mipMapCount = *(unsigned int*)&(header[24]);
 	unsigned int fourCC = *(unsigned int*)&(header[80]);
-	
+
 	size = {width, height};
 
 	const unsigned char* buffer = data + 124;

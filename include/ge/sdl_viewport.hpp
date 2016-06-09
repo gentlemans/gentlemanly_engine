@@ -26,6 +26,7 @@ public:
 
 	std::vector<input_event> get_input_events();
 
+	glm::uvec2 get_size() const;
 	float get_aspect_ratio() const;
 };
 BOOST_CONCEPT_ASSERT((concept::Viewport<sdl_viewport>));

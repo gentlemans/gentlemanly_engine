@@ -29,33 +29,36 @@ struct reassign_from_json_visitor : boost::static_visitor<shader::parameter_type
 	shader::parameter_type operator()(std::shared_ptr<texture>&)
 	{
 		std::string asset_path = json_obj;
-		return asset_man.get_asset<texture_asset>(asset_path.c_str()).data;
+		return asset_man.get_asset<texture_asset>(asset_path.c_str());
 	}
 };
 
-material_asset::material_asset(
-	asset_manager& manager, const char* name, const char* filepath, const nlohmann::json& json_data)
+std::shared_ptr<material> material_asset::load_asset(asset_manager& manager, const char* asset_name,
+	const char* filepath, const nlohmann::json& json_data)
 {
-	std::string asset_name = json_data["shader"];
-	auto shader_ass = manager.get_asset<shader_asset>(asset_name.c_str());
+	std::string shader_asset_name = json_data["shader"];
+	auto shader_ass = manager.get_asset<shader_asset>(shader_asset_name.c_str());
 
-	data = std::make_shared<material>(shader_ass.data);
+	auto ret = std::make_shared<material>(shader_ass);
 
 	// load parameters
-	auto iter = json_data.find("parameters");
-	if (iter != json_data.end() && iter->is_array())
+	auto parameter_iter = json_data.find("parameters");
+	if (parameter_iter != json_data.end() && parameter_iter->is_array())
 	{
-		for (auto& parameter : *iter)
+		for (auto& parameter : *parameter_iter)
 		{
-			std::string name = parameter["name"];
+			std::string parameter_name = parameter["name"];
 			// get the type from the shader
-			auto default_value = data->m_shader->parameters[name].value;
+			if (ret->m_shader->parameters.find(parameter_name) == ret->m_shader->parameters.end())
+				throw std::runtime_error("Could not find property: " + parameter_name +
+										 " in shader while loading material asset: " + asset_name);
+			auto default_value = ret->m_shader->parameters[parameter_name].value;
 
 			reassign_from_json_visitor vis{parameter["value"], manager};
 
 			try
 			{
-				data->property_values[name] = default_value.apply_visitor(vis);
+				ret->property_values[parameter_name] = default_value.apply_visitor(vis);
 			}
 			catch (std::exception& e)
 			{
@@ -63,5 +66,6 @@ material_asset::material_asset(
 			}
 		}
 	}
+	return ret;
 }
 }
