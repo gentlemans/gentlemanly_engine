@@ -58,9 +58,13 @@ int main(int argc, char** argv)
 		asset_man.add_asset_path("data/");
 
 		std::shared_ptr<camera_actor> camera;
-		
+
 		Rocket::Core::SetSystemInterface(new ui::system_interface<sdl_application>{app});
 		Rocket::Core::SetRenderInterface(new ui::render_interface(asset_man));
+		Rocket::Core::Initialise();
+		Rocket::Core::Context* rcontext = Rocket::Core::CreateContext(
+			"default", Rocket::Core::Vector2i(viewport->get_size().x, viewport->get_size().y));
+		app.signal_quit.connect([&]() { rcontext->RemoveReference(); });
 
 		app.signal_init.connect([&] {
 
@@ -70,7 +74,7 @@ int main(int argc, char** argv)
 			auto wallMesh = asset_man.get_asset<mesh_asset>("ground");
 
 			// wall
-			auto wall = actor::factory<wall_actor>(root_actor.get(), meshasset.data);
+			auto wall = actor::factory<wall_actor>(root_actor.get(), meshasset);
 			wall->set_relative_location({1.f, 3.f});
 
 			// init camera
@@ -79,8 +83,9 @@ int main(int argc, char** argv)
 		});
 
 		app.signal_update.connect([&](float dt) {
-			camera->render_actors(*root_actor, viewport->get_aspect_ratio());
 			input_consumer_manager::process_events(*viewport);
+			rcontext->Render();
+			camera->render_actors(*root_actor, viewport->get_aspect_ratio());
 		});
 
 		app.execute(*window);
