@@ -13,6 +13,11 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
 	int flags = SDL_WINDOW_OPENGL | (fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) |
 				(decorated ? 0 : SDL_WINDOW_BORDERLESS);
 
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+	
 	// initalize the window
 	m_window = SDL_CreateWindow(title, loc ? loc.get().x : SDL_WINDOWPOS_UNDEFINED,
 		loc ? loc.get().y : SDL_WINDOWPOS_UNDEFINED, size.x, size.y, flags);
