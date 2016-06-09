@@ -108,5 +108,6 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 			}
 		}
 	}
+	return ret;
 }
 }
