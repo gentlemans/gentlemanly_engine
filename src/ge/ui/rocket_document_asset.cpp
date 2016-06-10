@@ -6,7 +6,7 @@ namespace ge
 {
 namespace ui
 {
-std::shared_ptr<Rocket::Core::ElementDocument> load_asset(asset_manager& manager,
+std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset(asset_manager& manager,
 	const char* asset_name, const char* filepath, const nlohmann::json& json_data,
 	Rocket::Core::Context* ctx)
 {
