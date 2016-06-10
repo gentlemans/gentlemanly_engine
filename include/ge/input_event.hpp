@@ -6,17 +6,7 @@
 
 namespace ge
 {
-enum class key
-{
-	// modifiers
-	e_left_shift,
-	e_right_shift,
-	e_left_meta,
-	e_right_meta,
-	e_left_alt,
-	e_right_alt,
-	e_left_ctrl,
-	e_right_ctrl,
+enum class key {
 
 	e_0 = '0',
 	e_1 = '1',
@@ -70,81 +60,107 @@ enum class key
 	e_space = ' ',
 
 	e_escape = '\033',
-
-	e_insert,
 	e_delete = '\177',
-	e_home,
-	e_end,
-	e_page_up,
-	e_page_down,
-	e_print_screen,
-	e_scroll_lock,
-	e_pause,
 
 	e_left_bracket = '[',
 	e_right_bracket = ']',
 
 	e_tab = '\t',
-	e_caps_lock,
 
-	e_F0,
-	e_F1,
-	e_F2,
-	e_F3,
-	e_F4,
-	e_F5,
-	e_F6,
-	e_F7,
-	e_F8,
-	e_F9,
-	e_F10,
-	e_F11,
-	e_F12,
+	e_F1 = 999,
+	e_F2 = 1000,
+	e_F3 = 1001,
+	e_F4 = 1002,
+	e_F5 = 1003,
+	e_F6 = 1004,
+	e_F7 = 1005,
+	e_F8 = 1006,
+	e_F9 = 1007,
+	e_F10 = 1008,
+	e_F11 = 1009,
+	e_F12 = 1010,
 
 	// numpad
-	e_numpad_0,
-	e_numpad_1,
-	e_numpad_2,
-	e_numpad_3,
-	e_numpad_4,
-	e_numpad_5,
-	e_numpad_6,
-	e_numpad_7,
-	e_numpad_8,
-	e_numpad_9,
+	e_numpad_0 = 1011,
+	e_numpad_1 = 1012,
+	e_numpad_2 = 1013,
+	e_numpad_3 = 1014,
+	e_numpad_4 = 1015,
+	e_numpad_5 = 1016,
+	e_numpad_6 = 1017,
+	e_numpad_7 = 1018,
+	e_numpad_8 = 1019,
+	e_numpad_9 = 1020,
 
-	e_num_lock,
-	e_numpad_divide,
-	e_numpad_times,
-	e_numpad_minus,
-	e_numpad_plus,
-	e_numpad_enter,
-	e_numpad_period,
+	e_num_lock = 1020,
+	e_numpad_divide = 1021,
+	e_numpad_times = 1022,
+	e_numpad_minus = 1023,
+	e_numpad_plus = 1024,
+	e_numpad_enter = 1025,
+	e_numpad_period = 1026,
 
-	e_left,
-	e_up,
-	e_down,
-	e_right,
+	e_left = 1027,
+	e_up = 1028,
+	e_down = 1029,
+	e_right = 1030,
 
+	e_insert = 1031,
+	e_home = 1032,
+	e_end = 1033,
+	e_page_up = 1034,
+	e_page_down = 1035,
+	e_print_screen = 1036,
+	e_scroll_lock = 1037,
+	e_pause = 1038,
+
+	e_caps_lock = 1039,
+
+	// modifiers
+	e_left_shift = 1040,
+	e_right_shift = 1041,
+	e_left_meta = 1042,
+	e_right_meta = 1043,
+	e_left_alt = 1044,
+	e_right_alt = 1045,
+	e_left_ctrl = 1046,
+	e_right_ctrl = 1047,
 };
 
-struct input_keyboard
+namespace key_modifier
 {
-	key input_key;
+enum {
+	e_left_shift = 0b1,
+	e_right_shift = 0b10,
+	e_right_ctrl = 0b100,
+	e_left_ctrl = 0b1000,
+	e_caps_lock = 0b10000,
+	e_num_lock = 0b100000,
+	e_scroll_lock = 0b1000000,
+	e_left_gui = 0b10000000,
+	e_right_gui = 0b100000000,
+	e_left_alt = 0b1000000000,
+	e_right_alt = 0b10000000000
+};
+}
+
+struct input_keyboard {
+	key m_input_key;
 
 	// false for released
-	bool pressed;
+	bool m_pressed;
+
+	int m_modifier_state;
 
 	bool operator==(const input_keyboard& other) const
 	{
-		return this->input_key == other.input_key && this->pressed == other.pressed;
+		return this->m_input_key == other.m_input_key && this->m_pressed == other.m_pressed;
 	}
 
 	bool operator!=(const input_keyboard& other) const { return !(*this == other); }
 };
 
-enum class mouse_button
-{
+enum class mouse_button {
 	e_left_button,
 	e_right_button,
 	e_middle_button,
@@ -152,28 +168,40 @@ enum class mouse_button
 	e_button_2,
 };
 
-struct input_mouse_move
-{
-	glm::vec2 new_location;
+struct input_mouse_move {
+	glm::vec2 m_new_location;
+	int m_modifier_state;
 
 	bool operator==(const input_mouse_move& other) const
 	{
-		return new_location == other.new_location;
+		return m_new_location == other.m_new_location;
 	}
 	bool operator!=(const input_mouse_move& other) const { return !(*this == other); }
 };
 
-struct input_mouse_button
-{
+struct input_mouse_button {
 	mouse_button m_button;
-	bool pressed;  // false for released
+	bool m_pressed;  // false for released
+	int m_modifier_state;
+	glm::uvec2 m_location;
 
 	bool operator==(const input_mouse_button& other) const
 	{
-		return m_button == other.m_button && pressed == other.pressed;
+		return m_button == other.m_button && m_pressed == other.m_pressed;
 	}
 	bool operator!=(const input_mouse_button& other) const { return !(*this == other); }
 };
 
-using input_event = boost::variant<input_keyboard, input_mouse_move, input_mouse_button>;
+struct input_scroll_wheel {
+	// for x, right is positive
+	// for y, away from user is positive
+	glm::vec2 amount;
+	int m_modifier_state;
+
+	bool operator==(const input_scroll_wheel& other) const { return amount == other.amount; }
+	bool operator!=(const input_scroll_wheel& other) const { return !(*this == other); }
+};
+
+using input_event =
+	boost::variant<input_keyboard, input_mouse_move, input_mouse_button, input_scroll_wheel>;
 }

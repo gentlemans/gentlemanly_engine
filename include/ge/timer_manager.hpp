@@ -16,8 +16,7 @@ struct timer_int_data;
 
 // this class represents the metadata for a select timer, you don't have to worry about this class
 template <typename... ArgTypes>
-struct timer_int_data<void(ArgTypes...)>
-{
+struct timer_int_data<void(ArgTypes...)> {
 	timer_int_data(const std::function<void(ArgTypes...)>& cal,
 		std::chrono::time_point<std::chrono::system_clock, std::chrono::duration<float>> expir)
 		: callback{cal}, expiration_time{expir}
@@ -37,8 +36,7 @@ struct timer_handle;
 
 // This is similar to a `connection`, it allows you to manage a timer.
 template <typename... ArgTypes>
-struct timer_handle<void(ArgTypes...)>
-{
+struct timer_handle<void(ArgTypes...)> {
 	timer_handle(timer_manager<void(ArgTypes...)>* manager,
 		const std::shared_ptr<timer_int_data<void(ArgTypes...)>>& timer)
 		: m_manager{manager}, m_data{timer} {};
@@ -62,8 +60,7 @@ private:
 
 /// This class manages timers
 template <typename... ArgTypes>
-struct timer_manager<void(ArgTypes...)>
-{
+struct timer_manager<void(ArgTypes...)> {
 	friend timer_handle<void(ArgTypes...)>;
 
 	/// Add a timer to the manager
@@ -88,10 +85,8 @@ struct timer_manager<void(ArgTypes...)>
 	{
 		last_tick += duration;
 
-		while (m_data[0]->expiration_time <= last_tick)
-		{
-			if (m_data[0]->callback)
-			{
+		while (m_data[0]->expiration_time <= last_tick) {
+			if (m_data[0]->callback) {
 				m_data[0]->callback(args...);
 				m_data[0]->triggered = true;
 			}

@@ -24,13 +24,10 @@ void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_ve
 	glEnableClientState(GL_COLOR_ARRAY);
 	glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Rocket::Core::Vertex), &vertices[0].colour);
 
-	if (!texture)
-	{
+	if (!texture) {
 		glDisable(GL_TEXTURE_2D);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	}
-	else
-	{
+	} else {
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, (GLuint)texture);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -53,8 +50,7 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 	tex_coord.reserve(num_vertices);
 	std::vector<glm::vec4> colors;
 	colors.reserve(num_vertices);
-	for (size_t id = 0; id < num_vertices; ++id)
-	{
+	for (size_t id = 0; id < num_vertices; ++id) {
 		locs.emplace_back(vertices[id].position.x, vertices[id].position.x);
 		tex_coord.emplace_back(vertices[id].tex_coord.x, vertices[id].tex_coord.y);
 		colors.emplace_back(vertices[id].colour.red, vertices[id].colour.green,
@@ -105,8 +101,7 @@ void render_interface::SetScissorRegion(int x, int y, int width, int height)
 bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 	Rocket::Core::Vector2i& texture_dimensions, const Rocket::Core::String& source)
 {
-	try
-	{
+	try {
 		auto texasset = m_asset_manager->get_asset<texture_asset>(source.CString());
 
 		texture_dimensions = Rocket::Core::Vector2i(texasset->size.x, texasset->size.y);
@@ -117,9 +112,7 @@ bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 		tex->texture_name = texasset->texture_name;
 
 		texture_handle = reinterpret_cast<intptr_t>(tex);
-	}
-	catch (const std::exception& e)
-	{
+	} catch (const std::exception& e) {
 		return false;
 	}
 
@@ -131,14 +124,11 @@ bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 bool render_interface::GenerateTexture(Rocket::Core::TextureHandle& texture_handle,
 	const Rocket::Core::byte* source, const Rocket::Core::Vector2i& source_dimensions)
 {
-	try
-	{
+	try {
 		auto ret = new texture(source, {source_dimensions.x, source_dimensions.y});
 
 		texture_handle = reinterpret_cast<intptr_t>(ret);
-	}
-	catch (std::exception&)
-	{
+	} catch (std::exception&) {
 		return false;
 	}
 

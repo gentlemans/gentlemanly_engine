@@ -30,8 +30,7 @@ namespace concept
  * if any of the types in to_check don't comply with Concept.
  */
 template <template <typename> typename Concept, typename... to_check>
-struct variadic_concept
-{
+struct variadic_concept {
 };
 
 // this is just an implementation class, don't include this in the
@@ -39,8 +38,7 @@ struct variadic_concept
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 template <template <typename> typename Concept, typename first, typename... rest>
-struct variadic_concept<Concept, first, rest...> : variadic_concept<Concept, rest...>
-{
+struct variadic_concept<Concept, first, rest...> : variadic_concept<Concept, rest...> {
 	BOOST_CONCEPT_ASSERT((Concept<first>));
 };
 

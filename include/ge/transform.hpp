@@ -4,8 +4,7 @@
 
 namespace ge
 {
-struct transform
-{
+struct transform {
 	glm::vec2 location = {0.f, 0.f};
 	float rotation = 0.f;
 	glm::vec2 scale = {1.f, 1.f};

@@ -13,12 +13,9 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 	const std::string& abs_filepath, const nlohmann::json& json_data)
 {
 	std::string path;
-	if (json_data["obj_data"].is_string())
-	{
+	if (json_data["obj_data"].is_string()) {
 		path = json_data["obj_data"];
-	}
-	else
-	{
+	} else {
 		path = "object.obj";
 	}
 
@@ -27,13 +24,11 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 	Assimp::Importer importer;
 	const aiScene* scene =
 		importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
-	if (!scene)
-	{
+	if (!scene) {
 		throw std::runtime_error(
 			"Failed to import file: " + path + " Reason: " + importer.GetErrorString());
 	}
-	if (!scene->HasMeshes())
-	{
+	if (!scene->HasMeshes()) {
 		throw std::runtime_error("Failed to import file: " + path + " Reason: no meshes");
 	}
 
@@ -43,15 +38,13 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 	memcpy(locs.data(), mesh_ref.mVertices, sizeof(aiVector3D) * mesh_ref.mNumVertices);
 
 	// remove Z's, this is a 2D engine
-	for (size_t index = 2; index < locs.size(); index += 2)
-	{
+	for (size_t index = 2; index < locs.size(); index += 2) {
 		locs.erase(locs.begin() + index);
 	}
 
 	// build element vector
 	std::vector<glm::uvec3> elements(mesh_ref.mNumFaces * 3);
-	for (auto index_of_face = 0; index_of_face < mesh_ref.mNumFaces; ++index_of_face)
-	{
+	for (auto index_of_face = 0; index_of_face < mesh_ref.mNumFaces; ++index_of_face) {
 		elements[index_of_face] = {
 			mesh_ref.mFaces[index_of_face].mIndices[0], mesh_ref.mFaces[index_of_face].mIndices[1],
 			mesh_ref.mFaces[index_of_face].mIndices[2],
@@ -60,8 +53,7 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 
 	// load in texture coordinates()
 	std::vector<glm::vec2> texcoords(mesh_ref.mNumVertices);
-	for (auto vert_id = 0; vert_id < mesh_ref.mNumVertices; ++vert_id)
-	{
+	for (auto vert_id = 0; vert_id < mesh_ref.mNumVertices; ++vert_id) {
 		texcoords[vert_id] = {
 			mesh_ref.mTextureCoords[0][vert_id].x, mesh_ref.mTextureCoords[0][vert_id].y};
 	}

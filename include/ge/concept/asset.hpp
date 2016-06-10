@@ -11,8 +11,7 @@ class asset_manager;
 namespace concept
 {
 template <typename X>
-struct Asset
-{
+struct Asset {
 	using loaded_type = typename X::loaded_type;
 
 	BOOST_CONCEPT_USAGE(Asset) { const char* type = X::asset_type(); }

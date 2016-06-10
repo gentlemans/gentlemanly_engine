@@ -14,8 +14,7 @@ namespace ge
 namespace concept
 {
 template <typename X>
-struct Viewport
-{
+struct Viewport {
 	using application = typename X::application;
 	using window = typename X::window;
 

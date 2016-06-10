@@ -2,7 +2,6 @@
 
 namespace ge
 {
-struct velocity_component
-{
+struct velocity_component {
 };
 }

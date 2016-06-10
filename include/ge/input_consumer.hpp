@@ -8,12 +8,10 @@
 
 namespace ge
 {
-struct input_consumer_base
-{
+struct input_consumer_base {
 };
 
-struct input_consumer_manager
-{
+struct input_consumer_manager {
 	using consumer_func = void(input_event event, input_consumer_base* ptr);
 
 	static std::deque<std::pair<consumer_func*, input_consumer_base*>> consumers;
@@ -24,12 +22,10 @@ struct input_consumer_manager
 	{
 		BOOST_CONCEPT_ASSERT((ge::concept::Viewport<Viewport>));
 
-		if (consumers.size() > active_consumer)
-		{
+		if (consumers.size() > active_consumer) {
 			auto events = viewport.get_input_events();
 
-			for (auto ev : events)
-			{
+			for (auto ev : events) {
 				consumers[active_consumer].first(ev, consumers[active_consumer].second);
 			}
 		}
@@ -37,8 +33,7 @@ struct input_consumer_manager
 };
 
 template <typename Derived>
-struct input_consumer : input_consumer_base
-{
+struct input_consumer : input_consumer_base {
 	input_consumer()
 	{
 		input_consumer_manager::consumers.push_back(

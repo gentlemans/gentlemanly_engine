@@ -9,8 +9,7 @@ namespace ge
 namespace concept
 {
 template <typename X>
-struct Component
-{
+struct Component {
 	using depends = typename X::depends;
 	using implements = typename X::implements;
 

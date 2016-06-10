@@ -49,7 +49,9 @@ set(GE_PRIVATE_FILES
 	src/ge/shader.cpp
 	src/ge/texture_asset.cpp
 	src/ge/texture.cpp
-	src/ge/ui/render_interface.cpp
+	src/ge/ui/render_interface.cpp	
+	src/ge/ui/rocket_input_consumer.cpp
+	src/ge/ui/rocket_document_asset.cpp
 )
 
 set(GE_PUBLIC_FILES 
@@ -85,6 +87,8 @@ set(GE_PUBLIC_FILES
 	include/ge/transform.hpp
 	include/ge/ui/render_interface.hpp
 	include/ge/ui/system_interface.hpp
+	include/ge/ui/rocket_document_asset.hpp
+	include/ge/ui/rocket_input_consumer.hpp
 	include/ge/velocity_component.hpp
 )
 

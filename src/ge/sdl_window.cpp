@@ -17,7 +17,6 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-	
 	// initalize the window
 	m_window = SDL_CreateWindow(title, loc ? loc.get().x : SDL_WINDOWPOS_UNDEFINED,
 		loc ? loc.get().y : SDL_WINDOWPOS_UNDEFINED, size.x, size.y, flags);

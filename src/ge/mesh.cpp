@@ -11,8 +11,7 @@
 
 namespace ge
 {
-struct parameter_setter_visitor : boost::static_visitor<void>
-{
+struct parameter_setter_visitor : boost::static_visitor<void> {
 	int uniform_index;
 
 	int bind_loc = 0;
@@ -30,8 +29,7 @@ struct parameter_setter_visitor : boost::static_visitor<void>
 	}
 };
 
-struct attr_applying_visitor : boost::static_visitor<void>
-{
+struct attr_applying_visitor : boost::static_visitor<void> {
 	unsigned attrib_id;
 	mesh const* m;
 	std::pair<const std::string, shader::attribute>* attr;
@@ -82,18 +80,14 @@ void mesh::render(const glm::mat3& mvp) const
 
 	glUseProgram(shader_ref.program_name);
 	// set parameters
-	for (auto& param : shader_ref.parameters)
-	{
+	for (auto& param : shader_ref.parameters) {
 		shader::parameter_type value;
 
 		// check if it is in the material
 		auto iter_in_mat = material_ref.property_values.find(param.first);
-		if (iter_in_mat != material_ref.property_values.end())
-		{
+		if (iter_in_mat != material_ref.property_values.end()) {
 			value = iter_in_mat->second;
-		}
-		else
-		{
+		} else {
 			value = param.second.value;
 		}
 		// set it
@@ -115,8 +109,7 @@ void mesh::render(const glm::mat3& mvp) const
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
 	size_t next_attribarray = 1;
-	for (auto& attr : shader_ref.attributes)
-	{
+	for (auto& attr : shader_ref.attributes) {
 		assert(additonal_vertex_data.find(attr.first) != additonal_vertex_data.end());
 		attr_applying_visitor visitor;
 		visitor.attrib_id = next_attribarray++;

@@ -19,8 +19,7 @@
 
 using namespace ge;
 
-struct wall_actor : actor, input_consumer<wall_actor>
-{
+struct wall_actor : actor, input_consumer<wall_actor> {
 	mesh_actor* m_mesh;  // this doesn't need to be a shared_ptr because the actor already tracks it
 
 	void initialize(const std::shared_ptr<mesh>& mesh)
@@ -32,12 +31,9 @@ struct wall_actor : actor, input_consumer<wall_actor>
 
 	void handle_input(const input_event& ev)
 	{
-		if (ev == input_event{input_keyboard{key::e_w, true}})
-		{
+		if (ev == input_event{input_keyboard{key::e_w, true}}) {
 			m_mesh->set_relative_location(m_mesh->get_relative_location() + glm::vec2{1.f, 1.f});
-		}
-		else if (ev == input_event{input_keyboard{key::e_s, true}})
-		{
+		} else if (ev == input_event{input_keyboard{key::e_s, true}}) {
 			m_mesh->set_relative_location(m_mesh->get_relative_location() - glm::vec2{1.f, 1.f});
 		}
 	}
@@ -45,8 +41,7 @@ struct wall_actor : actor, input_consumer<wall_actor>
 
 int main(int argc, char** argv)
 {
-	try
-	{
+	try {
 		sdl_application app(argc, argv);
 		auto window = app.make_window(
 			"gentlemanly_engine_example_opening_window", {}, {1280, 720}, false, true);
@@ -89,9 +84,7 @@ int main(int argc, char** argv)
 		});
 
 		app.execute(*window);
-	}
-	catch (std::exception& e)
-	{
+	} catch (std::exception& e) {
 		std::cout << e.what();
 		return 232;
 	}

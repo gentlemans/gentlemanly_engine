@@ -12,8 +12,7 @@ namespace concept
 {
 // the concept for subsystems
 template <typename X>
-struct Window
-{
+struct Window {
 	using application = typename X::application;
 	using window = typename X::window;
 

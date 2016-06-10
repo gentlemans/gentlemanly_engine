@@ -21,13 +21,10 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 
 	// load in the parameters
 	auto param_iter = json_data.find("parameters");
-	if (param_iter != json_data.end())
-	{
+	if (param_iter != json_data.end()) {
 		auto parameters = *param_iter;
-		if (parameters.is_array())
-		{
-			for (auto& parameter : parameters)
-			{
+		if (parameters.is_array()) {
+			for (auto& parameter : parameters) {
 				// required
 				std::string type = parameter["type"];
 				std::string glsl_name = parameter["glsl_name"];
@@ -41,29 +38,20 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 				shader::parameter_type param_data;
 
 				// figure out type
-				if (type == "float")
-				{
+				if (type == "float") {
 					param_data = (float)parameter["default"];
-				}
-				else if (type == "vec2")
-				{
+				} else if (type == "vec2") {
 					glm::vec2 vector = {parameter["default"][0], parameter["default"][1]};
 					param_data = vector;
-				}
-				else if (type == "vec3")
-				{
+				} else if (type == "vec3") {
 					glm::vec3 vector = {
 						parameter["default"][0], parameter["default"][1], parameter["default"][2]};
 					param_data = vector;
-				}
-				else if (type == "vec4")
-				{
+				} else if (type == "vec4") {
 					glm::vec4 vector = {parameter["default"][0], parameter["default"][1],
 						parameter["default"][2], parameter["default"][3]};
 					param_data = vector;
-				}
-				else if (type == "texture")
-				{
+				} else if (type == "texture") {
 					param_data = manager.get_asset<texture_asset>(
 						parameter["default"].get<std::string>().c_str());
 				}
@@ -75,32 +63,22 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 
 	// load in vertex_attributes
 	auto attr_iter = json_data.find("vertex_attributes");
-	if (attr_iter != json_data.end())
-	{
+	if (attr_iter != json_data.end()) {
 		auto vertex_attributes = *attr_iter;
-		if (vertex_attributes.is_array())
-		{
-			for (auto& attrib : vertex_attributes)
-			{
+		if (vertex_attributes.is_array()) {
+			for (auto& attrib : vertex_attributes) {
 				assert(attrib.is_object());
 
 				// find out type
 				std::string type = attrib["type"];
 				auto attr_type = shader::attribute_type{};
-				if (type == "float")
-				{
+				if (type == "float") {
 					attr_type = float{};
-				}
-				else if (type == "vec2")
-				{
+				} else if (type == "vec2") {
 					attr_type = glm::vec2{};
-				}
-				else if (type == "vec3")
-				{
+				} else if (type == "vec3") {
 					attr_type = glm::vec3{};
-				}
-				else if (type == "vec4")
-				{
+				} else if (type == "vec4") {
 					attr_type = glm::vec4{};
 				}
 

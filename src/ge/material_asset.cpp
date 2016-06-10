@@ -5,8 +5,7 @@
 
 namespace ge
 {
-struct reassign_from_json_visitor : boost::static_visitor<shader::parameter_type>
-{
+struct reassign_from_json_visitor : boost::static_visitor<shader::parameter_type> {
 	reassign_from_json_visitor(const nlohmann::json& js, asset_manager& asset_man_arg)
 		: json_obj{js}, asset_man{asset_man_arg}
 	{
@@ -43,10 +42,8 @@ std::shared_ptr<material> material_asset::load_asset(asset_manager& manager, con
 
 	// load parameters
 	auto parameter_iter = json_data.find("parameters");
-	if (parameter_iter != json_data.end() && parameter_iter->is_array())
-	{
-		for (auto& parameter : *parameter_iter)
-		{
+	if (parameter_iter != json_data.end() && parameter_iter->is_array()) {
+		for (auto& parameter : *parameter_iter) {
 			std::string parameter_name = parameter["name"];
 			// get the type from the shader
 			if (ret->m_shader->parameters.find(parameter_name) == ret->m_shader->parameters.end())
@@ -56,12 +53,9 @@ std::shared_ptr<material> material_asset::load_asset(asset_manager& manager, con
 
 			reassign_from_json_visitor vis{parameter["value"], manager};
 
-			try
-			{
+			try {
 				ret->property_values[parameter_name] = default_value.apply_visitor(vis);
-			}
-			catch (std::exception& e)
-			{
+			} catch (std::exception& e) {
 				std::cerr << "ERROR THROWN: " << e.what() << std::endl;
 			}
 		}

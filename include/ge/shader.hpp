@@ -22,8 +22,7 @@ public:
 		boost::variant<float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr<texture>>;
 	using attribute_type = boost::variant<float, glm::vec2, glm::vec3, glm::vec4>;
 
-	struct parameter
-	{
+	struct parameter {
 		parameter_type value;
 		std::string glsl_name;
 		std::string description;
@@ -40,8 +39,7 @@ public:
 	{
 	}
 
-	struct attribute
-	{
+	struct attribute {
 		attribute_type type;
 		unsigned attribute_id;
 	};

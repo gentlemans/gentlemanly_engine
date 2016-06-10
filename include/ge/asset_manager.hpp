@@ -53,8 +53,7 @@ public:
 		// check if it's in the cache
 		{
 			auto iter = cache.find(name);
-			if (iter != cache.end())
-			{
+			if (iter != cache.end()) {
 				if (!iter->second.expired())
 					return std::static_pointer_cast<typename asset_type::loaded_type>(
 						iter->second.lock());
@@ -62,12 +61,9 @@ public:
 		}
 		std::string abs_path;
 		// acquire absolute path
-		for (auto& priority_and_paths : search_paths)
-		{
-			for (auto& path : priority_and_paths.second)
-			{
-				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json"))
-				{
+		for (auto& priority_and_paths : search_paths) {
+			for (auto& path : priority_and_paths.second) {
+				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
 					abs_path = path + "/" + name;
 					break;
 				}
@@ -75,14 +71,12 @@ public:
 			if (!abs_path.empty()) break;
 		}
 
-		if (abs_path.empty())
-		{
+		if (abs_path.empty()) {
 			throw std::runtime_error(
 				"Could not find asset named "s + name + " in any of the search paths");
 		}
 
-		if (!boost::filesystem::exists(abs_path + "/asset.json"))
-		{
+		if (!boost::filesystem::exists(abs_path + "/asset.json")) {
 			throw std::runtime_error("Asset "s + name + " that was found in folder " + abs_path +
 									 " does not have a asset.json file");
 		}
@@ -93,8 +87,7 @@ public:
 
 		std::string asset_type_from_json = root["asset_type"];
 
-		if (std::string(asset_type::asset_type()) != asset_type_from_json)
-		{
+		if (std::string(asset_type::asset_type()) != asset_type_from_json) {
 			throw std::runtime_error("Asset type " + std::string(asset_type::asset_type()) +
 									 " but the asset.json file in asset " + name +
 									 " had asset type " + asset_type_from_json);

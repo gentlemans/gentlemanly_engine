@@ -41,8 +41,7 @@ void sdl_application::execute(window& win)
 
 	SDL_GL_SetSwapInterval(0);
 
-	while (running)
-	{
+	while (running) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		update_c_function(this);
 		SDL_GL_SwapWindow(win.m_window);

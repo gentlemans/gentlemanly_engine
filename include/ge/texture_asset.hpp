@@ -24,13 +24,8 @@
 
 namespace ge
 {
-struct texture_asset
-{
-	enum class type
-	{
-		DDS,
-		PNG
-	};
+struct texture_asset {
+	enum class type { DDS, PNG };
 
 	using loaded_type = texture;
 

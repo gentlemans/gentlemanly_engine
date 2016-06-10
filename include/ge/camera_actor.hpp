@@ -5,8 +5,7 @@
 
 namespace ge
 {
-struct camera_actor : actor
-{
+struct camera_actor : actor {
 	void initialize(float arg_vert_units) { m_vertical_units = arg_vert_units; }
 	float m_vertical_units;
 

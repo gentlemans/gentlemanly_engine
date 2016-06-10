@@ -69,14 +69,12 @@ public:
 	/// \param new_location the new location
 	void set_relative_location(glm::vec2 new_location)
 	{
-		if (new_location != m_transform.location)
-		{
+		if (new_location != m_transform.location) {
 			signal_location_changed(*this);
 			signal_transform_changed(*this);
 
 			// call those signals on children
-			for (auto act : m_children)
-			{
+			for (auto act : m_children) {
 				act->signal_location_changed(*act);
 				act->signal_transform_changed(*act);
 			}
@@ -90,15 +88,13 @@ public:
 	/// \param new_rotation the new rotation to apply
 	void set_relative_rotation(float new_rotation)
 	{
-		if (new_rotation != m_transform.rotation)
-		{
+		if (new_rotation != m_transform.rotation) {
 			signal_rotation_changed(*this);
 
 			signal_transform_changed(*this);
 
 			// call those signals on children
-			for (auto act : m_children)
-			{
+			for (auto act : m_children) {
 				act->signal_rotation_changed(*act);
 				act->signal_transform_changed(*act);
 			}
@@ -112,8 +108,7 @@ public:
 	/// \param new_scale The relative scale
 	void set_relative_scale(glm::vec2 new_scale)
 	{
-		if (new_scale != m_transform.scale)
-		{
+		if (new_scale != m_transform.scale) {
 			signal_scale_changed(*this);
 			signal_transform_changed(*this);
 		}
@@ -126,8 +121,7 @@ public:
 	/// \return The absolute location
 	glm::vec2 calcuate_absolute_location() const
 	{
-		if (has_parent())
-		{
+		if (has_parent()) {
 			glm::vec2 parent_loc = get_parent()->calcuate_absolute_location();
 			float parent_rot = get_parent()->calcuate_absolute_rotation();
 			return parent_loc +
@@ -141,8 +135,7 @@ public:
 	/// \return The absolute rotation
 	float calcuate_absolute_rotation() const
 	{
-		if (has_parent())
-		{
+		if (has_parent()) {
 			return get_parent()->calcuate_absolute_rotation() + get_relative_rotation();
 		}
 
@@ -152,8 +145,7 @@ public:
 	/// \return The absolute scale
 	glm::vec2 calcuate_absolute_scale() const
 	{
-		if (has_parent())
-		{
+		if (has_parent()) {
 			return get_parent()->calcuate_absolute_scale() * get_relative_scale();
 		}
 		return get_relative_scale();
@@ -182,8 +174,7 @@ public:
 		assert(new_parent);
 
 		// unparent from old parent
-		if (has_parent())
-		{
+		if (has_parent()) {
 			get_parent()->m_children.erase(shared_from_this());
 		}
 
@@ -206,8 +197,7 @@ public:
 	{
 		std::forward<F>(func)(*this);
 
-		for (auto child : m_children)
-		{
+		for (auto child : m_children) {
 			child->propagate_to_children(std::forward<F>(func));
 		}
 	}
