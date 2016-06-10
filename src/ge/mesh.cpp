@@ -45,8 +45,8 @@ struct attr_applying_visitor : boost::static_visitor<void> {
 };
 
 mesh::mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
-	const size_t num_indicies)
-	: num_triangles{num_indicies}
+	const size_t num_indicies, std::shared_ptr<material> mat)
+	: m_material{std::move(mat)}, num_triangles{num_indicies}
 {
 	glGenVertexArrays(1, &vertex_array);
 	glBindVertexArray(vertex_array);

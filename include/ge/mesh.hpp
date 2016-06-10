@@ -20,7 +20,7 @@ public:
 	std::shared_ptr<material> m_material;
 
 	mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
-		const size_t num_indicies);
+		const size_t num_indicies, std::shared_ptr<material> mat);
 	// no move or copy, pointer only
 	mesh(const mesh&) = delete;
 	mesh(mesh&&) = delete;

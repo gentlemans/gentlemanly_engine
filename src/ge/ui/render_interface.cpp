@@ -57,10 +57,10 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 			vertices[id].colour.blue, vertices[id].colour.alpha);
 	}
 
-	auto mes =
-		new mesh(locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices);
+//	auto mes =
+//		new mesh(locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices);
 
-	return reinterpret_cast<intptr_t>(mes);
+//	return reinterpret_cast<intptr_t>(mes);
 }
 
 // Called by Rocket when it wants to render application-compiled geometry.
