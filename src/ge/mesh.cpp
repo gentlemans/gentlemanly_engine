@@ -62,7 +62,7 @@ mesh::mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* i
 		GL_ELEMENT_ARRAY_BUFFER, sizeof(glm::uvec3) * num_indicies, indicies, GL_STATIC_DRAW);
 }
 
-void mesh::add_additonal_data(const char* name, void* data, size_t size)
+void mesh::add_additional_data(const char* name, void* data, size_t size)
 {
 	unsigned gl_name;
 	glGenBuffers(1, &gl_name);

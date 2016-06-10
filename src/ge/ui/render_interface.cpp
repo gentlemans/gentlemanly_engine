@@ -2,6 +2,7 @@
 #include "ge/gl.hpp"
 #include "ge/mesh.hpp"
 #include "ge/texture_asset.hpp"
+#include "ge/material.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -57,10 +58,15 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 			vertices[id].colour.blue, vertices[id].colour.alpha);
 	}
 
-//	auto mes =
-//		new mesh(locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices);
+	auto mat = std::make_shared<material>(m_shader);
+	
+	auto mes =
+		new mesh(locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices, mat);
 
-//	return reinterpret_cast<intptr_t>(mes);
+	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
+	mes->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
+		
+	return reinterpret_cast<intptr_t>(mes);
 }
 
 // Called by Rocket when it wants to render application-compiled geometry.
@@ -110,6 +116,9 @@ bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 		auto tex = new texture{};
 		tex->size = texasset->size;
 		tex->texture_name = texasset->texture_name;
+		
+		// make sure the texasset doesn't kill our GL objects
+		texasset->texture_name = 0;
 
 		texture_handle = reinterpret_cast<intptr_t>(tex);
 	} catch (const std::exception& e) {

@@ -29,7 +29,7 @@ public:
 
 	~mesh();
 
-	void add_additonal_data(const char* name, void* data, size_t size);
+	void add_additional_data(const char* name, void* data, size_t size);
 
 	void render(const glm::mat3& mvp) const;
 

@@ -57,16 +57,18 @@ int main(int argc, char** argv)
 
 		std::shared_ptr<camera_actor> camera;
 		
-		Rocket::Core::SetSystemInterface(new ui::system_interface<sdl_application>{app});
-		Rocket::Core::SetRenderInterface(new ui::render_interface(asset_man));
+		ui::system_interface<sdl_application> sysinterface{app};
+		Rocket::Core::SetSystemInterface(&sysinterface);
+		ui::render_interface renderinterface(asset_man);
+		Rocket::Core::SetRenderInterface(&renderinterface);
 		Rocket::Core::Initialise();
 		Rocket::Core::Context* rcontext = Rocket::Core::CreateContext(
 			"default", Rocket::Core::Vector2i(viewport->get_size().x, viewport->get_size().y));
-		app.signal_quit.connect([&]() { rcontext->RemoveReference(); });
+		app.signal_quit.connect([&]() { rcontext->RemoveReference(); Rocket::Core::Shutdown(); });
 
 		asset_man.get_asset<ui::rocket_font_asset>("rocketfont");
-//		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
-//		doc->Show();
+		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
+		doc->Show();
 		
 		app.signal_init.connect([&] {
 

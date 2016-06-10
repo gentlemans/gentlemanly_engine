@@ -1,10 +1,14 @@
 #pragma once
 
 #include "ge/asset_manager.hpp"
+#include "ge/shader.hpp"
+#include "ge/shader_asset.hpp"
 
 #include <glm/glm.hpp>
 
 #include "Rocket/Core/RenderInterface.h"
+
+#include <memory>
 
 namespace ge
 {
@@ -12,8 +16,12 @@ namespace ui
 {
 class render_interface : public Rocket::Core::RenderInterface
 {
+	std::shared_ptr<shader> m_shader;
+	
 public:
-	render_interface(asset_manager& asset_man) : m_asset_manager{&asset_man} {}
+	render_interface(asset_manager& asset_man) : m_asset_manager{&asset_man} {
+		m_shader = asset_man.get_asset<shader_asset>("textureshader");
+	}
 private:
 	/// Called by Rocket when it wants to render geometry that it does not wish to optimise.
 	virtual void RenderGeometry(Rocket::Core::Vertex* vertices, int num_vertices, int* indices,
