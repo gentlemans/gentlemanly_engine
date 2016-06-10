@@ -25,7 +25,7 @@ find_package(glm REQUIRED)
 # LIBROCKET
 
 set(BUILD_SAMPLES OFF CACHE BOOL "")
-add_subdirectory(librocket/Build)
+add_subdirectory(deps/libRocket/Build)
 
 if(WIN32)
     # we use GLEW because it is hard to get GL3 support in win without it
