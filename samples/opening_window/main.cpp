@@ -13,6 +13,7 @@
 #include <ge/ui/system_interface.hpp>
 #include <ge/ui/rocket_document_asset.hpp>
 #include <ge/ui/rocket_input_consumer.hpp>
+#include <ge/ui/rocket_font_asset.hpp>
 
 #include <Rocket/Core.h>
 
@@ -63,6 +64,7 @@ int main(int argc, char** argv)
 			"default", Rocket::Core::Vector2i(viewport->get_size().x, viewport->get_size().y));
 		app.signal_quit.connect([&]() { rcontext->RemoveReference(); });
 
+		asset_man.get_asset<ui::rocket_font_asset>("rocketfont");
 		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
 		
 		app.signal_init.connect([&] {
