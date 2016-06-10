@@ -8,6 +8,7 @@ arch:
         - assimp
         - glm
         - boost
+        - glu
     script:
         - cmake -DENTITYX_BUILD_TESTING=OFF .
         - make
