@@ -19,7 +19,6 @@ find_package(OpenGL REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(assimp REQUIRED)
 find_package(SDL2 REQUIRED)
-find_package(glm REQUIRED)
 
 
 # LIBROCKET
@@ -104,9 +103,9 @@ PRIVATE
 	${ASSIMP_INCLUDE_DIRS}
 PUBLIC
 	include
-	${GLM_INCLUDE_DIRS}
+	deps/glm/glm/
 	${Boost_INCLUDE_DIR}
-	librocket/Include/
+	deps/libRocket/Include/
 )
 
 link_directories(${ASSIMP_LIBRARY_DIRS})
