@@ -11,6 +11,8 @@
 #include <ge/mesh_asset.hpp>
 #include <ge/ui/render_interface.hpp>
 #include <ge/ui/system_interface.hpp>
+#include <ge/ui/rocket_document_asset.hpp>
+#include <ge/ui/rocket_input_consumer.hpp>
 
 #include <Rocket/Core.h>
 
@@ -53,7 +55,7 @@ int main(int argc, char** argv)
 		asset_man.add_asset_path("data/");
 
 		std::shared_ptr<camera_actor> camera;
-
+		
 		Rocket::Core::SetSystemInterface(new ui::system_interface<sdl_application>{app});
 		Rocket::Core::SetRenderInterface(new ui::render_interface(asset_man));
 		Rocket::Core::Initialise();
@@ -61,6 +63,8 @@ int main(int argc, char** argv)
 			"default", Rocket::Core::Vector2i(viewport->get_size().x, viewport->get_size().y));
 		app.signal_quit.connect([&]() { rcontext->RemoveReference(); });
 
+		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
+		
 		app.signal_init.connect([&] {
 
 			viewport->set_background_color({.2f, .2f, .2f, 1.f});
