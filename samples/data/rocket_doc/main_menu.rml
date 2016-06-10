@@ -1,6 +1,11 @@
 <rml>
   <head>
     <title>Hi!</title>
+    <style>
+      body {
+        font-family: "La Cithare";
+      }
+    </style>
   </head>
   <body>
     <p>Hello!</p>

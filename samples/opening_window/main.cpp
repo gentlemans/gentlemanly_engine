@@ -65,7 +65,8 @@ int main(int argc, char** argv)
 		app.signal_quit.connect([&]() { rcontext->RemoveReference(); });
 
 		asset_man.get_asset<ui::rocket_font_asset>("rocketfont");
-		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
+//		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
+//		doc->Show();
 		
 		app.signal_init.connect([&] {
 
