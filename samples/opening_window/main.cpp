@@ -64,7 +64,6 @@ int main(int argc, char** argv)
 		Rocket::Core::Initialise();
 		Rocket::Core::Context* rcontext = Rocket::Core::CreateContext(
 			"default", Rocket::Core::Vector2i(viewport->get_size().x, viewport->get_size().y));
-		app.signal_quit.connect([&]() { rcontext->RemoveReference(); Rocket::Core::Shutdown(); });
 
 		asset_man.get_asset<ui::rocket_font_asset>("rocketfont");
 		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
@@ -93,6 +92,10 @@ int main(int argc, char** argv)
 		});
 
 		app.execute(*window);
+		
+		rcontext->RemoveReference(); 
+		Rocket::Core::Shutdown();
+		
 	} catch (std::exception& e) {
 		std::cout << e.what();
 		return 232;

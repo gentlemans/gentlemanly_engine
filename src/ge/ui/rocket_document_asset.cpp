@@ -16,7 +16,7 @@ std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset
 
 	std::string path = boost::filesystem::absolute(json_get_value_with_fallback(json_data, "rml_file"s, "doc.rml"s), filepath).string();
 	
-	return std::shared_ptr<Rocket::Core::ElementDocument>(ctx->LoadDocument(path.c_str()));
+	return std::shared_ptr<Rocket::Core::ElementDocument>(ctx->LoadDocument(path.c_str()), [](Rocket::Core::ElementDocument* doc){ doc->Close(); });
 }
 }
 }
