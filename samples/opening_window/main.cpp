@@ -68,6 +68,7 @@ int main(int argc, char** argv)
 		asset_man.get_asset<ui::rocket_font_asset>("rocketfont");
 		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
 		doc->Show();
+		doc->RemoveReference();
 		
 		app.signal_init.connect([&] {
 
@@ -94,12 +95,12 @@ int main(int argc, char** argv)
 		app.execute(*window);
 		
 		rcontext->RemoveReference(); 
-
+		
+		Rocket::Core::Shutdown();
 		
 	} catch (std::exception& e) {
 		std::cout << e.what();
 		return 232;
 	}
 
-	Rocket::Core::Shutdown();
 }
