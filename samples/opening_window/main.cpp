@@ -94,10 +94,12 @@ int main(int argc, char** argv)
 		app.execute(*window);
 		
 		rcontext->RemoveReference(); 
-		Rocket::Core::Shutdown();
+
 		
 	} catch (std::exception& e) {
 		std::cout << e.what();
 		return 232;
 	}
+
+	Rocket::Core::Shutdown();
 }

@@ -11,6 +11,10 @@
  * {
  *   "type": "rocket_document",
  *   "rml_file": "path/to/rml/file(defaults to doc.rml)"
+ *   "required_fonts": [
+ *     "font1",
+ *     "font2"
+ *   ] (optional)
  * }
  *
  */

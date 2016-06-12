@@ -3,6 +3,7 @@
 #include "ge/mesh.hpp"
 #include "ge/texture_asset.hpp"
 #include "ge/material.hpp"
+#include "ge/ortho2d.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -73,8 +74,9 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 void render_interface::RenderCompiledGeometry(
 	Rocket::Core::CompiledGeometryHandle geometry, const Rocket::Core::Vector2f& translation)
 {
-	glm::mat3 mvp = glm::translate(glm::mat3{}, {translation.x, translation.y});
-
+	
+	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x,  (float)viewport_size.y, 0.f) * glm::translate(glm::mat3{}, {translation.x, translation.y});;
+	
 	auto m = reinterpret_cast<mesh*>(geometry);
 
 	m->render(mvp);
