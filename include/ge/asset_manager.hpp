@@ -9,8 +9,8 @@
 #include <string>
 #include <type_traits>
 #include <unordered_map>
-#include <vector>
 #include <unordered_set>
+#include <vector>
 
 #include <boost/filesystem.hpp>
 
@@ -24,7 +24,7 @@ private:
 
 	// we don't know this type, but we will when it is asked for.
 	std::unordered_map<std::string, std::weak_ptr<void>> cache;
-	
+
 	std::unordered_set<std::string> loaded_void_assets;
 
 public:
@@ -44,7 +44,8 @@ public:
 	/// \param name The name of the asset, which is a folder inside an asset path
 	/// \param extra_args Extra arguments to be passed to the loader
 	/// \return The asset
-	template <typename asset_type, typename... extra_args_types, typename = std::enable_if_t<!std::is_void<typename asset_type::loaded_type>::value>>
+	template <typename asset_type, typename... extra_args_types,
+		typename = std::enable_if_t<!std::is_void<typename asset_type::loaded_type>::value>>
 	std::shared_ptr<typename asset_type::loaded_type> get_asset(
 		const char* name, extra_args_types&&... extra_args)
 	{
@@ -105,11 +106,11 @@ public:
 
 		return shared;
 	}
-	
+
 	// overload for void asset types
-	template <typename asset_type, typename... extra_args_types, typename = std::enable_if_t<std::is_void<typename asset_type::loaded_type>::value>>
-	void get_asset(
-		const char* name, extra_args_types&&... extra_args)
+	template <typename asset_type, typename... extra_args_types,
+		typename = std::enable_if_t<std::is_void<typename asset_type::loaded_type>::value>>
+	void get_asset(const char* name, extra_args_types&&... extra_args)
 	{
 		using namespace std::string_literals;
 
@@ -162,6 +163,5 @@ public:
 
 		loaded_void_assets.insert(name);
 	}
-
 };
 }

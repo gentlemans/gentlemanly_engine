@@ -62,7 +62,8 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 	// these reinterpret_casts are safe because glm makes sure to not have any
 	// padding
 	auto ret = std::make_shared<mesh>(reinterpret_cast<glm::vec2*>(locs.data()), locs.size(),
-		elements.data(), mesh_ref.mNumFaces, manager.get_asset<material_asset>(material_asset_path.c_str()));
+		elements.data(), mesh_ref.mNumFaces,
+		manager.get_asset<material_asset>(material_asset_path.c_str()));
 
 	ret->add_additional_data("uv", texcoords.data(), texcoords.size() * sizeof(glm::vec2));
 

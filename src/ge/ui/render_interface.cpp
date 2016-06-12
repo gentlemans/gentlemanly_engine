@@ -1,9 +1,9 @@
 #include "ge/ui/render_interface.hpp"
 #include "ge/gl.hpp"
-#include "ge/mesh.hpp"
-#include "ge/texture_asset.hpp"
 #include "ge/material.hpp"
+#include "ge/mesh.hpp"
 #include "ge/ortho2d.hpp"
+#include "ge/texture_asset.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -60,13 +60,13 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 	}
 
 	auto mat = std::make_shared<material>(m_shader);
-	
-	auto mes =
-		new mesh(locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices, mat);
+
+	auto mes = new mesh(
+		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices, mat);
 
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
 	mes->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
-		
+
 	return reinterpret_cast<intptr_t>(mes);
 }
 
@@ -74,9 +74,10 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 void render_interface::RenderCompiledGeometry(
 	Rocket::Core::CompiledGeometryHandle geometry, const Rocket::Core::Vector2f& translation)
 {
-	
-	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x,  (float)viewport_size.y, 0.f) * glm::translate(glm::mat3{}, {translation.x, translation.y});;
-	
+	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x, (float)viewport_size.y, 0.f) *
+					glm::translate(glm::mat3{}, {translation.x, translation.y});
+	;
+
 	auto m = reinterpret_cast<mesh*>(geometry);
 
 	m->render(mvp);
@@ -118,7 +119,7 @@ bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 		auto tex = new texture{};
 		tex->size = texasset->size;
 		tex->texture_name = texasset->texture_name;
-		
+
 		// make sure the texasset doesn't kill our GL objects
 		texasset->texture_name = 0;
 
