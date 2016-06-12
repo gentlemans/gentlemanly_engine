@@ -3,6 +3,7 @@
 #include "ge/asset_manager.hpp"
 #include "ge/shader.hpp"
 #include "ge/shader_asset.hpp"
+#include "ge/concept/viewport.hpp"
 
 #include <glm/glm.hpp>
 
@@ -19,8 +20,14 @@ class render_interface : public Rocket::Core::RenderInterface
 	std::shared_ptr<shader> m_shader;
 	
 public:
-	render_interface(asset_manager& asset_man) : m_asset_manager{&asset_man} {
+	template<typename Viewport>
+	render_interface(asset_manager& asset_man, const Viewport& viewport) : m_asset_manager{&asset_man} {
+		BOOST_CONCEPT_ASSERT((concept::Viewport<Viewport>));
+		
 		m_shader = asset_man.get_asset<shader_asset>("textureshader");
+		
+
+		viewport_size = viewport.get_size();
 	}
 private:
 	/// Called by Rocket when it wants to render geometry that it does not wish to optimise.

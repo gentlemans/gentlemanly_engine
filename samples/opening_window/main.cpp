@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 		
 		ui::system_interface<sdl_application> sysinterface{app};
 		Rocket::Core::SetSystemInterface(&sysinterface);
-		ui::render_interface renderinterface(asset_man);
+		ui::render_interface renderinterface(asset_man, *viewport);
 		Rocket::Core::SetRenderInterface(&renderinterface);
 		Rocket::Core::Initialise();
 		Rocket::Core::Context* rcontext = Rocket::Core::CreateContext(
