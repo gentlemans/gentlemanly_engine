@@ -27,8 +27,6 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
 	// create the context
 	m_context = SDL_GL_CreateContext(m_window);
 
-	glEnable(GL_DEPTH_TEST);
-	
 	// Enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
