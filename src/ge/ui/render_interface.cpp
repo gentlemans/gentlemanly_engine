@@ -52,17 +52,21 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 	tex_coord.reserve(num_vertices);
 	std::vector<glm::vec4> colors;
 	colors.reserve(num_vertices);
+	
+	// reconstruct the vectors in the format the engine wants
 	for (size_t id = 0; id < num_vertices; ++id) {
-		locs.emplace_back(vertices[id].position.x, vertices[id].position.x);
+		locs.emplace_back(vertices[id].position.x, vertices[id].position.y);
+		
 		tex_coord.emplace_back(vertices[id].tex_coord.x, vertices[id].tex_coord.y);
+		
 		colors.emplace_back(vertices[id].colour.red, vertices[id].colour.green,
 			vertices[id].colour.blue, vertices[id].colour.alpha);
 	}
 
 	auto mat = std::make_shared<material>(m_shader);
-
+	
 	auto mes = new mesh(
-		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices, mat);
+		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3, mat);
 
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
 	mes->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());

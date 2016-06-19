@@ -75,7 +75,6 @@ int main(int argc, char** argv)
 			viewport->set_background_color({.2f, .2f, .2f, 1.f});
 
 			auto meshasset = asset_man.get_asset<mesh_asset>("square");
-			auto wallMesh = asset_man.get_asset<mesh_asset>("ground");
 
 			// wall
 			auto wall = actor::factory<wall_actor>(root_actor.get(), meshasset);
