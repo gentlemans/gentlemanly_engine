@@ -5,6 +5,10 @@
       body {
         font-family: "La Cithare";
         font-size: 1000%;
+        color: red;
+      }
+      p {
+        font-family: "Bungee Shade";
       }
     </style>
   </head>

@@ -65,7 +65,6 @@ int main(int argc, char** argv)
 		Rocket::Core::Context* rcontext = Rocket::Core::CreateContext(
 			"default", Rocket::Core::Vector2i(viewport->get_size().x, viewport->get_size().y));
 
-		asset_man.get_asset<ui::rocket_font_asset>("rocketfont");
 		auto doc = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc", rcontext);
 		doc->Show();
 		doc->RemoveReference();

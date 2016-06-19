@@ -1,4 +1,8 @@
 {
   "asset_type": "rocket_document",
-  "rml_file": "main_menu.rml"
+  "rml_file": "main_menu.rml",
+  "required_fonts": [
+    "rocketfont",
+    "bungeefont"
+  ]
 }
