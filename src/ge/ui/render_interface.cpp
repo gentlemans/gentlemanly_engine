@@ -43,7 +43,7 @@ void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_ve
 
 Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 	Rocket::Core::Vertex* vertices, int num_vertices, int* indices, int num_indices,
-	const Rocket::Core::TextureHandle texture)
+	const Rocket::Core::TextureHandle texturehandle)
 {
 	// create a ge::mesh
 	std::vector<glm::vec2> locs;
@@ -70,7 +70,14 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
 	mes->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
-
+	mes->m_material = std::make_shared<material>(m_shader);
+	
+	// the property_values needs a shared pointer, so create one that won't delete it when it is done
+	auto shared_texture = std::shared_ptr<texture>(new texture, [](auto){});
+	shared_texture->texture_name = reinterpret_cast<texture*>(texturehandle)->texture_name;
+	shared_texture->size = reinterpret_cast<texture*>(texturehandle)->size;
+	mes->m_material->property_values["Texture"] = shared_texture;
+	
 	return reinterpret_cast<intptr_t>(mes);
 }
 
@@ -78,10 +85,9 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 void render_interface::RenderCompiledGeometry(
 	Rocket::Core::CompiledGeometryHandle geometry, const Rocket::Core::Vector2f& translation)
 {
-	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x, (float)viewport_size.y, 0.f) *
-					glm::translate(glm::mat3{}, {translation.x, translation.y});
-	;
-
+	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x, (float)viewport_size.y, 0.f);
+	mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
+	
 	auto m = reinterpret_cast<mesh*>(geometry);
 
 	m->render(mvp);
