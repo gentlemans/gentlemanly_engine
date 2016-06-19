@@ -15,7 +15,8 @@ namespace ge
 {
 namespace concept
 {
-// the concept for subsystems
+
+/// A concpet (to be used with BOOST_CONCEPT_ASSERT) that defiens an application type for a windowing backend.
 template <typename X>
 struct Application {
 	using window = typename X::window;

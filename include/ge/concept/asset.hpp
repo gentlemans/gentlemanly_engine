@@ -10,6 +10,7 @@ class asset_manager;
 
 namespace concept
 {
+/// A concpet defining what an asset class looks like.
 template <typename X>
 struct Asset {
 	using loaded_type = typename X::loaded_type;
