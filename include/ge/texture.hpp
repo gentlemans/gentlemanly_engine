@@ -17,7 +17,7 @@ public:
 	texture(){};
 
 	/// from uncompressed RGBA
-	texture(const unsigned char* data, glm::uvec2 size);
+	texture(const unsigned char* pixels, glm::uvec2 size);
 
 	/// from compressed DXT -- no need for size, because YOU ARE GOING TO ALSO PASS THE HEADER!!!
 	texture(const unsigned char* data);

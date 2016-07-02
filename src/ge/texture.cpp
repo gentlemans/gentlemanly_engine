@@ -8,12 +8,12 @@
 
 namespace ge
 {
-texture::texture(const unsigned char* data, glm::uvec2 arg_size) : size{arg_size}
+texture::texture(const unsigned char* pixels, glm::uvec2 arg_size) : size{arg_size}
 {
 	// just load straight up
 	glGenTextures(1, &texture_name);
 	glBindTexture(GL_TEXTURE_2D, texture_name);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

@@ -40,6 +40,7 @@ set(GE_PRIVATE_FILES
 	src/ge/material.cpp
 	src/ge/mesh_actor.cpp
 	src/ge/mesh_asset.cpp
+	src/ge/animation_asset.cpp
 	src/ge/mesh.cpp
 	src/ge/sdl_application.cpp
 	src/ge/sdl_viewport.cpp
@@ -73,6 +74,7 @@ set(GE_PUBLIC_FILES
 	include/ge/material.hpp
 	include/ge/mesh_actor.hpp
 	include/ge/mesh_asset.hpp
+	include/ge/animation_asset.hpp
 	include/ge/mesh.hpp
 	include/ge/ortho2d.hpp
 	include/ge/sdl_application.hpp
