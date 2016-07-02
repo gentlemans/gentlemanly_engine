@@ -1,3 +1,6 @@
+#ifndef GE_ASSET_MANAGER_HPP
+#define GE_ASSET_MANAGER_HPP
+
 #pragma once
 
 #include "ge/concept/asset.hpp"
@@ -165,3 +168,6 @@ public:
 	}
 };
 }
+
+
+#endif // GE_ASSET_MANAGER_HPP

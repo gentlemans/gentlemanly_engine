@@ -1,3 +1,6 @@
+#ifndef GE_GL_HPP
+#define GE_GL_HPP
+
 #pragma once
 
 #if defined(__APPLE__)
@@ -16,4 +19,6 @@
 #include <gl/glew.h>
 #include "external/glext.h"
 #include "external/wglext.h"
+#endif
+
 #endif

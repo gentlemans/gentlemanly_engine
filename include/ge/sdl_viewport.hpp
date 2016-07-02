@@ -1,3 +1,6 @@
+#ifndef GE_SDL_VIEWPORT_HPP
+#define GE_SDL_VIEWPORT_HPP
+
 #pragma once
 #include "ge/concept/viewport.hpp"
 
@@ -32,3 +35,5 @@ public:
 BOOST_CONCEPT_ASSERT((concept::Viewport<sdl_viewport>));
 
 }  // namespace ge
+
+#endif // GE_SDL_VIEWPORT_HPP

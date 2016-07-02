@@ -1,3 +1,6 @@
+#ifndef GE_SYSTEM_INTERFACE_HPP
+#define GE_SYSTEM_INTERFACE_HPP
+
 #pragma once
 
 #include <Rocket/Core/SystemInterface.h>
@@ -23,3 +26,5 @@ private:
 };
 }
 }
+
+#endif // GE_SYSTEM_INTERFACE_HPP

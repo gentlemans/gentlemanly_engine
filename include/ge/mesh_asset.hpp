@@ -1,3 +1,6 @@
+#ifndef GE_MESH_ASSET_HPP
+#define GE_MESH_ASSET_HPP
+
 #pragma once
 
 #include "ge/asset_manager.hpp"
@@ -32,3 +35,5 @@ public:
 
 BOOST_CONCEPT_ASSERT((concept::Asset<mesh_asset>));
 }
+
+#endif // GE_MESH_ASSET_HPP

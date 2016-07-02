@@ -2,3 +2,7 @@
 *.kdev4
 
 build/
+
+# For qt creator
+CMakeFiles/
+CMakeLists.txt.user

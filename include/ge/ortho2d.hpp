@@ -1,3 +1,6 @@
+#ifndef GE_ORTHO2D_HPP
+#define GE_ORTHO2D_HPP
+
 #pragma once
 
 #include <glm/glm.hpp>
@@ -16,3 +19,5 @@ GLM_FUNC_QUALIFIER tmat3x3<T, defaultp> ortho2d(T left, T right, T bottom, T top
 	return Result;
 }
 }
+
+#endif

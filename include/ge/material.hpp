@@ -1,3 +1,6 @@
+#ifndef GE_MATERIAL_HPP
+#define GE_MATERIAL_HPP
+
 #pragma once
 
 #include "ge/shader.hpp"
@@ -22,3 +25,5 @@ public:
 	~material();
 };
 }
+
+#endif // GE_MATERIAL_HPP

@@ -88,7 +88,6 @@ set(GE_PUBLIC_FILES
 	include/ge/ui/rocket_document_asset.hpp
 	include/ge/ui/rocket_input_consumer.hpp
 	include/ge/ui/system_interface.hpp
-	include/ge/velocity_component.hpp
 )
 
 
@@ -103,7 +102,7 @@ PRIVATE
 	${ASSIMP_INCLUDE_DIRS}
 PUBLIC
 	include
-	deps/glm/glm/
+	deps/glm/
 	${Boost_INCLUDE_DIR}
 	deps/libRocket/Include/
 )

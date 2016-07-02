@@ -1,3 +1,6 @@
+#ifndef GE_ASSET_HPP
+#define GE_ASSET_HPP
+
 #pragma once
 
 #include "ge/json.hpp"
@@ -19,3 +22,5 @@ struct Asset {
 };
 }
 }
+
+#endif // GE_ASSET_HPP

@@ -1,3 +1,6 @@
+#ifndef GE_RENDER_INTERFACE_HPP
+#define GE_RENDER_INTERFACE_HPP
+
 #pragma once
 
 #include "ge/asset_manager.hpp"
@@ -70,3 +73,5 @@ private:
 };
 }
 }
+
+#endif // GE_RENDER_INTERFACE_HPP

@@ -1,3 +1,6 @@
+#ifndef GE_MESH_ACTOR_HPP
+#define GE_MESH_ACTOR_HPP
+
 #pragma once
 
 #include "ge/actor.hpp"
@@ -16,3 +19,5 @@ struct mesh_actor : actor {
 	virtual void render(const glm::mat3& vp_mat) override;
 };
 }
+
+#endif

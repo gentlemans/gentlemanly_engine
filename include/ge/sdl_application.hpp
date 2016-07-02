@@ -1,3 +1,6 @@
+#ifndef GE_SDL_APPLICATION_HPP
+#define GE_SDL_APPLICATION_HPP
+
 #pragma once
 
 #include "ge/concept/application.hpp"
@@ -53,3 +56,5 @@ public:
 BOOST_CONCEPT_ASSERT((ge::concept::Application<sdl_application>));
 
 }  // namespace qt
+
+#endif // GE_SDL_APPLICATION_HPP

@@ -1,3 +1,6 @@
+#ifndef GE_MESH_HPP
+#define GE_MESH_HPP
+
 #pragma once
 
 #include "ge/shader.hpp"
@@ -44,3 +47,5 @@ public:
 	boost::container::flat_map<std::string, unsigned> additonal_vertex_data;
 };
 }
+
+#endif // GE_MESH_HPP

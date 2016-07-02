@@ -1,3 +1,6 @@
+#ifndef GE_SDL_WINDOW_HPP
+#define GE_SDL_WINDOW_HPP
+
 #pragma once
 
 #include "ge/concept/window.hpp"
@@ -77,3 +80,5 @@ public:
 BOOST_CONCEPT_ASSERT((ge::concept::Window<sdl_window>));
 
 }  // namespace ge
+
+#endif // GE_SDL_WINDOW_HPP

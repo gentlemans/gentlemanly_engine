@@ -1,3 +1,6 @@
+#ifndef GE_INPUT_CONSUMER_HPP
+#define GE_INPUT_CONSUMER_HPP
+
 #pragma once
 
 #include "ge/concept/viewport.hpp"
@@ -53,3 +56,5 @@ private:
 	size_t consumer_id;
 };
 }
+
+#endif // GE_INPUT_CONSUMER_HPP

@@ -1,3 +1,6 @@
+#ifndef GE_TRANSFORM_HPP
+#define GE_TRANSFORM_HPP
+
 #pragma once
 
 #include <glm/glm.hpp>
@@ -18,3 +21,5 @@ struct transform {
 	bool operator!=(const transform& other) { return !(*this == other); }
 };
 }
+
+#endif // GE_TRANSFORM_HPP

@@ -1,3 +1,6 @@
+#ifndef GE_CAMERA_ACTOR_HPP
+#define GE_CAMERA_ACTOR_HPP
+
 #pragma once
 
 #include "ge/actor.hpp"
@@ -21,3 +24,5 @@ struct camera_actor : actor {
 	}
 };
 }
+
+#endif // GE_CAMERA_ACTOR_HPP

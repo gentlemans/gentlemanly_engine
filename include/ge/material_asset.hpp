@@ -1,3 +1,6 @@
+#ifndef GE_MATERIAL_ASSET_HPP
+#define GE_MATERIAL_ASSET_HPP
+
 #pragma once
 
 #include "ge/asset_manager.hpp"
@@ -40,3 +43,5 @@ public:
 
 BOOST_CONCEPT_ASSERT((concept::Asset<material_asset>));
 }
+
+#endif // GE_MATERIAL_ASSET_HPP

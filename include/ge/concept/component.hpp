@@ -1,3 +1,6 @@
+#ifndef GE_COMPONENT_HPP
+#define GE_COMPONENT_HPP
+
 #pragma once
 
 #include <boost/concept_check.hpp>
@@ -22,3 +25,5 @@ private:
 
 }  // namespace concept
 }  // namespace ge
+
+#endif // GE_COMPONENT_HPP

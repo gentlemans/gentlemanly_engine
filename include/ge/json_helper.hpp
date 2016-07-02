@@ -1,3 +1,6 @@
+#ifndef GE_JSON_HELPER_HPP
+#define GE_JSON_HELPER_HPP
+
 #pragma once
 
 #include "ge/json.hpp"
@@ -18,3 +21,5 @@ inline T json_get_value_with_fallback(
 	return *iter;
 }
 }
+
+#endif // GE_JSON_HELPER_HPP

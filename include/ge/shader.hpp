@@ -1,3 +1,6 @@
+#ifndef GE_SHADER_HPP
+#define GE_SHADER_HPP
+
 #pragma once
 
 #include "ge/texture.hpp"
@@ -50,3 +53,5 @@ public:
 	int32_t mvp_uniform_location;
 };
 }
+
+#endif // GE_SHADER_HPP

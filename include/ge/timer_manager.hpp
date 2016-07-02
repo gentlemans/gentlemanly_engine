@@ -1,3 +1,6 @@
+#ifndef GE_TIMER_MANAGER_HPP
+#define GE_TIMER_MANAGER_HPP
+
 #pragma once
 
 #include <algorithm>
@@ -108,3 +111,5 @@ private:
 	std::vector<std::shared_ptr<timer_int_data<void(ArgTypes...)>>> m_data;
 };
 }
+
+#endif // GE_TIMER_MANAGER_HPP

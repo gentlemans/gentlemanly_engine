@@ -1,3 +1,6 @@
+#ifndef GE_INPUT_EVENT_HPP
+#define GE_INPUT_EVENT_HPP
+
 #pragma once
 
 #include <glm/glm.hpp>
@@ -205,3 +208,5 @@ struct input_scroll_wheel {
 using input_event =
 	boost::variant<input_keyboard, input_mouse_move, input_mouse_button, input_scroll_wheel>;
 }
+
+#endif // GE_INPUT_EVENT_HPP

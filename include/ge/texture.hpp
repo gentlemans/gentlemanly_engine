@@ -1,3 +1,6 @@
+#ifndef GE_TEXTURE_HPP
+#define GE_TEXTURE_HPP
+
 #pragma once
 
 #include <cstddef>
@@ -24,3 +27,5 @@ public:
 	unsigned int texture_name = {};
 };
 }
+
+#endif // GE_TEXTURE_HPP

@@ -1,3 +1,6 @@
+#ifndef GE_ROCKET_INPUT_CONSUMER_HPP
+#define GE_ROCKET_INPUT_CONSUMER_HPP
+
 #pragma once
 
 #include "ge/input_consumer.hpp"
@@ -16,3 +19,5 @@ struct rocket_input_consumer : input_consumer<rocket_input_consumer> {
 };
 }
 }
+
+#endif // GE_ROCKET_INPUT_CONSUMER_HPP

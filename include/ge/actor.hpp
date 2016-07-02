@@ -1,3 +1,6 @@
+#ifndef GE_ACTOR_HPP
+#define GE_ACTOR_HPP
+
 #pragma once
 
 #include "ge/transform.hpp"
@@ -215,3 +218,6 @@ public:
 };
 
 }  // namespace ge
+
+
+#endif // GE_ACTOR_HPP

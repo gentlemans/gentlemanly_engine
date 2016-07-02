@@ -1,3 +1,6 @@
+#ifndef GE_TEXTURE_ASSET_HPP
+#define GE_TEXTURE_ASSET_HPP
+
 #pragma once
 
 #include "ge/asset_manager.hpp"
@@ -35,3 +38,5 @@ struct texture_asset {
 	static const char* asset_type() { return "texture"; }
 };
 }
+
+#endif // GE_TEXTURE_ASSET_HPP

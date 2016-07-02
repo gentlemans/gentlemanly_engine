@@ -1,3 +1,6 @@
+#ifndef GE_WINDOW_HPP
+#define GE_WINDOW_HPP
+
 #pragma once
 
 #include <boost/concept_check.hpp>
@@ -37,3 +40,5 @@ private:
 }  // namespace concept
 
 }  // namespace ge
+
+#endif // GE_WINDOW_HPP

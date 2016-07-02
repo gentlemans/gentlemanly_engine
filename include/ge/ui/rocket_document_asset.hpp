@@ -1,3 +1,6 @@
+#ifndef GE_ROCKET_DOCUMENT_ASSET_HPP
+#define GE_ROCKET_DOCUMENT_ASSET_HPP
+
 #pragma once
 
 #include "ge/concept/asset.hpp"
@@ -34,3 +37,5 @@ struct rocket_document_asset {
 BOOST_CONCEPT_ASSERT((concept::Asset<rocket_document_asset>));
 }
 }
+
+#endif // GE_ROCKET_DOCUMENT_ASSET_HPP
