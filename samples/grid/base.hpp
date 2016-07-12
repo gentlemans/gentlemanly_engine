@@ -1,0 +1,26 @@
+#pragma once
+
+#include <ge/mesh_actor.hpp>
+#include <ge/asset_manager.hpp>
+#include <ge/mesh_asset.hpp>
+#include <ge/texture_asset.hpp>
+#include <ge/material.hpp>
+
+#include "toweractor.hpp"
+
+class base : public toweractor {
+	
+public:
+	
+	ge::mesh_actor m_mesh;
+	
+	base(grid& g, glm::uvec3 loc, ge::asset_manager& man) : toweractor(g, loc), m_mesh(this) {
+		auto mesh = man.get_asset<ge::mesh_asset>("square");
+		
+		auto texture = man.get_asset<ge::texture_asset>("base_texture");
+		
+		mesh->m_material->property_values["Texture"] = texture;
+		
+	}
+	
+};

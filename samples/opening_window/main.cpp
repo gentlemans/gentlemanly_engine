@@ -1,5 +1,4 @@
 #include <ge/sdl_application.hpp>
-
 #include <ge/actor.hpp>
 #include <ge/asset_manager.hpp>
 #include <ge/camera_actor.hpp>
