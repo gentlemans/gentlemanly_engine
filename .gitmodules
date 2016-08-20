@@ -7,9 +7,6 @@
 [submodule "deps/assimp"]
 	path = deps/assimp
 	url = https://github.com/assimp/assimp
-[submodule "deps/SDL2"]
-	path = deps/SDL2
-	url = https://github.com/spurious/SDL-mirror
 [submodule "deps/freetype2"]
 	path = deps/freetype2
 	url = http://git.savannah.gnu.org/r/freetype/freetype2
