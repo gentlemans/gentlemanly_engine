@@ -7,6 +7,6 @@
 [submodule "deps/assimp"]
 	path = deps/assimp
 	url = https://github.com/assimp/assimp
-[submodule "deps/SDL-mirror"]
-	path = deps/SDL-mirror
+[submodule "deps/SDL2"]
+	path = deps/SDL2
 	url = https://github.com/spurious/SDL-mirror
