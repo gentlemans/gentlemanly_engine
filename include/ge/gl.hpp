@@ -13,12 +13,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glext.h>
-#elif defined(WIN32) | defined(_WIN32)
-#include <windows.h>
-#include <gl/gl.h>
-#include <gl/glew.h>
-#include "external/glext.h"
-#include "external/wglext.h"
+#elif defined(WIN32) || defined(_WIN32)
+#include <GL/glew.h>
 #endif
 
 #endif

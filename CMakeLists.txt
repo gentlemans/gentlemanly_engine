@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 2.6)
 
-# Allow VERSION in project()
-cmake_policy(SET CMP0048 NEW)
+project(gentlemanly_engine)
 
-project(gentlemanly_engine VERSION 0.1.0)
-
-
+set(PROJECT_VERSION 0.1.0)
+set(PROJECT_VERSION_MAJOR 0)
+set(PROJECT_VERSION_MINOR 1)
+set(PROJECT_VERSION_PATCH 0)
+	
 option(GE_DOXYGEN_EXTRA_FLAGS "Extra flags to be sent to doxygen." "")
 option(GE_BUILD_SAMPLES "Should the samples be built?" ON)
 
@@ -16,20 +17,31 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 
 # find packages
 find_package(OpenGL REQUIRED)
-find_package(Boost REQUIRED COMPONENTS filesystem)
-find_package(assimp REQUIRED)
+
+find_package(Boost REQUIRED COMPONENTS filesystem system)
+add_definitions(-DBOOST_ALL_NO_LIB)
+
 find_package(SDL2 REQUIRED)
 
+#ASSIMP
+
+set(ASSIMP_BUILD_TESTS OFF)
+set(ASSIMP_BUILD_SAMPLES OFF)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
+add_subdirectory(deps/assimp)
+
+
+#FT2
+
+set(BUILD_SHARED_LIBS OFF)
+add_subdirectory(deps/freetype2)
+set(FREETYPE_LIBRARY freetype CACHE STRING "")
+set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
 
 # LIBROCKET
 
 set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
-
-if(WIN32)
-    # we use GLEW because it is hard to get GL3 support in win without it
-    find_package(glew REQUIRED)
-endif()
 
 set(GE_PRIVATE_FILES
 	src/ge/actor.cpp
@@ -101,7 +113,7 @@ target_include_directories(gentlemanly_engine
 PRIVATE 
 	${OPENGL_INCLUDE_DIR}
 	${SDL2_INCLUDE_DIR}
-	${ASSIMP_INCLUDE_DIRS}
+	deps/assimp/include
 PUBLIC
 	include
 	deps/glm/
@@ -109,13 +121,14 @@ PUBLIC
 	deps/libRocket/Include/
 )
 
-link_directories(${ASSIMP_LIBRARY_DIRS})
-
 if(WIN32)
     target_include_directories(gentlemanly_engine
     PRIVATE
-        ${GLEW_INCLUDE_DIRS}
+        deps/glew_win32/include
     )
+	target_link_libraries(gentlemanly_engine
+	PRIVATE 
+		${CMAKE_CURRENT_SOURCE_DIR}/deps/glew_win32/lib/Release/x64/glew32.lib)
 endif()
 
 target_link_libraries(gentlemanly_engine
@@ -123,26 +136,22 @@ PRIVATE
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
 PUBLIC
+	Rocket
+	RocketCore
+	RocketDebugger
+	RocketControls
 	debug ${Boost_FILESYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 	debug ${Boost_SYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_SYSTEM_LIBRARY_RELEASE}
-	RocketCore
+	
 )
 
-if(WIN32)
-    target_link_libraries(gentlemanly_engine
-    PRIVATE
-        ${GLEW_LIBRARIES}
-        debug assimpd
-        optimized assimp
-    )
-else()
-    target_link_libraries(gentlemanly_engine
-    PRIVATE
-        ${ASSIMP_LIBRARIES}
-    )
-endif()
+target_link_libraries(gentlemanly_engine
+PRIVATE
+	assimp
+)
+
 
 target_compile_features(gentlemanly_engine
 PUBLIC

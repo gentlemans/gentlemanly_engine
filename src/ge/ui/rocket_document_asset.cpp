@@ -31,5 +31,5 @@ std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset
 	return std::shared_ptr<Rocket::Core::ElementDocument>(
 		ctx->LoadDocument(path.c_str()), [](Rocket::Core::ElementDocument*) {});
 }
-}
-}
+} // ui
+} // ge

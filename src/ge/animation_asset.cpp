@@ -43,6 +43,8 @@ std::shared_ptr<material> animation_asset::load_asset(asset_manager &manager, co
 			// add it as a DDS file
 		}
 	}
+	// TODO: fix
+	return nullptr;
 }
 
 }

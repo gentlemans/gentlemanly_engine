@@ -113,6 +113,8 @@ int sdl_mods_to_ge(int mod)
 	if (mod & KMOD_RGUI) ret |= key_modifier::e_right_gui;
 	if (mod & KMOD_NUM) ret |= key_modifier::e_num_lock;
 	if (mod & KMOD_CAPS) ret |= key_modifier::e_caps_lock;
+
+	return ret;
 }
 
 sdl_viewport::sdl_viewport(ge::sdl_window& window_arg) : m_window{&window_arg} {}

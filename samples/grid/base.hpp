@@ -14,12 +14,14 @@ public:
 	
 	ge::mesh_actor m_mesh;
 	
-	base(grid& g, glm::uvec3 loc, ge::asset_manager& man) : toweractor(g, loc), m_mesh(this) {
+	base(grid& g, glm::uvec3 loc, ge::asset_manager& man) : toweractor(g, loc), m_mesh{} {
 		auto mesh = man.get_asset<ge::mesh_asset>("square");
 		
 		auto texture = man.get_asset<ge::texture_asset>("base_texture");
 		
 		mesh->m_material->property_values["Texture"] = texture;
+
+		m_mesh.initialize(mesh);
 		
 	}
 	
