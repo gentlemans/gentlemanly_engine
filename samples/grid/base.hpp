@@ -12,16 +12,18 @@ class base : public toweractor {
 	
 public:
 	
-	ge::mesh_actor m_mesh;
+	std::shared_ptr<ge::mesh_actor> m_mesh;
 	
-	base(grid& g, glm::uvec3 loc, ge::asset_manager& man) : toweractor(g, loc), m_mesh{} {
+	void initialize(grid& g, glm::uvec3 loc, ge::asset_manager& man)  {
+		toweractor(g, loc);
+		
 		auto mesh = man.get_asset<ge::mesh_asset>("square");
 		
 		auto texture = man.get_asset<ge::texture_asset>("base_texture");
 		
 		mesh->m_material->property_values["Texture"] = texture;
 
-		m_mesh.initialize(mesh);
+		m_mesh = ge::actor::factory<ge::mesh_actor>(this, mesh);
 		
 	}
 	

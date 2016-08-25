@@ -23,20 +23,36 @@ add_definitions(-DBOOST_ALL_NO_LIB)
 
 find_package(SDL2 REQUIRED)
 
+# These are optional, we can use the packaged if we can to avoid buliding it
+find_package(Freetype)
+find_package(assimp)
+
+message("DIR: ${ASSIMP_INCLUDE_DIRS}")
+
 #ASSIMP
+if(NOT ASSIMP_INCLUDE_DIRS)
 
-set(ASSIMP_BUILD_TESTS OFF)
-set(ASSIMP_BUILD_SAMPLES OFF)
-set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
-add_subdirectory(deps/assimp)
+	message("Using submodule version of assimp, building from scratch")
 
+    set(ASSIMP_BUILD_TESTS OFF)
+    set(ASSIMP_BUILD_SAMPLES OFF)
+    set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
+    add_subdirectory(deps/assimp)
 
-#FT2
+endif()
 
-set(BUILD_SHARED_LIBS OFF)
-add_subdirectory(deps/freetype2)
-set(FREETYPE_LIBRARY freetype CACHE STRING "")
-set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
+if(NOT FREETYPE_FOUND)
+
+	message("Using submodule version of freetype, building from scratch")
+	
+    #FT2
+
+    set(BUILD_SHARED_LIBS OFF)
+    add_subdirectory(deps/freetype2)
+    set(FREETYPE_LIBRARY freetype CACHE STRING "")
+    set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
+
+endif()
 
 # LIBROCKET
 
@@ -136,7 +152,6 @@ PRIVATE
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
 PUBLIC
-	Rocket
 	RocketCore
 	RocketDebugger
 	RocketControls

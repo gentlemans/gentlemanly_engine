@@ -19,23 +19,24 @@
 #include <memory>
 
 #include "grid.hpp"
+#include "toweractor.hpp"
 #include "zombie.hpp"
 
 using namespace ge;
 
 
-
 int main(int argc, char** argv) {
 	sdl_application app(argc, argv);
 	auto window = app.make_window(
-		"gentlemanly_engine_example_opening_window", {}, {1280, 720}, false, true);
+		"Grid!", {}, {1280, 720}, false, true);
 	auto viewport = app.make_viewport(*window);
 
-	auto root_actor = actor::factory(nullptr);
 
 	asset_manager asset_man;
 	asset_man.add_asset_path("data/");
-
+	
+	
+	auto rootgrid = actor::factory<grid>(nullptr, glm::uvec2{10, 10}, asset_man);
 	
 	app.execute(*window);
 

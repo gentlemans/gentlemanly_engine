@@ -16,15 +16,17 @@ class grid : public ge::actor {
 	
 public:
 	
-	grid(glm::uvec2 size, ge::asset_manager& asset_m) ;
+	void initialize(glm::uvec2 size, ge::asset_manager& asset_m);
 	
-	std::vector<std::unique_ptr<toweractor>> towers;
+	std::vector<std::shared_ptr<toweractor>> towers;
 	
-	std::unique_ptr<toweractor>& getActorFromCoord(glm::uvec3 loc) {
+	std::shared_ptr<toweractor>& getActorFromCoord(glm::uvec3 loc) {
 		assert(loc.x < m_size.x);
 		assert(loc.y < m_size.y);
 		assert(loc.z < 3);
-		return towers[loc.z * m_size.x * m_size.y + loc.y * m_size.x + loc.x];
+		return towers[loc.z * m_size.x * m_size.y +
+				      loc.y * m_size.x + 
+				      loc.x];
 	}
 	
 };
