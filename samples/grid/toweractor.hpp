@@ -12,7 +12,9 @@ public:
 	grid* m_grid;
 	glm::uvec3 m_loc;
 	
-	toweractor(grid& g, glm::uvec3 loc): m_grid(&g), m_loc{loc} {
+	void initialize(grid& g, glm::uvec3 loc) {
+		m_grid = &g;
+		m_loc = loc;
 		set_parent(m_grid);
 	}
 	

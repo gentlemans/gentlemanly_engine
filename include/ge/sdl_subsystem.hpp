@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "ge/concept/application.hpp"
-
 #include "ge/sdl_viewport.hpp"
 #include "ge/sdl_window.hpp"
 
@@ -18,7 +16,7 @@
 
 namespace ge
 {
-class sdl_application
+class sdl_subsystem
 {
 	friend class sdl_window;
 	friend class sdl_viewport;

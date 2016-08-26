@@ -9,13 +9,12 @@
 #include "toweractor.hpp"
 
 class base : public toweractor {
-	
 public:
 	
 	std::shared_ptr<ge::mesh_actor> m_mesh;
 	
 	void initialize(grid& g, glm::uvec3 loc, ge::asset_manager& man)  {
-		toweractor(g, loc);
+		toweractor::initialize(g, loc);
 		
 		auto mesh = man.get_asset<ge::mesh_asset>("square");
 		
