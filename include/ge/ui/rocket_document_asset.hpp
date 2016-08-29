@@ -8,6 +8,10 @@
 #include <Rocket/Core/Context.h>
 #include <Rocket/Core/ElementDocument.h>
 
+#include <memory>
+
+#include "ge/json.hpp"
+
 /*
  * ASSET SPECIFICATION
  *

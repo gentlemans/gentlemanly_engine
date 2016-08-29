@@ -70,9 +70,7 @@ set(GE_PRIVATE_FILES
 	src/ge/mesh_asset.cpp
 	src/ge/animation_asset.cpp
 	src/ge/mesh.cpp
-	src/ge/sdl_application.cpp
-	src/ge/sdl_viewport.cpp
-	src/ge/sdl_window.cpp
+	src/ge/sdl_subsystem.cpp
 	src/ge/shader_asset.cpp
 	src/ge/shader.cpp
 	src/ge/texture_asset.cpp
@@ -86,12 +84,9 @@ set(GE_PUBLIC_FILES
 	include/ge/actor.hpp
 	include/ge/asset_manager.hpp
 	include/ge/camera_actor.hpp
-	include/ge/concept/application.hpp
 	include/ge/concept/asset.hpp
 	include/ge/concept/component.hpp
 	include/ge/concept/variadic_concept.hpp
-	include/ge/concept/viewport.hpp
-	include/ge/concept/window.hpp
 	include/ge/gl.hpp
 	include/ge/input_consumer.hpp
 	include/ge/input_event.hpp
@@ -105,9 +100,7 @@ set(GE_PUBLIC_FILES
 	include/ge/animation_asset.hpp
 	include/ge/mesh.hpp
 	include/ge/ortho2d.hpp
-	include/ge/sdl_application.hpp
-	include/ge/sdl_viewport.hpp
-	include/ge/sdl_window.hpp
+	include/ge/sdl_subsystem.hpp
 	include/ge/shader_asset.hpp
 	include/ge/shader.hpp
 	include/ge/texture_asset.hpp
@@ -155,11 +148,16 @@ PUBLIC
 	RocketCore
 	RocketDebugger
 	RocketControls
+
+	
+)
+
+target_link_libraries(gentlemanly_engine
+PUBLIC 
 	debug ${Boost_FILESYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 	debug ${Boost_SYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_SYSTEM_LIBRARY_RELEASE}
-	
 )
 
 target_link_libraries(gentlemanly_engine

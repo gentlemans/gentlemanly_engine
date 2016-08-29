@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "ge/json.hpp"
-
 #include <boost/concept_check.hpp>
 
 namespace ge
