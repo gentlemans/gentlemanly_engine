@@ -1,11 +1,9 @@
-
 #ifndef GE_SUBSYSTEM_HPP
 #define GE_SUBSYSTEM_HPP
 
 #pragma once
 
 #include <boost/concept_check.hpp>
-
 
 namespace ge
 {

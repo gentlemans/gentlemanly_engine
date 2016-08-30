@@ -24,7 +24,7 @@ struct sdl_subsystem
 		boost::optional<glm::uvec2> location;
 		glm::uvec2 size;
 		bool fullscreen = false;
-		bool decorated = false;
+		bool decorated = true;
 	};
 
 	bool initialize(const config& config);
@@ -40,8 +40,9 @@ struct sdl_subsystem
 	std::vector<input_event> get_input_events();
 	
 private:
-	void* m_context; // turns out SDL_GLContext is literally just void*
-	SDL_Window* m_window;
+	void* m_context = nullptr; // turns out SDL_GLContext is literally just void*
+	SDL_Window* m_window = nullptr;
+	bool shouldstayrunning = true;
 };
 
 }  // namespace ge
