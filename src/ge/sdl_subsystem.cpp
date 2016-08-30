@@ -9,8 +9,8 @@
 
 #include <chrono>
 
-namespace ge
-{
+using namespace ge;
+
 
 key sdl_to_ge_key(SDL_Keycode code)
 {
@@ -95,6 +95,7 @@ mouse_button sdl_mb_to_ge(Uint8 button)
 	case SDL_BUTTON_X1: return mouse_button::e_button_1;
 	case SDL_BUTTON_X2: return mouse_button::e_button_2;
 	}
+	return static_cast<mouse_button>(0);
 }
 
 int sdl_mods_to_ge(int mod)
@@ -151,6 +152,8 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config) {
 	emscripten_set_main_loop_arg(update_c_function, this, -1, 1);
 
 #	endif
+	
+	return true;
 }
 
 
@@ -183,6 +186,48 @@ bool sdl_subsystem::update()
 #	endif
 	return shouldstayrunning;
 }
+
+bool sdl_subsystem::shutdown()
+{
+	SDL_GL_DeleteContext(m_context);
+	SDL_DestroyWindow(m_window);
+	SDL_Quit();
+	
+	return true;
+}
+
+glm::uvec2 sdl_subsystem::get_size() const
+{
+	glm::ivec2 ret;
+	SDL_GetWindowSize(m_window, &ret.x, &ret.y);
+	
+	return ret;
+}
+void sdl_subsystem::set_size(glm::uvec2 new_size)
+{
+	SDL_SetWindowSize(m_window, new_size.x, new_size.y);
+}
+
+glm::vec3 sdl_subsystem::get_background_color() const
+{
+	return backgroundcolor;
+}
+void sdl_subsystem::set_background_color(const glm::vec3& newColor)
+{
+	backgroundcolor = newColor;
+}
+
+std::string sdl_subsystem::get_title() const
+{
+	return SDL_GetWindowTitle(m_window);
+}
+void sdl_subsystem::set_title(const std::string& newTitle)
+{
+	SDL_SetWindowTitle(m_window, newTitle.c_str());
+}
+
+
+
 
 std::vector<input_event> sdl_subsystem::get_input_events() {
 	SDL_Event event;
@@ -225,5 +270,3 @@ std::vector<input_event> sdl_subsystem::get_input_events() {
 
 	return events;
 }
-
-}  // namespace ge

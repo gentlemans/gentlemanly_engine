@@ -3,35 +3,24 @@
 
 #pragma once
 
-#include "ge/concept/subsystem.hpp"
+#include "ge/subsystem.hpp"
 #include "ge/hash_typeindex.hpp"
 
 #include <unordered_map>
 #include <memory>
+#include <chrono>
 
 #include <boost/type_index.hpp>
-#include <boost/concept/requires.hpp>
 
-// we use this so it has a default constructor--unique_ptr disallows a nullptr deleter 
-// and apparently operator[] of std::unordered_map requires a default constructor
-struct deleter {
-	void(*delptr)(void*) = nullptr;
-	
-	void operator()(void* todel) const {
-		delptr(todel);
-	}
-	
-};
 
 namespace ge {
 
 struct runtime {
 	
 	template<typename Subsystem>
-	BOOST_CONCEPT_REQUIRES(
-		((ge::concept::Subsystem<Subsystem>)),
-		(void))
-	add_subsystem(const typename Subsystem::config& config) {
+	void add_subsystem(const typename Subsystem::config& config) {
+		
+		static_assert(std::is_base_of<subsystem, Subsystem>::value, "Cannot add a subsystem of a non-subsystem type");
 		
 		using boost::typeindex::type_id;
 		
@@ -41,18 +30,17 @@ struct runtime {
 			return;
 		}
 		
+		auto new_subsystem = std::make_unique<Subsystem>();
+		
+		new_subsystem->m_runtime = this;
+		new_subsystem->initialize(config);
+		
 		// add it!
-		m_subsystems[type_id<Subsystem>()] = std::unique_ptr<Subsystem, deleter>(new Subsystem{}, {[](void* todel) {
-			Subsystem* casted = (Subsystem*)todel;
-			delete casted;
-		}});
+		m_subsystems[type_id<Subsystem>()] = std::move(new_subsystem);
 	}
 	
 	template<typename Subsystem>
-	BOOST_CONCEPT_REQUIRES(
-		((ge::concept::Subsystem<Subsystem>)),
-		(Subsystem*))
-	get_subsystem() {
+	Subsystem* get_subsystem() {
 		
 		using boost::typeindex::type_id;
 		
@@ -65,13 +53,24 @@ struct runtime {
 	}
 	
 	void tick() {
+		// first run
+		if(last_tick == std::chrono::system_clock::time_point{}) {
+			last_tick = std::chrono::system_clock::now();
+		}
+		
+		auto current_time = std::chrono::system_clock::now();
+		
+		auto tick_duration = std::chrono::duration<float>(current_time - last_tick);
+		
 		
 	}
 	
 private:
 	
-	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<void, deleter>> m_subsystems;
+	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
 	
+	
+	std::chrono::system_clock::time_point last_tick;
 };
 
 }
