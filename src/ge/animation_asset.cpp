@@ -5,6 +5,7 @@
 
 namespace ge
 {
+
 std::shared_ptr<material> animation_asset::load_asset(
 	asset_manager& manager, const char* name, const char* filepath, const nlohmann::json& json_data)
 {

@@ -60,58 +60,68 @@ set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
 
 set(GE_PRIVATE_FILES
-	src/ge/actor.cpp
-	src/ge/asset_manager.cpp
-	src/ge/input_consumer.cpp
-	src/ge/lodepng.cpp
-	src/ge/material_asset.cpp
-	src/ge/material.cpp
-	src/ge/mesh_actor.cpp
-	src/ge/mesh_asset.cpp
-	src/ge/animation_asset.cpp
-	src/ge/mesh.cpp
-	src/ge/sdl_subsystem.cpp
-	src/ge/shader_asset.cpp
-	src/ge/shader.cpp
-	src/ge/texture_asset.cpp
-	src/ge/texture.cpp
-	src/ge/ui/render_interface.cpp
-	src/ge/ui/rocket_document_asset.cpp
-	src/ge/ui/rocket_input_consumer.cpp
+ge/actor.cpp
+ge/animation_asset.cpp
+ge/asset_manager.cpp
+ge/input_consumer.cpp
+ge/lodepng.cpp
+ge/material.cpp
+ge/material_asset.cpp
+ge/mesh.cpp
+ge/mesh_actor.cpp
+ge/mesh_asset.cpp
+ge/sdl_subsystem.cpp
+ge/sdl_viewport.cpp
+ge/sdl_window.cpp
+ge/shader.cpp
+ge/shader_asset.cpp
+ge/texture.cpp
+ge/texture_asset.cpp
+ge/ui/render_interface.cpp
+ge/ui/rocket_document_asset.cpp
+ge/ui/rocket_input_consumer.cpp
+
 )
 
-set(GE_PUBLIC_FILES 
-	include/ge/actor.hpp
-	include/ge/asset_manager.hpp
-	include/ge/camera_actor.hpp
-	include/ge/concept/asset.hpp
-	include/ge/concept/component.hpp
-    include/ge/concept/variadic_concept.hpp
-    include/ge/concept/viewport.hpp
-	include/ge/gl.hpp
-	include/ge/input_consumer.hpp
-	include/ge/input_event.hpp
-	include/ge/json_helper.hpp
-	include/ge/json.hpp
-	include/ge/lodepng.h
-	include/ge/material_asset.hpp
-	include/ge/material.hpp
-	include/ge/mesh_actor.hpp
-	include/ge/mesh_asset.hpp
-	include/ge/animation_asset.hpp
-	include/ge/mesh.hpp
-	include/ge/ortho2d.hpp
-	include/ge/sdl_subsystem.hpp
-	include/ge/shader_asset.hpp
-	include/ge/shader.hpp
-	include/ge/texture_asset.hpp
-	include/ge/texture.hpp
-	include/ge/timer_manager.hpp
-	include/ge/transform.hpp
-	include/ge/ui/render_interface.hpp
-	include/ge/ui/rocket_document_asset.hpp
-	include/ge/ui/rocket_input_consumer.hpp
-	include/ge/ui/system_interface.hpp
+set(GE_PUBLIC_FILES
+include/external/glext.h
+include/external/wglext.h
+include/ge/actor.hpp
+include/ge/animation_asset.hpp
+include/ge/asset_manager.hpp
+include/ge/camera_actor.hpp
+include/ge/concept/asset.hpp
+include/ge/concept/component.hpp
+include/ge/concept/variadic_concept.hpp
+include/ge/concept/viewport.hpp
+include/ge/gl.hpp
+include/ge/hash_typeindex.hpp
+include/ge/input_consumer.hpp
+include/ge/input_event.hpp
+include/ge/json.hpp
+include/ge/json_helper.hpp
+include/ge/lodepng.h
+include/ge/material.hpp
+include/ge/material_asset.hpp
+include/ge/mesh.hpp
+include/ge/mesh_actor.hpp
+include/ge/mesh_asset.hpp
+include/ge/ortho2d.hpp
+include/ge/runtime.hpp
+include/ge/sdl_subsystem.hpp
+include/ge/shader.hpp
+include/ge/shader_asset.hpp
+include/ge/subsystem.hpp
+include/ge/texture.hpp
+include/ge/texture_asset.hpp
+include/ge/timer_manager.hpp
+include/ge/transform.hpp
+include/ge/ui/render_interface.hpp
+include/ge/ui/rocket_document_asset.hpp
+include/ge/ui/rocket_font_asset.hpp
+include/ge/ui/rocket_input_consumer.hpp
+include/ge/ui/system_interface.hpp
+
 )
 
 

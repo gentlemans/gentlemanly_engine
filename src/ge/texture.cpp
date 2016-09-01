@@ -44,9 +44,9 @@ texture::texture::texture(const unsigned char* data)
 	bufsize = mipMapCount > 1 ? linearSize * 2 : linearSize;
 	buffer = (unsigned char*)malloc(bufsize * sizeof(unsigned char));
 	/* close the file pointer */
-	constexpr unsigned FOURCC_DXT1 = 0x31545844;  // Equivalent to "DXT1" in ASCII
-	constexpr unsigned FOURCC_DXT3 = 0x33545844;  // Equivalent to "DXT3" in ASCII
-	constexpr unsigned FOURCC_DXT5 = 0x35545844;  // Equivalent to "DXT5" in ASCII
+	constexpr const unsigned FOURCC_DXT1 = 0x31545844;  // Equivalent to "DXT1" in ASCII
+	constexpr const unsigned FOURCC_DXT3 = 0x33545844;  // Equivalent to "DXT3" in ASCII
+	constexpr const unsigned FOURCC_DXT5 = 0x35545844;  // Equivalent to "DXT5" in ASCII
 
 	unsigned int components = (fourCC == FOURCC_DXT1) ? 3 : 4;
 	unsigned int format;

@@ -10,8 +10,8 @@ struct runtime;
 struct subsystem {
 	virtual ~subsystem(){};
 
-	virtual bool update(){};
-	virtual bool shutdown(){};
+    virtual bool update(){ return true; };
+    virtual bool shutdown(){ return true; };
 
 	runtime* m_runtime;
 };

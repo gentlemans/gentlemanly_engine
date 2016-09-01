@@ -50,7 +50,7 @@ struct runtime {
 		return nullptr;
 	}
 
-	void tick()
+	bool tick()
 	{
 		// first run
 		if (last_tick == std::chrono::system_clock::time_point{}) {
@@ -60,6 +60,8 @@ struct runtime {
 		auto current_time = std::chrono::system_clock::now();
 
 		auto tick_duration = std::chrono::duration<float>(current_time - last_tick);
+        
+        
 	}
 
 private:
