@@ -21,4 +21,4 @@ struct Asset {
 }
 }
 
-#endif // GE_ASSET_HPP
+#endif  // GE_ASSET_HPP

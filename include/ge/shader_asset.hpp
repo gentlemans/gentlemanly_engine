@@ -65,4 +65,4 @@ public:
 BOOST_CONCEPT_ASSERT((concept::Asset<shader_asset>));
 }
 
-#endif // GE_SHADER_ASSET_HPP
+#endif  // GE_SHADER_ASSET_HPP

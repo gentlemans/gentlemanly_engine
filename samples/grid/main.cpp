@@ -11,13 +11,9 @@
 
 using namespace ge;
 
-
-int main(int argc, char** argv) {
-	
+int main(int argc, char** argv)
+{
 	runtime r;
-	
+
 	r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Hello", {}, {1024, 720}});
-	
-	
-	
 }

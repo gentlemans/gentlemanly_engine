@@ -52,32 +52,33 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 	tex_coord.reserve(num_vertices);
 	std::vector<glm::vec4> colors;
 	colors.reserve(num_vertices);
-	
+
 	// reconstruct the vectors in the format the engine wants
 	for (size_t id = 0; id < num_vertices; ++id) {
 		locs.emplace_back(vertices[id].position.x, vertices[id].position.y);
-		
+
 		tex_coord.emplace_back(vertices[id].tex_coord.x, vertices[id].tex_coord.y);
-		
+
 		colors.emplace_back(vertices[id].colour.red, vertices[id].colour.green,
 			vertices[id].colour.blue, vertices[id].colour.alpha);
 	}
 
 	auto mat = std::make_shared<material>(m_shader);
-	
+
 	auto mes = new mesh(
 		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3, mat);
 
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
 	mes->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
 	mes->m_material = std::make_shared<material>(m_shader);
-	
-	// the property_values needs a shared pointer, so create one that won't delete it when it is done
-	auto shared_texture = std::shared_ptr<texture>(new texture, [](auto){});
+
+	// the property_values needs a shared pointer, so create one that won't delete it when it is
+	// done
+	auto shared_texture = std::shared_ptr<texture>(new texture, [](auto) {});
 	shared_texture->texture_name = reinterpret_cast<texture*>(texturehandle)->texture_name;
 	shared_texture->size = reinterpret_cast<texture*>(texturehandle)->size;
 	mes->m_material->property_values["Texture"] = shared_texture;
-	
+
 	return reinterpret_cast<intptr_t>(mes);
 }
 
@@ -87,7 +88,7 @@ void render_interface::RenderCompiledGeometry(
 {
 	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x, (float)viewport_size.y, 0.f);
 	mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
-	
+
 	auto m = reinterpret_cast<mesh*>(geometry);
 
 	m->render(mvp);

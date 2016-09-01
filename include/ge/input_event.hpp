@@ -209,4 +209,4 @@ using input_event =
 	boost::variant<input_keyboard, input_mouse_move, input_mouse_button, input_scroll_wheel>;
 }
 
-#endif // GE_INPUT_EVENT_HPP
+#endif  // GE_INPUT_EVENT_HPP

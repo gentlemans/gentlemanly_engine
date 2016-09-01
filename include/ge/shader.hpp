@@ -54,4 +54,4 @@ public:
 };
 }
 
-#endif // GE_SHADER_HPP
+#endif  // GE_SHADER_HPP

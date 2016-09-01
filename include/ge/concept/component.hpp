@@ -26,4 +26,4 @@ private:
 }  // namespace concept
 }  // namespace ge
 
-#endif // GE_COMPONENT_HPP
+#endif  // GE_COMPONENT_HPP

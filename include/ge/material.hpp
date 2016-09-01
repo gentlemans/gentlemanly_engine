@@ -26,4 +26,4 @@ public:
 };
 }
 
-#endif // GE_MATERIAL_HPP
+#endif  // GE_MATERIAL_HPP

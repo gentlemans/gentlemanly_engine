@@ -11,7 +11,6 @@
 
 using namespace ge;
 
-
 key sdl_to_ge_key(SDL_Keycode code)
 {
 	switch (code) {
@@ -116,10 +115,10 @@ int sdl_mods_to_ge(int mod)
 	return ret;
 }
 
-
-bool sdl_subsystem::initialize(const sdl_subsystem::config& config) { 
+bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
+{
 	SDL_Init(SDL_INIT_VIDEO);
-	
+
 	// create the window
 	int flags = SDL_WINDOW_OPENGL | (config.fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) |
 				(config.decorated ? 0 : SDL_WINDOW_BORDERLESS);
@@ -128,10 +127,12 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-	glm::uvec2 loc = config.location ? config.location.get() : glm::uvec2{SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED};
-	
+	glm::uvec2 loc = config.location ? config.location.get()
+									 : glm::uvec2{SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED};
+
 	// initalize the window
-	m_window = SDL_CreateWindow(config.title.c_str(), loc.x, loc.y, config.size.x, config.size.y, flags);
+	m_window =
+		SDL_CreateWindow(config.title.c_str(), loc.x, loc.y, config.size.x, config.size.y, flags);
 
 	using namespace std::string_literals;
 	if (!m_window) throw std::runtime_error("Error initalizing SDL window"s + SDL_GetError());
@@ -144,18 +145,17 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// enable alpha testing
-	glAlphaFunc ( GL_GREATER, 0.1 ) ;
-	glEnable ( GL_ALPHA_TEST ) ;
-	
-#	ifdef EMSCRIPTEN
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_ALPHA_TEST);
+
+#ifdef EMSCRIPTEN
 
 	emscripten_set_main_loop_arg(update_c_function, this, -1, 1);
 
-#	endif
-	
+#endif
+
 	return true;
 }
-
 
 // we need the C function because emscripten needs a C update function
 // TODO: this probably needs to be in a wrapper around runtime
@@ -168,22 +168,21 @@ void update_c_function(void* void_subsystem)
 
 	std::chrono::duration<float> diff = now - last_tick;
 
-	//app->signal_update(diff.count());
-	//app->elapsed_time += diff.count();
+	// app->signal_update(diff.count());
+	// app->elapsed_time += diff.count();
 
 	last_tick = now;
 }
 
 bool sdl_subsystem::update()
 {
-
-#	ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	update_c_function(this);
 	SDL_GL_SwapWindow(m_window);
 
-#	endif
+#endif
 	return shouldstayrunning;
 }
 
@@ -192,7 +191,7 @@ bool sdl_subsystem::shutdown()
 	SDL_GL_DeleteContext(m_context);
 	SDL_DestroyWindow(m_window);
 	SDL_Quit();
-	
+
 	return true;
 }
 
@@ -200,7 +199,7 @@ glm::uvec2 sdl_subsystem::get_size() const
 {
 	glm::ivec2 ret;
 	SDL_GetWindowSize(m_window, &ret.x, &ret.y);
-	
+
 	return ret;
 }
 void sdl_subsystem::set_size(glm::uvec2 new_size)
@@ -208,28 +207,16 @@ void sdl_subsystem::set_size(glm::uvec2 new_size)
 	SDL_SetWindowSize(m_window, new_size.x, new_size.y);
 }
 
-glm::vec3 sdl_subsystem::get_background_color() const
-{
-	return backgroundcolor;
-}
-void sdl_subsystem::set_background_color(const glm::vec3& newColor)
-{
-	backgroundcolor = newColor;
-}
-
-std::string sdl_subsystem::get_title() const
-{
-	return SDL_GetWindowTitle(m_window);
-}
+glm::vec3 sdl_subsystem::get_background_color() const { return backgroundcolor; }
+void sdl_subsystem::set_background_color(const glm::vec3& newColor) { backgroundcolor = newColor; }
+std::string sdl_subsystem::get_title() const { return SDL_GetWindowTitle(m_window); }
 void sdl_subsystem::set_title(const std::string& newTitle)
 {
 	SDL_SetWindowTitle(m_window, newTitle.c_str());
 }
 
-
-
-
-std::vector<input_event> sdl_subsystem::get_input_events() {
+std::vector<input_event> sdl_subsystem::get_input_events()
+{
 	SDL_Event event;
 
 	std::vector<input_event> events;

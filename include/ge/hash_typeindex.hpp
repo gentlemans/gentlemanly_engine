@@ -3,17 +3,15 @@
 
 #pragma once
 
-#include <boost/type_index.hpp>
 #include <boost/functional/hash.hpp>
+#include <boost/type_index.hpp>
 
-namespace std {
-	
-	template<>
-	struct hash<boost::typeindex::type_index> {
-		size_t operator()(const boost::typeindex::type_index& id) const {
-			return id.hash_code();
-		}
-	};
+namespace std
+{
+template <>
+struct hash<boost::typeindex::type_index> {
+	size_t operator()(const boost::typeindex::type_index& id) const { return id.hash_code(); }
+};
 }
 
-#endif // GE_HASH_TYPEINDEX_HPP
+#endif  // GE_HASH_TYPEINDEX_HPP

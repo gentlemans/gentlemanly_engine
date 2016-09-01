@@ -219,5 +219,4 @@ public:
 
 }  // namespace ge
 
-
-#endif // GE_ACTOR_HPP
+#endif  // GE_ACTOR_HPP

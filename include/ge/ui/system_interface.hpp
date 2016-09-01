@@ -11,19 +11,16 @@ namespace ge
 {
 namespace ui
 {
-
 class system_interface : public Rocket::Core::SystemInterface
 {
-
 public:
-	system_interface(runtime& arg_app) {};
+	system_interface(runtime& arg_app){};
 
 private:
-
 	// TODO: reimplement
-	virtual float GetElapsedTime() override { return 0;  }
+	virtual float GetElapsedTime() override { return 0; }
 };
 }
 }
 
-#endif // GE_SYSTEM_INTERFACE_HPP
+#endif  // GE_SYSTEM_INTERFACE_HPP

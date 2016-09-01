@@ -39,4 +39,4 @@ struct texture_asset {
 };
 }
 
-#endif // GE_TEXTURE_ASSET_HPP
+#endif  // GE_TEXTURE_ASSET_HPP

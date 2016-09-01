@@ -25,7 +25,7 @@ find_package(SDL2 REQUIRED)
 
 # These are optional, we can use the packaged if we can to avoid buliding it
 find_package(Freetype)
-find_package(assimp)
+#find_package(assimp)
 
 message("DIR: ${ASSIMP_INCLUDE_DIRS}")
 
@@ -86,7 +86,8 @@ set(GE_PUBLIC_FILES
 	include/ge/camera_actor.hpp
 	include/ge/concept/asset.hpp
 	include/ge/concept/component.hpp
-	include/ge/concept/variadic_concept.hpp
+    include/ge/concept/variadic_concept.hpp
+    include/ge/concept/viewport.hpp
 	include/ge/gl.hpp
 	include/ge/input_consumer.hpp
 	include/ge/input_event.hpp

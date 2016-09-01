@@ -74,4 +74,4 @@ private:
 }
 }
 
-#endif // GE_RENDER_INTERFACE_HPP
+#endif  // GE_RENDER_INTERFACE_HPP

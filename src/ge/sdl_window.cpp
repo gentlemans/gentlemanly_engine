@@ -10,9 +10,6 @@ sdl_window::sdl_window(sdl_application& sdl_inst_, const char* title,
 	boost::optional<glm::uvec2> loc, glm::uvec2 size, bool fullscreen, bool decorated)
 	: sdl_inst(&sdl_inst_)
 {
-	
-
-
 }
 
 sdl_window::~sdl_window()

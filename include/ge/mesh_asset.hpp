@@ -36,4 +36,4 @@ public:
 BOOST_CONCEPT_ASSERT((concept::Asset<mesh_asset>));
 }
 
-#endif // GE_MESH_ASSET_HPP
+#endif  // GE_MESH_ASSET_HPP

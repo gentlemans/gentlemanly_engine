@@ -44,4 +44,4 @@ public:
 BOOST_CONCEPT_ASSERT((concept::Asset<material_asset>));
 }
 
-#endif // GE_MATERIAL_ASSET_HPP
+#endif  // GE_MATERIAL_ASSET_HPP

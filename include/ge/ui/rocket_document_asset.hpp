@@ -42,4 +42,4 @@ BOOST_CONCEPT_ASSERT((concept::Asset<rocket_document_asset>));
 }
 }
 
-#endif // GE_ROCKET_DOCUMENT_ASSET_HPP
+#endif  // GE_ROCKET_DOCUMENT_ASSET_HPP

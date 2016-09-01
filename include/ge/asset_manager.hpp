@@ -169,5 +169,4 @@ public:
 };
 }
 
-
-#endif // GE_ASSET_MANAGER_HPP
+#endif  // GE_ASSET_MANAGER_HPP

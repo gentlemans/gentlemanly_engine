@@ -57,4 +57,4 @@ private:
 };
 }
 
-#endif // GE_INPUT_CONSUMER_HPP
+#endif  // GE_INPUT_CONSUMER_HPP

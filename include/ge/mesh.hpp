@@ -48,4 +48,4 @@ public:
 };
 }
 
-#endif // GE_MESH_HPP
+#endif  // GE_MESH_HPP

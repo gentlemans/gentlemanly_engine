@@ -25,4 +25,4 @@ struct camera_actor : actor {
 };
 }
 
-#endif // GE_CAMERA_ACTOR_HPP
+#endif  // GE_CAMERA_ACTOR_HPP

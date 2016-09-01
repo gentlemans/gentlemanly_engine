@@ -22,4 +22,4 @@ struct transform {
 };
 }
 
-#endif // GE_TRANSFORM_HPP
+#endif  // GE_TRANSFORM_HPP

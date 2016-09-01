@@ -22,4 +22,4 @@ inline T json_get_value_with_fallback(
 }
 }
 
-#endif // GE_JSON_HELPER_HPP
+#endif  // GE_JSON_HELPER_HPP

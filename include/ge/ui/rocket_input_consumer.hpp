@@ -20,4 +20,4 @@ struct rocket_input_consumer : input_consumer<rocket_input_consumer> {
 }
 }
 
-#endif // GE_ROCKET_INPUT_CONSUMER_HPP
+#endif  // GE_ROCKET_INPUT_CONSUMER_HPP

@@ -12,7 +12,6 @@
 #ifndef GE_VARIADIC_CONCEPT_HPP
 #define GE_VARIADIC_CONCEPT_HPP
 
-
 #pragma once
 
 #include <boost/concept_check.hpp>
@@ -52,4 +51,4 @@ struct variadic_concept<Concept, first, rest...> : variadic_concept<Concept, res
 
 }  // namespace concept
 
-#endif // GE_VARIADIC_CONCEPT_HPP
+#endif  // GE_VARIADIC_CONCEPT_HPP

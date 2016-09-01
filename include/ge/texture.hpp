@@ -28,4 +28,4 @@ public:
 };
 }
 
-#endif // GE_TEXTURE_HPP
+#endif  // GE_TEXTURE_HPP

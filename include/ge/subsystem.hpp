@@ -8,16 +8,14 @@ namespace ge
 struct runtime;
 
 struct subsystem {
-	
-	virtual ~subsystem() {};
-	
-	virtual bool update() {};
-	virtual bool shutdown() {};
-	
+	virtual ~subsystem(){};
+
+	virtual bool update(){};
+	virtual bool shutdown(){};
+
 	runtime* m_runtime;
-	
 };
 
-} // ge
+}  // ge
 
-#endif // GE_ASSET_HPP
+#endif  // GE_ASSET_HPP

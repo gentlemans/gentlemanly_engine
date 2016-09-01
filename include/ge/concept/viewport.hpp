@@ -44,4 +44,4 @@ private:
 
 }  // namespace ge
 
-#endif // GE_VIEWPORT_HPP
+#endif  // GE_VIEWPORT_HPP
