@@ -17,5 +17,6 @@ int main(int argc, char** argv)
 
 	r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Hello", {}, {1024, 720}});
     
+	
     while(r.tick());
 }

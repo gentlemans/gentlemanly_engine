@@ -27,7 +27,7 @@ struct sdl_subsystem : subsystem {
 	};
 
 	bool initialize(const config& conf);
-	virtual bool update() override;
+	virtual bool update(std::chrono::duration<float> delta) override;
 	virtual bool shutdown() override;
 
 	glm::uvec2 get_size() const;
@@ -44,8 +44,8 @@ struct sdl_subsystem : subsystem {
 private:
 	void* m_context = nullptr;  // turns out SDL_GLContext is literally just void*
 	SDL_Window* m_window = nullptr;
-	bool shouldstayrunning = true;
 	glm::vec3 backgroundcolor;
+	std::vector<input_event> unprocessed_events;
 };
 
 }  // namespace ge

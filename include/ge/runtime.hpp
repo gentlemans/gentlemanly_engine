@@ -61,7 +61,15 @@ struct runtime {
 
 		auto tick_duration = std::chrono::duration<float>(current_time - last_tick);
         
+		last_tick = current_time;
+		
+		bool keep_running = true;
+		for(auto& subsystem : m_subsystems) {
+			auto result =  subsystem.second->update(tick_duration);
+			if(keep_running) keep_running = result;
+		}
         
+        return keep_running;
 	}
 
 private:
