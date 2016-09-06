@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "ge/concept/viewport.hpp"
 #include "ge/input_event.hpp"
+#include "ge/sdl_subsystem.hpp"
 
 #include <deque>
 #include <functional>
@@ -20,13 +20,11 @@ struct input_consumer_manager {
 	static std::deque<std::pair<consumer_func*, input_consumer_base*>> consumers;
 	static size_t active_consumer;
 
-	template <typename Viewport>
-	static void process_events(Viewport& viewport)
+	static void process_events(sdl_subsystem& subsystem)
 	{
-		BOOST_CONCEPT_ASSERT((ge::concept::Viewport<Viewport>));
 
 		if (consumers.size() > active_consumer) {
-			auto events = viewport.get_input_events();
+			auto events = subsystem.get_input_events();
 
 			for (auto ev : events) {
 				consumers[active_consumer].first(ev, consumers[active_consumer].second);

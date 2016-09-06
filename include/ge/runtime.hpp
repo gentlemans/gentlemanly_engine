@@ -43,8 +43,9 @@ struct runtime {
 	{
 		using boost::typeindex::type_id;
 
-		if (auto iter = m_subsystems.find(type_id<Subsystem>()) != m_subsystems.end()) {
-			return static_cast<Subsystem>(iter.second.get());
+		auto iter = m_subsystems.find(type_id<Subsystem>());
+		if (iter != m_subsystems.end()) {
+			return static_cast<Subsystem*>(iter->second.get());
 		}
 
 		return nullptr;
@@ -53,8 +54,8 @@ struct runtime {
 	bool tick()
 	{
 		// first run
-		if (last_tick == std::chrono::system_clock::time_point{}) {
-			last_tick = std::chrono::system_clock::now();
+		if (first_tick == std::chrono::system_clock::time_point{}) {
+			first_tick = last_tick = std::chrono::system_clock::now();
 		}
 
 		auto current_time = std::chrono::system_clock::now();
@@ -71,11 +72,16 @@ struct runtime {
         
         return keep_running;
 	}
+	
+	std::chrono::duration<float> get_elapsed_time() const {
+		return first_tick - last_tick;
+	}
 
 private:
 	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
 
-	std::chrono::system_clock::time_point last_tick;
+	
+	std::chrono::system_clock::time_point first_tick, last_tick;
 };
 }
 

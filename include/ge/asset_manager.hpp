@@ -5,6 +5,7 @@
 
 #include "ge/concept/asset.hpp"
 #include "ge/json.hpp"
+#include "ge/subsystem.hpp"
 
 #include <functional>
 #include <map>
@@ -19,7 +20,7 @@
 
 namespace ge
 {
-class asset_manager
+class asset_manager : public subsystem
 {
 private:
 	// not unordered because we need to traverse in order
@@ -38,6 +39,10 @@ public:
 	asset_manager& operator=(const asset_manager&) = default;
 	asset_manager& operator=(asset_manager&&) = default;
 
+	// Subsystem stuff
+	struct config {};
+	bool initialize(config) { return true; };
+	
 	/// Adds a search path to find assets
 	/// \param path The path to add
 	/// \param priority The priority of the path, the lower the priority the earlier it gets checked

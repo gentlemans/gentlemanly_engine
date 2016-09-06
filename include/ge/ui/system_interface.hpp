@@ -14,11 +14,13 @@ namespace ui
 class system_interface : public Rocket::Core::SystemInterface
 {
 public:
-	system_interface(runtime& arg_app){};
+	system_interface(runtime& arg_app) : m_runtime{arg_app} {};
 
 private:
-	// TODO: reimplement
-	virtual float GetElapsedTime() override { return 0; }
+	
+	virtual float GetElapsedTime() override { return m_runtime.get_elapsed_time().count(); }
+	
+	runtime& m_runtime;
 };
 }
 }
