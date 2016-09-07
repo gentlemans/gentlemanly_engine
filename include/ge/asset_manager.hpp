@@ -46,7 +46,14 @@ public:
 	/// Adds a search path to find assets
 	/// \param path The path to add
 	/// \param priority The priority of the path, the lower the priority the earlier it gets checked
-	void add_asset_path(std::string path, uint8_t priority = 0) noexcept;
+	void add_asset_path(std::string path, uint8_t priority = 0) {
+		if (!boost::filesystem::is_directory(path)) {
+			throw std::runtime_error("Error opening asset path: " + path);
+		}
+		
+		search_paths[priority].emplace_back(std::move(path));
+
+	}
 
 	/// Loads an asset from disk
 	/// \param name The name of the asset, which is a folder inside an asset path

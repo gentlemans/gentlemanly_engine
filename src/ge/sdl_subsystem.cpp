@@ -241,8 +241,6 @@ void sdl_subsystem::set_size(glm::uvec2 new_size)
 	SDL_SetWindowSize(m_window, new_size.x, new_size.y);
 }
 
-glm::vec3 sdl_subsystem::get_background_color() const { return backgroundcolor; }
-void sdl_subsystem::set_background_color(const glm::vec3& newColor) { backgroundcolor = newColor; }
 std::string sdl_subsystem::get_title() const { return SDL_GetWindowTitle(m_window); }
 void sdl_subsystem::set_title(const std::string& newTitle)
 {

@@ -5,6 +5,7 @@
 
 #include "ge/input_event.hpp"
 #include "ge/subsystem.hpp"
+#include "ge/camera_actor.hpp"
 
 #include <glm/glm.hpp>
 
@@ -24,6 +25,7 @@ struct sdl_subsystem : subsystem {
 		glm::uvec2 size;
 		bool fullscreen = false;
 		bool decorated = true;
+		camera_actor* camera = nullptr;
 	};
 
 	bool initialize(const config& conf);
@@ -36,16 +38,23 @@ struct sdl_subsystem : subsystem {
 	std::string get_title() const;
 	void set_title(const std::string& newTitle);
 
-	void set_background_color(const glm::vec3& newColor);
-	glm::vec3 get_background_color() const;
+	void set_background_color(const glm::vec3& newColor) noexcept {
+		m_background_color = newColor;
+	}
+	glm::vec3 get_background_color() const noexcept { return m_background_color; }
+	
+	camera_actor* get_camera() const noexcept { return m_camera.get(); }
+	void set_camera(camera_actor* cam) noexcept { m_camera = std::static_pointer_cast<camera_actor>(cam->shared()); }
+	
 
 	std::vector<input_event> get_input_events();
 
 private:
 	void* m_context = nullptr;  // turns out SDL_GLContext is literally just void*
 	SDL_Window* m_window = nullptr;
-	glm::vec3 backgroundcolor;
+	glm::vec3 m_background_color;
 	std::vector<input_event> unprocessed_events;
+	std::shared_ptr<camera_actor> m_camera;
 };
 
 }  // namespace ge

@@ -73,16 +73,6 @@ public:
 	/// \param new_location the new location
 	void set_relative_location(glm::vec2 new_location) noexcept
 	{
-		if (new_location != m_transform.location) {
-			signal_location_changed(*this);
-			signal_transform_changed(*this);
-
-			// call those signals on children
-			for (auto act : m_children) {
-				act->signal_location_changed(*act);
-				act->signal_transform_changed(*act);
-			}
-		}
 		m_transform.location = new_location;
 	}
 	/// Gets the location of the actor relative to the parent
@@ -92,17 +82,6 @@ public:
 	/// \param new_rotation the new rotation to apply
 	void set_relative_rotation(float new_rotation) noexcept
 	{
-		if (new_rotation != m_transform.rotation) {
-			signal_rotation_changed(*this);
-
-			signal_transform_changed(*this);
-
-			// call those signals on children
-			for (auto act : m_children) {
-				act->signal_rotation_changed(*act);
-				act->signal_transform_changed(*act);
-			}
-		}
 		m_transform.rotation = new_rotation;
 	}
 	/// Gets the rotation of the actor relative to the parent
@@ -112,10 +91,6 @@ public:
 	/// \param new_scale The relative scale
 	void set_relative_scale(glm::vec2 new_scale) noexcept
 	{
-		if (new_scale != m_transform.scale) {
-			signal_scale_changed(*this);
-			signal_transform_changed(*this);
-		}
 		m_transform.scale = new_scale;
 	}
 	/// Gets the scale relative to the parent actor
@@ -205,13 +180,6 @@ public:
 			child->propagate_to_children(std::forward<F>(func));
 		}
 	}
-
-	// SIGNALS
-	//////////
-	boost::signals2::signal<void(actor& actor_that_changed)> signal_location_changed;
-	boost::signals2::signal<void(actor& actor_that_changed)> signal_rotation_changed;
-	boost::signals2::signal<void(actor& actor_that_changed)> signal_scale_changed;
-	boost::signals2::signal<void(actor& actor_that_changed)> signal_transform_changed;
 
 	/// Override this for custom rendering. This should produce GL calls.
 	/// \param view_projection_matrix The VP of the MVP matrix

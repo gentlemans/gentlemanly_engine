@@ -62,7 +62,6 @@ add_subdirectory(deps/libRocket/Build)
 set(GE_PRIVATE_FILES
 	src/ge/actor.cpp
 	src/ge/animation_asset.cpp
-	src/ge/asset_manager.cpp
 	src/ge/rocket_subsystem.cpp
 	src/ge/input_consumer.cpp
 	src/ge/lodepng.cpp
