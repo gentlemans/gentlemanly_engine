@@ -27,15 +27,24 @@ bool rocket_subsystem::initialize(rocket_subsystem::config) {
 	
 	Rocket::Core::Initialise();
 	
+	m_context = Rocket::Core::CreateContext("default", {int(sdl_sub->get_size().x), int(sdl_sub->get_size().y)});
+	
 	return true;
 }
 
 bool rocket_subsystem::update(std::chrono::duration<float> delta)
 {
+	m_context->Render();
+	
+	return true;
 }
 
 
 bool rocket_subsystem::shutdown()
 {
+	m_context->RemoveReference();
+	
+	Rocket::Core::Shutdown();
+	
 	return true;
 }
