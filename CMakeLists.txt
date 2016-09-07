@@ -91,7 +91,6 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/asset.hpp
 	include/ge/concept/component.hpp
 	include/ge/concept/variadic_concept.hpp
-	include/ge/concept/viewport.hpp
 	include/ge/gl.hpp
 	include/ge/hash_typeindex.hpp
 	include/ge/input_consumer.hpp
