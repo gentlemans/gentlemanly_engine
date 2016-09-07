@@ -29,7 +29,7 @@ class actor : public std::enable_shared_from_this<actor>
 
 protected:
 	// called from `factory`
-	actor(){};
+	actor() noexcept {};
 
 	// so we can use make_shared
 
@@ -44,7 +44,8 @@ public:
 			"Cannot use actor::factory on non-actor type.");
 
 		auto ret = std::shared_ptr<ActorType>(new ActorType());
-
+		assert(ret);
+		
 		if (parent) ret->set_parent(parent);
 		ret->initialize(std::forward<InitParams>(init_params)...);
 
@@ -64,13 +65,13 @@ public:
 	virtual ~actor();
 
 	/// Gets a std::shared_ptr<actor> from the actor
-	std::shared_ptr<actor> shared() { return shared_from_this(); }
+	std::shared_ptr<actor> shared() noexcept { return shared_from_this(); }
 	// transform transformation functions
 	/////////////////////////////////////
 
 	/// sets the location relative to the parent, if there is one.
 	/// \param new_location the new location
-	void set_relative_location(glm::vec2 new_location)
+	void set_relative_location(glm::vec2 new_location) noexcept
 	{
 		if (new_location != m_transform.location) {
 			signal_location_changed(*this);
@@ -86,10 +87,10 @@ public:
 	}
 	/// Gets the location of the actor relative to the parent
 	/// \return The relative location
-	glm::vec2 get_relative_location() const { return m_transform.location; }
+	glm::vec2 get_relative_location() const noexcept { return m_transform.location; }
 	/// Sets the rotation relative to the parent.
 	/// \param new_rotation the new rotation to apply
-	void set_relative_rotation(float new_rotation)
+	void set_relative_rotation(float new_rotation) noexcept
 	{
 		if (new_rotation != m_transform.rotation) {
 			signal_rotation_changed(*this);
@@ -106,10 +107,10 @@ public:
 	}
 	/// Gets the rotation of the actor relative to the parent
 	/// \return The relative rotation
-	float get_relative_rotation() const { return m_transform.rotation; }
+	float get_relative_rotation() const noexcept { return m_transform.rotation; }
 	/// Sets the scale of the actor relative to the parent
 	/// \param new_scale The relative scale
-	void set_relative_scale(glm::vec2 new_scale)
+	void set_relative_scale(glm::vec2 new_scale) noexcept
 	{
 		if (new_scale != m_transform.scale) {
 			signal_scale_changed(*this);
@@ -119,10 +120,10 @@ public:
 	}
 	/// Gets the scale relative to the parent actor
 	/// \return The relative scale
-	glm::vec2 get_relative_scale() const { return m_transform.scale; }
+	glm::vec2 get_relative_scale() const noexcept { return m_transform.scale; }
 	/// Calculates the absolute location of the actor
 	/// \return The absolute location
-	glm::vec2 calcuate_absolute_location() const
+	glm::vec2 calcuate_absolute_location() const noexcept
 	{
 		if (has_parent()) {
 			glm::vec2 parent_loc = get_parent()->calcuate_absolute_location();
@@ -136,7 +137,7 @@ public:
 	}
 	/// Calculates the absolute rotation of the actor
 	/// \return The absolute rotation
-	float calcuate_absolute_rotation() const
+	float calcuate_absolute_rotation() const noexcept
 	{
 		if (has_parent()) {
 			return get_parent()->calcuate_absolute_rotation() + get_relative_rotation();
@@ -146,7 +147,7 @@ public:
 	}
 	/// Calculates the absolute scale of the actor
 	/// \return The absolute scale
-	glm::vec2 calcuate_absolute_scale() const
+	glm::vec2 calcuate_absolute_scale() const noexcept
 	{
 		if (has_parent()) {
 			return get_parent()->calcuate_absolute_scale() * get_relative_scale();
@@ -156,7 +157,7 @@ public:
 
 	/// Calculates the model matrix for the actor
 	/// \return The model matrix
-	glm::mat3 calculate_model_matrix() const
+	glm::mat3 calculate_model_matrix() const noexcept
 	{
 		glm::mat3 this_model;
 
@@ -172,7 +173,7 @@ public:
 
 	/// Sets the parent of the actor, unparenting it from the previous parent
 	/// \param new_parent The new parent of the actor
-	void set_parent(actor* new_parent)
+	void set_parent(actor* new_parent) noexcept
 	{
 		assert(new_parent);
 
@@ -187,10 +188,10 @@ public:
 
 	/// Gets the parent actor
 	/// \return The parent actor if present, otherwise `nullptr`
-	actor* get_parent() const { return m_parent; }
+	actor* get_parent() const noexcept { return m_parent; }
 	/// Gets if the actor has a parent.
 	/// \return Has a parent?
-	bool has_parent() const { return m_parent; }
+	bool has_parent() const noexcept { return m_parent; }
 	// rendering
 
 	/// Propagates  function to all the children

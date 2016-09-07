@@ -41,12 +41,12 @@ public:
 
 	// Subsystem stuff
 	struct config {};
-	bool initialize(config) { return true; };
+	bool initialize(config) noexcept { return true; };
 	
 	/// Adds a search path to find assets
 	/// \param path The path to add
 	/// \param priority The priority of the path, the lower the priority the earlier it gets checked
-	void add_asset_path(std::string path, uint8_t priority = 0);
+	void add_asset_path(std::string path, uint8_t priority = 0) noexcept;
 
 	/// Loads an asset from disk
 	/// \param name The name of the asset, which is a folder inside an asset path
