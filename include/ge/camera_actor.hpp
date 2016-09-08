@@ -14,8 +14,8 @@ struct camera_actor : actor {
 
 	void render_actors(actor& root, float aspect)
 	{
-		glm::mat3 p = glm::ortho2d(-aspect * m_vertical_units, aspect * m_vertical_units,
-			-m_vertical_units, m_vertical_units);
+		glm::mat3 p = glm::ortho2d(-aspect * m_vertical_units / 2.f, aspect * m_vertical_units / 2.f,
+			-m_vertical_units / 2.f, m_vertical_units / 2.f);
 		glm::mat3 v = calculate_model_matrix();
 
 		glm::mat3 vp = p * v;

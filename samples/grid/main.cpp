@@ -17,12 +17,12 @@ int main()
 {
 	runtime r;
 	r.m_asset_manager.add_asset_path("data/");
-	auto sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
+	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
 	r.add_subsystem<rocket_subsystem>({});
 
 	auto root = actor::root_factory(&r);
 
-	auto camera = actor::factory<camera_actor>(root.get(), 11);
+	auto camera = actor::factory<camera_actor>(root.get(), 2);
 	
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
@@ -30,7 +30,7 @@ int main()
 
 	// initialize the grid
 	auto g = actor::factory<grid>(root.get(), glm::uvec2{11, 11});
-	
+	g->set_relative_location({-11.f/2, +11.f/2});
 	
 	
 	while (r.tick())
