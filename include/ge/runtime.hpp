@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "ge/asset_manager.hpp"
 #include "ge/hash_typeindex.hpp"
 #include "ge/subsystem.hpp"
 
@@ -15,6 +16,7 @@
 namespace ge
 {
 struct runtime {
+	runtime() : m_asset_manager{*this} {}
 	~runtime()
 	{
 		// call shutdown on the subsystems
@@ -98,6 +100,8 @@ struct runtime {
 	}
 
 	std::chrono::duration<float> get_elapsed_time() const { return first_tick - last_tick; }
+	asset_manager m_asset_manager;
+
 private:
 	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
 	std::vector<subsystem*> m_add_order;

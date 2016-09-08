@@ -20,7 +20,7 @@
 
 namespace ge
 {
-class asset_manager : public subsystem
+class asset_manager
 {
 private:
 	// not unordered because we need to traverse in order
@@ -32,22 +32,12 @@ private:
 	std::unordered_set<std::string> loaded_void_assets;
 
 public:
-	asset_manager() = default;
+	asset_manager(runtime& run) : m_runtime{&run} {}
 	asset_manager(const asset_manager&) = default;
 	asset_manager(asset_manager&&) = default;
 
 	asset_manager& operator=(const asset_manager&) = default;
 	asset_manager& operator=(asset_manager&&) = default;
-
-	// Subsystem stuff
-	using config = std::vector<std::string>;  // the search paths
-	bool initialize(const std::vector<std::string>& c) noexcept
-	{
-		// add the new values into the search paths
-		std::copy(c.begin(), c.end(), std::back_inserter(m_search_paths[0]));
-
-		return true;
-	}
 
 	/// Adds a search path to find assets
 	/// \param path The path to add
@@ -184,6 +174,8 @@ public:
 
 		loaded_void_assets.insert(name);
 	}
+
+	runtime* m_runtime;
 };
 }
 

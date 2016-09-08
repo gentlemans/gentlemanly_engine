@@ -12,8 +12,8 @@ using namespace ge;
 int main(int argc, char** argv)
 {
 	runtime r;
+	r.m_asset_manager.add_asset_path("data/");
 	auto sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
-	auto asset_man = r.add_subsystem<asset_manager>({"data/"});
 	r.add_subsystem<rocket_subsystem>({});
 
 	auto root = actor::root_factory(&r);
@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 	sdl.set_camera(camera.get());
 	sdl.set_root_actor(root.get());
 
-	auto document = asset_man.get_asset<ui::rocket_document_asset>("rocket_doc");
+	auto document = r.m_asset_manager.get_asset<ui::rocket_document_asset>("rocket_doc");
 	document->Show();
 
 	while (r.tick())
