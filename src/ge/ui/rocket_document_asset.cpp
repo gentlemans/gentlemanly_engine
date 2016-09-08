@@ -1,4 +1,5 @@
 #include "ge/ui/rocket_document_asset.hpp"
+#include "ge/rocket_subsystem.hpp"
 
 #include "ge/json_helper.hpp"
 #include "ge/ui/rocket_font_asset.hpp"
@@ -11,7 +12,7 @@ namespace ui
 {
 std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset(
 	asset_manager& manager, const char* /*asset_name*/, const char* filepath,
-	const nlohmann::json& json_data, Rocket::Core::Context* ctx)
+	const nlohmann::json& json_data)
 {
 	using namespace std::string_literals;
 
@@ -27,8 +28,11 @@ std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset
 		}
 	}
 
+	// get rocket subsystem
+	auto rocketsub = manager.m_runtime->get_subsystem<rocket_subsystem>();
+	
 	return std::shared_ptr<Rocket::Core::ElementDocument>(
-		ctx->LoadDocument(path.c_str()), [](Rocket::Core::ElementDocument*) {});
+		rocketsub->m_context->LoadDocument(path.c_str()), [](Rocket::Core::ElementDocument*) {});
 }
 }  // ui
 }  // ge

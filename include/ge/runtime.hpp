@@ -15,8 +15,23 @@
 namespace ge
 {
 struct runtime {
+	
+	~runtime() {
+		// call shutdown on the subsystems
+		bool overall_success = true;
+		for(auto iter = m_add_order.rbegin(); iter < m_add_order.rend(); ++iter) {
+			bool this_success = (*iter)->shutdown();
+			if(!overall_success) overall_success = this_success;
+		}
+		
+		// see if it was successful
+		// TODO: logging
+	}
+	
+	/// Adds a new subsystem. Subsystems must derrive from \c ge::subsystem and also must implemet a function like: bool initialize(Subsystem::config c)
+	/// \param config The config object to send when initializing the submodule.
 	template <typename Subsystem>
-	void add_subsystem(const typename Subsystem::config& config)
+	Subsystem& add_subsystem(const typename Subsystem::config& config)
 	{
 		static_assert(std::is_base_of<subsystem, Subsystem>::value,
 			"Cannot add a subsystem of a non-subsystem type");
@@ -24,9 +39,10 @@ struct runtime {
 		using boost::typeindex::type_id;
 
 		// see if there is already one
-		if (m_subsystems.find(type_id<Subsystem>()) != m_subsystems.end()) {
+		auto existing_iter = m_subsystems.find(type_id<Subsystem>());
+		if (existing_iter != m_subsystems.end()) {
 			// we aren't interseted in adding another one
-			return;
+			return *static_cast<Subsystem*>(existing_iter->second.get());
 		}
 
 		auto new_subsystem = std::make_unique<Subsystem>();
@@ -35,11 +51,16 @@ struct runtime {
 		new_subsystem->initialize(config);
 
 		// add it!
-		m_subsystems[type_id<Subsystem>()] = std::move(new_subsystem);
+		auto inserted_iter = m_subsystems.insert(std::make_pair(type_id<Subsystem>(), std::move(new_subsystem))).first;
+		m_add_order.push_back(inserted_iter->second.get());
+		
+		return *static_cast<Subsystem*>(inserted_iter->second.get());
 	}
 
+	/// Fetches a already existing submodule
+	/// \return The submodule, or nullptr if it doens't exist
 	template <typename Subsystem>
-	Subsystem* get_subsystem()
+	Subsystem* get_subsystem() noexcept 
 	{
 		using boost::typeindex::type_id;
 
@@ -79,7 +100,7 @@ struct runtime {
 
 private:
 	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
-
+	std::vector<subsystem*> m_add_order;
 	
 	std::chrono::system_clock::time_point first_tick, last_tick;
 };

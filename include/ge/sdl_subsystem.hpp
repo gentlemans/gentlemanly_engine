@@ -25,7 +25,6 @@ struct sdl_subsystem : subsystem {
 		glm::uvec2 size;
 		bool fullscreen = false;
 		bool decorated = true;
-		camera_actor* camera = nullptr;
 	};
 
 	bool initialize(const config& conf);
@@ -44,8 +43,11 @@ struct sdl_subsystem : subsystem {
 	glm::vec3 get_background_color() const noexcept { return m_background_color; }
 	
 	camera_actor* get_camera() const noexcept { return m_camera.get(); }
-	void set_camera(camera_actor* cam) noexcept { m_camera = std::static_pointer_cast<camera_actor>(cam->shared()); }
+	void set_camera(camera_actor* cam) noexcept { m_camera = actor::shared(cam); }
 	
+	actor* get_root_actor() const noexcept { return m_root_actor.get(); }
+	void set_root_actor(actor* new_root) noexcept { m_root_actor = actor::shared(new_root); }
+
 
 	std::vector<input_event> get_input_events();
 
@@ -55,6 +57,7 @@ private:
 	glm::vec3 m_background_color;
 	std::vector<input_event> unprocessed_events;
 	std::shared_ptr<camera_actor> m_camera;
+	std::shared_ptr<actor> m_root_actor;
 };
 
 }  // namespace ge

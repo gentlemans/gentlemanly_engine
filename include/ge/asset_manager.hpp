@@ -24,7 +24,7 @@ class asset_manager : public subsystem
 {
 private:
 	// not unordered because we need to traverse in order
-	std::map<uint8_t, std::vector<std::string>> search_paths;
+	std::map<uint8_t, std::vector<std::string>> m_search_paths;
 
 	// we don't know this type, but we will when it is asked for.
 	std::unordered_map<std::string, std::weak_ptr<void>> cache;
@@ -40,8 +40,15 @@ public:
 	asset_manager& operator=(asset_manager&&) = default;
 
 	// Subsystem stuff
-	struct config {};
-	bool initialize(config) noexcept { return true; };
+	using config = std::vector<std::string>; // the search paths
+	bool initialize(const std::vector<std::string>& c) noexcept { 
+		
+		// add the new values into the search paths
+		std::copy(c.begin(), c.end(), std::back_inserter(m_search_paths[0]));
+		
+		return true; 
+		
+	}
 	
 	/// Adds a search path to find assets
 	/// \param path The path to add
@@ -51,7 +58,7 @@ public:
 			throw std::runtime_error("Error opening asset path: " + path);
 		}
 		
-		search_paths[priority].emplace_back(std::move(path));
+		      m_search_paths[priority].emplace_back(std::move(path));
 
 	}
 
@@ -80,7 +87,7 @@ public:
 		}
 		std::string abs_path;
 		// acquire absolute path
-		for (auto& priority_and_paths : search_paths) {
+		for (auto& priority_and_paths : m_search_paths) {
 			for (auto& path : priority_and_paths.second) {
 				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
 					abs_path = path + "/" + name;
@@ -141,7 +148,7 @@ public:
 		}
 		std::string abs_path;
 		// acquire absolute path
-		for (auto& priority_and_paths : search_paths) {
+		for (auto& priority_and_paths : m_search_paths) {
 			for (auto& path : priority_and_paths.second) {
 				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
 					abs_path = path + "/" + name;

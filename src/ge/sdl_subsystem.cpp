@@ -177,9 +177,9 @@ void update_c_function(void* void_subsystem)
 bool sdl_subsystem::update(std::chrono::duration<float> delta)
 {
 
+	SDL_GL_SwapWindow(m_window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	update_c_function(this);
-	SDL_GL_SwapWindow(m_window);
 
 	SDL_Event event;
 	
@@ -217,6 +217,11 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 		}
 	}
 
+	// render!
+	if(m_camera) {
+		m_camera->render_actors(*m_root_actor, float(get_size().x) / float(get_size().y));
+	}
+	
 	return true;
 }
 

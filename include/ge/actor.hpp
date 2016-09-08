@@ -4,6 +4,7 @@
 #pragma once
 
 #include "ge/transform.hpp"
+#include "ge/runtime.hpp"
 
 #include <memory>
 
@@ -40,15 +41,38 @@ public:
 	template <typename ActorType = actor, typename... InitParams>
 	static std::shared_ptr<ActorType> factory(actor* parent, InitParams&&... init_params)
 	{
+		assert(parent);
+		
 		static_assert(std::is_base_of<actor, ActorType>::value,
 			"Cannot use actor::factory on non-actor type.");
 
 		auto ret = std::shared_ptr<ActorType>(new ActorType());
 		assert(ret);
 		
-		if (parent) ret->set_parent(parent);
+		ret->set_parent(parent);
+		ret->m_runtime = parent->m_runtime;
 		ret->initialize(std::forward<InitParams>(init_params)...);
+		
+		return ret;
+	}
+	
+	/// Creates a root actor of type ActorType
+	/// \param runtime The runtime object to create it under
+	/// \param init_params The initialization paramters, will be passed to ActorType::initialize
+	template <typename ActorType = actor, typename... InitParams>
+	static std::shared_ptr<ActorType> root_factory(runtime* runtime, InitParams&&... init_params)
+	{
+		assert(runtime);
+		
+		static_assert(std::is_base_of<actor, ActorType>::value,
+			"Cannot use actor::factory on non-actor type.");
 
+		auto ret = std::shared_ptr<ActorType>(new ActorType());
+		assert(ret);
+		
+		ret->m_runtime = runtime;
+		ret->initialize(std::forward<InitParams>(init_params)...);
+		
 		return ret;
 	}
 
@@ -65,7 +89,15 @@ public:
 	virtual ~actor();
 
 	/// Gets a std::shared_ptr<actor> from the actor
-	std::shared_ptr<actor> shared() noexcept { return shared_from_this(); }
+	/// \param to_share The actor to turn into a std::shared_ptr
+	template<typename ActorType>
+	static std::shared_ptr<ActorType> shared(ActorType* to_share) noexcept {
+		
+		static_assert(std::is_base_of<actor, ActorType>::value, "Cannot use actor::shared on a non-actor type");
+		
+		return std::static_pointer_cast<ActorType>(to_share->shared_from_this()); 
+		
+	}
 	// transform transformation functions
 	/////////////////////////////////////
 
@@ -184,6 +216,8 @@ public:
 	/// Override this for custom rendering. This should produce GL calls.
 	/// \param view_projection_matrix The VP of the MVP matrix
 	virtual void render(const glm::mat3& view_projection_matrix) {}
+	
+	runtime* m_runtime;
 };
 
 }  // namespace ge
