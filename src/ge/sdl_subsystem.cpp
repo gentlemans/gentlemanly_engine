@@ -178,6 +178,7 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 {
 	SDL_GL_SwapWindow(m_window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(m_background_color.r, m_background_color.g, m_background_color.b, 1.f);
 	update_c_function(this);
 
 	SDL_Event event;
