@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "ge/transform.hpp"
 #include "ge/runtime.hpp"
+#include "ge/transform.hpp"
 
 #include <memory>
 
@@ -42,20 +42,20 @@ public:
 	static std::shared_ptr<ActorType> factory(actor* parent, InitParams&&... init_params)
 	{
 		assert(parent);
-		
+
 		static_assert(std::is_base_of<actor, ActorType>::value,
 			"Cannot use actor::factory on non-actor type.");
 
 		auto ret = std::shared_ptr<ActorType>(new ActorType());
 		assert(ret);
-		
+
 		ret->set_parent(parent);
 		ret->m_runtime = parent->m_runtime;
 		ret->initialize(std::forward<InitParams>(init_params)...);
-		
+
 		return ret;
 	}
-	
+
 	/// Creates a root actor of type ActorType
 	/// \param runtime The runtime object to create it under
 	/// \param init_params The initialization paramters, will be passed to ActorType::initialize
@@ -63,16 +63,16 @@ public:
 	static std::shared_ptr<ActorType> root_factory(runtime* runtime, InitParams&&... init_params)
 	{
 		assert(runtime);
-		
+
 		static_assert(std::is_base_of<actor, ActorType>::value,
 			"Cannot use actor::factory on non-actor type.");
 
 		auto ret = std::shared_ptr<ActorType>(new ActorType());
 		assert(ret);
-		
+
 		ret->m_runtime = runtime;
 		ret->initialize(std::forward<InitParams>(init_params)...);
-		
+
 		return ret;
 	}
 
@@ -90,13 +90,13 @@ public:
 
 	/// Gets a std::shared_ptr<actor> from the actor
 	/// \param to_share The actor to turn into a std::shared_ptr
-	template<typename ActorType>
-	static std::shared_ptr<ActorType> shared(ActorType* to_share) noexcept {
-		
-		static_assert(std::is_base_of<actor, ActorType>::value, "Cannot use actor::shared on a non-actor type");
-		
-		return std::static_pointer_cast<ActorType>(to_share->shared_from_this()); 
-		
+	template <typename ActorType>
+	static std::shared_ptr<ActorType> shared(ActorType* to_share) noexcept
+	{
+		static_assert(std::is_base_of<actor, ActorType>::value,
+			"Cannot use actor::shared on a non-actor type");
+
+		return std::static_pointer_cast<ActorType>(to_share->shared_from_this());
 	}
 	// transform transformation functions
 	/////////////////////////////////////
@@ -112,19 +112,13 @@ public:
 	glm::vec2 get_relative_location() const noexcept { return m_transform.location; }
 	/// Sets the rotation relative to the parent.
 	/// \param new_rotation the new rotation to apply
-	void set_relative_rotation(float new_rotation) noexcept
-	{
-		m_transform.rotation = new_rotation;
-	}
+	void set_relative_rotation(float new_rotation) noexcept { m_transform.rotation = new_rotation; }
 	/// Gets the rotation of the actor relative to the parent
 	/// \return The relative rotation
 	float get_relative_rotation() const noexcept { return m_transform.rotation; }
 	/// Sets the scale of the actor relative to the parent
 	/// \param new_scale The relative scale
-	void set_relative_scale(glm::vec2 new_scale) noexcept
-	{
-		m_transform.scale = new_scale;
-	}
+	void set_relative_scale(glm::vec2 new_scale) noexcept { m_transform.scale = new_scale; }
 	/// Gets the scale relative to the parent actor
 	/// \return The relative scale
 	glm::vec2 get_relative_scale() const noexcept { return m_transform.scale; }
@@ -216,7 +210,6 @@ public:
 	/// Override this for custom rendering. This should produce GL calls.
 	/// \param view_projection_matrix The VP of the MVP matrix
 	virtual void render(const glm::mat3& view_projection_matrix) {}
-	
 	runtime* m_runtime;
 };
 

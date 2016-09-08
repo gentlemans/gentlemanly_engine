@@ -40,26 +40,25 @@ public:
 	asset_manager& operator=(asset_manager&&) = default;
 
 	// Subsystem stuff
-	using config = std::vector<std::string>; // the search paths
-	bool initialize(const std::vector<std::string>& c) noexcept { 
-		
+	using config = std::vector<std::string>;  // the search paths
+	bool initialize(const std::vector<std::string>& c) noexcept
+	{
 		// add the new values into the search paths
 		std::copy(c.begin(), c.end(), std::back_inserter(m_search_paths[0]));
-		
-		return true; 
-		
+
+		return true;
 	}
-	
+
 	/// Adds a search path to find assets
 	/// \param path The path to add
 	/// \param priority The priority of the path, the lower the priority the earlier it gets checked
-	void add_asset_path(std::string path, uint8_t priority = 0) {
+	void add_asset_path(std::string path, uint8_t priority = 0)
+	{
 		if (!boost::filesystem::is_directory(path)) {
 			throw std::runtime_error("Error opening asset path: " + path);
 		}
-		
-		      m_search_paths[priority].emplace_back(std::move(path));
 
+		m_search_paths[priority].emplace_back(std::move(path));
 	}
 
 	/// Loads an asset from disk

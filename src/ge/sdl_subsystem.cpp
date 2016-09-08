@@ -176,26 +176,25 @@ void update_c_function(void* void_subsystem)
 
 bool sdl_subsystem::update(std::chrono::duration<float> delta)
 {
-
 	SDL_GL_SwapWindow(m_window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	update_c_function(this);
 
 	SDL_Event event;
-	
+
 	// run until there is an event that we recognize
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT: return false;
 		case SDL_KEYDOWN:
 			if (!event.key.repeat)
-				unprocessed_events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true,
-					sdl_mods_to_ge(event.key.keysym.mod)});
+				unprocessed_events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
+					true, sdl_mods_to_ge(event.key.keysym.mod)});
 			break;
 		case SDL_KEYUP:
 			if (!event.key.repeat)
-				unprocessed_events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false,
-					sdl_mods_to_ge(event.key.keysym.mod)});
+				unprocessed_events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
+					false, sdl_mods_to_ge(event.key.keysym.mod)});
 			break;
 		case SDL_MOUSEMOTION:
 			unprocessed_events.push_back(input_mouse_move{
@@ -218,10 +217,10 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 	}
 
 	// render!
-	if(m_camera) {
+	if (m_camera) {
 		m_camera->render_actors(*m_root_actor, float(get_size().x) / float(get_size().y));
 	}
-	
+
 	return true;
 }
 
@@ -252,7 +251,4 @@ void sdl_subsystem::set_title(const std::string& newTitle)
 	SDL_SetWindowTitle(m_window, newTitle.c_str());
 }
 
-std::vector<input_event> sdl_subsystem::get_input_events()
-{
-	return std::move(unprocessed_events);
-}
+std::vector<input_event> sdl_subsystem::get_input_events() { return std::move(unprocessed_events); }

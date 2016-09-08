@@ -16,9 +16,10 @@ std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset
 {
 	using namespace std::string_literals;
 
-	std::string path = boost::filesystem::absolute(
-		json_get_value_with_fallback(json_data, "rml_file"s, "doc.rml"s),
-		filepath).string();
+	std::string path =
+		boost::filesystem::absolute(
+			json_get_value_with_fallback(json_data, "rml_file"s, "doc.rml"s), filepath)
+			.string();
 
 	// load fonts
 	auto fonts_iter = json_data.find("required_fonts");
@@ -30,7 +31,7 @@ std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset
 
 	// get rocket subsystem
 	auto rocketsub = manager.m_runtime->get_subsystem<rocket_subsystem>();
-	
+
 	return std::shared_ptr<Rocket::Core::ElementDocument>(
 		rocketsub->m_context->LoadDocument(path.c_str()), [](Rocket::Core::ElementDocument*) {});
 }

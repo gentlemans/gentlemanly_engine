@@ -3,9 +3,9 @@
 
 #pragma once
 
+#include "ge/camera_actor.hpp"
 #include "ge/input_event.hpp"
 #include "ge/subsystem.hpp"
-#include "ge/camera_actor.hpp"
 
 #include <glm/glm.hpp>
 
@@ -37,18 +37,12 @@ struct sdl_subsystem : subsystem {
 	std::string get_title() const;
 	void set_title(const std::string& newTitle);
 
-	void set_background_color(const glm::vec3& newColor) noexcept {
-		m_background_color = newColor;
-	}
+	void set_background_color(const glm::vec3& newColor) noexcept { m_background_color = newColor; }
 	glm::vec3 get_background_color() const noexcept { return m_background_color; }
-	
 	camera_actor* get_camera() const noexcept { return m_camera.get(); }
 	void set_camera(camera_actor* cam) noexcept { m_camera = actor::shared(cam); }
-	
 	actor* get_root_actor() const noexcept { return m_root_actor.get(); }
 	void set_root_actor(actor* new_root) noexcept { m_root_actor = actor::shared(new_root); }
-
-
 	std::vector<input_event> get_input_events();
 
 private:

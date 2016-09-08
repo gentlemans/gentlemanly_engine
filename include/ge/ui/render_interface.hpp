@@ -4,9 +4,9 @@
 #pragma once
 
 #include "ge/asset_manager.hpp"
+#include "ge/sdl_subsystem.hpp"
 #include "ge/shader.hpp"
 #include "ge/shader_asset.hpp"
-#include "ge/sdl_subsystem.hpp"
 
 #include <glm/glm.hpp>
 
@@ -23,10 +23,8 @@ class render_interface : public Rocket::Core::RenderInterface
 	std::shared_ptr<shader> m_shader;
 
 public:
-	render_interface(asset_manager& asset_man, sdl_subsystem& sdl_sub)
-		: m_asset_manager{&asset_man}
+	render_interface(asset_manager& asset_man, sdl_subsystem& sdl_sub) : m_asset_manager{&asset_man}
 	{
-
 		m_shader = asset_man.get_asset<shader_asset>("textureshader");
 
 		viewport_size = sdl_sub.get_size();

@@ -22,7 +22,6 @@ struct input_consumer_manager {
 
 	static void process_events(sdl_subsystem& subsystem)
 	{
-
 		if (consumers.size() > active_consumer) {
 			auto events = subsystem.get_input_events();
 

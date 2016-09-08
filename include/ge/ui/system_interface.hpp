@@ -17,9 +17,7 @@ public:
 	system_interface(runtime& arg_app) : m_runtime{arg_app} {};
 
 private:
-	
 	virtual float GetElapsedTime() override { return m_runtime.get_elapsed_time().count(); }
-	
 	runtime& m_runtime;
 };
 }

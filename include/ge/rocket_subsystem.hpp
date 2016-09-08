@@ -9,19 +9,19 @@
 
 #include "Rocket/Core.h"
 
-namespace ge {
-
+namespace ge
+{
 struct rocket_subsystem : subsystem {
-	
-	struct config{};
-	
+	struct config {
+	};
+
 	bool initialize(config c);
 	bool update(std::chrono::duration<float> delta) override;
 	bool shutdown() override;
-	
+
 	Rocket::Core::Context* m_context;
 };
 
-} // ge
+}  // ge
 
-#endif // GE_ROCKET_SUBSYSTEM_HPP
+#endif  // GE_ROCKET_SUBSYSTEM_HPP

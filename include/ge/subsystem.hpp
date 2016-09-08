@@ -12,9 +12,8 @@ struct runtime;
 struct subsystem {
 	virtual ~subsystem(){};
 
-    virtual bool update(std::chrono::duration<float> delta){ return true; };
-    virtual bool shutdown(){ return true; };
-
+	virtual bool update(std::chrono::duration<float> delta) { return true; };
+	virtual bool shutdown() { return true; };
 	runtime* m_runtime;
 };
 

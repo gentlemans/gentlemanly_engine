@@ -15,20 +15,21 @@
 namespace ge
 {
 struct runtime {
-	
-	~runtime() {
+	~runtime()
+	{
 		// call shutdown on the subsystems
 		bool overall_success = true;
-		for(auto iter = m_add_order.rbegin(); iter < m_add_order.rend(); ++iter) {
+		for (auto iter = m_add_order.rbegin(); iter < m_add_order.rend(); ++iter) {
 			bool this_success = (*iter)->shutdown();
-			if(!overall_success) overall_success = this_success;
+			if (!overall_success) overall_success = this_success;
 		}
-		
+
 		// see if it was successful
 		// TODO: logging
 	}
-	
-	/// Adds a new subsystem. Subsystems must derrive from \c ge::subsystem and also must implemet a function like: bool initialize(Subsystem::config c)
+
+	/// Adds a new subsystem. Subsystems must derrive from \c ge::subsystem and also must implemet a
+	/// function like: bool initialize(Subsystem::config c)
 	/// \param config The config object to send when initializing the submodule.
 	template <typename Subsystem>
 	Subsystem& add_subsystem(const typename Subsystem::config& config)
@@ -51,16 +52,18 @@ struct runtime {
 		new_subsystem->initialize(config);
 
 		// add it!
-		auto inserted_iter = m_subsystems.insert(std::make_pair(type_id<Subsystem>(), std::move(new_subsystem))).first;
+		auto inserted_iter =
+			m_subsystems.insert(std::make_pair(type_id<Subsystem>(), std::move(new_subsystem)))
+				.first;
 		m_add_order.push_back(inserted_iter->second.get());
-		
+
 		return *static_cast<Subsystem*>(inserted_iter->second.get());
 	}
 
 	/// Fetches a already existing submodule
 	/// \return The submodule, or nullptr if it doens't exist
 	template <typename Subsystem>
-	Subsystem* get_subsystem() noexcept 
+	Subsystem* get_subsystem() noexcept
 	{
 		using boost::typeindex::type_id;
 
@@ -82,26 +85,23 @@ struct runtime {
 		auto current_time = std::chrono::system_clock::now();
 
 		auto tick_duration = std::chrono::duration<float>(current_time - last_tick);
-        
+
 		last_tick = current_time;
-		
+
 		bool keep_running = true;
-		for(auto& subsystem : m_subsystems) {
-			auto result =  subsystem.second->update(tick_duration);
-			if(keep_running) keep_running = result;
+		for (auto& subsystem : m_subsystems) {
+			auto result = subsystem.second->update(tick_duration);
+			if (keep_running) keep_running = result;
 		}
-        
-        return keep_running;
-	}
-	
-	std::chrono::duration<float> get_elapsed_time() const {
-		return first_tick - last_tick;
+
+		return keep_running;
 	}
 
+	std::chrono::duration<float> get_elapsed_time() const { return first_tick - last_tick; }
 private:
 	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
 	std::vector<subsystem*> m_add_order;
-	
+
 	std::chrono::system_clock::time_point first_tick, last_tick;
 };
 }
