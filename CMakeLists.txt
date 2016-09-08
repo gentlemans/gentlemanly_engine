@@ -24,7 +24,9 @@ add_definitions(-DBOOST_ALL_NO_LIB)
 find_package(SDL2 REQUIRED)
 
 # These are optional, we can use the packaged if we can to avoid buliding it
-find_package(Freetype)
+if(UNIX)
+	find_package(Freetype)
+endif()
 #find_package(assimp)
 
 message("DIR: ${ASSIMP_INCLUDE_DIRS}")
