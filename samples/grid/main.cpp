@@ -1,5 +1,7 @@
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
+#include <ge/rocket_subsystem.hpp>
+
 
 #include <glm/glm.hpp>
 
@@ -11,12 +13,26 @@
 
 using namespace ge;
 
-int main(int argc, char** argv)
+int main()
 {
 	runtime r;
+	r.m_asset_manager.add_asset_path("data/");
+	auto sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
+	r.add_subsystem<rocket_subsystem>({});
 
-	r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Hello", {}, {1024, 720}});
+	auto root = actor::root_factory(&r);
 
+	auto camera = actor::factory<camera_actor>(root.get(), 11);
+	
+	sdl.set_background_color({.2f, .2f, .2f});
+	sdl.set_camera(camera.get());
+	sdl.set_root_actor(root.get());
+
+	// initialize the grid
+	auto g = actor::factory<grid>(root.get(), glm::uvec2{11, 11});
+	
+	
+	
 	while (r.tick())
 		;
 }

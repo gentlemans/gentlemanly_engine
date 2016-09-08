@@ -11,11 +11,12 @@ public:
 	grid* m_grid;
 	glm::uvec3 m_loc;
 
-	void initialize(grid& g, glm::uvec3 loc)
+	void initialize(glm::uvec3 loc)
 	{
-		m_grid = &g;
+		m_grid = static_cast<grid*>(get_parent());
 		m_loc = loc;
 		set_parent(m_grid);
+		set_relative_location({float(loc.x), float(loc.y)});
 	}
 };
 

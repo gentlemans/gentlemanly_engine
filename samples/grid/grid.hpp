@@ -12,10 +12,8 @@ class grid : public ge::actor
 {
 	glm::uvec2 m_size;
 
-	ge::asset_manager* asset_man;
-
 public:
-	void initialize(glm::uvec2 size, ge::asset_manager& asset_m);
+	void initialize(glm::uvec2 size);
 
 	std::vector<std::shared_ptr<toweractor>> towers;
 
