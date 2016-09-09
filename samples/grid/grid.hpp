@@ -15,9 +15,9 @@ class grid : public ge::actor
 public:
 	void initialize(glm::uvec2 size);
 
-	std::vector<std::shared_ptr<toweractor>> towers;
+	std::vector<toweractor*> towers;
 
-	std::shared_ptr<toweractor>& getActorFromCoord(glm::uvec3 loc)
+	toweractor*& getActorFromCoord(glm::uvec3 loc)
 	{
 		assert(loc.x < m_size.x);
 		assert(loc.y < m_size.y);

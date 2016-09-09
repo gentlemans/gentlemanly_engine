@@ -15,7 +15,6 @@
  * {
  *   "asset_type": "mesh",
  *   "obj_data": "/path/to/model.obj, defauts to model.obj"
- *   "material": "/path/to/material/asset"
  * }
  *
  */

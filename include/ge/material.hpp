@@ -19,6 +19,12 @@ public:
 	std::shared_ptr<shader> m_shader;
 
 	material(const std::shared_ptr<shader>& shader);
+	
+	material(const material&) = default;
+	material(material&&) = default;
+	
+	material& operator=(const material&) = default;
+	material& operator=(material&&) = default;
 
 	std::unordered_map<std::string, shader::parameter_type> property_values;
 

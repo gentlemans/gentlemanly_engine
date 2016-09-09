@@ -9,5 +9,5 @@ void grid::initialize(glm::uvec2 size)
 	towers.resize(size.x * size.y * 3);
 
 	getActorFromCoord({size.x / 2 + 1, size.y / 2 + 1, 2}) = ge::actor::factory<base>(
-		this, glm::uvec3{size.x / 2 + 1, size.y / 2 + 1, 2});
+		this, glm::uvec3{size.x / 2 + 1, size.y / 2 + 1, 2}).get();
 }

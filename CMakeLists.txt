@@ -78,6 +78,7 @@ set(GE_PRIVATE_FILES
 	src/ge/texture.cpp
 	src/ge/texture_asset.cpp
 	src/ge/ui/render_interface.cpp
+	src/ge/mesh_settings.cpp
 	src/ge/ui/rocket_document_asset.cpp
 	src/ge/ui/rocket_input_consumer.cpp
 )

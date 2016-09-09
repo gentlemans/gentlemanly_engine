@@ -16,7 +16,7 @@ public:
 		m_grid = static_cast<grid*>(get_parent());
 		m_loc = loc;
 		set_parent(m_grid);
-		set_relative_location({float(loc.x), -float(loc.y)}); // flip y so 0,0 is upper left
+		set_relative_location({float(loc.x), float(loc.y)});
 	}
 };
 

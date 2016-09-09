@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "ge/shader.hpp"
+#include "ge/material.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -20,10 +20,9 @@ class material;
 class mesh
 {
 public:
-	std::shared_ptr<material> m_material;
 
 	mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
-		const size_t num_indicies, std::shared_ptr<material> mat);
+		const size_t num_indicies);
 	// no move or copy, pointer only
 	mesh(const mesh&) = delete;
 	mesh(mesh&&) = delete;
@@ -33,8 +32,6 @@ public:
 	~mesh();
 
 	void add_additional_data(const char* name, void* data, size_t size);
-
-	void render(const glm::mat3& mvp) const;
 
 	// required data
 	unsigned vertex_array;

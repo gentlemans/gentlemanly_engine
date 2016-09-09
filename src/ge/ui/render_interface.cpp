@@ -4,6 +4,7 @@
 #include "ge/mesh.hpp"
 #include "ge/ortho2d.hpp"
 #include "ge/texture_asset.hpp"
+#include "ge/mesh_settings.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -63,23 +64,22 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 			vertices[id].colour.blue, vertices[id].colour.alpha);
 	}
 
-	auto mat = std::make_shared<material>(m_shader);
 
-	auto mes = new mesh(
-		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3, mat);
+	auto mes = std::make_shared<mesh>(
+		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3);
+	auto settings = new mesh_settings(mes, {m_shader});
 
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
 	mes->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
-	mes->m_material = std::make_shared<material>(m_shader);
 
 	// the property_values needs a shared pointer, so create one that won't delete it when it is
 	// done
 	auto shared_texture = std::shared_ptr<texture>(new texture, [](auto) {});
 	shared_texture->texture_name = reinterpret_cast<texture*>(texturehandle)->texture_name;
 	shared_texture->size = reinterpret_cast<texture*>(texturehandle)->size;
-	mes->m_material->property_values["Texture"] = shared_texture;
+	settings->m_material.property_values["Texture"] = shared_texture;
 
-	return reinterpret_cast<intptr_t>(mes);
+	return reinterpret_cast<intptr_t>(settings);
 }
 
 // Called by Rocket when it wants to render application-compiled geometry.
@@ -89,7 +89,7 @@ void render_interface::RenderCompiledGeometry(
 	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x, (float)viewport_size.y, 0.f);
 	mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
 
-	auto m = reinterpret_cast<mesh*>(geometry);
+	auto m = reinterpret_cast<mesh_settings*>(geometry);
 
 	m->render(mvp);
 }
