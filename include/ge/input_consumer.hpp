@@ -11,15 +11,25 @@
 
 namespace ge
 {
+
+/// The base class for input consumers to make checking for input_consumer classes easier
 struct input_consumer_base {
 };
 
+/// The manager for input_consumers. It stores the active one and forwards all events to it.
 struct input_consumer_manager {
+	
+	/// The signature of a function that consumes input
 	using consumer_func = void(input_event event, input_consumer_base* ptr);
 
+	/// The stack of consumers
 	static std::deque<std::pair<consumer_func*, input_consumer_base*>> consumers;
-	static size_t active_consumer;
+	
+	/// The index in \c consumers of the current consumer
+	static size_t active_consumer; 
 
+	/// This is called when events need to be processed. 
+	/// \param subsystem The subsystem to process events from
 	static void process_events(sdl_subsystem& subsystem)
 	{
 		if (consumers.size() > active_consumer) {
@@ -32,6 +42,7 @@ struct input_consumer_manager {
 	}
 };
 
+/// The CRTP class to build an input consumer.
 template <typename Derived>
 struct input_consumer : input_consumer_base {
 	input_consumer()
@@ -48,6 +59,7 @@ struct input_consumer : input_consumer_base {
 	}
 
 protected:
+	/// This function is to be ran from the base class and it forwards all input to this class.
 	void steal_input() { input_consumer_manager::active_consumer = consumer_id; }
 private:
 	size_t consumer_id;

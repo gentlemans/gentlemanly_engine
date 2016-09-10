@@ -32,26 +32,9 @@ private:
 
 	std::unordered_set<std::string> loaded_void_assets;
 
-public:
-	asset_manager(runtime& run) : m_runtime{&run} {}
-	asset_manager(const asset_manager&) = default;
-	asset_manager(asset_manager&&) = default;
-
-	asset_manager& operator=(const asset_manager&) = default;
-	asset_manager& operator=(asset_manager&&) = default;
-
-	/// Adds a search path to find assets
-	/// \param path The path to add
-	/// \param priority The priority of the path, the lower the priority the earlier it gets checked
-	void add_asset_path(std::string path, uint8_t priority = 0)
-	{
-		if (!boost::filesystem::is_directory(path)) {
-			throw std::runtime_error("Error opening asset path: " + path);
-		}
-
-		m_search_paths[priority].emplace_back(std::move(path));
-	}
-
+	// Meta-helper classes
+	//////////////////////
+	
 	template<typename asset_type, bool = std::is_same<typename asset_type::cached, std::true_type>::value> 
 	struct is_already_in_cache_helper {
 		static std::pair<std::shared_ptr<typename asset_type::loaded_type>, bool> exec(asset_manager& man, const char* name) {
@@ -98,6 +81,33 @@ public:
 	};
 	
 	
+public:
+	
+	/// Construct a ge::asset_manager using the runtime
+	/// This is almost always run by the runtime, it's very rare that a user would run this.
+	asset_manager(runtime& run) : m_runtime{&run} {}
+	
+	// remove possible errors by deleting the copy and move constrctors
+	asset_manager(const asset_manager&) = delete;
+	asset_manager(asset_manager&&) = delete;
+
+	asset_manager& operator=(const asset_manager&) = delete;
+	asset_manager& operator=(asset_manager&&) = delete;
+
+	/// Adds a search path to find assets
+	/// \param path The path to add
+	/// \param priority The priority of the path, the lower the priority the earlier it gets checked
+	void add_asset_path(std::string path, uint8_t priority = 0)
+	{
+		if (!boost::filesystem::is_directory(path)) {
+			throw std::runtime_error("Error opening asset path: " + path);
+		}
+
+		m_search_paths[priority].emplace_back(std::move(path));
+	}
+
+
+	
 	/// Loads an asset from disk
 	/// \param name The name of the asset, which is a folder inside an asset path
 	/// \param extra_args Extra arguments to be passed to the loader
@@ -143,7 +153,9 @@ public:
 		return data;
 	}
 
-	// overload for void asset types
+	/// Loads a "void" asset from disk
+	/// \param name The name of the asset, which is a folder inside an asset path
+	/// \param extra_args Extra arguments to be passed to the loader
 	template <typename asset_type, typename... extra_args_types,
 		typename = std::enable_if_t<std::is_void<typename asset_type::loaded_type>::value>>
 	void get_asset(const char* name, extra_args_types&&... extra_args)
@@ -183,6 +195,7 @@ public:
 		if(is_cached) loaded_void_assets.insert(name);
 	}
 
+	/// The runtime object that this manger belongs to
 	runtime* m_runtime;
 	
 private:
