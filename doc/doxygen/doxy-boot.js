@@ -53,8 +53,8 @@ $( document ).ready(function() {
     $("div.ttname a").css("color", 'white');
     $("div.ttdef,div.ttdoc,div.ttdeci").addClass("panel-body");
 
-    $('div.fragment.well div.line:first').css('margin-top', '15px');
-    $('div.fragment.well div.line:last').css('margin-bottom', '15px');
+    $('div.fragment.well div.line:first').css('margin-top', '2px');
+    $('div.fragment.well div.line:last').css('margin-bottom', '2px');
 
 	$('table.doxtable').removeClass('doxtable').addClass('table table-striped table-bordered').each(function(){
 		$(this).prepend('<thead></thead>');
@@ -77,6 +77,11 @@ $( document ).ready(function() {
         $(this).siblings('.memItemLeft').attr('align', 'left');
     });
 
+    $('table.memberdecls').find('.memTemplItemRight').each(function(){
+        $(this).contents().appendTo($(this).siblings('.memTemplItemLeft'));
+        $(this).siblings('.memTemplItemLeft').attr('align', 'left');
+    });
+
 	function getOriginalWidthOfImg(img_element) {
 		var t = new Image();
 		t.src = (img_element.getAttribute ? img_element.getAttribute("src") : false) || img_element.src;
@@ -87,10 +92,9 @@ $( document ).ready(function() {
 		if(getOriginalWidthOfImg($(this)[0]) > $('#content>div.container').width())
 			$(this).css('width', '100%');
 	});
-
-
+	
+  
   /* responsive search box */
-
   $('#MSearchBox').parent().remove();
 
   var nav_container = $('<div class="row"></div>');
@@ -251,10 +255,17 @@ $( document ).ready(function() {
 			$(this).remove();
 		}
 	});
-	$('td.memItemLeft').each(function(){
-		if($(this).siblings('.memItemRight').html()=="") {
+  $('td.memItemLeft').each(function(){
+    if($(this).siblings('.memItemRight').html()=="") {
+      $(this).attr('colspan', 2);
+      $(this).siblings('.memItemRight').remove();
+    }
+  });
+	$('td.memTemplItemLeft').each(function(){
+		if($(this).siblings('.memTemplItemRight').html()=="") {
 			$(this).attr('colspan', 2);
-			$(this).siblings('.memItemRight').remove();
+			$(this).siblings('.memTemplItemRight').remove();
 		}
 	});
+  searchBox.CloseResultsWindow();
 });

@@ -4,6 +4,7 @@
 
 using namespace ge;
 
+
 struct parameter_setter_visitor : boost::static_visitor<void> {
 	int uniform_index;
 

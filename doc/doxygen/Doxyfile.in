@@ -3,8 +3,7 @@ PROJECT_NUMBER         = @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJEC
 STRIP_FROM_PATH        = @PROJECT_SOURCE_DIR@
 INPUT                  = @PROJECT_SOURCE_DIR@/include \
                          @PROJECT_SOURCE_DIR@/src
-FILE_PATTERNS          = *.hpp \
-                         *.cpp
+FILE_PATTERNS          = *.hpp 
 EXCLUDE_PATTERNS       = */json.hpp \
 					     */lodepng.cpp \
 					     */lodepng.h

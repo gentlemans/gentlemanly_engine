@@ -62,7 +62,6 @@ add_subdirectory(deps/libRocket/Build)
 
 set(GE_PRIVATE_FILES
 	src/ge/actor.cpp
-	src/ge/animation_asset.cpp
 	src/ge/rocket_subsystem.cpp
 	src/ge/input_consumer.cpp
 	src/ge/lodepng.cpp
@@ -86,12 +85,10 @@ set(GE_PUBLIC_FILES
 	include/external/glext.h
 	include/external/wglext.h
 	include/ge/actor.hpp
-	include/ge/animation_asset.hpp
 	include/ge/asset_manager.hpp
 	include/ge/camera_actor.hpp
 	include/ge/concept/asset.hpp
 	include/ge/concept/component.hpp
-	include/ge/concept/variadic_concept.hpp
 	include/ge/gl.hpp
 	include/ge/hash_typeindex.hpp
 	include/ge/input_consumer.hpp
