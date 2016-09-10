@@ -6,3 +6,5 @@ build/
 # For qt creator
 CMakeFiles/
 CMakeLists.txt.user
+
+*.trace
