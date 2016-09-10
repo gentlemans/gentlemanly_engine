@@ -6,8 +6,7 @@ set(PROJECT_VERSION 0.1.0)
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 1)
 set(PROJECT_VERSION_PATCH 0)
-	
-option(GE_DOXYGEN_EXTRA_FLAGS "Extra flags to be sent to doxygen." "")
+
 option(GE_BUILD_SAMPLES "Should the samples be built?" ON)
 
 
@@ -201,7 +200,7 @@ if(DOXYGEN_FOUND)
 	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/doxygen/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile)
 
 	add_custom_target(doc
-		COMMAND ${DOXYGEN_EXECUTABLE} ${GE_DOXYGEN_EXTRA_FLAGS}
+		COMMAND ${DOXYGEN_EXECUTABLE}
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 		COMMENT "Generating Doxygen documentation..."
 		DEPENDS ${GE_PRIVATE_FILES} ${GE_PUBLIC_FILES}
