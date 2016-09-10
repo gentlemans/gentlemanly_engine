@@ -56,6 +56,7 @@ class shader_asset
 {
 public:
 	using loaded_type = shader;
+	using cached = std::true_type;
 
 	static std::shared_ptr<shader> load_asset(asset_manager& manager, const std::string& arg_name,
 		const std::string& abs_filepath, const nlohmann::json& json_data);

@@ -17,6 +17,7 @@
 #include <vector>
 
 #include <boost/filesystem.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace ge
 {
@@ -51,50 +52,76 @@ public:
 		m_search_paths[priority].emplace_back(std::move(path));
 	}
 
+	template<typename asset_type, bool = std::is_same<typename asset_type::cached, std::true_type>::value> 
+	struct is_already_in_cache_helper {
+		static std::pair<std::shared_ptr<typename asset_type::loaded_type>, bool> exec(asset_manager& man, const char* name) {
+			// check if it's in the cache
+			auto iter = man.cache.find(name);
+			if (iter != man.cache.end()) {
+				if (!iter->second.expired()) {
+					return {std::static_pointer_cast<typename asset_type::loaded_type>(
+						iter->second.lock()), true};
+				} else {
+					
+				}
+			}
+			return {nullptr, false};
+		
+		}
+	};
+	
+	// if this evalutes, then the asset isn't cached
+	template<typename asset_type>
+	struct is_already_in_cache_helper<asset_type, false> {
+		static std::pair<typename asset_type::loaded_type, bool> exec(asset_manager&, const char*) {
+			return {typename asset_type::loaded_type{}, false};
+		}
+
+	};
+	
+	template<typename asset_type, bool = std::is_same<typename asset_type::cached, std::true_type>::value> 
+	struct cache_adder_helper {
+		static void exec(asset_manager& man, const char* name, const std::shared_ptr<typename asset_type::loaded_type> ptr) {
+			
+			// add it to the cache
+			auto weak = std::weak_ptr<void>(ptr);
+			man.cache.insert({name, weak});
+
+		}
+	};
+	
+	// if this evalutes, then the asset isn't cached
+	template<typename asset_type>
+	struct cache_adder_helper<asset_type, false> {
+		static void exec(asset_manager&, const char*, typename asset_type::loaded_type) {}
+
+	};
+	
+	
 	/// Loads an asset from disk
 	/// \param name The name of the asset, which is a folder inside an asset path
 	/// \param extra_args Extra arguments to be passed to the loader
 	/// \return The asset
 	template <typename asset_type, typename... extra_args_types,
 		typename = std::enable_if_t<!std::is_void<typename asset_type::loaded_type>::value>>
-	std::shared_ptr<typename asset_type::loaded_type> get_asset(
+	// this ugly line gets the return type based on if the asset is cached or not. If it is cached, then use a shared_ptr or else just use a raw value
+	typename boost::mpl::if_<typename asset_type::cached, std::shared_ptr<typename asset_type::loaded_type>, typename asset_type::loaded_type>::type
+	get_asset(
 		const char* name, extra_args_types&&... extra_args)
 	{
+		
 		using namespace std::string_literals;
 
 		// make sure it's an asset
 		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
-
-		// check if it's in the cache
 		{
-			auto iter = cache.find(name);
-			if (iter != cache.end()) {
-				if (!iter->second.expired())
-					return std::static_pointer_cast<typename asset_type::loaded_type>(
-						iter->second.lock());
-			}
-		}
-		std::string abs_path;
-		// acquire absolute path
-		for (auto& priority_and_paths : m_search_paths) {
-			for (auto& path : priority_and_paths.second) {
-				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
-					abs_path = path + "/" + name;
-					break;
-				}
-			}
-			if (!abs_path.empty()) break;
+			// see if it's arleady in the cache
+			auto pair = is_already_in_cache_helper<asset_type>::exec(*this, name);
+			if(pair.second) return pair.first;
+		
 		}
 
-		if (abs_path.empty()) {
-			throw std::runtime_error(
-				"Could not find asset named "s + name + " in any of the search paths");
-		}
-
-		if (!boost::filesystem::exists(abs_path + "/asset.json")) {
-			throw std::runtime_error("Asset "s + name + " that was found in folder " + abs_path +
-									 " does not have a asset.json file");
-		}
+		auto abs_path = resolve_asset_path(name);
 
 		nlohmann::json root;
 		std::ifstream asset_file(abs_path + "/asset.json");
@@ -108,14 +135,12 @@ public:
 									 " had asset type " + asset_type_from_json);
 		}
 
-		auto shared = asset_type::load_asset(
+		auto data = asset_type::load_asset(
 			*this, name, abs_path.c_str(), root, std::forward<extra_args_types>(extra_args)...);
 
-		// add it to the cache
-		auto weak = std::weak_ptr<void>(shared);
-		cache.insert({name, weak});
+		cache_adder_helper<asset_type>::exec(*this, name, data);
 
-		return shared;
+		return data;
 	}
 
 	// overload for void asset types
@@ -128,34 +153,17 @@ public:
 		// make sure it's an asset
 		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
 
-		// check if it's in the cache
-		{
+		constexpr const bool is_cached = std::is_same<typename asset_type::cached, std::true_type>::value;
+		
+		// check if it's in the cache if the asset is cached
+		if (is_cached){
 			auto iter = loaded_void_assets.find(name);
 			if (iter != loaded_void_assets.end()) {
 				return;
 			}
 		}
-		std::string abs_path;
-		// acquire absolute path
-		for (auto& priority_and_paths : m_search_paths) {
-			for (auto& path : priority_and_paths.second) {
-				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
-					abs_path = path + "/" + name;
-					break;
-				}
-			}
-			if (!abs_path.empty()) break;
-		}
-
-		if (abs_path.empty()) {
-			throw std::runtime_error(
-				"Could not find asset named "s + name + " in any of the search paths");
-		}
-
-		if (!boost::filesystem::exists(abs_path + "/asset.json")) {
-			throw std::runtime_error("Asset "s + name + " that was found in folder " + abs_path +
-									 " does not have a asset.json file");
-		}
+		
+		auto abs_path = resolve_asset_path(name);
 
 		nlohmann::json root;
 		std::ifstream asset_file(abs_path + "/asset.json");
@@ -172,10 +180,41 @@ public:
 		asset_type::load_asset(
 			*this, name, abs_path.c_str(), root, std::forward<extra_args_types>(extra_args)...);
 
-		loaded_void_assets.insert(name);
+		if(is_cached) loaded_void_assets.insert(name);
 	}
 
 	runtime* m_runtime;
+	
+private:
+	
+	std::string resolve_asset_path(const char* name) {
+		
+		using namespace std::string_literals;
+		
+		std::string abs_path;
+		// acquire absolute path
+		for (auto& priority_and_paths : m_search_paths) {
+			for (auto& path : priority_and_paths.second) {
+				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
+					abs_path = path + "/" + name;
+					break;
+				}
+			}
+			if (!abs_path.empty()) break;
+		}
+
+		if (abs_path.empty()) {
+			throw std::runtime_error(
+				"Could not find asset named "s + name + " in any of the search paths");
+		}
+
+		if (!boost::filesystem::exists(abs_path + "/asset.json")) {
+			throw std::runtime_error("Asset "s + name + " that was found in folder " + abs_path +
+									 " does not have a asset.json file");
+		}
+		
+		return abs_path;
+	}
 };
 }
 

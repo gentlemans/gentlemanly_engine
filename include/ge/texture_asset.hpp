@@ -31,6 +31,7 @@ struct texture_asset {
 	enum class type { DDS, PNG };
 
 	using loaded_type = texture;
+	using cached = std::true_type;
 
 	static std::shared_ptr<texture> load_asset(asset_manager& manager, const std::string& arg_name,
 		const std::string& abs_filepath, const nlohmann::json& json_data);

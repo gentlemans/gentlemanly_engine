@@ -18,8 +18,7 @@ public:
 	void initialize(glm::uvec3 location) {
 		toweractor::initialize(location);
 		
-		mesh = ge::actor::factory<ge::mesh_actor>(this, "square").get();
-		mesh->m_mesh->m_material.property_values["Texture"] = m_runtime->m_asset_manager.get_asset<ge::texture_asset>("turret");
+		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 	}
 	
 	

@@ -27,6 +27,7 @@ namespace ui
 {
 struct rocket_font_asset {
 	using loaded_type = void;
+	using cached = std::false_type;
 
 	static void load_asset(asset_manager& manager, const char* asset_name, const char* filepath,
 		const nlohmann::json& json_data)

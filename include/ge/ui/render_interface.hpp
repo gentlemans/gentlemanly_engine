@@ -25,7 +25,7 @@ class render_interface : public Rocket::Core::RenderInterface
 public:
 	render_interface(asset_manager& asset_man, sdl_subsystem& sdl_sub) : m_asset_manager{&asset_man}
 	{
-		m_shader = asset_man.get_asset<shader_asset>("textureshader");
+		m_shader = asset_man.get_asset<shader_asset>("texturedmodel/textured.shader");
 
 		viewport_size = sdl_sub.get_size();
 	}

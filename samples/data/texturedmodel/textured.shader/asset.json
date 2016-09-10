@@ -5,7 +5,7 @@
       "glsl_name": "tex",
       "type": "texture",
       "name": "Texture",
-      "default": "target",
+      "default": "texturedmodel/green_square.texture",
       "description": "The texture color to show"
     }
   ],

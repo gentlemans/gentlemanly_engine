@@ -18,6 +18,7 @@ class material
 public:
 	std::shared_ptr<shader> m_shader;
 
+	material() = default;
 	material(const std::shared_ptr<shader>& shader);
 	
 	material(const material&) = default;

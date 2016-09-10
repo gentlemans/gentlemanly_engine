@@ -1,0 +1,10 @@
+{
+  "asset_type": "material",
+  "shader": "texturedmodel/textured.shader",
+  "parameters": [
+    {
+      "name": "Texture",
+      "value": "turret/turret.texture"
+    }
+  ]
+} 
