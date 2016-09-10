@@ -2,9 +2,9 @@
 #include "ge/gl.hpp"
 #include "ge/material.hpp"
 #include "ge/mesh.hpp"
+#include "ge/mesh_settings.hpp"
 #include "ge/ortho2d.hpp"
 #include "ge/texture_asset.hpp"
-#include "ge/mesh_settings.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -63,7 +63,6 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 		colors.emplace_back(vertices[id].colour.red, vertices[id].colour.green,
 			vertices[id].colour.blue, vertices[id].colour.alpha);
 	}
-
 
 	auto mes = std::make_shared<mesh>(
 		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3);

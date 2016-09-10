@@ -210,9 +210,8 @@ public:
 	/// Override this for custom rendering. This should produce GL calls.
 	/// \param view_projection_matrix The VP of the MVP matrix
 	virtual void render(const glm::mat3& view_projection_matrix) {}
-	
 	/// The runtime object that was passed down from the parent actor
-	runtime* m_runtime; 
+	runtime* m_runtime;
 };
 
 }  // namespace ge

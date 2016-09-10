@@ -20,7 +20,6 @@ class material;
 class mesh
 {
 public:
-
 	mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
 		const size_t num_indicies);
 	// no move or copy, pointer only

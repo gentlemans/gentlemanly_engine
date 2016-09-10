@@ -10,7 +10,6 @@
 
 namespace ge
 {
-
 struct mesh_actor : actor {
 	void initialize(mesh_settings settings) { m_mesh_settings = std::move(settings); }
 	/// Load from a mesh_asset path

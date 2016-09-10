@@ -1,7 +1,7 @@
+#include <ge/mesh_actor.hpp>
+#include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
-#include <ge/rocket_subsystem.hpp>
-#include <ge/mesh_actor.hpp>
 
 #include <glm/glm.hpp>
 
@@ -9,8 +9,8 @@
 
 #include "grid.hpp"
 #include "toweractor.hpp"
-#include "zombie.hpp"
 #include "turret.hpp"
+#include "zombie.hpp"
 
 using namespace ge;
 
@@ -24,17 +24,16 @@ int main()
 	auto root = actor::root_factory(&r);
 
 	auto camera = actor::factory<camera_actor>(root.get(), 11);
-	
+
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
 	sdl.set_root_actor(root.get());
 
 	// initialize the grid
 	auto g = actor::factory<grid>(root.get(), glm::uvec2{11, 11});
-	g->set_relative_location({-11.f/2, -11.f/2});
+	g->set_relative_location({-11.f / 2, -11.f / 2});
 	g->getActorFromCoord({0, 0, 0}) = actor::factory<turret>(g.get(), glm::uvec3(0, 0, 0)).get();
-	
-	
+
 	while (r.tick())
 		;
 }

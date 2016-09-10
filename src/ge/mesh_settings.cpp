@@ -4,7 +4,6 @@
 
 using namespace ge;
 
-
 struct parameter_setter_visitor : boost::static_visitor<void> {
 	int uniform_index;
 
@@ -74,7 +73,8 @@ void mesh_settings::render(const glm::mat3& mvp) const
 
 	size_t next_attribarray = 1;
 	for (auto& attr : shader_ref.attributes) {
-		assert(m_mesh->additonal_vertex_data.find(attr.first) != m_mesh->additonal_vertex_data.end());
+		assert(
+			m_mesh->additonal_vertex_data.find(attr.first) != m_mesh->additonal_vertex_data.end());
 		attr_applying_visitor visitor;
 		visitor.attrib_id = next_attribarray++;
 		visitor.m = m_mesh.get();

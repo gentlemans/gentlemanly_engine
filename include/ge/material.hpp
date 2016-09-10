@@ -16,7 +16,6 @@ namespace ge
 class material
 {
 public:
-	
 	/// The shader object that the material uses
 	std::shared_ptr<shader> m_shader;
 
@@ -24,15 +23,15 @@ public:
 	material() = default;
 	/// Constructor from a shader
 	material(const std::shared_ptr<shader>& shader);
-	
+
 	/// Copy constructor
 	material(const material&) = default;
 	/// Move constructor
 	material(material&&) = default;
-	
+
 	/// Destructor
 	~material();
-	
+
 	/// Copy assignment
 	material& operator=(const material&) = default;
 	/// Move assignment
@@ -40,8 +39,6 @@ public:
 
 	/// The overrided properties over the shader.
 	std::unordered_map<std::string, shader::parameter_type> property_values;
-
-	
 };
 }
 

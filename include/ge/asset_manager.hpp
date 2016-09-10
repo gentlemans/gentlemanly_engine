@@ -34,59 +34,58 @@ private:
 
 	// Meta-helper classes
 	//////////////////////
-	
-	template<typename asset_type, bool = std::is_same<typename asset_type::cached, std::true_type>::value> 
+
+	template <typename asset_type,
+		bool = std::is_same<typename asset_type::cached, std::true_type>::value>
 	struct is_already_in_cache_helper {
-		static std::pair<std::shared_ptr<typename asset_type::loaded_type>, bool> exec(asset_manager& man, const char* name) {
+		static std::pair<std::shared_ptr<typename asset_type::loaded_type>, bool> exec(
+			asset_manager& man, const char* name)
+		{
 			// check if it's in the cache
 			auto iter = man.cache.find(name);
 			if (iter != man.cache.end()) {
 				if (!iter->second.expired()) {
 					return {std::static_pointer_cast<typename asset_type::loaded_type>(
-						iter->second.lock()), true};
+								iter->second.lock()),
+						true};
 				} else {
-					
 				}
 			}
 			return {nullptr, false};
-		
 		}
 	};
-	
+
 	// if this evalutes, then the asset isn't cached
-	template<typename asset_type>
+	template <typename asset_type>
 	struct is_already_in_cache_helper<asset_type, false> {
-		static std::pair<typename asset_type::loaded_type, bool> exec(asset_manager&, const char*) {
+		static std::pair<typename asset_type::loaded_type, bool> exec(asset_manager&, const char*)
+		{
 			return {typename asset_type::loaded_type{}, false};
 		}
-
 	};
-	
-	template<typename asset_type, bool = std::is_same<typename asset_type::cached, std::true_type>::value> 
+
+	template <typename asset_type,
+		bool = std::is_same<typename asset_type::cached, std::true_type>::value>
 	struct cache_adder_helper {
-		static void exec(asset_manager& man, const char* name, const std::shared_ptr<typename asset_type::loaded_type> ptr) {
-			
+		static void exec(asset_manager& man, const char* name,
+			const std::shared_ptr<typename asset_type::loaded_type> ptr)
+		{
 			// add it to the cache
 			auto weak = std::weak_ptr<void>(ptr);
 			man.cache.insert({name, weak});
-
 		}
 	};
-	
+
 	// if this evalutes, then the asset isn't cached
-	template<typename asset_type>
+	template <typename asset_type>
 	struct cache_adder_helper<asset_type, false> {
 		static void exec(asset_manager&, const char*, typename asset_type::loaded_type) {}
-
 	};
-	
-	
+
 public:
-	
 	/// Construct a ge::asset_manager using the runtime
 	/// This is almost always run by the runtime, it's very rare that a user would run this.
 	asset_manager(runtime& run) : m_runtime{&run} {}
-	
 	// remove possible errors by deleting the copy and move constrctors
 	asset_manager(const asset_manager&) = delete;
 	asset_manager(asset_manager&&) = delete;
@@ -106,20 +105,18 @@ public:
 		m_search_paths[priority].emplace_back(std::move(path));
 	}
 
-
-	
 	/// Loads an asset from disk
 	/// \param name The name of the asset, which is a folder inside an asset path
 	/// \param extra_args Extra arguments to be passed to the loader
 	/// \return The asset
 	template <typename asset_type, typename... extra_args_types,
 		typename = std::enable_if_t<!std::is_void<typename asset_type::loaded_type>::value>>
-	// this ugly line gets the return type based on if the asset is cached or not. If it is cached, then use a shared_ptr or else just use a raw value
-	typename boost::mpl::if_<typename asset_type::cached, std::shared_ptr<typename asset_type::loaded_type>, typename asset_type::loaded_type>::type
-	get_asset(
-		const char* name, extra_args_types&&... extra_args)
+	// this ugly line gets the return type based on if the asset is cached or not. If it is cached,
+	// then use a shared_ptr or else just use a raw value
+	typename boost::mpl::if_<typename asset_type::cached,
+		std::shared_ptr<typename asset_type::loaded_type>, typename asset_type::loaded_type>::type
+	get_asset(const char* name, extra_args_types&&... extra_args)
 	{
-		
 		using namespace std::string_literals;
 
 		// make sure it's an asset
@@ -127,8 +124,7 @@ public:
 		{
 			// see if it's arleady in the cache
 			auto pair = is_already_in_cache_helper<asset_type>::exec(*this, name);
-			if(pair.second) return pair.first;
-		
+			if (pair.second) return pair.first;
 		}
 
 		auto abs_path = resolve_asset_path(name);
@@ -165,16 +161,17 @@ public:
 		// make sure it's an asset
 		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
 
-		constexpr const bool is_cached = std::is_same<typename asset_type::cached, std::true_type>::value;
-		
+		constexpr const bool is_cached =
+			std::is_same<typename asset_type::cached, std::true_type>::value;
+
 		// check if it's in the cache if the asset is cached
-		if (is_cached){
+		if (is_cached) {
 			auto iter = loaded_void_assets.find(name);
 			if (iter != loaded_void_assets.end()) {
 				return;
 			}
 		}
-		
+
 		auto abs_path = resolve_asset_path(name);
 
 		nlohmann::json root;
@@ -192,18 +189,17 @@ public:
 		asset_type::load_asset(
 			*this, name, abs_path.c_str(), root, std::forward<extra_args_types>(extra_args)...);
 
-		if(is_cached) loaded_void_assets.insert(name);
+		if (is_cached) loaded_void_assets.insert(name);
 	}
 
 	/// The runtime object that this manger belongs to
 	runtime* m_runtime;
-	
+
 private:
-	
-	std::string resolve_asset_path(const char* name) {
-		
+	std::string resolve_asset_path(const char* name)
+	{
 		using namespace std::string_literals;
-		
+
 		std::string abs_path;
 		// acquire absolute path
 		for (auto& priority_and_paths : m_search_paths) {
@@ -225,7 +221,7 @@ private:
 			throw std::runtime_error("Asset "s + name + " that was found in folder " + abs_path +
 									 " does not have a asset.json file");
 		}
-		
+
 		return abs_path;
 	}
 };

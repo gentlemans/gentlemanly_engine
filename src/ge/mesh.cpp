@@ -11,9 +11,6 @@
 
 namespace ge
 {
-
-
-
 mesh::mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
 	const size_t num_indicies)
 	: num_triangles{num_indicies}
@@ -42,8 +39,6 @@ void mesh::add_additional_data(const char* name, void* data, size_t size)
 	additonal_vertex_data.insert(
 		decltype(additonal_vertex_data)::value_type{std::string(name), gl_name});
 }
-
-
 
 mesh::~mesh()
 {

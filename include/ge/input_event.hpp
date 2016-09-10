@@ -148,7 +148,6 @@ enum {
 }
 
 struct input_keyboard {
-	
 	/// The key that was pressed
 	key m_input_key;
 
@@ -177,10 +176,9 @@ enum class mouse_button {
 };
 
 struct input_mouse_move {
-	
 	/// The new location of the mouse
 	glm::vec2 m_new_location;
-	
+
 	/// The current state of the keyboard modifiers
 	int m_modifier_state;
 
@@ -189,22 +187,21 @@ struct input_mouse_move {
 	{
 		return m_new_location == other.m_new_location;
 	}
-	
+
 	/// Inequality operator
 	bool operator!=(const input_mouse_move& other) const { return !(*this == other); }
 };
 
 struct input_mouse_button {
-	
 	/// The button that was pressed
 	mouse_button m_button;
-	
+
 	/// If the mouse button was pressed, true for pressed false for released
-	bool m_pressed;  
-	
+	bool m_pressed;
+
 	/// The current keyboard modifier state
 	int m_modifier_state;
-	
+
 	/// The location on the viewport that the action occured
 	glm::uvec2 m_location;
 
@@ -213,7 +210,7 @@ struct input_mouse_button {
 	{
 		return m_button == other.m_button && m_pressed == other.m_pressed;
 	}
-	
+
 	/// Inequality operator
 	bool operator!=(const input_mouse_button& other) const { return !(*this == other); }
 };
@@ -223,13 +220,12 @@ struct input_scroll_wheel {
 	/// for x, right is positive
 	/// for y, away from user is positive
 	glm::vec2 amount;
-	
+
 	/// The state of the keyboard modifiers
 	int m_modifier_state;
 
 	/// Comparision operator
 	bool operator==(const input_scroll_wheel& other) const { return amount == other.amount; }
-	
 	/// Inequality operator
 	bool operator!=(const input_scroll_wheel& other) const { return !(*this == other); }
 };

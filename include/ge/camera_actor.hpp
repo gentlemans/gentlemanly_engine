@@ -9,13 +9,11 @@
 namespace ge
 {
 struct camera_actor : actor {
-	
 	/// Initialize function for the actor
 	/// \param arg_vert_units The nubmer of vertical units to be visible on the screen
 	void initialize(float arg_vert_units) { m_vertical_units = arg_vert_units; }
-	
 	/// The nubmer of vertical units to display on the screen
-	float m_vertical_units; 
+	float m_vertical_units;
 
 	/// Call this to render all actors under a root actor with a given aspect ratio
 	/// This is usually called by sdl_subsystem.
@@ -23,8 +21,8 @@ struct camera_actor : actor {
 	/// \param aspect The aspect ratio for the screen
 	void render_actors(actor& root, float aspect)
 	{
-		glm::mat3 p = glm::ortho2d(-aspect * m_vertical_units / 2.f, aspect * m_vertical_units / 2.f,
-			-m_vertical_units / 2.f, m_vertical_units / 2.f);
+		glm::mat3 p = glm::ortho2d(-aspect * m_vertical_units / 2.f,
+			aspect * m_vertical_units / 2.f, -m_vertical_units / 2.f, m_vertical_units / 2.f);
 		glm::mat3 v = calculate_model_matrix();
 
 		glm::mat3 vp = p * v;

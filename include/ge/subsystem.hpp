@@ -10,14 +10,13 @@ namespace ge
 struct runtime;
 
 struct subsystem {
-	
 	subsystem() = default;
 	subsystem(const subsystem&) = delete;
 	subsystem(subsystem&&) = delete;
-	
+
 	subsystem& operator=(const subsystem&) = delete;
 	subsystem& operator=(subsystem&&) = delete;
-	
+
 	virtual ~subsystem(){};
 
 	virtual bool update(std::chrono::duration<float> delta) { return true; };

@@ -17,7 +17,6 @@ public:
 	{
 		toweractor::initialize(loc);
 
-
 		m_mesh = ge::actor::factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings");
 	}
 };
