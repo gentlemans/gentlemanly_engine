@@ -12,33 +12,36 @@
 #include <string>
 #include <vector>
 
-/*
- * Asset Spec
- *
- * {
- *   "asset_type": "material",
- *   "shader": "/asset/name/for/shader",
- *   "parameters": [
- *     {
- *       "name": "the name from the shader",
- *       "value": "the value, use JSON arrays ([2.0, 2.1]) for vectors."
- *     }
- *   ]
- * }
- *
- */
-
 namespace ge
 {
+/// A material asset loader
+///
+/// ```
+/// {
+///   "asset_type": "material",
+///   "shader": "/path/to/shader_asset",
+///   "parameters": [
+///     {
+///       "name": "the name of the shader",
+///       "value": "The value, use JSON arrays for vectors and path to a texture for texture"
+///     }
+///   ]
+///  }
+/// ```
 class material_asset
 {
 public:
+	/// Load a material
 	using loaded_type = material;
+
+	/// And don't cache it, materials need to be mutable
 	using cached = std::false_type;
 
+	/// Asset loadeer
 	static material load_asset(asset_manager& manager, const char* name, const char* filepath,
 		const nlohmann::json& json_data);
 
+	/// Require the asset to have "asset_type": "material"
 	static const char* asset_type() { return "material"; }
 };
 

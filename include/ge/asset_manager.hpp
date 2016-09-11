@@ -21,6 +21,7 @@
 
 namespace ge
 {
+/// Asset loader, and cacher.
 class asset_manager
 {
 private:

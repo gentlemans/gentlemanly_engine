@@ -8,6 +8,7 @@
 
 namespace ge
 {
+/// An actor that represents the place the viewer can see from.
 struct camera_actor : actor {
 	/// Initialize function for the actor
 	/// \param arg_vert_units The nubmer of vertical units to be visible on the screen

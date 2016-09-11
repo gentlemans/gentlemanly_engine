@@ -55,12 +55,17 @@ namespace ge
 class shader_asset
 {
 public:
+	/// Loads shader objects
 	using loaded_type = shader;
+
+	/// With caching
 	using cached = std::true_type;
 
+	/// Asset loading function
 	static std::shared_ptr<shader> load_asset(asset_manager& manager, const std::string& arg_name,
 		const std::string& abs_filepath, const nlohmann::json& json_data);
 
+	/// Require assets to have "asset_type": "shader"
 	static const char* asset_type() { return "shader"; }
 };
 BOOST_CONCEPT_ASSERT((concept::Asset<shader_asset>));

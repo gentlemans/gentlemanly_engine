@@ -14,29 +14,34 @@ struct timer_manager;
 template <typename... ArgTypes>
 struct timer_int_data;
 
-// this class represents the metadata for a select timer, you don't have to worry about this class
+/// This class represents the metadata for a select timer, you don't have to worry about this class
 template <typename... ArgTypes>
 struct timer_int_data<void(ArgTypes...)> {
+	/// Constructor stuff
 	timer_int_data(const std::function<void(ArgTypes...)>& cal,
 		std::chrono::time_point<std::chrono::system_clock, std::chrono::duration<float>> expir)
 		: callback{cal}, expiration_time{expir}
 	{
 	}
 
+	/// The callback object
 	std::function<void(ArgTypes...)> callback;
 
+	/// The time at which a timer expires
 	std::chrono::time_point<std::chrono::system_clock, std::chrono::duration<float>>
 		expiration_time;
 
+	/// If the timer has already been triggered
 	bool triggered = false;
 };
 
 template <typename... ArgTypes>
 struct timer_handle;
 
-// This is similar to a `connection`, it allows you to manage a timer.
+/// This is similar to a `boost::signals2::connection`, it allows you to manage a timer.
 template <typename... ArgTypes>
 struct timer_handle<void(ArgTypes...)> {
+	/// This is called from the timer_manager, you don't have to worry about it.
 	timer_handle(timer_manager<void(ArgTypes...)>* manager,
 		const std::shared_ptr<timer_int_data<void(ArgTypes...)>>& timer)
 		: m_manager{manager}, m_data{timer} {};
@@ -61,6 +66,7 @@ private:
 /// This class manages timers
 template <typename... ArgTypes>
 struct timer_manager<void(ArgTypes...)> {
+	/// Allow timer_handle to modify the manager's internals
 	friend timer_handle<void(ArgTypes...)>;
 
 	/// Add a timer to the manager

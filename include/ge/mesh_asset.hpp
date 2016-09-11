@@ -9,27 +9,31 @@
 
 #include <memory>
 
-/*
- * Asset Spec
- *
- * {
- *   "asset_type": "mesh",
- *   "obj_data": "/path/to/model.obj, defauts to model.obj"
- * }
- *
- */
-
 namespace ge
 {
+/// An asset for loading meshes
+///
+/// ASSET SPECIFICATION
+/// ```
+/// {
+///   "asset_type": "mesh",
+///   "obj_data": "/path/to/model.obj, defauts to model.obj"
+/// }
+/// ```
 class mesh_asset
 {
 public:
+	/// Loads meshes
 	using loaded_type = mesh;
+
+	/// With caching
 	using cached = std::true_type;
 
+	/// Asset loading function
 	static std::shared_ptr<mesh> load_asset(asset_manager& manager, const std::string& arg_name,
 		const std::string& abs_filepath, const nlohmann::json& json_data);
 
+	/// Require the asset to have "asset_type": "mesh"
 	static const char* asset_type() { return "mesh"; }
 };
 

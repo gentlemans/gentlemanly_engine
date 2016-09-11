@@ -10,21 +10,28 @@
 
 namespace ge
 {
+/// Represents a OpenGL texture object with very litte abstraction ontop
 class texture
 {
 public:
-	// a null object
+	/// Initializes a null texutre object
 	texture(){};
 
-	/// from uncompressed RGBA
+	/// Initialize from uncompressed 8-bit RGBA
+	/// \param pixels The pixel data, the size of this array should be 4 * size.x * size.y
+	/// \param size The size of the image
 	texture(const unsigned char* pixels, glm::uvec2 size);
 
-	/// from compressed DXT -- no need for size, because YOU ARE GOING TO ALSO PASS THE HEADER!!!
+	/// Initialize from compressed DXT -- no need for size, because YOU ARE GOING TO ALSO PASS THE
+	/// HEADER!!!
+	/// \param data Raw DXT data
 	texture(const unsigned char* data);
 
+	/// The size of the shader
 	glm::uvec2 size = {};
 
-	unsigned int texture_name = {};
+	/// The OpenGL name of the texture
+	unsigned int texture_name = ~0;
 };
 }
 

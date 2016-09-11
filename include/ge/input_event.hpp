@@ -9,6 +9,7 @@
 
 namespace ge
 {
+/// A key on a standard keyboard
 enum class key {
 
 	e_0 = '0',
@@ -130,6 +131,7 @@ enum class key {
 	e_right_ctrl = 1047,
 };
 
+/// The standard modifiers
 namespace key_modifier
 {
 enum {
@@ -147,6 +149,7 @@ enum {
 };
 }
 
+/// A input event from the keyboard
 struct input_keyboard {
 	/// The key that was pressed
 	key m_input_key;
@@ -167,6 +170,7 @@ struct input_keyboard {
 	bool operator!=(const input_keyboard& other) const { return !(*this == other); }
 };
 
+/// A mouse button
 enum class mouse_button {
 	e_left_button,
 	e_right_button,
@@ -175,6 +179,7 @@ enum class mouse_button {
 	e_button_2,
 };
 
+/// A input event from moving the mouse
 struct input_mouse_move {
 	/// The new location of the mouse
 	glm::vec2 m_new_location;
@@ -192,6 +197,7 @@ struct input_mouse_move {
 	bool operator!=(const input_mouse_move& other) const { return !(*this == other); }
 };
 
+/// An input event from pressing a mouse button
 struct input_mouse_button {
 	/// The button that was pressed
 	mouse_button m_button;
@@ -215,6 +221,7 @@ struct input_mouse_button {
 	bool operator!=(const input_mouse_button& other) const { return !(*this == other); }
 };
 
+/// An input event from scrolling the scroll wheel
 struct input_scroll_wheel {
 	/// The amount that the user scrolled
 	/// for x, right is positive

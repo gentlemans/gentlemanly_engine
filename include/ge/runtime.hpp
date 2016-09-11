@@ -15,8 +15,11 @@
 
 namespace ge
 {
+/// The subsystem manager for the engine. This is the highest up primative the engine defines
 struct runtime {
+	/// Defualt constructor
 	runtime() : m_asset_manager{*this} {}
+	/// Destructor
 	~runtime()
 	{
 		// call shutdown on the subsystems
@@ -77,6 +80,7 @@ struct runtime {
 		return nullptr;
 	}
 
+	/// Render the next frame
 	bool tick()
 	{
 		// first run
@@ -99,7 +103,9 @@ struct runtime {
 		return keep_running;
 	}
 
+	/// Get the total elased time of the runtiime since the first tick
 	std::chrono::duration<float> get_elapsed_time() const { return first_tick - last_tick; }
+	/// The asset manager
 	asset_manager m_asset_manager;
 
 private:

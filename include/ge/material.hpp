@@ -13,11 +13,12 @@
 
 namespace ge
 {
+/// Settings overrider for materials
 class material
 {
 public:
 	/// The shader object that the material uses
-	std::shared_ptr<shader> m_shader;
+	std::shared_ptr<const shader> m_shader;
 
 	/// Default constructor--this will be an invalid material
 	material() = default;

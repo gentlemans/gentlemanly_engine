@@ -7,28 +7,32 @@
 
 #include <boost/filesystem.hpp>
 
-/*
- * Asset spec:
- *
- * {
- *   "asset_type": "rocket_font_asset",
- *   "font_file": "/path/to/ttf/or/otf",
- *   "rcss_name": "optional CSS name, it is extraced from the file by defualt.",
- *   "font_style": "normal|italic" if rcss_name is specified, this must be specified.
- *   "font_weight": "normal|bold" if rcss_name is specified, this must be specified
- * }
- *
- *
- */
-
 namespace ge
 {
 namespace ui
 {
+/// An asset for loading fonts into rocket.
+/// This is a void cached asset meaning that the font is stored internally
+/// Inside rocket and that calling to load the same asset twice will have no affect
+///
+/// SPECIFICATION:
+/// ```json
+/// {
+///   "asset_type": "rocket_font_asset",
+///   "font_file": "/path/to/ttf/or/otf",
+///   "rcss_name": "optional CSS name, it is extracted from the file by default",
+///   "font_style": "either normal or italic; if rcss_name is specified, this is required",
+///   "font_weight": "either notrmal or bold, if rcss_name is specififed, this is required"
+/// }
+/// ```
 struct rocket_font_asset {
+	/// No loaded type, it is stored internally in Rocket
 	using loaded_type = void;
+
+	/// We want caching to avoid loading the same font twice
 	using cached = std::false_type;
 
+	/// Asset loading function
 	static void load_asset(asset_manager& manager, const char* asset_name, const char* filepath,
 		const nlohmann::json& json_data)
 	{
@@ -75,6 +79,7 @@ struct rocket_font_asset {
 		}
 	}
 
+	/// Requries the asset to have "asset_type": "rocket_font_asset"
 	static const char* asset_type() { return "rocket_font_asset"; }
 };
 BOOST_CONCEPT_ASSERT((concept::Asset<rocket_font_asset>));
