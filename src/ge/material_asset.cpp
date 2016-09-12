@@ -46,12 +46,12 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 		for (auto& parameter : *parameter_iter) {
 			std::string parameter_name = parameter["name"];
 			// get the type from the shader
-			auto paramater_iter = ret.m_shader->parameters.find(parameter_name); 
-			if (parameter_iter == ret.m_shader->parameters.end()) {
+			auto default_paramater_iter = ret.m_shader->parameters.find(parameter_name); 
+			if (default_paramater_iter  == ret.m_shader->parameters.end()) {
 				throw std::runtime_error("Could not find property: " + parameter_name +
 										 " in shader while loading material asset: " + asset_name);
 			}
-			auto default_value = *parameter_iter;
+			auto default_value = default_paramater_iter->second.value;
 
 			reassign_from_json_visitor vis{parameter["value"], manager};
 
