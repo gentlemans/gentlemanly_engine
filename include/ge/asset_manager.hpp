@@ -204,7 +204,7 @@ private:
 		std::string abs_path;
 		// acquire absolute path; go backwards to make 255 the highest priority
 		for (auto iter  = m_search_paths.rbegin(); iter != m_search_paths.rend(); ++iter) {
-			for (auto& path : priority_and_paths.second) {
+			for (auto& path : iter->second) {
 				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
 					abs_path = path + "/" + name;
 					break;
