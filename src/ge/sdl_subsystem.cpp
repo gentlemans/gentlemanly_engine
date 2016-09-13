@@ -3,6 +3,8 @@
 
 #include "SDL.h"
 
+#include "ge/input_subsystem.hpp"
+
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 #endif
@@ -182,6 +184,8 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 	update_c_function(this);
 
 	SDL_Event event;
+	
+	auto& input_sub = *m_runtime->get_subsystem<input_subsystem>();
 
 	// run until there is an event that we recognize
 	while (SDL_PollEvent(&event)) {
@@ -189,28 +193,28 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 		case SDL_QUIT: return false;
 		case SDL_KEYDOWN:
 			if (!event.key.repeat)
-				unprocessed_events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
+				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
 					true, sdl_mods_to_ge(event.key.keysym.mod)});
 			break;
 		case SDL_KEYUP:
 			if (!event.key.repeat)
-				unprocessed_events.push_back(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
+				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
 					false, sdl_mods_to_ge(event.key.keysym.mod)});
 			break;
 		case SDL_MOUSEMOTION:
-			unprocessed_events.push_back(input_mouse_move{
+			input_sub.add_event(input_mouse_move{
 				{event.motion.x, event.motion.y}, sdl_mods_to_ge(SDL_GetModState())});
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			unprocessed_events.push_back(input_mouse_button{sdl_mb_to_ge(event.button.button), true,
+			input_sub.add_event(input_mouse_button{sdl_mb_to_ge(event.button.button), true,
 				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}});
 			break;
 		case SDL_MOUSEWHEEL:
 			if (event.wheel.direction == SDL_MOUSEWHEEL_NORMAL) {
-				unprocessed_events.push_back(input_scroll_wheel{
+				input_sub.add_event(input_scroll_wheel{
 					{event.wheel.x, event.wheel.y}, sdl_mods_to_ge(SDL_GetModState())});
 			} else {
-				unprocessed_events.push_back(input_scroll_wheel{
+				input_sub.add_event(input_scroll_wheel{
 					{-event.wheel.x, -event.wheel.y}, sdl_mods_to_ge(SDL_GetModState())});
 			}
 			break;
@@ -251,5 +255,3 @@ void sdl_subsystem::set_title(const std::string& newTitle)
 {
 	SDL_SetWindowTitle(m_window, newTitle.c_str());
 }
-
-std::vector<input_event> sdl_subsystem::get_input_events() { return std::move(unprocessed_events); }

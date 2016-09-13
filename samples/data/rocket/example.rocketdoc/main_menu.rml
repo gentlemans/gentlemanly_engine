@@ -1,0 +1,20 @@
+<rml>
+  <head>
+    <title>Hi!</title>
+    <style>
+		div#title-bar span
+		{
+			font-family: "Roboto";
+			font-size: 22;
+			font-weight: bold;
+
+			text-shadow: 2px 2px black;
+		}
+    </style>
+  </head>
+  <body>
+	<div id="title-bar">
+		<span id="title">Dummy Title</span>
+	</div>
+  </body>
+</rml>

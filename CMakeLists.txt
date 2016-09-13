@@ -82,7 +82,6 @@ add_subdirectory(deps/libRocket/Build)
 set(GE_PRIVATE_FILES
 	src/ge/actor.cpp
 	src/ge/rocket_subsystem.cpp
-	src/ge/input_consumer.cpp
 	src/ge/lodepng.cpp
 	src/ge/material.cpp
 	src/ge/material_asset.cpp
@@ -109,7 +108,6 @@ set(GE_PUBLIC_FILES
 	include/ge/concept/asset.hpp
 	include/ge/gl.hpp
 	include/ge/hash_typeindex.hpp
-	include/ge/input_consumer.hpp
 	include/ge/input_event.hpp
 	include/ge/json.hpp
 	include/ge/json_helper.hpp
@@ -127,13 +125,14 @@ set(GE_PUBLIC_FILES
 	include/ge/subsystem.hpp
 	include/ge/texture.hpp
 	include/ge/texture_asset.hpp
+	include/ge/input_subsystem.hpp
 	include/ge/timer_manager.hpp
 	include/ge/transform.hpp
 	include/ge/ui/render_interface.hpp
 	include/ge/ui/rocket_document_asset.hpp
 	include/ge/ui/rocket_font_asset.hpp
 	include/ge/ui/rocket_input_consumer.hpp
-include/ge/ui/system_interface.hpp
+	include/ge/ui/system_interface.hpp
 
 )
 

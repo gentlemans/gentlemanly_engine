@@ -3,6 +3,7 @@
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
 #include <ge/ui/rocket_document_asset.hpp>
+#include <ge/ui/rocket_input_consumer.hpp>
 
 #include <iostream>
 #include <memory>
@@ -13,8 +14,9 @@ int main(int argc, char** argv)
 {
 	runtime r;
 	r.m_asset_manager.add_asset_path("data/");
+	r.add_subsystem<input_subsystem>({});
 	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
-	r.add_subsystem<rocket_subsystem>({});
+	auto& rocket = r.add_subsystem<rocket_subsystem>({});
 
 	auto root = actor::root_factory(&r);
 
@@ -24,8 +26,12 @@ int main(int argc, char** argv)
 	sdl.set_camera(camera.get());
 	sdl.set_root_actor(root.get());
 
-	auto document = r.m_asset_manager.get_asset<ui::rocket_document_asset>("rocket_doc");
+	auto document = r.m_asset_manager.get_asset<ui::rocket_document_asset>("rocket/example.rocketdoc");
 	document->Show();
+	
+	ui::rocket_input_consumer ic{&r};
+	ic.steal_input();
+	
 
 	while (r.tick())
 		;

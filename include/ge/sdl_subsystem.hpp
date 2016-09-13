@@ -81,14 +81,11 @@ struct sdl_subsystem : subsystem {
 	/// Set the root actor
 	/// \param new_root The new root actor
 	void set_root_actor(actor* new_root) noexcept { m_root_actor = actor::shared(new_root); }
-	/// Get the input events that have accumulated since the last call to `get_input_events`.
-	std::vector<input_event> get_input_events();
 
 private:
 	void* m_context = nullptr;  // turns out SDL_GLContext is literally just void*
 	SDL_Window* m_window = nullptr;
 	glm::vec3 m_background_color;
-	std::vector<input_event> unprocessed_events;
 	std::shared_ptr<camera_actor> m_camera;
 	std::shared_ptr<actor> m_root_actor;
 };
