@@ -22,7 +22,7 @@ struct rocket_input_consumer : input_consumer<rocket_input_consumer> {
 	void handle_input(const input_event& event);
 
 	void steal_input() {
-		steal_input();
+		input_consumer::steal_input();
 	}
 	
 	/// The Rocket context

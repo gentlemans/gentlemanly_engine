@@ -151,6 +151,16 @@ enum {
 
 /// A input event from the keyboard
 struct input_keyboard {
+	
+	input_keyboard() = default;
+	input_keyboard(const input_keyboard&) = default;
+	input_keyboard(input_keyboard&&) = default;
+	
+	input_keyboard& operator=(const input_keyboard&) = default;
+	input_keyboard& operator=(input_keyboard&&) = default;
+	
+	~input_keyboard() = default;
+	
 	/// The key that was pressed
 	key m_input_key;
 
@@ -181,6 +191,18 @@ enum class mouse_button {
 
 /// A input event from moving the mouse
 struct input_mouse_move {
+	
+	
+	
+	input_mouse_move() = default;
+	input_mouse_move(const input_mouse_move&) = default;
+	input_mouse_move(input_mouse_move&&) = default;
+	
+	input_mouse_move& operator=(const input_mouse_move&) = default;
+	input_mouse_move& operator=(input_mouse_move&&) = default;
+	
+	~input_mouse_move() = default;
+	
 	/// The new location of the mouse
 	glm::vec2 m_new_location;
 
@@ -199,6 +221,19 @@ struct input_mouse_move {
 
 /// An input event from pressing a mouse button
 struct input_mouse_button {
+	
+	
+		
+	input_mouse_button() = default;
+	input_mouse_button(const input_mouse_button&) = default;
+	input_mouse_button(input_mouse_button&&) = default;
+	
+	input_mouse_button& operator=(const input_mouse_button&) = default;
+	input_mouse_button& operator=(input_mouse_button&&) = default;
+	
+	~input_mouse_button() = default;
+	
+	
 	/// The button that was pressed
 	mouse_button m_button;
 
@@ -223,6 +258,19 @@ struct input_mouse_button {
 
 /// An input event from scrolling the scroll wheel
 struct input_scroll_wheel {
+	
+	
+	input_scroll_wheel() = default;
+	input_scroll_wheel(const input_scroll_wheel&) = default;
+	input_scroll_wheel(input_scroll_wheel&&) = default;
+	
+	input_scroll_wheel& operator=(const input_scroll_wheel&) = default;
+	input_scroll_wheel& operator=(input_scroll_wheel&&) = default;
+	
+	~input_scroll_wheel() = default;
+	
+	
+	
 	/// The amount that the user scrolled
 	/// for x, right is positive
 	/// for y, away from user is positive

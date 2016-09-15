@@ -38,14 +38,16 @@ struct input_subsystem : subsystem {
 	virtual bool update(std::chrono::duration<float>) override
 	{
 		// if the active consumer doesn't exist, then return early
-		if (consumers.size() >= active_consumer) return true;
+		if (consumers.size() <= active_consumer) return true;
+		size_t before_size = buffered_events.size();
+		if(before_size == 0) return true; // No events
 		
 
-		for (auto ev : buffered_events) {
+		for (auto& ev : buffered_events) {
 			consumers[active_consumer].first(ev, consumers[active_consumer].second);
 		}
-		// empty the buffer
-		buffered_events.clear();
+		// empty the buffer--conserve elements that were added during the callbacks.
+		buffered_events.erase(buffered_events.begin(), buffered_events.begin() + before_size);
 		
 		return true;
 	
@@ -56,7 +58,7 @@ struct input_subsystem : subsystem {
 private:
 	
 
-	std::vector<input_event> buffered_events;
+	std::deque<input_event> buffered_events;
 	
 	
 };
