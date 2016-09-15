@@ -1,20 +1,22 @@
 <rml>
-  <head>
-    <title>Hi!</title>
-    <style>
-		div#title-bar span
+<head>
+	<link type="text/template" href="window.rml"/>
+	<link type="text/css" href="icon.rcss"/>
+	<title>Inventory</title>
+	<style>
+		body
 		{
-			font-family: "Roboto";
-			font-size: 22;
-			font-weight: bold;
-
-			text-shadow: 2px 2px black;
+			width: 400px;
+			height: 300px;
 		}
-    </style>
-  </head>
-  <body>
-	<div id="title-bar">
-		<span id="title">Dummy Title</span>
-	</div>
-  </body>
+		
+		/* Hide the window icon. */
+        div#title_bar div#icon
+        {
+            display: none;
+        }
+	</style>
+</head>
+<body template="window">
+</body>
 </rml>
