@@ -1,8 +1,8 @@
+#include <ge/input_subsystem.hpp>
 #include <ge/mesh_actor.hpp>
 #include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
-#include <ge/input_subsystem.hpp>
 
 #include <glm/glm.hpp>
 

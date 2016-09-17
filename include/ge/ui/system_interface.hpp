@@ -21,19 +21,17 @@ public:
 
 private:
 	virtual float GetElapsedTime() override { return m_runtime.get_elapsed_time().count(); }
-	virtual bool LogMessage(Rocket::Core::Log::Type type, const Rocket::Core::String& message) override {
+	virtual bool LogMessage(
+		Rocket::Core::Log::Type type, const Rocket::Core::String& message) override
+	{
 		using Rocket::Core::Log;
-		
-		switch(type) {
-			case Log::LT_ERROR:
-				m_runtime.m_log->error(message.CString()); break;
-			case Log::LT_ASSERT:
-				m_runtime.m_log->critical(message.CString()); break;
-			case Log::LT_WARNING: 
-				m_runtime.m_log->warn(message.CString()); break;
-			case Log::LT_INFO:
-				m_runtime.m_log->info(message.CString()); break;
-			default: break;
+
+		switch (type) {
+		case Log::LT_ERROR: m_runtime.m_log->error(message.CString()); break;
+		case Log::LT_ASSERT: m_runtime.m_log->critical(message.CString()); break;
+		case Log::LT_WARNING: m_runtime.m_log->warn(message.CString()); break;
+		case Log::LT_INFO: m_runtime.m_log->info(message.CString()); break;
+		default: break;
 		}
 		return true;
 	}

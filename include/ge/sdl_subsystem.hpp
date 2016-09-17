@@ -81,7 +81,6 @@ struct sdl_subsystem : subsystem {
 	/// Set the root actor
 	/// \param new_root The new root actor
 	void set_root_actor(actor* new_root) noexcept { m_root_actor = actor::shared(new_root); }
-
 private:
 	void* m_context = nullptr;  // turns out SDL_GLContext is literally just void*
 	SDL_Window* m_window = nullptr;

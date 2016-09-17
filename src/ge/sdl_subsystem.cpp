@@ -164,9 +164,9 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 	// app->elapsed_time += diff.count();
 
 	last_tick = now;
-	
+
 	SDL_Event event;
-	
+
 	auto& input_sub = *m_runtime->get_subsystem<input_subsystem>();
 
 	// run until there is an event that we recognize
@@ -175,13 +175,13 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 		case SDL_QUIT: return false;
 		case SDL_KEYDOWN:
 			if (!event.key.repeat)
-				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
-					true, sdl_mods_to_ge(event.key.keysym.mod)});
+				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true,
+					sdl_mods_to_ge(event.key.keysym.mod)});
 			break;
 		case SDL_KEYUP:
 			if (!event.key.repeat)
-				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym),
-					false, sdl_mods_to_ge(event.key.keysym.mod)});
+				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false,
+					sdl_mods_to_ge(event.key.keysym.mod)});
 			break;
 		case SDL_MOUSEMOTION:
 			input_sub.add_event(input_mouse_move{

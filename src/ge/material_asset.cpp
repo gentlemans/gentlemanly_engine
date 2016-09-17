@@ -46,8 +46,8 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 		for (auto& parameter : *parameter_iter) {
 			std::string parameter_name = parameter["name"];
 			// get the type from the shader
-			auto default_paramater_iter = ret.m_shader->parameters.find(parameter_name); 
-			if (default_paramater_iter  == ret.m_shader->parameters.end()) {
+			auto default_paramater_iter = ret.m_shader->parameters.find(parameter_name);
+			if (default_paramater_iter == ret.m_shader->parameters.end()) {
 				throw std::runtime_error("Could not find property: " + parameter_name +
 										 " in shader while loading material asset: " + asset_name);
 			}

@@ -96,7 +96,8 @@ public:
 
 	/// Adds a search path to find assets
 	/// \param path The path to add
-	/// \param priority The priority of the path, 255 being the highest and 0 being the lowest priority
+	/// \param priority The priority of the path, 255 being the highest and 0 being the lowest
+	/// priority
 	void add_asset_path(std::string path, uint8_t priority = 0)
 	{
 		if (!boost::filesystem::is_directory(path)) {
@@ -203,7 +204,7 @@ private:
 
 		std::string abs_path;
 		// acquire absolute path; go backwards to make 255 the highest priority
-		for (auto iter  = m_search_paths.rbegin(); iter != m_search_paths.rend(); ++iter) {
+		for (auto iter = m_search_paths.rbegin(); iter != m_search_paths.rend(); ++iter) {
 			for (auto& path : iter->second) {
 				if (boost::filesystem::is_regular_file(path + "/" + name + "/asset.json")) {
 					abs_path = path + "/" + name;

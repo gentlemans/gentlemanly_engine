@@ -10,7 +10,6 @@
 
 using namespace ge;
 
-
 int main(int argc, char** argv)
 {
 	runtime r;
@@ -27,14 +26,12 @@ int main(int argc, char** argv)
 	sdl.set_camera(camera.get());
 	sdl.set_root_actor(root.get());
 
-	auto document = r.m_asset_manager.get_asset<ui::rocket_document_asset>("rocket/example.rocketdoc");
+	auto document =
+		r.m_asset_manager.get_asset<ui::rocket_document_asset>("rocket/example.rocketdoc");
 	document->Show();
-
-
 
 	ui::rocket_input_consumer ic{&r};
 	ic.steal_input();
-
 
 	while (r.tick())
 		;
