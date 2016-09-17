@@ -11,6 +11,8 @@
 #include <Rocket/Core.h>
 #include <Rocket/Core/FileInterface.h>
 
+#include <ge/lodepng.h>
+
 namespace ge
 {
 namespace ui
@@ -120,18 +122,18 @@ void render_interface::SetScissorRegion(int x, int y, int width, int height)
 bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 	Rocket::Core::Vector2i& texture_dimensions, const Rocket::Core::String& source)
 {
+	assert(boost::filesystem::path(source.CString()).extension() == ".png");
+	
 	try {
-		auto texasset = m_asset_manager->get_asset<texture_asset>(source.CString());
-
-		texture_dimensions = Rocket::Core::Vector2i(texasset->size.x, texasset->size.y);
-
-		// make our own version because shared_ptr will delete it
-		auto tex = new texture{};
-		tex->size = texasset->size;
-		tex->texture_name = texasset->texture_name;
-
-		// make sure the texasset doesn't kill our GL objects
-		texasset->texture_name = 0;
+		std::vector<unsigned char> PNGData;
+		unsigned width, height;
+		
+		// load PNG data
+		lodepng::decode(PNGData, width, height, source.CString());
+		
+		texture_dimensions = {int(width), int(height)};
+		
+		auto tex = new texture{PNGData.data(), {width, height}};
 
 		texture_handle = reinterpret_cast<intptr_t>(tex);
 	} catch (const std::exception& e) {

@@ -2,6 +2,7 @@
 #include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
+#include <ge/input_subsystem.hpp>
 
 #include <glm/glm.hpp>
 
@@ -18,6 +19,7 @@ int main()
 {
 	runtime r;
 	r.m_asset_manager.add_asset_path("data/");
+	r.add_subsystem<input_subsystem>({});
 	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
 	r.add_subsystem<rocket_subsystem>({});
 

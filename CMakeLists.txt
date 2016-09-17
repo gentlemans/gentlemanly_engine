@@ -35,11 +35,11 @@ endif()
 
 # find packages
 find_package(OpenGL REQUIRED)
-
+find_package(Threads REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
-add_definitions(-DBOOST_ALL_NO_LIB)
-
 find_package(SDL2 REQUIRED)
+
+add_definitions(-DBOOST_ALL_NO_LIB)
 
 # These are optional, we can use the packaged if we can to avoid buliding it
 if(UNIX)
@@ -171,7 +171,7 @@ PUBLIC
 	RocketCore
 	RocketDebugger
 	RocketControls
-
+	Threads::Threads
 	
 )
 

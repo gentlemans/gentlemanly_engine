@@ -13,12 +13,16 @@
 
 #include <boost/type_index.hpp>
 
+#include <spdlog/spdlog.h>
+
 namespace ge
 {
 /// The subsystem manager for the engine. This is the highest up primative the engine defines
 struct runtime {
 	/// Defualt constructor
-	runtime() : m_asset_manager{*this} {}
+	runtime() : m_asset_manager{*this} {
+		m_log = spdlog::basic_logger_mt("ge_log", "ge.log");
+	}
 	/// Destructor
 	~runtime()
 	{
@@ -54,8 +58,14 @@ struct runtime {
 		auto new_subsystem = std::make_unique<Subsystem>();
 
 		new_subsystem->m_runtime = this;
-		new_subsystem->initialize(config);
+		bool success = new_subsystem->initialize(config);
 
+		if(success) {
+			m_log->info("Subsystem \"" + type_id<Subsystem>().pretty_name() + "\" sucessfully loaded.");
+		} else {
+			m_log->error("Subsystem \"" + type_id<Subsystem>().pretty_name() + "\" failed to load. Program execution will continue, but ");
+		}
+		
 		// add it!
 		auto inserted_iter =
 			m_subsystems.insert(std::make_pair(type_id<Subsystem>(), std::move(new_subsystem)))
@@ -108,6 +118,8 @@ struct runtime {
 	/// The asset manager
 	asset_manager m_asset_manager;
 
+	std::shared_ptr<spdlog::logger> m_log;
+	
 private:
 	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
 	std::vector<subsystem*> m_add_order;

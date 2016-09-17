@@ -5,10 +5,6 @@
 
 #include "ge/input_subsystem.hpp"
 
-#ifdef EMSCRIPTEN
-#include <emscripten.h>
-#endif
-
 #include <chrono>
 
 using namespace ge;
@@ -150,20 +146,14 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	glAlphaFunc(GL_GREATER, 0.1);
 	glEnable(GL_ALPHA_TEST);
 
-#ifdef EMSCRIPTEN
-
-	emscripten_set_main_loop_arg(update_c_function, this, -1, 1);
-
-#endif
-
 	return true;
 }
 
-// we need the C function because emscripten needs a C update function
-// TODO: this probably needs to be in a wrapper around runtime
-void update_c_function(void* void_subsystem)
+bool sdl_subsystem::update(std::chrono::duration<float> delta)
 {
-	auto subsystem = (sdl_subsystem*)void_subsystem;
+	SDL_GL_SwapWindow(m_window);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(m_background_color.r, m_background_color.g, m_background_color.b, 1.f);
 
 	static auto last_tick = std::chrono::system_clock::now();
 	auto now = std::chrono::system_clock::now();
@@ -174,15 +164,7 @@ void update_c_function(void* void_subsystem)
 	// app->elapsed_time += diff.count();
 
 	last_tick = now;
-}
-
-bool sdl_subsystem::update(std::chrono::duration<float> delta)
-{
-	SDL_GL_SwapWindow(m_window);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(m_background_color.r, m_background_color.g, m_background_color.b, 1.f);
-	update_c_function(this);
-
+	
 	SDL_Event event;
 	
 	auto& input_sub = *m_runtime->get_subsystem<input_subsystem>();
@@ -207,6 +189,10 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			input_sub.add_event(input_mouse_button{sdl_mb_to_ge(event.button.button), true,
+				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}});
+			break;
+		case SDL_MOUSEBUTTONUP:
+			input_sub.add_event(input_mouse_button{sdl_mb_to_ge(event.button.button), false,
 				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}});
 			break;
 		case SDL_MOUSEWHEEL:
