@@ -98,7 +98,7 @@ void render_interface::RenderCompiledGeometry(
 // Called by Rocket when it wants to release application-compiled geometry.
 void render_interface::ReleaseCompiledGeometry(Rocket::Core::CompiledGeometryHandle geometry)
 {
-	auto m = reinterpret_cast<mesh*>(geometry);
+	auto m = reinterpret_cast<mesh_settings*>(geometry);
 
 	delete m;
 }

@@ -6,5 +6,5 @@ build/
 # For qt creator
 CMakeFiles/
 CMakeLists.txt.user
-
+samples/ge.log
 *.trace

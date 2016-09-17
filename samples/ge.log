@@ -1,0 +1,10 @@
+[2016-09-16 22:53:05.962] [ge_log] [info] Subsystem "ge::input_subsystem" sucessfully loaded.
+[2016-09-16 22:53:06.432] [ge_log] [info] Subsystem "ge::sdl_subsystem" sucessfully loaded.
+[2016-09-16 22:53:06.448] [ge_log] [info] Subsystem "ge::rocket_subsystem" sucessfully loaded.
+[2016-09-16 22:53:06.448] [ge_log] [info] Loaded font face Bungee Shade Regular (from /home/russellg/projects/gentlemanly_engine/samples/data//rocket/bungee.rocketfont/BungeeShade-Regular.ttf).
+[2016-09-16 22:53:06.449] [ge_log] [info] Loaded font face Roboto Regular (from /home/russellg/projects/gentlemanly_engine/samples/data//rocket/roboto.rocketfont/Roboto-Regular.ttf).
+[2016-09-16 22:53:52.251] [ge_log] [info] Subsystem "ge::input_subsystem" sucessfully loaded.
+[2016-09-16 22:53:52.741] [ge_log] [info] Subsystem "ge::sdl_subsystem" sucessfully loaded.
+[2016-09-16 22:53:52.752] [ge_log] [info] Subsystem "ge::rocket_subsystem" sucessfully loaded.
+[2016-09-16 22:53:52.753] [ge_log] [info] Loaded font face Bungee Shade Regular (from /home/russellg/projects/gentlemanly_engine/samples/data//rocket/bungee.rocketfont/BungeeShade-Regular.ttf).
+[2016-09-16 22:53:52.753] [ge_log] [info] Loaded font face Roboto Regular (from /home/russellg/projects/gentlemanly_engine/samples/data//rocket/roboto.rocketfont/Roboto-Regular.ttf).
