@@ -3,6 +3,8 @@
 
 [![Build Status](https://travis-ci.org/gentlemans/gentlemanly_engine.svg?branch=master)](https://travis-ci.org/gentlemans/gentlemanly_engine)
 
+[![Trello](https://img.shields.io/badge/trello-online-green.svg)](https://trello.com/b/PyLZzMbi/gentlemanly-engine)
+
 A super standard C++ game engine
 
 #Abstract
