@@ -79,6 +79,13 @@ endif()
 set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
 
+set(ALSOFT_UTILS OFF CACHE BOOL "")
+set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
+set(ALSOFT_TESTS OFF CACHE BOOL "")
+set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
+
+add_subdirectory(deps/openal-soft)
+
 set(GE_PRIVATE_FILES
 	src/ge/actor.cpp
 	src/ge/rocket_subsystem.cpp
@@ -151,6 +158,7 @@ PUBLIC
 	deps/glm/
 	${Boost_INCLUDE_DIR}
 	deps/libRocket/Include/
+	deps/openal-soft/include
 )
 
 if(WIN32)
@@ -160,7 +168,14 @@ if(WIN32)
     )
 	target_link_libraries(gentlemanly_engine
 	PRIVATE 
-		${CMAKE_CURRENT_SOURCE_DIR}/deps/glew_win32/lib/Release/x64/glew32.lib)
+		${CMAKE_CURRENT_SOURCE_DIR}/deps/glew_win32/lib/Release/x64/glew32.lib
+		OpenAL32
+	)
+else()
+	target_link_libraries(gentlemanly_engine
+		PRIVATE
+		openal
+	)
 endif()
 
 target_link_libraries(gentlemanly_engine
