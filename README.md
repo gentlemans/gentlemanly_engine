@@ -1,17 +1,15 @@
 
 ![Gentlemanly Engine](logo.png)
 
-[![Build Status](https://travis-ci.org/gentlemans/gentlemanly_engine.svg?branch=master)](https://travis-ci.org/gentlemans/gentlemanly_engine)
-
-[![Trello](https://img.shields.io/badge/trello-online-green.svg)](https://trello.com/b/PyLZzMbi/gentlemanly-engine)
+[![Build Status](https://travis-ci.org/gentlemans/gentlemanly_engine.svg?branch=master)](https://travis-ci.org/gentlemans/gentlemanly_engine) [![Trello](https://img.shields.io/badge/trello-online-green.svg)](https://trello.com/b/PyLZzMbi/gentlemanly-engine) [ ![Documentation](https://img.shields.io/badge/documentation-online-green.svg)](https://gentlemans.github.io/gentlemanly_engine/)
 
 A super standard C++ game engine
 
 #Abstract
-The gentlemanly_engine is meant to provide a easy to learn, standard, well documented, extensible object-oriented 2D game engine written purely in C++ with possible python bindings later.
+The gentlemanly_engine is meant to provide a easy to learn, standard, well documented, extensible object-oriented 2D game engine written purely in C++.
 
 ##Open source
-We make sure to make this library totally free--and that's free as in freedom and not just free beer. We license under the MIT license, and we make sure that all of your dependencies are MIT compatible libraries, so feel free to go out there and make millions on our hundreds of hours of free work ;).
+We make sure to make this library totally free--and that's free as in freedom and not just free beer. We license under the MIT license, and we make sure that all of your dependencies are MIT compatible libraries, so feel free to go out there and make millions.
 
 ##High-level to low-level control
 Want to just get started quickly and get some `actor`s on the screen? No problem, gentlemanly_engine is for you. Want physics? No problem, just add a `physics` object to the actors you want to have physics. But what if you want to write custom shaders, dig under the hood? No problem, make an actor an override the `render` method. 
