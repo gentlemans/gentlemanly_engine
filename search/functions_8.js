@@ -1,6 +1,0 @@
-var searchData=
-[
-  ['material',['material',['../classge_1_1material.html#ac9b6382f8e072ea6ae455c5ab04a8b32',1,'ge::material::material()=default'],['../classge_1_1material.html#af90fcae2cc1cf051e128f58093f1f052',1,'ge::material::material(const std::shared_ptr&lt; shader &gt; &amp;shader)'],['../classge_1_1material.html#ab09c1f720b73050f3f761756ed54e127',1,'ge::material::material(const material &amp;)=default'],['../classge_1_1material.html#a2470ab1a6aeb44dbb4124a075fd60a83',1,'ge::material::material(material &amp;&amp;)=default']]],
-  ['mesh',['mesh',['../classge_1_1mesh.html#a3ee79d278a50319eadfc3dbdcf08cf88',1,'ge::mesh']]],
-  ['mesh_5fsettings',['mesh_settings',['../structge_1_1mesh__settings.html#a9920695acbe83873aaec89ecb296ca9a',1,'ge::mesh_settings::mesh_settings(std::shared_ptr&lt; mesh &gt; arg_mesh, material arg_mat)'],['../structge_1_1mesh__settings.html#ae4c447d779e7f3c00607ef92d74f0f03',1,'ge::mesh_settings::mesh_settings()=default'],['../structge_1_1mesh__settings.html#a6bde08726f5ec222f31ec0098d7a7a9f',1,'ge::mesh_settings::mesh_settings(const mesh_settings &amp;)=default'],['../structge_1_1mesh__settings.html#a124f4c2f10fa675c1d8f30e6e0bbc8f1',1,'ge::mesh_settings::mesh_settings(mesh_settings &amp;&amp;)=default']]]
-];
