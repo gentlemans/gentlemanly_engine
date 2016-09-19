@@ -220,4 +220,3 @@ if(GE_BUILD_SAMPLES)
 	add_subdirectory(samples)
 endif()
 
-# Documentation
