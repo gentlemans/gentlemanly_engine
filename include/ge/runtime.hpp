@@ -20,7 +20,7 @@ namespace ge
 /// The subsystem manager for the engine. This is the highest up primative the engine defines
 struct runtime {
 	/// Defualt constructor
-	runtime() : m_asset_manager{*this} { m_log = spdlog::basic_logger_mt("ge_log", "ge.log"); }
+	runtime() : m_asset_manager{*this} { m_log = spdlog::stdout_logger_mt("ge_log"); }
 	/// Destructor
 	~runtime()
 	{

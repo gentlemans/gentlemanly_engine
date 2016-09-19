@@ -153,6 +153,7 @@ PRIVATE
 	${OPENGL_INCLUDE_DIR}
 	${SDL2_INCLUDE_DIR}
 	deps/assimp/include
+	deps/openal-soft/include
 PUBLIC
 	include
 	deps/glm/

@@ -5,7 +5,7 @@
 
 #include "ge/subsystem.hpp"
 
-struct ALCDevice;
+struct ALCdevice;
 struct ALCcontext;
 
 namespace ge {

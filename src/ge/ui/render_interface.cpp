@@ -13,6 +13,8 @@
 
 #include <ge/lodepng.h>
 
+#include <memory>
+
 namespace ge
 {
 namespace ui
@@ -75,11 +77,9 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 
 	// the property_values needs a shared pointer, so create one that won't delete it when it is
 	// done
-	auto shared_texture = std::shared_ptr<texture>(new texture, [](auto) {});
-	shared_texture->texture_name = reinterpret_cast<texture*>(texturehandle)->texture_name;
-	shared_texture->size = reinterpret_cast<texture*>(texturehandle)->size;
-	settings->m_material.property_values["Texture"] = shared_texture;
-
+	if(texturehandle) {
+		settings->m_material.property_values["Texture"] = *reinterpret_cast<std::shared_ptr<texture>*>(texturehandle);
+	}
 	return reinterpret_cast<intptr_t>(settings);
 }
 
@@ -133,9 +133,9 @@ bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 
 		texture_dimensions = {int(width), int(height)};
 
-		auto tex = new texture{PNGData.data(), {width, height}};
+		auto tex = new std::shared_ptr<texture>{new texture(PNGData.data(), {width, height})};
 
-		texture_handle = reinterpret_cast<intptr_t>(tex);
+		texture_handle = reinterpret_cast<uintptr_t>(tex);
 	} catch (const std::exception& e) {
 		return false;
 	}
@@ -149,7 +149,7 @@ bool render_interface::GenerateTexture(Rocket::Core::TextureHandle& texture_hand
 	const Rocket::Core::byte* source, const Rocket::Core::Vector2i& source_dimensions)
 {
 	try {
-		auto ret = new texture(source, {source_dimensions.x, source_dimensions.y});
+		auto ret = new std::shared_ptr<texture>(new texture(source, {source_dimensions.x, source_dimensions.y}));
 
 		texture_handle = reinterpret_cast<intptr_t>(ret);
 	} catch (std::exception&) {
