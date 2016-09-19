@@ -9,7 +9,7 @@
 	url = https://github.com/assimp/assimp
 [submodule "deps/freetype2"]
 	path = deps/freetype2
-	url = http://git.savannah.gnu.org/r/freetype/freetype2
+	url = https://github.com/cpp-mirrors/freetype2 
 [submodule "deps/openal-soft"]
 	path = deps/openal-soft
 	url = https://github.com/kcat/openal-soft
