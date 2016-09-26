@@ -19,7 +19,7 @@ struct audio_subsystem : subsystem{
 	virtual bool update(std::chrono::duration<float> tick) override;
 	virtual bool shutdown() override;
 	
-	ALCDevice* m_device;
+	ALCdevice* m_device;
 	ALCcontext* m_context;
 };
 
