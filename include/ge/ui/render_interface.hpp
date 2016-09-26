@@ -26,12 +26,11 @@ class render_interface : public Rocket::Core::RenderInterface
 public:
 	/// Constructor to make it work
 	/// \param asset_man The asset manager to load the shader with
-	/// \param sdl_sub The sdl_subsystem to draw it into
-	render_interface(asset_manager& asset_man, sdl_subsystem& sdl_sub) : m_asset_manager{&asset_man}
+	/// \param size The size of the viewport
+	render_interface(asset_manager& asset_man, glm::uvec2 size) :  viewport_size{size}, m_asset_manager{&asset_man}
 	{
 		m_shader = asset_man.get_asset<shader_asset>("texturedmodel/textured.shader");
 
-		viewport_size = sdl_sub.get_size();
 	}
 
 private:
