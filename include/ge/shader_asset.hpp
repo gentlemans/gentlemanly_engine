@@ -50,7 +50,8 @@ namespace ge
 /**
  *
  * A shader_asset loads a shader, and exposes properties to this shader, to be set in a material.
- *
+ * 
+ * [asset.json Specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/shader_asset.json)
  */
 class shader_asset
 {
