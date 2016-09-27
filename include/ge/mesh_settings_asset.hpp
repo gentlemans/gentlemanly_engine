@@ -10,11 +10,11 @@
 namespace ge
 {
 /// Asset loader for mesh settings objects
-///
+/// [asset.json spec](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/mesh_settings_asset.json)
 /// ASSET SPECIFICATION
 /// ```
 /// {
-///   "asset_type": "mesh_settings_asset",
+///   "asset_type": "mesh_settings",
 ///   "mesh": "/path/to/mesh_asset",
 ///   "material": "/path/to/material_asset"
 /// }
@@ -38,7 +38,7 @@ struct mesh_settings_asset {
 	}
 
 	/// Require the assets to have "asset_type": "mesh_settings_asset"
-	static const char* asset_type() { return "mesh_settings_asset"; }
+	static const char* asset_type() { return "mesh_settings"; }
 };
 }
 
