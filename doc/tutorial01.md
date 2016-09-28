@@ -37,13 +37,14 @@ Next, you are going to want to enable the engine features that you need. This is
 	r.add_subsystem<ge::sdl_subsystem>({
 		"hello ge!",    // title of the window 
 		{},             // location on the screen, {} for OS defined (it's a boost::optional<glm::uvec2>)
+		{720, 1280}     // the size of the window
 		false,          // fullscreen or not
 		true            // if the window should be decorated (border etc).
 	});
 ```
 
 ##Running the engine!
-All you run the engine at this point is just call [`runtime::tick`](https://gentlemans.github.io/gentlemanly_engine/structge_1_1sdl__subsystem.html/structge_1_1runtime.html#a46baa37c970f01af28da0596142aceac) whenever you want a frame:
+All you run the engine at this point is just call [`runtime::tick`](https://gentlemans.github.io/gentlemanly_engine/structge_1_1runtime.html#a46baa37c970f01af28da0596142aceac) whenever you want a frame:
 
 ```C++
 	while(r.tick());
