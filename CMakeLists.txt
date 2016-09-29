@@ -88,6 +88,7 @@ add_subdirectory(deps/openal-soft)
 
 set(GE_PRIVATE_FILES
 	src/ge/actor.cpp
+	src/ge/audio_subsystem.cpp
 	src/ge/rocket_subsystem.cpp
 	src/ge/lodepng.cpp
 	src/ge/material.cpp
@@ -109,6 +110,7 @@ set(GE_PRIVATE_FILES
 set(GE_PUBLIC_FILES
 	include/external/glext.h
 	include/external/wglext.h
+	include/ge/audio_subsystem.hpp
 	include/ge/actor.hpp
 	include/ge/asset_manager.hpp
 	include/ge/camera_actor.hpp

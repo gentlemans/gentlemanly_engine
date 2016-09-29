@@ -5,6 +5,7 @@
 #include <ge/mesh_actor.hpp>
 #include <ge/mesh_asset.hpp>
 #include <ge/texture_asset.hpp>
+#include <ge/mesh_settings_asset.hpp>
 
 #include "toweractor.hpp"
 
