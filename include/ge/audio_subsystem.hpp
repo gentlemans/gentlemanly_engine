@@ -5,8 +5,8 @@
 
 #include "ge/subsystem.hpp"
 
-struct ALCdevice;
-struct ALCcontext;
+#include <memory>
+
 
 namespace ge {
 
@@ -14,13 +14,16 @@ struct audio_subsystem : subsystem{
 	
 	struct config{};
 	
+	~audio_subsystem();
+	
 	bool initialize(config);
 	
 	virtual bool update(std::chrono::duration<float> tick) override;
 	virtual bool shutdown() override;
 	
-	ALCdevice* m_device;
-	ALCcontext* m_context;
+	
+	struct pimpl;
+	std::unique_ptr<pimpl> m_pimpl;
 };
 
 }

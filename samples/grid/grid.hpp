@@ -10,10 +10,10 @@ class toweractor;
 
 class grid : public ge::actor
 {
-	glm::uvec2 m_size;
+	glm::uvec3 m_size;
 
 public:
-	void initialize(glm::uvec2 size);
+	void initialize(glm::uvec3 size);
 
 	std::vector<toweractor*> towers;
 
