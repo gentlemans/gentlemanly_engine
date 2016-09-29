@@ -1,5 +1,5 @@
 {
-  "asset_type": "mesh_settings_asset",
+  "asset_type": "mesh_settings",
   "mesh": "texturedmodel/square.mesh",
   "material": "texturedmodel/textured.material"
 } 
