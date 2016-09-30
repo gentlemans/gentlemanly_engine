@@ -57,7 +57,7 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 	colors.reserve(num_vertices);
 
 	// reconstruct the vectors in the format the engine wants
-	for (size_t id = 0; id < num_vertices; ++id) {
+	for (size_t id = 0ull; id < (unsigned int)num_vertices; ++id) {
 		locs.emplace_back(vertices[id].position.x, vertices[id].position.y);
 
 		tex_coord.emplace_back(vertices[id].tex_coord.x, vertices[id].tex_coord.y);

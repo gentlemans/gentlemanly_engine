@@ -115,9 +115,7 @@ public:
 		typename = std::enable_if_t<!std::is_void<typename asset_type::loaded_type>::value>>
 	// this ugly line gets the return type based on if the asset is cached or not. If it is cached,
 	// then use a shared_ptr or else just use a raw value
-	typename boost::mpl::if_<typename asset_type::cached,
-		std::shared_ptr<typename asset_type::loaded_type>, typename asset_type::loaded_type>::type
-	get_asset(const char* name, extra_args_types&&... extra_args)
+	auto get_asset(const char* name, extra_args_types&&... extra_args)
 	{
 		using namespace std::string_literals;
 

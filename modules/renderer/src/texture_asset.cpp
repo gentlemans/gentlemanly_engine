@@ -39,5 +39,6 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 		return std::make_shared<texture>(image_raw_data.data(), size);
 	}
 	}
+	return nullptr;
 }
 }

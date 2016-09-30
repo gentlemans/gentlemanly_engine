@@ -44,7 +44,7 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 
 	// build element vector
 	std::vector<glm::uvec3> elements(mesh_ref.mNumFaces * 3);
-	for (auto index_of_face = 0; index_of_face < mesh_ref.mNumFaces; ++index_of_face) {
+	for (auto index_of_face = 0ull; index_of_face < mesh_ref.mNumFaces; ++index_of_face) {
 		elements[index_of_face] = {
 			mesh_ref.mFaces[index_of_face].mIndices[0], mesh_ref.mFaces[index_of_face].mIndices[1],
 			mesh_ref.mFaces[index_of_face].mIndices[2],
@@ -53,7 +53,7 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 
 	// load in texture coordinates()
 	std::vector<glm::vec2> texcoords(mesh_ref.mNumVertices);
-	for (auto vert_id = 0; vert_id < mesh_ref.mNumVertices; ++vert_id) {
+	for (auto vert_id = 0ull; vert_id < mesh_ref.mNumVertices; ++vert_id) {
 		texcoords[vert_id] = {
 			mesh_ref.mTextureCoords[0][vert_id].x, mesh_ref.mTextureCoords[0][vert_id].y};
 	}

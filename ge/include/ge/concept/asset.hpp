@@ -27,7 +27,7 @@ struct Asset {
 		"Cached must be either std::true_type or std::false_type");
 
 	/// Make sure it has a static asset_type function
-	BOOST_CONCEPT_USAGE(Asset) { const char* type = X::asset_type(); }
+	BOOST_CONCEPT_USAGE(Asset) { static_assert(std::is_convertible<decltype(X::asset_type()), const char*>::value, "Must have a asset_type function"); }
 };
 }
 }

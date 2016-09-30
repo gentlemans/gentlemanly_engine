@@ -142,6 +142,7 @@ int ge_mb_to_rocket(mouse_button mb)
 	case mouse_button::e_button_1: return 3;
 	case mouse_button::e_button_2: return 4;
 	}
+	return 0;
 }
 
 struct input_passer_visitor : boost::static_visitor<void> {

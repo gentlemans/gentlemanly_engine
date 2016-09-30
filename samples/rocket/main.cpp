@@ -4,9 +4,11 @@
 #include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
+#include <ge/actor.hpp>
 
 #include <iostream>
 #include <memory>
+
 
 using namespace ge;
 
@@ -16,7 +18,7 @@ int main(int argc, char** argv)
 	r.m_asset_manager.add_asset_path("data/");
 	r.add_subsystem<input_subsystem>({});
 	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
-	auto& rocket = r.add_subsystem<rocket_subsystem>({});
+	r.add_subsystem<rocket_subsystem>({});
 
 	auto root = actor::root_factory(&r);
 
