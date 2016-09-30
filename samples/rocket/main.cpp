@@ -1,9 +1,9 @@
 #include <ge/asset_manager.hpp>
+#include <ge/rocket_document_asset.hpp>
+#include <ge/rocket_input_consumer.hpp>
 #include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
-#include <ge/rocket_document_asset.hpp>
-#include <ge/rocket_input_consumer.hpp>
 
 #include <iostream>
 #include <memory>
@@ -26,8 +26,7 @@ int main(int argc, char** argv)
 	sdl.set_camera(camera.get());
 	sdl.set_root_actor(root.get());
 
-	auto document =
-		r.m_asset_manager.get_asset<rocket_document_asset>("rocket/example.rocketdoc");
+	auto document = r.m_asset_manager.get_asset<rocket_document_asset>("rocket/example.rocketdoc");
 	document->Show();
 
 	rocket_input_consumer ic{&r};

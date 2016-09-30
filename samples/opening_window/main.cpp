@@ -15,7 +15,8 @@ int main(int argc, char** argv)
 	runtime r;
 	r.m_asset_manager.add_asset_path("data/");
 	r.add_subsystem<input_subsystem>({});
-	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Exa`12mple!", {}, {1024, 720}});
+	auto& sdl =
+		r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Exa`12mple!", {}, {1024, 720}});
 	auto& rocket = r.add_subsystem<rocket_subsystem>({});
 
 	auto root = actor::root_factory(&r);

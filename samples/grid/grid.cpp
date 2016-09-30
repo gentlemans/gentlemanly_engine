@@ -5,7 +5,7 @@
 void grid::initialize(glm::uvec3 size)
 {
 	set_relative_location({-size.x / 2, -size.y / 2});
-	
+
 	m_size = size;
 
 	towers.resize(size.x * size.y * size.z);
