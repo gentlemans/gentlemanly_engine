@@ -34,7 +34,8 @@ endif()
 if(UNIX)
 	find_package(Freetype)
 endif()
-#find_package(assimp)
+
+find_package(assimp)
 
 message("DIR: ${ASSIMP_INCLUDE_DIRS}")
 

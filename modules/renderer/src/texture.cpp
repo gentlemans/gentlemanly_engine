@@ -38,7 +38,7 @@ texture::texture::texture(const unsigned char* data)
 
 	size = {width, height};
 
-	const unsigned char* buffer = data + 124;
+	unsigned char* buffer;
 	unsigned int bufsize;
 	/* how big is it going to be including all mipmaps? */
 	bufsize = mipMapCount > 1 ? linearSize * 2 : linearSize;
@@ -83,5 +83,7 @@ texture::texture::texture(const unsigned char* data)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glGenerateMipmap(GL_TEXTURE_2D);
+	
+	free(buffer);
 }
 }
