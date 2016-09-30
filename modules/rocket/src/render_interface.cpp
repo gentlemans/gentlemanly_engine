@@ -5,6 +5,7 @@
 #include "ge/mesh_settings.hpp"
 #include "ge/ortho2d.hpp"
 #include "ge/texture_asset.hpp"
+#include "ge/texture.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -22,26 +23,32 @@ void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_ve
 	int* indices, int num_indices, const Rocket::Core::TextureHandle texture,
 	const Rocket::Core::Vector2f& translation)
 {
-	glPushMatrix();
-	glTranslatef(translation.x, translation.y, 0);
+    // translate into better data
+    std::vector<glm::vec2> pos;
+    std::vector<glm::vec2> uv;
+    std::vector<glm::uvec3> indicies_vec;
 
-	glVertexPointer(2, GL_FLOAT, sizeof(Rocket::Core::Vertex), &vertices[0].position);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Rocket::Core::Vertex), &vertices[0].colour);
+    for(auto idx = 0ull; idx < num_vertices; ++idx) {
+        pos.emplace_back(vertices[idx].position.x, vertices[idx].position.y);
+        uv.emplace_back(vertices[idx].tex_coord.x, vertices[idx].tex_coord.y);
+    }
 
-	if (!texture) {
-		glDisable(GL_TEXTURE_2D);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	} else {
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, (GLuint)texture);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_FLOAT, sizeof(Rocket::Core::Vertex), &vertices[0].tex_coord);
+    for(auto idx = 0; idx < num_indices; idx += 3) {
+        indicies_vec.emplace_back(indices[idx], indices[idx + 1], indices[idx + 2]);
+    }
+
+    auto me = std::make_shared<mesh>(pos.data(), pos.size(), indicies_vec.data(), indicies_vec.size());
+    material mat(m_shader);
+
+    if (texture) {
+        mat.property_values["Texture"] = *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
 	}
+    mesh_settings set(me, mat);
 
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
+    glm::mat3 mvp;
+    mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
 
-	glPopMatrix();
+    set.render(mvp);
 }
 
 Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(

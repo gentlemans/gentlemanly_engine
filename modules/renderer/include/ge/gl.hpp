@@ -4,10 +4,8 @@
 #pragma once
 
 #if defined(__APPLE__)
-#include <OpenGL/OpenGL.h>
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
-#include <OpenGL/glu.h>
 #elif defined(__linux__)
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>

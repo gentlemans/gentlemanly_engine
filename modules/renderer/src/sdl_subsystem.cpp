@@ -142,9 +142,6 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// enable alpha testing
-	glAlphaFunc(GL_GREATER, 0.1);
-	glEnable(GL_ALPHA_TEST);
 
 	return true;
 }

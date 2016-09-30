@@ -50,9 +50,10 @@ PUBLIC
 target_link_libraries(gentlemanly_engine_renderer
 PRIVATE
 	gentlemanly_engine
-	${SDL2_LIBRARY}
-	${OPENGL_LIBRARIES}
+        ${SDL2_LIBRARY}
 	assimp
+PUBLIC
+    ${OPENGL_LIBRARIES}
 )
 
 if(WIN32)
