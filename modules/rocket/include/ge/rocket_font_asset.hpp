@@ -9,8 +9,6 @@
 
 namespace ge
 {
-namespace ui
-{
 /// An asset for loading fonts into rocket.
 /// This is a void cached asset meaning that the font is stored internally
 /// Inside rocket and that calling to load the same asset twice will have no affect
@@ -83,7 +81,4 @@ struct rocket_font_asset {
 	static const char* asset_type() { return "rocket_font_asset"; }
 };
 BOOST_CONCEPT_ASSERT((concept::Asset<rocket_font_asset>));
-}
-
-static const char* asset_type() { return "rocket_font_asset"; }
 }

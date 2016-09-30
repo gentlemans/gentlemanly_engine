@@ -16,8 +16,6 @@
 
 namespace ge
 {
-namespace ui
-{
 /// The Rocket `RenderInterface` that allows rocket to render it's primatives
 class render_interface : public Rocket::Core::RenderInterface
 {
@@ -70,7 +68,6 @@ private:
 private:
 	asset_manager* m_asset_manager;
 };
-}
 }
 
 #endif  // GE_RENDER_INTERFACE_HPP

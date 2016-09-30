@@ -29,7 +29,6 @@ set(RENDERER_PRIVATE_FILES
 	src/mesh_actor.cpp
 	src/mesh_asset.cpp
 	src/mesh_settings.cpp
-	src/rocket_subsystem.cpp
 	src/sdl_subsystem.cpp
 	src/shader.cpp
 	src/shader_asset.cpp
@@ -50,6 +49,7 @@ PUBLIC
 
 target_link_libraries(gentlemanly_engine_renderer
 PRIVATE
+	gentlemanly_engine
 	${SDL2_LIBRARY}
 	${OPENGL_LIBRARIES}
 	assimp

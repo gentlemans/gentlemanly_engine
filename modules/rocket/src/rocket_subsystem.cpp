@@ -11,8 +11,8 @@ bool rocket_subsystem::initialize(rocket_subsystem::config)
 		return false;
 	}
 
-	auto m_render_interface = new ui::render_interface(m_runtime->m_asset_manager, sdl_sub->get_size());
-	auto m_system_interface = new ui::system_interface(*m_runtime);
+	auto m_render_interface = new render_interface(m_runtime->m_asset_manager, sdl_sub->get_size());
+	auto m_system_interface = new system_interface(*m_runtime);
 
 	Rocket::Core::SetSystemInterface(m_system_interface);
 	Rocket::Core::SetRenderInterface(m_render_interface);

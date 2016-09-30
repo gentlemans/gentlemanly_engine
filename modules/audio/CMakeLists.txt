@@ -1,9 +1,9 @@
 set(GE_AUDIO_PRIVATE_FILES
-	src/ge/audio_subsystem.cpp
+	src/audio_subsystem.cpp
 )
 
 set(GE_AUDIO_PUBLIC_FILES
-	include/audio_subsystem.hpp
+	include/ge/audio_subsystem.hpp
 )
 
 add_library(gentlemanly_engine_audio_subsystem ${GE_AUDIO_PUBLIC_FILES} ${GE_AUDIO_PRIVATE_FILES})
@@ -11,6 +11,13 @@ add_library(gentlemanly_engine_audio_subsystem ${GE_AUDIO_PUBLIC_FILES} ${GE_AUD
 target_include_directories(gentlemanly_engine_audio_subsystem
 PRIVATE
 	../../deps/openal-soft/include
+PUBLIC
+	include/
+)
+
+target_link_libraries(gentlemanly_engine_audio_subsystem
+PUBLIC
+	gentlemanly_engine
 )
 
 if(WIN32)

@@ -11,6 +11,7 @@ set(GE_ROCKET_PRIVATE_FILES
 	src/render_interface.cpp
 	src/rocket_document_asset.cpp
 	src/rocket_input_consumer.cpp
+	src/rocket_subsystem.cpp
 )
 
 add_library(gentlemanly_engine_rocket_subsystem ${GE_ROCKET_PUBLIC_FILES} ${GE_ROCKET_PRIVATE_FILES})
@@ -21,11 +22,12 @@ PUBLIC
 	RocketCore
 	RocketDebugger
 	RocketControls
+	gentlemanly_engine
 	gentlemanly_engine_renderer
 )
 
 target_include_directories(gentlemanly_engine_rocket_subsystem
 PUBLIC
-	deps/libRocket/Include/
+	../../deps/libRocket/Include/
 	include
 )

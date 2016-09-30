@@ -1,15 +1,13 @@
-#include "ge/ui/rocket_document_asset.hpp"
+#include "ge/rocket_document_asset.hpp"
 #include "ge/rocket_subsystem.hpp"
 
 #include "ge/json_helper.hpp"
-#include "ge/ui/rocket_font_asset.hpp"
+#include "ge/rocket_font_asset.hpp"
 
 #include <boost/filesystem.hpp>
 
-namespace ge
-{
-namespace ui
-{
+using namespace ge;
+
 std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset(
 	asset_manager& manager, const char* /*asset_name*/, const char* filepath,
 	const nlohmann::json& json_data)
@@ -34,5 +32,3 @@ std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset
 	return std::shared_ptr<Rocket::Core::ElementDocument>(
 		rocketsub->m_context->LoadDocument(path.c_str()), [](Rocket::Core::ElementDocument*) {});
 }
-}  // ui
-}  // ge

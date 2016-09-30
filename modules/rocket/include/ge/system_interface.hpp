@@ -9,8 +9,6 @@
 
 namespace ge
 {
-namespace ui
-{
 /// The Rocket SystemInterface for the engine. This gives rocket an interface for logging and time.
 class system_interface : public Rocket::Core::SystemInterface
 {
@@ -37,7 +35,6 @@ private:
 	}
 	runtime& m_runtime;
 };
-}
 }
 
 #endif  // GE_SYSTEM_INTERFACE_HPP

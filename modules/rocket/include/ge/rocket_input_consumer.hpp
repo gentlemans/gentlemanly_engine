@@ -10,8 +10,6 @@
 
 namespace ge
 {
-namespace ui
-{
 /// This input consumer passes all input to Rocket
 struct rocket_input_consumer : input_consumer<rocket_input_consumer> {
 	/// The constructor from the runtime. This fetches the rocket_subsystem
@@ -26,7 +24,6 @@ struct rocket_input_consumer : input_consumer<rocket_input_consumer> {
 	/// The Rocket context
 	Rocket::Core::Context* m_context;
 };
-}
 }
 
 #endif  // GE_ROCKET_INPUT_CONSUMER_HPP

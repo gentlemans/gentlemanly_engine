@@ -1,9 +1,7 @@
-#include "ge/ui/rocket_input_consumer.hpp"
+#include "ge/rocket_input_consumer.hpp"
 
-namespace ge
-{
-namespace ui
-{
+using namespace ge;
+
 Rocket::Core::Input::KeyIdentifier ge_to_rocket_key(key k)
 {
 	using namespace Rocket::Core::Input;
@@ -189,6 +187,4 @@ void rocket_input_consumer::handle_input(const input_event& event)
 	auto visitor = input_passer_visitor{m_context};
 
 	event.apply_visitor(visitor);
-}
-}
 }

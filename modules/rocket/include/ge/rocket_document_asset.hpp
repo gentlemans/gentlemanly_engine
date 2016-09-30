@@ -14,8 +14,6 @@
 
 namespace ge
 {
-namespace ui
-{
 /// A asset loader for rocket documents
 ///
 /// ASSET SPECIFICATION:
@@ -43,7 +41,6 @@ struct rocket_document_asset {
 	static const char* asset_type() { return "rocket_document"; }
 };
 BOOST_CONCEPT_ASSERT((concept::Asset<rocket_document_asset>));
-}
 }
 
 #endif  // GE_ROCKET_DOCUMENT_ASSET_HPP

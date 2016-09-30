@@ -1,4 +1,4 @@
-#include "ge/ui/render_interface.hpp"
+#include "ge/render_interface.hpp"
 #include "ge/gl.hpp"
 #include "ge/material.hpp"
 #include "ge/mesh.hpp"
@@ -15,10 +15,8 @@
 
 #include <memory>
 
-namespace ge
-{
-namespace ui
-{
+using namespace ge;
+
 // Called by Rocket when it wants to render geometry that it does not wish to optimise.
 void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_vertices,
 	int* indices, int num_indices, const Rocket::Core::TextureHandle texture,
@@ -164,5 +162,3 @@ void render_interface::ReleaseTexture(Rocket::Core::TextureHandle texture_handle
 {
 	delete reinterpret_cast<texture*>(texture_handle);
 }
-}  // namespace ui
-}  // namespace ge
