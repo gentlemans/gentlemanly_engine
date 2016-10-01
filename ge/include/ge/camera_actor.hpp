@@ -5,6 +5,7 @@
 
 #include "ge/actor.hpp"
 #include "ge/ortho2d.hpp"
+#include "ge/renderable.hpp"
 
 namespace ge
 {
@@ -28,7 +29,12 @@ struct camera_actor : actor {
 
 		glm::mat3 vp = p * v;
 
-		root.propagate_to_children([&vp](actor& act) { act.render(vp); });
+		// TODO: fix
+		root.propagate_to_children([&vp](actor& act) { 
+			if(act.implements_interface<renderable>()) {
+				
+			}
+		});
 	}
 };
 }

@@ -5,6 +5,7 @@
 
 #include "ge/actor.hpp"
 #include "ge/mesh_settings.hpp"
+#include "ge/renderable.hpp"
 
 #include <glm/glm.hpp>
 
@@ -16,7 +17,10 @@ namespace ge
 struct mesh_actor : actor {
 	/// Initialize the mesh_actor
 	/// \param settings The `mesh_settings` object to copy from
-	void initialize(mesh_settings settings) { m_mesh_settings = std::move(settings); }
+	void initialize(mesh_settings settings) {
+		m_mesh_settings = std::move(settings); 
+		add_interface<mesh_actor, renderable>();
+	}
 	/// Load from a mesh_asset path
 	/// \param asset_path The path to a mesh_asset_settings asset
 	void initialize(const char* asset_path);
@@ -25,7 +29,7 @@ struct mesh_actor : actor {
 	mesh_settings m_mesh_settings;
 
 	/// Implementation of the actor's rendering interface
-	virtual void render(const glm::mat3& vp_mat) override;
+	void render(const glm::mat3& vp_mat);
 };
 }
 
