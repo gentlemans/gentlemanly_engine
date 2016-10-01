@@ -7,25 +7,22 @@
 
 #include <memory>
 
+namespace ge
+{
+struct audio_subsystem : subsystem {
+	struct config {
+	};
 
-namespace ge {
-
-struct audio_subsystem : subsystem{
-	
-	struct config{};
-	
 	~audio_subsystem();
-	
+
 	bool initialize(config);
-	
+
 	virtual bool update(std::chrono::duration<float> tick) override;
 	virtual bool shutdown() override;
-	
-	
+
 	struct pimpl;
 	std::unique_ptr<pimpl> m_pimpl;
 };
-
 }
 
-#endif // GE_AUDIO_SUBSYSTEM_HPP
+#endif  // GE_AUDIO_SUBSYSTEM_HPP

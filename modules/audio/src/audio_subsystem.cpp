@@ -1,7 +1,6 @@
 #include "ge/audio_subsystem.hpp"
 #include "ge/runtime.hpp"
 
-
 using namespace ge;
 
 #include <AL/al.h>
@@ -18,30 +17,22 @@ struct audio_subsystem::pimpl {
 
 audio_subsystem::~audio_subsystem() = default;
 
-bool audio_subsystem::initialize(audio_subsystem::config) {
-	
+bool audio_subsystem::initialize(audio_subsystem::config)
+{
 	m_pimpl->device = alcOpenDevice(nullptr);
-	if(!m_pimpl->device) {
+	if (!m_pimpl->device) {
 		m_runtime->m_log->error("Failed to open OpenAL device.");
 	}
-	
+
 	m_pimpl->context = alcCreateContext(m_pimpl->device, nullptr);
 	alcMakeContextCurrent(m_pimpl->context);
-	
-	if(!m_pimpl->context) {
+
+	if (!m_pimpl->context) {
 		m_runtime->m_log->error("Failed to create OpenAL context. Error: " +
-			boost::lexical_cast<std::string>(alcGetError(m_pimpl->device)));
+								boost::lexical_cast<std::string>(alcGetError(m_pimpl->device)));
 	}
 	return true;
 }
 
-bool audio_subsystem::update(std::chrono::duration<float> tick)
-{
-	return true;
-}
-bool audio_subsystem::shutdown()
-{
-	return true;
-}
-
-
+bool audio_subsystem::update(std::chrono::duration<float> tick) { return true; }
+bool audio_subsystem::shutdown() { return true; }

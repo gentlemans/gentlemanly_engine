@@ -10,7 +10,8 @@
 namespace ge
 {
 /// Asset loader for mesh settings objects
-/// [asset.json spec](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/mesh_settings_asset.json)
+/// [asset.json
+/// spec](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/mesh_settings_asset.json)
 /// ASSET SPECIFICATION
 /// ```
 /// {

@@ -1,6 +1,7 @@
 set(GE_AUDIO_PRIVATE_FILES
 	src/audio_subsystem.cpp
 	src/sound_asset.cpp
+	src/sound.cpp
 )
 
 set(GE_AUDIO_PUBLIC_FILES
@@ -14,6 +15,7 @@ add_library(gentlemanly_engine_audio_subsystem ${GE_AUDIO_PUBLIC_FILES} ${GE_AUD
 target_include_directories(gentlemanly_engine_audio_subsystem
 PRIVATE
 	../../deps/openal-soft/include
+	../../deps/vorbis/include
 PUBLIC
 	include/
 )
@@ -21,6 +23,10 @@ PUBLIC
 target_link_libraries(gentlemanly_engine_audio_subsystem
 PUBLIC
 	gentlemanly_engine
+PRIVATE
+	vorbis
+	vorbisenc
+	vorbisfile
 )
 
 if(WIN32)

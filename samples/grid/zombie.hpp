@@ -9,5 +9,5 @@ class zombie : public ge::actor
 
 	grid* m_grid;
 
-	zombie(grid& grid, glm::uvec2 location) :  m_location{location}, m_grid{&grid} {}
+	zombie(grid& grid, glm::uvec2 location) : m_location{location}, m_grid{&grid} {}
 };

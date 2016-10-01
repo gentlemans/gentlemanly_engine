@@ -25,10 +25,10 @@ public:
 	/// Constructor to make it work
 	/// \param asset_man The asset manager to load the shader with
 	/// \param size The size of the viewport
-	render_interface(asset_manager& asset_man, glm::uvec2 size) :  viewport_size{size}, m_asset_manager{&asset_man}
+	render_interface(asset_manager& asset_man, glm::uvec2 size)
+		: viewport_size{size}, m_asset_manager{&asset_man}
 	{
 		m_shader = asset_man.get_asset<shader_asset>("texturedmodel/textured.shader");
-
 	}
 
 private:

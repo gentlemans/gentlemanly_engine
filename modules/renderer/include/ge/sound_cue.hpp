@@ -3,14 +3,10 @@
 
 #pragma once
 
-namespace ge {
-	
-	struct sound_cue {
-		
-		
-		
-	};
-	
+namespace ge
+{
+struct sound_cue {
+};
 }
 
-#endif // GE_SOUND_CUE_HPP
+#endif  // GE_SOUND_CUE_HPP

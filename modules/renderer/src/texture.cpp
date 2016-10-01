@@ -48,7 +48,7 @@ texture::texture::texture(const unsigned char* data)
 	constexpr const unsigned FOURCC_DXT3 = 0x33545844;  // Equivalent to "DXT3" in ASCII
 	constexpr const unsigned FOURCC_DXT5 = 0x35545844;  // Equivalent to "DXT5" in ASCII
 
-	//unsigned int components = (fourCC == FOURCC_DXT1) ? 3 : 4;
+	// unsigned int components = (fourCC == FOURCC_DXT1) ? 3 : 4;
 	unsigned int format;
 	switch (fourCC) {
 	case FOURCC_DXT1: format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT; break;
@@ -83,7 +83,7 @@ texture::texture::texture(const unsigned char* data)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	
+
 	free(buffer);
 }
 }

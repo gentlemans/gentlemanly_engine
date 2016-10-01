@@ -76,6 +76,7 @@ set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
 
 add_subdirectory(deps/openal-soft)
 
+add_subdirectory(deps/vorbis)
 
 add_subdirectory(ge)
 add_subdirectory(modules)

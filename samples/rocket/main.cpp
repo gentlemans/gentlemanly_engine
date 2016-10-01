@@ -1,14 +1,13 @@
+#include <ge/actor.hpp>
 #include <ge/asset_manager.hpp>
 #include <ge/rocket_document_asset.hpp>
 #include <ge/rocket_input_consumer.hpp>
 #include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
-#include <ge/actor.hpp>
 
 #include <iostream>
 #include <memory>
-
 
 using namespace ge;
 

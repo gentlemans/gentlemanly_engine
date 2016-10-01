@@ -4,8 +4,8 @@
 #include "ge/mesh.hpp"
 #include "ge/mesh_settings.hpp"
 #include "ge/ortho2d.hpp"
-#include "ge/texture_asset.hpp"
 #include "ge/texture.hpp"
+#include "ge/texture_asset.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -23,32 +23,33 @@ void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_ve
 	int* indices, int num_indices, const Rocket::Core::TextureHandle texture,
 	const Rocket::Core::Vector2f& translation)
 {
-    // translate into better data
-    std::vector<glm::vec2> pos;
-    std::vector<glm::vec2> uv;
-    std::vector<glm::uvec3> indicies_vec;
+	// translate into better data
+	std::vector<glm::vec2> pos;
+	std::vector<glm::vec2> uv;
+	std::vector<glm::uvec3> indicies_vec;
 
-    for(auto idx = 0ull; idx < num_vertices; ++idx) {
-        pos.emplace_back(vertices[idx].position.x, vertices[idx].position.y);
-        uv.emplace_back(vertices[idx].tex_coord.x, vertices[idx].tex_coord.y);
-    }
-
-    for(auto idx = 0; idx < num_indices; idx += 3) {
-        indicies_vec.emplace_back(indices[idx], indices[idx + 1], indices[idx + 2]);
-    }
-
-    auto me = std::make_shared<mesh>(pos.data(), pos.size(), indicies_vec.data(), indicies_vec.size());
-    material mat(m_shader);
-
-    if (texture) {
-        mat.property_values["Texture"] = *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
+	for (auto idx = 0ull; idx < num_vertices; ++idx) {
+		pos.emplace_back(vertices[idx].position.x, vertices[idx].position.y);
+		uv.emplace_back(vertices[idx].tex_coord.x, vertices[idx].tex_coord.y);
 	}
-    mesh_settings set(me, mat);
 
-    glm::mat3 mvp;
-    mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
+	for (auto idx = 0; idx < num_indices; idx += 3) {
+		indicies_vec.emplace_back(indices[idx], indices[idx + 1], indices[idx + 2]);
+	}
 
-    set.render(mvp);
+	auto me =
+		std::make_shared<mesh>(pos.data(), pos.size(), indicies_vec.data(), indicies_vec.size());
+	material mat(m_shader);
+
+	if (texture) {
+		mat.property_values["Texture"] = *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
+	}
+	mesh_settings set(me, mat);
+
+	glm::mat3 mvp;
+	mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
+
+	set.render(mvp);
 }
 
 Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
@@ -82,8 +83,9 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 
 	// the property_values needs a shared pointer, so create one that won't delete it when it is
 	// done
-	if(texturehandle) {
-		settings->m_material.property_values["Texture"] = *reinterpret_cast<std::shared_ptr<texture>*>(texturehandle);
+	if (texturehandle) {
+		settings->m_material.property_values["Texture"] =
+			*reinterpret_cast<std::shared_ptr<texture>*>(texturehandle);
 	}
 	return reinterpret_cast<intptr_t>(settings);
 }
@@ -154,7 +156,8 @@ bool render_interface::GenerateTexture(Rocket::Core::TextureHandle& texture_hand
 	const Rocket::Core::byte* source, const Rocket::Core::Vector2i& source_dimensions)
 {
 	try {
-		auto ret = new std::shared_ptr<texture>(new texture(source, {source_dimensions.x, source_dimensions.y}));
+		auto ret = new std::shared_ptr<texture>(
+			new texture(source, {source_dimensions.x, source_dimensions.y}));
 
 		texture_handle = reinterpret_cast<intptr_t>(ret);
 	} catch (std::exception&) {
