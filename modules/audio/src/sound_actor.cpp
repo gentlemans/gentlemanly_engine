@@ -12,10 +12,6 @@ void sound_actor::initialize(std::shared_ptr<sound> sound)
 	alGenSources(1, &m_source_name);
 	alSourcei(m_source_name, AL_BUFFER, m_sound->m_buffer_name);
 	
-	while(true) {
-		int state;
-		alGetSourcei(m_source_name, AL_SOURCE_STATE, &state);
-	}
 }
 
 void sound_actor::initialize(const char* assetname) {
@@ -37,6 +33,14 @@ void sound_actor::rewind()
 	alSourceRewind(m_source_name);
 }
 
+bool sound_actor::is_playing() const
+{
+	ALenum status;
+	alGetSourcei(m_source_name, AL_SOURCE_STATE, &status);
+	
+	if(status == AL_PLAYING) return true;
+	return false;
+}
 
 
 sound_actor::~sound_actor() { alDeleteSources(1, &m_source_name); }

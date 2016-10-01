@@ -18,6 +18,8 @@ struct sound_actor : actor {
 	void play();
 	void pause();
 	void rewind();
+	
+	bool is_playing() const;
 
 	std::shared_ptr<sound> m_sound;
 
