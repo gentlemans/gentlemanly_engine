@@ -1,11 +1,13 @@
 #include <ge/input_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
+#include <ge/actor_ticker_subsystem.hpp>
 
 int main()
 {
 	ge::runtime r;
 
+	r.add_subsystem<ge::actor_ticker_subsystem>({});
 	r.add_subsystem<ge::input_subsystem>({});
 
 	r.add_subsystem<ge::sdl_subsystem>({

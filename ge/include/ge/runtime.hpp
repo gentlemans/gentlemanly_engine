@@ -17,6 +17,7 @@
 
 namespace ge
 {
+class actor;
 /// The subsystem manager for the engine. This is the highest up primative the engine defines
 struct runtime {
 	/// Defualt constructor
@@ -112,7 +113,17 @@ struct runtime {
 
 		return keep_running;
 	}
-
+	/// Set the root actor that is to be used by subsystems
+	/// \param new_root The new root actor
+	inline void set_root_actor(actor* new_root);
+	
+	/// Gets the root actor, can be nullptr
+	/// \return The root actor
+	actor* get_root_actor() const {
+		return m_root_actor.get();
+	}
+	
+	
 	/// Get the total elased time of the runtiime since the first tick
 	std::chrono::duration<float> get_elapsed_time() const { return first_tick - last_tick; }
 	/// The asset manager
@@ -121,11 +132,18 @@ struct runtime {
 	std::shared_ptr<spdlog::logger> m_log;
 
 private:
+	std::shared_ptr<actor> m_root_actor;
+	
 	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
 	std::vector<subsystem*> m_add_order;
 
 	std::chrono::system_clock::time_point first_tick, last_tick;
 };
+}
+#include "ge/actor.hpp"
+
+void ge::runtime::set_root_actor(actor* new_root) {
+	m_root_actor = ge::actor::shared(new_root);
 }
 
 #endif  // GE_RUNTIME_HPP

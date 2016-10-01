@@ -77,16 +77,11 @@ struct sdl_subsystem : subsystem {
 	void set_camera(camera_actor* cam) noexcept { m_camera = actor::shared(cam); }
 	/// Gets the root actor to draw all subactors from
 	/// \return The root actor
-	actor* get_root_actor() const noexcept { return m_root_actor.get(); }
-	/// Set the root actor
-	/// \param new_root The new root actor
-	void set_root_actor(actor* new_root) noexcept { m_root_actor = actor::shared(new_root); }
 private:
 	void* m_context = nullptr;  // turns out SDL_GLContext is literally just void*
 	SDL_Window* m_window = nullptr;
 	glm::vec3 m_background_color;
 	std::shared_ptr<camera_actor> m_camera;
-	std::shared_ptr<actor> m_root_actor;
 };
 
 }  // namespace ge

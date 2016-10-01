@@ -1,5 +1,6 @@
 #include "ge/sound_actor.hpp"
 #include "ge/sound_asset.hpp"
+#include "ge/runtime.hpp"
 
 #include <AL/al.h>
 

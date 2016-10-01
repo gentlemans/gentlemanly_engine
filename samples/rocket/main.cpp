@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
-	sdl.set_root_actor(root.get());
+	r.set_root_actor(root.get());
 
 	auto document = r.m_asset_manager.get_asset<rocket_document_asset>("rocket/example.rocketdoc");
 	document->Show();

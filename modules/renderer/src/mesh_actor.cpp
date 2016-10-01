@@ -4,6 +4,7 @@
 #include "ge/mesh.hpp"
 #include "ge/mesh_settings_asset.hpp"
 #include "ge/shader.hpp"
+#include "ge/runtime.hpp"
 
 namespace ge
 {

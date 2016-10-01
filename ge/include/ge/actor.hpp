@@ -4,7 +4,6 @@
 #pragma once
 
 #include "ge/hash_typeindex.hpp"
-#include "ge/runtime.hpp"
 #include "ge/transform.hpp"
 
 #include <memory>
@@ -18,6 +17,7 @@
 
 namespace ge
 {
+struct runtime;
 /// The class that represents anything that can be placed in the world.
 class actor : public std::enable_shared_from_this<actor>
 {

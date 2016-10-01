@@ -7,9 +7,11 @@ set(GE_PRIVATE_SOURCES
 
 set(GE_PUBLIC_SOURCES
 	include/ge/actor.hpp
+	include/ge/actor_ticker_subsystem.hpp
 	include/ge/asset_manager.hpp
 	include/ge/camera_actor.hpp
 	include/ge/concept/asset.hpp
+	include/ge/tickable.hpp
 	include/ge/hash_typeindex.hpp
 	include/ge/input_event.hpp
 	include/ge/input_subsystem.hpp

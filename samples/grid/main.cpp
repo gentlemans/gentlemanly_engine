@@ -30,7 +30,7 @@ int main()
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
-	sdl.set_root_actor(root.get());
+	r.set_root_actor(root.get());
 
 	// initialize the grid
 	auto g = actor::factory<grid>(root.get(), glm::uvec3{11, 11, 3});
