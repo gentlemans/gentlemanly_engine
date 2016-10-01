@@ -55,8 +55,6 @@ struct subsystem {
 	/// Virtual destructor
 	virtual ~subsystem(){};
 
-	
-	
 	/// Function to override to get a callback each frame with a delta time
 	virtual bool update(std::chrono::duration<float> delta) { return true; };
 	/// Function to override that is called when the runtime is shut down
