@@ -35,7 +35,9 @@ if(UNIX)
 	find_package(Freetype)
 endif()
 
-find_package(assimp)
+if(UNIX)
+	find_package(assimp)
+endif()
 
 message("DIR: ${ASSIMP_INCLUDE_DIRS}")
 
@@ -69,7 +71,9 @@ endif()
 set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
 
-find_package(OpenAL)
+if(UNIX)
+	find_package(OpenAL)
+endif()
 
 if(NOT OPENAL_FOUND)
 
