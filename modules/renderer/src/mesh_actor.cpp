@@ -3,8 +3,8 @@
 #include "ge/material.hpp"
 #include "ge/mesh.hpp"
 #include "ge/mesh_settings_asset.hpp"
-#include "ge/shader.hpp"
 #include "ge/runtime.hpp"
+#include "ge/shader.hpp"
 
 namespace ge
 {

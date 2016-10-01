@@ -1,7 +1,7 @@
+#include <ge/actor_ticker_subsystem.hpp>
 #include <ge/input_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
-#include <ge/actor_ticker_subsystem.hpp>
 
 int main()
 {
