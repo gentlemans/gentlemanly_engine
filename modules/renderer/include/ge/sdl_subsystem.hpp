@@ -22,6 +22,10 @@ namespace ge
 struct sdl_subsystem : subsystem {
 	/// The subsystem config
 	struct config {
+		/// Constructor
+		config(const std::string& str, boost::optional<glm::uvec2> loc, glm::uvec2 sz, bool fullscr = false, bool decor = true)
+			: title(str), location(loc), size(sz), fullscreen(fullscr), decorated(decor) {}
+
 		/// The title of the window
 		std::string title;
 

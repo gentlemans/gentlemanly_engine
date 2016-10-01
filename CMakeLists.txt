@@ -94,6 +94,10 @@ if(NOT OPENAL_FOUND)
 	
 endif()
 
+add_subdirectory(deps/ogg)
+set(OGG_ROOT CACHE "" PATH ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg)
+set(OGG_LIBRARIES ogg)
+set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include)
 
 add_subdirectory(deps/vorbis)
 

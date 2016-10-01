@@ -115,6 +115,7 @@ int sdl_mods_to_ge(int mod)
 
 bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 {
+
 	SDL_Init(SDL_INIT_VIDEO);
 
 	// create the window
@@ -122,7 +123,7 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 				(config.decorated ? 0 : SDL_WINDOW_BORDERLESS);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	glm::uvec2 loc = config.location ? config.location.get()

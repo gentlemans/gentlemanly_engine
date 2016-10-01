@@ -59,11 +59,11 @@ PUBLIC
 
 if(WIN32)
     target_include_directories(gentlemanly_engine_renderer
-    PRIVATE
+    PUBLIC
         ../../deps/glew_win32/include
     )
 	target_link_libraries(gentlemanly_engine_renderer
-	PRIVATE 
+	PUBLIC 
 		${CMAKE_CURRENT_SOURCE_DIR}/../../deps/glew_win32/lib/Release/x64/glew32.lib
 	)
 endif()

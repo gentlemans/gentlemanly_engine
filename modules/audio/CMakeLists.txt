@@ -18,6 +18,7 @@ target_include_directories(gentlemanly_engine_audio_subsystem
 PRIVATE
 	${OPENAL_INCLUDE_DIR}
 	../../deps/vorbis/include
+	../../deps/ogg/include
 PUBLIC
 	include/
 )

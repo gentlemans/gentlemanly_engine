@@ -143,7 +143,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		auto tex = new std::shared_ptr<texture>{new texture(PNGData.data(), {width, height})};
 
 		texture_handle = reinterpret_cast<uintptr_t>(tex);
-	} catch (const std::exception& e) {
+	} catch (const std::exception&) {
 		return false;
 	}
 

@@ -224,7 +224,7 @@ public:
 	actor* get_parent() const noexcept { return m_parent; }
 	/// Gets if the actor has a parent.
 	/// \return Has a parent?
-	bool has_parent() const noexcept { return m_parent; }
+	bool has_parent() const noexcept { return m_parent != nullptr; }
 	/// Propagates  function to all the children
 	/// \param func The function to propagate
 	template <typename F>

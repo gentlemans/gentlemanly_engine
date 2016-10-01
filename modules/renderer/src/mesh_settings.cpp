@@ -23,7 +23,7 @@ struct parameter_setter_visitor : boost::static_visitor<void> {
 };
 
 struct attr_applying_visitor : boost::static_visitor<void> {
-	unsigned attrib_id;
+	size_t attrib_id;
 	mesh const* m;
 	std::pair<const std::string, shader::attribute>* attr;
 
@@ -84,8 +84,8 @@ void mesh_settings::render(const glm::mat3& mvp) const
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_mesh->element_buffer);
-	glDrawElements(GL_TRIANGLES, m_mesh->num_triangles * 3, GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, GLsizei(m_mesh->num_triangles * 3), GL_UNSIGNED_INT, nullptr);
 
 	glDisableVertexAttribArray(0);
-	while (--next_attribarray) glDisableVertexAttribArray(next_attribarray);
+	while (--next_attribarray) glDisableVertexAttribArray(GLuint(next_attribarray));
 }

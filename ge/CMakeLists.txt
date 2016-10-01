@@ -1,3 +1,6 @@
+if(WIN32)
+	set(Boost_USE_STATIC_LIBS ON)
+endif()
 find_package(Boost COMPONENTS filesystem system)
 find_package(Threads REQUIRED)
 

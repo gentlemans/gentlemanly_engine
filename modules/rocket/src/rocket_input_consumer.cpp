@@ -172,12 +172,12 @@ struct input_passer_visitor : boost::static_visitor<void> {
 	void operator()(input_mouse_move mm)
 	{
 		context->ProcessMouseMove(
-			mm.m_new_location.x, mm.m_new_location.y, ge_mods_to_rocket(mm.m_modifier_state));
+			int(mm.m_new_location.x), int(mm.m_new_location.y), ge_mods_to_rocket(mm.m_modifier_state));
 	}
 
 	void operator()(input_scroll_wheel sw)
 	{
-		context->ProcessMouseWheel(sw.amount.y, ge_mods_to_rocket(sw.m_modifier_state));
+		context->ProcessMouseWheel(int(sw.amount.y), ge_mods_to_rocket(sw.m_modifier_state));
 	}
 
 	Rocket::Core::Context* context;
