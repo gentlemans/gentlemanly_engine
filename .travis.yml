@@ -9,6 +9,9 @@ arch:
         - glm
         - boost
         - glu
+        - libvorbis
+        - openal
+        - libogg
     script:
         - cmake -DENTITYX_BUILD_TESTING=OFF -DCMAKE_CXX_FLAGS="-Wall" .
         - make
