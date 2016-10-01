@@ -5,6 +5,8 @@
 
 #include <boost/concept_check.hpp>
 
+#include "ge/json.hpp"
+
 #include <type_traits>
 
 namespace ge
@@ -31,6 +33,11 @@ struct Asset {
 	{
 		static_assert(std::is_convertible<decltype(X::asset_type()), const char*>::value,
 			"Must have a asset_type function");
+		
+		static_assert(std::is_same<
+			decltype(X::load_asset(*static_cast<asset_manager*>(0), "", "", nlohmann::json{})),
+			typename boost::mpl::if_<cached, std::shared_ptr<loaded_type>, loaded_type>::type
+		>::value, "load asset returns the wrong type. see https://github.com/gentlemans/gentlemanly_engine/blob/master/doc/asset.md");
 	}
 };
 }
