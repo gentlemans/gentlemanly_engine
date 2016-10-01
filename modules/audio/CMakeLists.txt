@@ -7,9 +7,9 @@ set(GE_AUDIO_PRIVATE_FILES
 
 set(GE_AUDIO_PUBLIC_FILES
 	include/ge/audio_subsystem.hpp
-	include/ge/sound.hpp
-	include/ge/sound_asset.hpp
 	include/ge/sound_actor.hpp
+	include/ge/sound_asset.hpp
+	include/ge/sound.hpp
 )
 
 add_library(gentlemanly_engine_audio_subsystem ${GE_AUDIO_PUBLIC_FILES} ${GE_AUDIO_PRIVATE_FILES})

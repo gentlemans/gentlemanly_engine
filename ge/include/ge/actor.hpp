@@ -3,9 +3,9 @@
 
 #pragma once
 
+#include "ge/hash_typeindex.hpp"
 #include "ge/runtime.hpp"
 #include "ge/transform.hpp"
-#include "ge/hash_typeindex.hpp"
 
 #include <memory>
 
@@ -13,12 +13,11 @@
 #include <glm/gtx/matrix_transform_2d.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
-#include <boost/container/flat_set.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/container/flat_set.hpp>
 
 namespace ge
 {
-
 /// The class that represents anything that can be placed in the world.
 class actor : public std::enable_shared_from_this<actor>
 {
@@ -29,7 +28,7 @@ class actor : public std::enable_shared_from_this<actor>
 	boost::container::flat_set<std::shared_ptr<actor>> m_children;
 
 	transform m_transform;
-	
+
 	boost::container::flat_map<boost::typeindex::type_index, std::shared_ptr<void>> m_interfaces;
 
 protected:
@@ -102,31 +101,35 @@ public:
 
 		return std::static_pointer_cast<ActorType>(to_share->shared_from_this());
 	}
-	
-	
+
 	// Interface Interface
 	//////////////////////
-	template<typename ActorType, typename Interface>
-	void add_interface() {
-		static_assert(std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
-		
-		m_interfaces.emplace(boost::typeindex::type_id<Interface>(), Interface::template gen_interface<ActorType>(static_cast<ActorType*>(this)));
+	template <typename ActorType, typename Interface>
+	void add_interface()
+	{
+		static_assert(
+			std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
+
+		m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
+			Interface::template gen_interface<ActorType>(static_cast<ActorType*>(this)));
 	}
-	template<typename Interface>
-	bool implements_interface() const {
+	template <typename Interface>
+	bool implements_interface() const
+	{
 		auto iter = m_interfaces.find(boost::typeindex::type_id<Interface>());
-		
+
 		return iter != m_interfaces.end();
 	}
-	template<typename Interface>
-	auto get_interface_storage() -> typename Interface::interface_storage* {
+	template <typename Interface>
+	auto get_interface_storage() -> typename Interface::interface_storage*
+	{
 		auto iter = m_interfaces.find(boost::typeindex::type_id<Interface>());
-		
-		if(iter == m_interfaces.end()) return nullptr;
-		
+
+		if (iter == m_interfaces.end()) return nullptr;
+
 		return static_cast<typename Interface::interface_storage*>(iter->second.get());
 	}
-	
+
 	// transform transformation functions
 	/////////////////////////////////////
 
@@ -222,7 +225,6 @@ public:
 	/// Gets if the actor has a parent.
 	/// \return Has a parent?
 	bool has_parent() const noexcept { return m_parent; }
-
 	/// Propagates  function to all the children
 	/// \param func The function to propagate
 	template <typename F>

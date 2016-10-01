@@ -14,11 +14,11 @@ struct sound_actor : actor {
 	void initialize(std::shared_ptr<sound> sound);
 	void initialize(const char* assetname);
 	~sound_actor();
-	
+
 	void play();
 	void pause();
 	void rewind();
-	
+
 	bool is_playing() const;
 
 	std::shared_ptr<sound> m_sound;

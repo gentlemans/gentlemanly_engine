@@ -43,7 +43,8 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 	// load parameters
 	auto parameter_iter = json_data.find("parameters");
 	if (parameter_iter != json_data.end() && parameter_iter->is_object()) {
-		for (auto pair_iter = parameter_iter->begin(); pair_iter != parameter_iter->end(); ++pair_iter) {
+		for (auto pair_iter = parameter_iter->begin(); pair_iter != parameter_iter->end();
+			 ++pair_iter) {
 			std::string parameter_name = pair_iter.key();
 			// get the type from the shader
 			auto default_paramater_iter = ret.m_shader->parameters.find(parameter_name);

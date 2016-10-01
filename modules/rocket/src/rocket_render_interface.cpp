@@ -1,4 +1,4 @@
-#include "ge/render_interface.hpp"
+#include "ge/rocket_render_interface.hpp"
 #include "ge/gl.hpp"
 #include "ge/material.hpp"
 #include "ge/mesh.hpp"
@@ -19,7 +19,7 @@
 using namespace ge;
 
 // Called by Rocket when it wants to render geometry that it does not wish to optimise.
-void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_vertices,
+void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_vertices,
 	int* indices, int num_indices, const Rocket::Core::TextureHandle texture,
 	const Rocket::Core::Vector2f& translation)
 {
@@ -28,7 +28,7 @@ void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_ve
 	std::vector<glm::vec2> uv;
 	std::vector<glm::uvec3> indicies_vec;
 
-	for (auto idx = 0ull; idx < num_vertices; ++idx) {
+	for (auto idx = 0ull; idx < (unsigned int)num_vertices; ++idx) {
 		pos.emplace_back(vertices[idx].position.x, vertices[idx].position.y);
 		uv.emplace_back(vertices[idx].tex_coord.x, vertices[idx].tex_coord.y);
 	}
@@ -52,7 +52,7 @@ void render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_ve
 	set.render(mvp);
 }
 
-Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
+Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
 	Rocket::Core::Vertex* vertices, int num_vertices, int* indices, int num_indices,
 	const Rocket::Core::TextureHandle texturehandle)
 {
@@ -91,7 +91,7 @@ Rocket::Core::CompiledGeometryHandle render_interface::CompileGeometry(
 }
 
 // Called by Rocket when it wants to render application-compiled geometry.
-void render_interface::RenderCompiledGeometry(
+void rocket_render_interface::RenderCompiledGeometry(
 	Rocket::Core::CompiledGeometryHandle geometry, const Rocket::Core::Vector2f& translation)
 {
 	glm::mat3 mvp = glm::ortho2d(0.f, (float)viewport_size.x, (float)viewport_size.y, 0.f);
@@ -103,7 +103,7 @@ void render_interface::RenderCompiledGeometry(
 }
 
 // Called by Rocket when it wants to release application-compiled geometry.
-void render_interface::ReleaseCompiledGeometry(Rocket::Core::CompiledGeometryHandle geometry)
+void rocket_render_interface::ReleaseCompiledGeometry(Rocket::Core::CompiledGeometryHandle geometry)
 {
 	auto m = reinterpret_cast<mesh_settings*>(geometry);
 
@@ -111,7 +111,7 @@ void render_interface::ReleaseCompiledGeometry(Rocket::Core::CompiledGeometryHan
 }
 
 // Called by Rocket when it wants to enable or disable scissoring to clip content.
-void render_interface::EnableScissorRegion(bool enable)
+void rocket_render_interface::EnableScissorRegion(bool enable)
 {
 	if (enable)
 		glEnable(GL_SCISSOR_TEST);
@@ -120,13 +120,13 @@ void render_interface::EnableScissorRegion(bool enable)
 }
 
 // Called by Rocket when it wants to change the scissor region.
-void render_interface::SetScissorRegion(int x, int y, int width, int height)
+void rocket_render_interface::SetScissorRegion(int x, int y, int width, int height)
 {
 	glScissor(x, viewport_size.y - (y + height), width, height);
 }
 
 // Called by Rocket when a texture is required by the library.
-bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
+bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 	Rocket::Core::Vector2i& texture_dimensions, const Rocket::Core::String& source)
 {
 	assert(boost::filesystem::path(source.CString()).extension() == ".png");
@@ -152,7 +152,7 @@ bool render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 
 // Called by Rocket when a texture is required to be built from an internally-generated sequence of
 // pixels.
-bool render_interface::GenerateTexture(Rocket::Core::TextureHandle& texture_handle,
+bool rocket_render_interface::GenerateTexture(Rocket::Core::TextureHandle& texture_handle,
 	const Rocket::Core::byte* source, const Rocket::Core::Vector2i& source_dimensions)
 {
 	try {
@@ -168,7 +168,7 @@ bool render_interface::GenerateTexture(Rocket::Core::TextureHandle& texture_hand
 }
 
 // Called by Rocket when a loaded texture is no longer required.
-void render_interface::ReleaseTexture(Rocket::Core::TextureHandle texture_handle)
+void rocket_render_interface::ReleaseTexture(Rocket::Core::TextureHandle texture_handle)
 {
 	delete reinterpret_cast<texture*>(texture_handle);
 }

@@ -1,5 +1,5 @@
-#ifndef GE_RENDER_INTERFACE_HPP
-#define GE_RENDER_INTERFACE_HPP
+#ifndef GE_ROCKET_RENDER_INTERFACE_HPP
+#define GE_ROCKET_RENDER_INTERFACE_HPP
 
 #pragma once
 
@@ -17,7 +17,7 @@
 namespace ge
 {
 /// The Rocket `RenderInterface` that allows rocket to render it's primatives
-class render_interface : public Rocket::Core::RenderInterface
+class rocket_render_interface : public Rocket::Core::RenderInterface
 {
 	std::shared_ptr<shader> m_shader;
 
@@ -25,7 +25,7 @@ public:
 	/// Constructor to make it work
 	/// \param asset_man The asset manager to load the shader with
 	/// \param size The size of the viewport
-	render_interface(asset_manager& asset_man, glm::uvec2 size)
+	rocket_render_interface(asset_manager& asset_man, glm::uvec2 size)
 		: viewport_size{size}, m_asset_manager{&asset_man}
 	{
 		m_shader = asset_man.get_asset<shader_asset>("texturedmodel/textured.shader");
@@ -70,4 +70,4 @@ private:
 };
 }
 
-#endif  // GE_RENDER_INTERFACE_HPP
+#endif  // GE_ROCKET_RENDER_INTERFACE_HPP

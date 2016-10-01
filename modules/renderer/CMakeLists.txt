@@ -5,35 +5,36 @@ find_package(SDL2 REQUIRED)
 set(RENDERER_PUBLIC_FILES
 	include/ge/gl.hpp
 	include/ge/lodepng.h
-	include/ge/material.hpp
 	include/ge/material_asset.hpp
-	include/ge/mesh.hpp
+	include/ge/material.hpp
 	include/ge/mesh_actor.hpp
 	include/ge/mesh_asset.hpp
-	include/ge/mesh_settings.hpp
+	include/ge/mesh.hpp
 	include/ge/mesh_settings_asset.hpp
+	include/ge/mesh_settings.hpp
 	include/ge/ortho2d.hpp
+	include/ge/renderable.hpp
 	include/ge/sdl_subsystem.hpp
-	include/ge/shader.hpp
 	include/ge/shader_asset.hpp
+	include/ge/shader.hpp
 	include/ge/sound_cue.hpp
-	include/ge/texture.hpp
 	include/ge/texture_asset.hpp
+	include/ge/texture.hpp
 )
 
 set(RENDERER_PRIVATE_FILES
 	src/lodepng.cpp
-	src/material.cpp
 	src/material_asset.cpp
-	src/mesh.cpp
+	src/material.cpp
 	src/mesh_actor.cpp
 	src/mesh_asset.cpp
+	src/mesh.cpp
 	src/mesh_settings.cpp
 	src/sdl_subsystem.cpp
-	src/shader.cpp
 	src/shader_asset.cpp
-	src/texture.cpp
+	src/shader.cpp
 	src/texture_asset.cpp
+	src/texture.cpp
 )
 
 add_library(gentlemanly_engine_renderer ${RENDERER_PUBLIC_FILES} ${RENDERER_PRIVATE_FILES})

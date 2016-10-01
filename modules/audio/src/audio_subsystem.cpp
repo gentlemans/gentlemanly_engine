@@ -21,8 +21,8 @@ audio_subsystem::~audio_subsystem() = default;
 bool audio_subsystem::initialize(audio_subsystem::config)
 {
 	m_pimpl = std::make_unique<pimpl>();
-	
-	const char * devicename = alcGetString(NULL, ALC_ALL_DEVICES_SPECIFIER);
+
+	const char* devicename = alcGetString(NULL, ALC_ALL_DEVICES_SPECIFIER);
 	std::cout << devicename;
 	m_pimpl->device = alcOpenDevice(devicename);
 	if (!m_pimpl->device) {
@@ -40,4 +40,9 @@ bool audio_subsystem::initialize(audio_subsystem::config)
 }
 
 bool audio_subsystem::update(std::chrono::duration<float> tick) { return true; }
-bool audio_subsystem::shutdown() { alcCloseDevice(m_pimpl->device); alcDestroyContext(m_pimpl->context);  }
+bool audio_subsystem::shutdown()
+{
+	alcCloseDevice(m_pimpl->device);
+	alcDestroyContext(m_pimpl->context);
+	return true;
+}

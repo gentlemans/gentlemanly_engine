@@ -17,8 +17,9 @@ namespace ge
 struct mesh_actor : actor {
 	/// Initialize the mesh_actor
 	/// \param settings The `mesh_settings` object to copy from
-	void initialize(mesh_settings settings) {
-		m_mesh_settings = std::move(settings); 
+	void initialize(mesh_settings settings)
+	{
+		m_mesh_settings = std::move(settings);
 		add_interface<mesh_actor, renderable>();
 	}
 	/// Load from a mesh_asset path

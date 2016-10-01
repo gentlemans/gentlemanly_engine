@@ -15,6 +15,7 @@
 namespace ge
 {
 /// A material asset loader
+/// [Asset Spec]()
 ///
 /// ```
 /// {

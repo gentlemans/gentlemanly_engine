@@ -8,11 +8,9 @@
 #include <string>
 #include <vector>
 
-
-
 using namespace ge;
 
-constexpr static size_t buffer_size = 32768; 
+constexpr static size_t buffer_size = 32768;
 
 sound::sound(const char* filename)
 {
@@ -29,7 +27,7 @@ sound::sound(const char* filename)
 	OggVorbis_File oggfile;
 
 	// the SDK now owns the FILE* object
-	if(ov_open(file, &oggfile, NULL, 0)) {
+	if (ov_open(file, &oggfile, NULL, 0)) {
 		throw std::runtime_error("Error opening OGG file: "s + filename + " for decoding");
 	}
 
@@ -57,11 +55,11 @@ sound::sound(const char* filename)
 	do {
 		bytes = ov_read(&oggfile, tmpbuffer.data(), buffer_size, endianness, 2, 1, &bitstream);
 
-		if(bytes < 0) {
+		if (bytes < 0) {
 			ov_clear(&oggfile);
 			throw std::runtime_error("Error decoding "s + filename);
 		}
-		
+
 		fulldata.insert(fulldata.end(), tmpbuffer.begin(), tmpbuffer.begin() + bytes);
 	} while (bytes > 0);
 

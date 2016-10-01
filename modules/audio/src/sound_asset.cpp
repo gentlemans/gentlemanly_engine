@@ -16,5 +16,3 @@ std::shared_ptr<sound> sound_asset::load_asset(
 
 	return std::make_shared<sound>(abs_path.c_str());
 }
-
-

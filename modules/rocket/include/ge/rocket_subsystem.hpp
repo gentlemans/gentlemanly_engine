@@ -3,9 +3,10 @@
 
 #pragma once
 
-#include "ge/render_interface.hpp"
 #include "ge/subsystem.hpp"
-#include "ge/system_interface.hpp"
+
+#include "ge/rocket_render_interface.hpp"
+#include "ge/rocket_system_interface.hpp"
 
 #include "Rocket/Core.h"
 
