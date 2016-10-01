@@ -16,3 +16,6 @@
 [submodule "deps/vorbis"]
 	path = deps/vorbis
 	url = https://github.com/xiph/vorbis
+[submodule "deps/ogg"]
+	path = deps/ogg
+	url = https://github.com/xiph/ogg
