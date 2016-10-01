@@ -67,7 +67,7 @@
 					},
 					"default": {
 						"desciption": "The default value for the parameter",
-						"$ref": "shader_parameter.json"
+						"$ref": "https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/shader_parameter.json"
 					},
 					"description": {
 						"description": "A description of the parameter",

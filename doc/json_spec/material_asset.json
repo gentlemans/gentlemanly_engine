@@ -17,8 +17,8 @@
 			"type": "object",
 			"patternProperties": {
 				".*": {
-					"type": "string",
-					
+					"description": "The overrided value",
+					"$ref": "https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/shader_parameter.json"
 				}
 			}
 		}
