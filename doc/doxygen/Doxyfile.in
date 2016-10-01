@@ -1,12 +1,13 @@
 PROJECT_NAME           = "gentlemanly_engine"
 PROJECT_NUMBER         = @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@
 STRIP_FROM_PATH        = @PROJECT_SOURCE_DIR@
-INPUT                  = @PROJECT_SOURCE_DIR@/include \
-                         @PROJECT_SOURCE_DIR@/src
+INPUT                  = @PROJECT_SOURCE_DIR@/modules \
+                         @PROJECT_SOURCE_DIR@/ge
 FILE_PATTERNS          = *.hpp 
 EXCLUDE_PATTERNS       = */json.hpp \
 					     */lodepng.cpp \
-					     */lodepng.h
+					     */lodepng.h \
+					     */spdlog/
 RECURSIVE              = YES
 OUTPUT_DIRECTORY       = doc
 JAVADOC_AUTOBRIEF      = YES
