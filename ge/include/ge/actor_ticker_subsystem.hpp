@@ -5,6 +5,7 @@
 
 #include "ge/subsystem.hpp"
 #include "ge/tickable.hpp"
+#include "ge/runtime.hpp"
 
 namespace ge
 {
