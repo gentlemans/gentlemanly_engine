@@ -163,44 +163,48 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 
 	SDL_Event event;
 
-	auto& input_sub = *m_runtime->get_subsystem<input_subsystem>();
+	auto input_sub = m_runtime->get_subsystem<input_subsystem>();
 
-	// run until there is an event that we recognize
-	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-		case SDL_QUIT: return false;
-		case SDL_KEYDOWN:
-			if (!event.key.repeat)
-				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true,
-					sdl_mods_to_ge(event.key.keysym.mod)});
-			break;
-		case SDL_KEYUP:
-			if (!event.key.repeat)
-				input_sub.add_event(input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false,
-					sdl_mods_to_ge(event.key.keysym.mod)});
-			break;
-		case SDL_MOUSEMOTION:
-			input_sub.add_event(input_mouse_move{
-				{event.motion.x, event.motion.y}, sdl_mods_to_ge(SDL_GetModState())});
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-			input_sub.add_event(input_mouse_button{sdl_mb_to_ge(event.button.button), true,
-				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}});
-			break;
-		case SDL_MOUSEBUTTONUP:
-			input_sub.add_event(input_mouse_button{sdl_mb_to_ge(event.button.button), false,
-				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}});
-			break;
-		case SDL_MOUSEWHEEL:
-			if (event.wheel.direction == SDL_MOUSEWHEEL_NORMAL) {
-				input_sub.add_event(input_scroll_wheel{
-					{event.wheel.x, event.wheel.y}, sdl_mods_to_ge(SDL_GetModState())});
-			} else {
-				input_sub.add_event(input_scroll_wheel{
-					{-event.wheel.x, -event.wheel.y}, sdl_mods_to_ge(SDL_GetModState())});
+		// run until there is an event that we recognize
+		while (SDL_PollEvent(&event)) {
+			input_event ev;
+			switch (event.type) {
+			case SDL_QUIT: return false;
+			case SDL_KEYDOWN:
+				if (!event.key.repeat)
+					ev = input_keyboard{sdl_to_ge_key(event.key.keysym.sym), true,
+						sdl_mods_to_ge(event.key.keysym.mod)};
+				break;
+			case SDL_KEYUP:
+				if (!event.key.repeat)
+					 ev = input_keyboard{sdl_to_ge_key(event.key.keysym.sym), false,
+						sdl_mods_to_ge(event.key.keysym.mod)};
+				break;
+			case SDL_MOUSEMOTION:
+				ev = input_mouse_move{
+					{event.motion.x, event.motion.y}, sdl_mods_to_ge(SDL_GetModState())};
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				ev = input_mouse_button{sdl_mb_to_ge(event.button.button), true,
+					sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}};
+				break;
+			case SDL_MOUSEBUTTONUP:
+				ev = input_mouse_button{sdl_mb_to_ge(event.button.button), false,
+					sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}};
+				break;
+			case SDL_MOUSEWHEEL:
+				if (event.wheel.direction == SDL_MOUSEWHEEL_NORMAL) {
+					ev = input_scroll_wheel{
+						{event.wheel.x, event.wheel.y}, sdl_mods_to_ge(SDL_GetModState())};
+				} else {
+					ev = input_scroll_wheel{
+						{-event.wheel.x, -event.wheel.y}, sdl_mods_to_ge(SDL_GetModState())};
+				}
+				break;
 			}
-			break;
-		}
+			if(input_sub) {
+				input_sub->add_event(ev);
+			}
 	}
 
 	// render!

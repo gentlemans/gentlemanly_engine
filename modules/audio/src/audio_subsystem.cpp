@@ -15,11 +15,16 @@ struct audio_subsystem::pimpl {
 	ALCcontext* context;
 };
 
+audio_subsystem::audio_subsystem() = default;
 audio_subsystem::~audio_subsystem() = default;
 
 bool audio_subsystem::initialize(audio_subsystem::config)
 {
-	m_pimpl->device = alcOpenDevice(nullptr);
+	m_pimpl = std::make_unique<pimpl>();
+	
+	const char * devicename = alcGetString(NULL, ALC_ALL_DEVICES_SPECIFIER);
+	std::cout << devicename;
+	m_pimpl->device = alcOpenDevice(devicename);
 	if (!m_pimpl->device) {
 		m_runtime->m_log->error("Failed to open OpenAL device.");
 	}
@@ -35,4 +40,4 @@ bool audio_subsystem::initialize(audio_subsystem::config)
 }
 
 bool audio_subsystem::update(std::chrono::duration<float> tick) { return true; }
-bool audio_subsystem::shutdown() { return true; }
+bool audio_subsystem::shutdown() { alcCloseDevice(m_pimpl->device); alcDestroyContext(m_pimpl->context);  }

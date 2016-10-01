@@ -32,6 +32,7 @@ PUBLIC
 
 target_link_libraries(gentlemanly_engine
 PUBLIC 
+	Threads::Threads
 	debug ${Boost_FILESYSTEM_LIBRARY_DEBUG}
 	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 	debug ${Boost_SYSTEM_LIBRARY_DEBUG}
@@ -41,11 +42,6 @@ PUBLIC
 target_compile_definitions(gentlemanly_engine
 PUBLIC
 	BOOST_ALL_NO_LIB
-)
-
-target_link_libraries(gentlemanly_engine
-PUBLIC
-	Threads::Threads
 )
 
 target_compile_features(gentlemanly_engine

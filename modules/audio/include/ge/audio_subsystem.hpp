@@ -13,6 +13,7 @@ struct audio_subsystem : subsystem {
 	struct config {
 	};
 
+	audio_subsystem();
 	~audio_subsystem();
 
 	bool initialize(config);

@@ -17,6 +17,8 @@ struct sound_asset {
 
 	static std::shared_ptr<sound> load_asset(asset_manager& manager, const char* name,
 		const char* filepath, const nlohmann::json& json_data);
+	
+	static const char* asset_type() { return "sound"; }
 };
 }
 

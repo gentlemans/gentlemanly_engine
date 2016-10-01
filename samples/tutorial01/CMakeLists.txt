@@ -1,5 +1,5 @@
 
-add_executable(opening_window main.cpp)
+add_executable(tutorial01 main.cpp)
 
-target_link_libraries(opening_window gentlemanly_engine gentlemanly_engine_renderer)
+target_link_libraries(tutorial01 gentlemanly_engine gentlemanly_engine_renderer)
 

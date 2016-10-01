@@ -2,19 +2,21 @@ set(GE_AUDIO_PRIVATE_FILES
 	src/audio_subsystem.cpp
 	src/sound_asset.cpp
 	src/sound.cpp
+	src/sound_actor.cpp
 )
 
 set(GE_AUDIO_PUBLIC_FILES
 	include/ge/audio_subsystem.hpp
 	include/ge/sound.hpp
 	include/ge/sound_asset.hpp
+	include/ge/sound_actor.hpp
 )
 
 add_library(gentlemanly_engine_audio_subsystem ${GE_AUDIO_PUBLIC_FILES} ${GE_AUDIO_PRIVATE_FILES})
 
 target_include_directories(gentlemanly_engine_audio_subsystem
 PRIVATE
-	../../deps/openal-soft/include
+	${OPENAL_INCLUDE_DIR}
 	../../deps/vorbis/include
 PUBLIC
 	include/
@@ -27,17 +29,6 @@ PRIVATE
 	vorbis
 	vorbisenc
 	vorbisfile
+	${OPENAL_LIBRARY}
 )
 
-if(WIN32)
-
-	target_link_libraries(gentlemanly_engine_audio_subsystem
-	PUBLIC
-		OpenAL32
-	)
-else()
-	target_link_libraries(gentlemanly_engine_audio_subsystem
-	PUBLIC
-		openal
-	)
-endif()
