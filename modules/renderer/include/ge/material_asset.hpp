@@ -20,12 +20,9 @@ namespace ge
 /// {
 ///   "asset_type": "material",
 ///   "shader": "/path/to/shader_asset",
-///   "parameters": [
-///     {
-///       "name": "the name of the shader",
-///       "value": "The value, use JSON arrays for vectors and path to a texture for texture"
-///     }
-///   ]
+///   "parameters": {
+///     "name": "value"
+///   }
 ///  }
 /// ```
 class material_asset

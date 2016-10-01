@@ -1,0 +1,27 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"name": "Material Asset",
+	"description": "asset.json specification for materials.",
+	"type": "object",
+	"properties": {
+		"asset_type": {
+			"type": "string",
+			"pattern": "material"
+		},
+		"shader": {
+			"type": "string",
+			"description": "path to a shader asset"
+		},
+		"parameters": {
+			"description": "The parameters to override from the shader",
+			"type": "object",
+			"patternProperties": {
+				".*": {
+					"type": "string",
+					
+				}
+			}
+		}
+	},
+	"required": ["asset_type", "shader", "parameters"]
+}

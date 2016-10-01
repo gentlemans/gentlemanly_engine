@@ -42,9 +42,9 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 
 	// load parameters
 	auto parameter_iter = json_data.find("parameters");
-	if (parameter_iter != json_data.end() && parameter_iter->is_array()) {
-		for (auto& parameter : *parameter_iter) {
-			std::string parameter_name = parameter["name"];
+	if (parameter_iter != json_data.end() && parameter_iter->is_object()) {
+		for (auto pair_iter = parameter_iter->begin(); pair_iter != parameter_iter->end(); ++pair_iter) {
+			std::string parameter_name = pair_iter.key();
 			// get the type from the shader
 			auto default_paramater_iter = ret.m_shader->parameters.find(parameter_name);
 			if (default_paramater_iter == ret.m_shader->parameters.end()) {
@@ -53,7 +53,7 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 			}
 			auto default_value = default_paramater_iter->second.value;
 
-			reassign_from_json_visitor vis{parameter["value"], manager};
+			reassign_from_json_visitor vis{pair_iter.value(), manager};
 
 			try {
 				ret.property_values[parameter_name] = default_value.apply_visitor(vis);

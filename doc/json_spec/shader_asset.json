@@ -66,21 +66,8 @@
 						"type": "string"
 					},
 					"default": {
-						"description": "The default value if it isn't overriden by the material",
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": { "type": "number" },
-								"minItems": "2",
-								"maxItems": "4"
-							},
-							{
-								"type": "number"
-							}
-						]
+						"desciption": "The default value for the parameter",
+						"$ref": "shader_parameter.json"
 					},
 					"description": {
 						"description": "A description of the parameter",
