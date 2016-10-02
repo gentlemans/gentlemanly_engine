@@ -139,6 +139,12 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	// create the context
 	m_context = SDL_GL_CreateContext(m_window);
 
+#ifdef WIN32
+	if (!gladLoadGL()) {
+		throw std::runtime_error("Failed to load OpenGL functions");
+	}
+#endif
+
 	// Enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -37,6 +37,10 @@ set(RENDERER_PRIVATE_FILES
 	src/texture.cpp
 )
 
+if(WIN32)
+	set(RENDERER_PRIVATE_FILES ${RENDERER_PRIVATE_FILES} src/glad.c)
+endif()
+
 add_library(gentlemanly_engine_renderer ${RENDERER_PUBLIC_FILES} ${RENDERER_PRIVATE_FILES})
 
 target_include_directories(gentlemanly_engine_renderer
@@ -51,22 +55,10 @@ PUBLIC
 target_link_libraries(gentlemanly_engine_renderer
 PRIVATE
 	gentlemanly_engine
-        ${SDL2_LIBRARY}
+	${SDL2_LIBRARY}
 	assimp
 PUBLIC
     ${OPENGL_LIBRARIES}
 )
-
-if(WIN32)
-    target_include_directories(gentlemanly_engine_renderer
-    PUBLIC
-        ../../deps/glew_win32/include
-    )
-	target_link_libraries(gentlemanly_engine_renderer
-	PUBLIC 
-		${CMAKE_CURRENT_SOURCE_DIR}/../../deps/glew_win32/lib/Release/x64/glew32.lib
-	)
-endif()
-
 
 

@@ -12,9 +12,7 @@
 #include <GL/glext.h>
 #include <GL/glu.h>
 #elif defined(WIN32) || defined(_WIN32)
-#define GL_GLEXT_PROTOTYPES 1
-#include <SDL_opengl.h>
-#include <SDL_opengl_glext.h>
+#include <glad/glad.h>
 #endif
 
 #endif

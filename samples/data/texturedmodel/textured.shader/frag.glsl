@@ -11,5 +11,5 @@ void main()
 
 	frag_color = texture(tex, tex_coords);
 
-        if(frag_color.a < 0.1) discard;
+	if(frag_color.a < 0.1) discard;
 }
