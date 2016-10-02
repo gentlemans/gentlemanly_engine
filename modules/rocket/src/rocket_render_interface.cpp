@@ -146,7 +146,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
 		if (err != 0) {
 			m_asset_manager->m_runtime->m_log->error("Failed to load PNG: error: "s + lodepng_error_text(err));
-			return nullptr;
+			return false;
 		}
 
 		texture_dimensions = {int(width), int(height)};

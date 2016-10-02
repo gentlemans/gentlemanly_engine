@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="turret">
-	<img src="example.rocketdoc/turret.png" style="width: 100px; height: 100px;"></img>
+	<img src="turret.png" style="width: 100px; height: 100px;"></img>
 </div>
 </body>
 </rml>
