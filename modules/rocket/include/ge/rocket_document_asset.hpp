@@ -15,17 +15,7 @@
 namespace ge
 {
 /// A asset loader for rocket documents
-///
-/// ASSET SPECIFICATION:
-/// ```
-/// {
-///   "asset_type": "rocket_document",
-///   "rml_file": "path/to/rml/file(defaults to doc.rml)",
-///   "required_fonts": [
-///     "font1",
-///   ] (optional)
-/// }
-/// ```
+/// [asset.json specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/rocket_document_asset.json)
 struct rocket_document_asset {
 	/// Load a ElementDocument
 	using loaded_type = Rocket::Core::ElementDocument;

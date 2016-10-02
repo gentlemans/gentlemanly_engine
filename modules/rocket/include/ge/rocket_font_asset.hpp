@@ -10,19 +10,7 @@
 namespace ge
 {
 /// An asset for loading fonts into rocket.
-/// This is a void cached asset meaning that the font is stored internally
-/// Inside rocket and that calling to load the same asset twice will have no affect
-///
-/// SPECIFICATION:
-/// ```json
-/// {
-///   "asset_type": "rocket_font_asset",
-///   "font_file": "/path/to/ttf/or/otf",
-///   "rcss_name": "optional CSS name, it is extracted from the file by default",
-///   "font_style": "either normal or italic; if rcss_name is specified, this is required",
-///   "font_weight": "either notrmal or bold, if rcss_name is specififed, this is required"
-/// }
-/// ```
+/// [asset.json specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/rocket_font_asset.json)
 struct rocket_font_asset {
 	/// No loaded type, it is stored internally in Rocket
 	using loaded_type = void;
