@@ -10,7 +10,8 @@
 namespace ge
 {
 /// An asset for loading fonts into rocket.
-/// [asset.json specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/rocket_font_asset.json)
+/// [asset.json
+/// specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/rocket_font_asset.json)
 struct rocket_font_asset {
 	/// No loaded type, it is stored internally in Rocket
 	using loaded_type = void;

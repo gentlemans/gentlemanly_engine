@@ -15,7 +15,8 @@
 namespace ge
 {
 /// A asset loader for rocket documents
-/// [asset.json specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/rocket_document_asset.json)
+/// [asset.json
+/// specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/rocket_document_asset.json)
 struct rocket_document_asset {
 	/// Load a ElementDocument
 	using loaded_type = Rocket::Core::ElementDocument;

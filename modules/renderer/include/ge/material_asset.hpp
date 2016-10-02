@@ -15,7 +15,8 @@
 namespace ge
 {
 /// A material asset loader
-/// [asset.json specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/material_asset.json)
+/// [asset.json
+/// specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/material_asset.json)
 class material_asset
 {
 public:

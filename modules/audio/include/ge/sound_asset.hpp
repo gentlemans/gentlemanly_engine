@@ -11,7 +11,8 @@
 namespace ge
 {
 /// Loader for sound files
-/// [asset.json specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/sound_asset.json)
+/// [asset.json
+/// specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/sound_asset.json)
 struct sound_asset {
 	/// It loads sounds
 	using loaded_type = sound;

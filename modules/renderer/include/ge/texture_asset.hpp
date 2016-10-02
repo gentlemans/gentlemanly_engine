@@ -17,7 +17,8 @@
 namespace ge
 {
 /// A asset loader for textures
-/// [asset.json specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/texture_asset.json)
+/// [asset.json
+/// specification](https://lbovet.github.io/docson/index.html#https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/texture_asset.json)
 struct texture_asset {
 private:
 	enum class type { DDS, PNG };
