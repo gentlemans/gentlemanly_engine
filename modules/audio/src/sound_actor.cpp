@@ -19,7 +19,8 @@ void sound_actor::initialize(const char* assetname)
 	initialize(m_runtime->m_asset_manager.get_asset<sound_asset>(assetname));
 }
 
-void sound_actor::set_sound(std::shared_ptr<sound> new_sound) {
+void sound_actor::set_sound(std::shared_ptr<sound> new_sound)
+{
 	m_sound = std::move(new_sound);
 
 	alSourcei(m_source_name, AL_BUFFER, m_sound->m_buffer_name);

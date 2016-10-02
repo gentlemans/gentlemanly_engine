@@ -105,7 +105,8 @@ public:
 	// Interface Interface
 	//////////////////////
 
-	/// Adds an iterface to the actor. First template parameter is the actor type, second is the interface.
+	/// Adds an iterface to the actor. First template parameter is the actor type, second is the
+	/// interface.
 	template <typename ActorType, typename Interface>
 	void add_interface()
 	{

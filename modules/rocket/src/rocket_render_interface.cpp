@@ -1,13 +1,13 @@
 #include "ge/rocket_render_interface.hpp"
+#include "ge/asset_manager.hpp"
 #include "ge/gl.hpp"
 #include "ge/material.hpp"
 #include "ge/mesh.hpp"
 #include "ge/mesh_settings.hpp"
 #include "ge/ortho2d.hpp"
-#include "ge/texture.hpp"
-#include "ge/asset_manager.hpp"
-#include "ge/texture_asset.hpp"
 #include "ge/runtime.hpp"
+#include "ge/texture.hpp"
+#include "ge/texture_asset.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -145,7 +145,8 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		// load PNG data
 		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
 		if (err != 0) {
-			m_asset_manager->m_runtime->m_log->error("Failed to load PNG: error: "s + lodepng_error_text(err));
+			m_asset_manager->m_runtime->m_log->error(
+				"Failed to load PNG: error: "s + lodepng_error_text(err));
 			return false;
 		}
 

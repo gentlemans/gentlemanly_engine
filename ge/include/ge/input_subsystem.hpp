@@ -60,7 +60,6 @@ private:
 /// The CRTP class to build an input consumer.
 template <typename Derived>
 struct input_consumer : input_consumer_base {
-	
 	/// Constuctor
 	/// \param run The runtime to add it to
 	input_consumer(runtime* run)

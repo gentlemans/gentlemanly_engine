@@ -10,10 +10,8 @@
 
 namespace ge
 {
-
-/// Actor that plays a sound at it's location. 
+/// Actor that plays a sound at it's location.
 struct sound_actor : actor {
-
 	/// Init function from a sound
 	/// \param sound The sound object to play
 	void initialize(std::shared_ptr<sound> sound);
@@ -28,7 +26,6 @@ struct sound_actor : actor {
 	/// Get the current sound object
 	/// \return The sound object
 	const std::shared_ptr<sound>& get_sound() const { return m_sound; }
-
 	/// Set the sound object to use
 	/// \param new_sound The new sound
 	void set_sound(std::shared_ptr<sound> new_sound);
@@ -50,7 +47,6 @@ struct sound_actor : actor {
 	unsigned int m_source_name;
 
 private:
-
 	/// The sound object to play
 	std::shared_ptr<sound> m_sound;
 };

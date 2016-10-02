@@ -12,7 +12,6 @@ namespace ge
 {
 /// Loader for sound files
 struct sound_asset {
-
 	/// It loads sounds
 	using loaded_type = sound;
 

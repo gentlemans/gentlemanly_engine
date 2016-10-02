@@ -10,9 +10,8 @@
 namespace ge
 {
 /// Actor interface to get a tick callback
-/// Requires a `tick` function in the actor that takes in a std::chrono::duration<float>. 
+/// Requires a `tick` function in the actor that takes in a std::chrono::duration<float>.
 struct tickable {
-	
 	/// The interface storage for tickables, this is handled by tickable, don't worry about it
 	struct interface_storage {
 		/// Constructor so it can be used with std::make_shared

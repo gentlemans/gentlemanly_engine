@@ -115,7 +115,6 @@ int sdl_mods_to_ge(int mod)
 
 bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 {
-
 	SDL_Init(SDL_INIT_VIDEO);
 
 	// create the window

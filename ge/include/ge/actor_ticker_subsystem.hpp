@@ -3,23 +3,20 @@
 
 #pragma once
 
+#include "ge/runtime.hpp"
 #include "ge/subsystem.hpp"
 #include "ge/tickable.hpp"
-#include "ge/runtime.hpp"
 
 namespace ge
 {
-
 /// Subsystem to allow for actors that implement the tickable interface to get a callback each frame
 struct actor_ticker_subsystem : subsystem {
-
 	/// No config required
 	struct config {
 	};
 
 	/// No init requried
-	bool initialize(config){ return true; };
-
+	bool initialize(config) { return true; };
 	/// Tick function--this calls each actor's tick function
 	virtual bool update(std::chrono::duration<float> delta) override
 	{

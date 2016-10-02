@@ -7,7 +7,6 @@ namespace ge
 {
 /// Represents a sound buffer in OpenAL`
 struct sound {
-
 	/// Constructor
 	/// \param file The OGG file to read from
 	sound(const char* file);

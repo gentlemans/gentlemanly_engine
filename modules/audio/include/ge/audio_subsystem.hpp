@@ -11,7 +11,6 @@ namespace ge
 {
 /// The subsystem for OpenAL. Use this to use sound_actor objects etc.
 struct audio_subsystem : subsystem {
-
 	/// No required config
 	struct config {
 	};

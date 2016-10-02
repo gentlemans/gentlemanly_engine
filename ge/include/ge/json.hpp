@@ -1173,8 +1173,7 @@ public:
 				std::numeric_limits<CompatibleNumberIntegerType>::is_integer,
 			CompatibleNumberIntegerType>::type = 0>
 	basic_json(const CompatibleNumberIntegerType val) noexcept
-		: m_type(value_t::number_integer),
-		  m_value(static_cast<number_integer_t>(val))
+		: m_type(value_t::number_integer), m_value(static_cast<number_integer_t>(val))
 	{
 	}
 
@@ -1661,8 +1660,8 @@ public:
 
 	@since version 1.0.0
 	*/
-	basic_json(basic_json&& other) noexcept : m_type(std::move(other.m_type)),
-											  m_value(std::move(other.m_value))
+	basic_json(basic_json&& other) noexcept
+		: m_type(std::move(other.m_type)), m_value(std::move(other.m_value))
 	{
 		// invalidate payload
 		other.m_type = value_t::null;
@@ -5347,8 +5346,8 @@ public:
 		}
 
 		/// copy constructor
-		const_iterator(const const_iterator& other) noexcept : m_object(other.m_object),
-															   m_it(other.m_it)
+		const_iterator(const const_iterator& other) noexcept
+			: m_object(other.m_object), m_it(other.m_it)
 		{
 		}
 

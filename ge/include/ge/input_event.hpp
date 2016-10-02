@@ -151,7 +151,6 @@ enum {
 
 /// A input event from the keyboard
 struct input_keyboard {
-
 	/// Default constructor
 	input_keyboard() = default;
 
@@ -164,7 +163,7 @@ struct input_keyboard {
 	input_keyboard(input_keyboard&& event) = default;
 
 	/// Copy assignment
-	/// \param event The event to copy from 
+	/// \param event The event to copy from
 	/// \return *this after the copy
 	input_keyboard& operator=(const input_keyboard& event) = default;
 
@@ -206,7 +205,6 @@ enum class mouse_button {
 
 /// A input event from moving the mouse
 struct input_mouse_move {
-
 	/// Default constructor
 	input_mouse_move() = default;
 
@@ -249,7 +247,6 @@ struct input_mouse_move {
 
 /// An input event from pressing a mouse button
 struct input_mouse_button {
-
 	/// Default constructor
 	input_mouse_button() = default;
 
@@ -298,12 +295,11 @@ struct input_mouse_button {
 
 /// An input event from scrolling the scroll wheel
 struct input_scroll_wheel {
-	
 	/// Default constructor
 	input_scroll_wheel() = default;
 
 	/// Copy consructor
-	/// \param event Event to copy from 
+	/// \param event Event to copy from
 	input_scroll_wheel(const input_scroll_wheel& event) = default;
 
 	/// Move consturctor
