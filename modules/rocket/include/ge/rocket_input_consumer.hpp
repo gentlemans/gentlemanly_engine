@@ -20,6 +20,7 @@ struct rocket_input_consumer : input_consumer<rocket_input_consumer> {
 	/// The handle that gets called from `input_consumer`
 	void handle_input(const input_event& event);
 
+	/// Give rocket input focus
 	void steal_input() { input_consumer::steal_input(); }
 	/// The Rocket context
 	Rocket::Core::Context* m_context;

@@ -62,7 +62,7 @@ template <typename Derived>
 struct input_consumer : input_consumer_base {
 	
 	/// Constuctor
-	/// \param The runtime to add it to
+	/// \param run The runtime to add it to
 	input_consumer(runtime* run)
 	{
 		input_sub = run->get_subsystem<input_subsystem>();

@@ -125,6 +125,7 @@ struct runtime {
 	/// The asset manager
 	asset_manager m_asset_manager;
 
+	/// Logger object. 
 	std::shared_ptr<spdlog::logger> m_log;
 
 private:

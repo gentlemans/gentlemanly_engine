@@ -151,13 +151,29 @@ enum {
 
 /// A input event from the keyboard
 struct input_keyboard {
+
+	/// Default constructor
 	input_keyboard() = default;
-	input_keyboard(const input_keyboard&) = default;
-	input_keyboard(input_keyboard&&) = default;
 
-	input_keyboard& operator=(const input_keyboard&) = default;
-	input_keyboard& operator=(input_keyboard&&) = default;
+	/// Copy constructor
+	/// \param event Event to copy from
+	input_keyboard(const input_keyboard& event) = default;
 
+	/// Move constructor
+	/// \param event Event to copy from
+	input_keyboard(input_keyboard&& event) = default;
+
+	/// Copy assignment
+	/// \param event The event to copy from 
+	/// \return *this after the copy
+	input_keyboard& operator=(const input_keyboard& event) = default;
+
+	/// Move assignment
+	/// \param event Event to move from
+	/// \return *this after the move
+	input_keyboard& operator=(input_keyboard&& event) = default;
+
+	/// Destructor
 	~input_keyboard() = default;
 
 	/// The key that was pressed
@@ -190,13 +206,29 @@ enum class mouse_button {
 
 /// A input event from moving the mouse
 struct input_mouse_move {
+
+	/// Default constructor
 	input_mouse_move() = default;
-	input_mouse_move(const input_mouse_move&) = default;
-	input_mouse_move(input_mouse_move&&) = default;
 
-	input_mouse_move& operator=(const input_mouse_move&) = default;
-	input_mouse_move& operator=(input_mouse_move&&) = default;
+	/// Copy constructor
+	/// \param event Event to copy from
+	input_mouse_move(const input_mouse_move& event) = default;
 
+	/// Move constructor
+	/// \param event Event to move from
+	input_mouse_move(input_mouse_move&& event) = default;
+
+	/// Copy assignment
+	/// \param event Event to copy from
+	/// \return *this after copy
+	input_mouse_move& operator=(const input_mouse_move& event) = default;
+
+	/// Move assignment
+	/// \param event Event to move from
+	/// \return *this after move
+	input_mouse_move& operator=(input_mouse_move&& event) = default;
+
+	/// Destructor
 	~input_mouse_move() = default;
 
 	/// The new location of the mouse
@@ -217,13 +249,29 @@ struct input_mouse_move {
 
 /// An input event from pressing a mouse button
 struct input_mouse_button {
+
+	/// Default constructor
 	input_mouse_button() = default;
-	input_mouse_button(const input_mouse_button&) = default;
-	input_mouse_button(input_mouse_button&&) = default;
 
-	input_mouse_button& operator=(const input_mouse_button&) = default;
-	input_mouse_button& operator=(input_mouse_button&&) = default;
+	/// Copy constructor
+	/// \param event Event to copy from
+	input_mouse_button(const input_mouse_button& event) = default;
 
+	/// Move constructor
+	/// \param event Event to move from
+	input_mouse_button(input_mouse_button&& event) = default;
+
+	/// Copy assignment
+	/// \param event Event to copy from
+	/// \return *this after copy
+	input_mouse_button& operator=(const input_mouse_button& event) = default;
+
+	/// Move assignment
+	/// \param event Event to move from
+	/// \return *this after move
+	input_mouse_button& operator=(input_mouse_button&& event) = default;
+
+	/// Destructor
 	~input_mouse_button() = default;
 
 	/// The button that was pressed
@@ -250,13 +298,29 @@ struct input_mouse_button {
 
 /// An input event from scrolling the scroll wheel
 struct input_scroll_wheel {
+	
+	/// Default constructor
 	input_scroll_wheel() = default;
-	input_scroll_wheel(const input_scroll_wheel&) = default;
-	input_scroll_wheel(input_scroll_wheel&&) = default;
 
-	input_scroll_wheel& operator=(const input_scroll_wheel&) = default;
-	input_scroll_wheel& operator=(input_scroll_wheel&&) = default;
+	/// Copy consructor
+	/// \param event Event to copy from 
+	input_scroll_wheel(const input_scroll_wheel& event) = default;
 
+	/// Move consturctor
+	/// \param event Event to move from
+	input_scroll_wheel(input_scroll_wheel&& event) = default;
+
+	/// Copy assignment
+	/// \param event Event to copy from
+	/// \return *this after copy
+	input_scroll_wheel& operator=(const input_scroll_wheel& event) = default;
+
+	/// Move assignment
+	/// \param event Event to move from
+	/// \return *this after move
+	input_scroll_wheel& operator=(input_scroll_wheel&& event) = default;
+
+	/// Desturctor
 	~input_scroll_wheel() = default;
 
 	/// The amount that the user scrolled

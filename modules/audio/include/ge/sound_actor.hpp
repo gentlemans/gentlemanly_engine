@@ -25,6 +25,14 @@ struct sound_actor : actor {
 	/// Destructor
 	~sound_actor();
 
+	/// Get the current sound object
+	/// \return The sound object
+	const std::shared_ptr<sound>& get_sound() const { return m_sound; }
+
+	/// Set the sound object to use
+	/// \param new_sound The new sound
+	void set_sound(std::shared_ptr<sound> new_sound);
+
 	/// Plays the sound at the current location
 	void play();
 
@@ -38,9 +46,13 @@ struct sound_actor : actor {
 	/// \return If the sound is playing
 	bool is_playing() const;
 
-	std::shared_ptr<sound> m_sound;
-
+	/// The OpenAL source name
 	unsigned int m_source_name;
+
+private:
+
+	/// The sound object to play
+	std::shared_ptr<sound> m_sound;
 };
 }
 
