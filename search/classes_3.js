@@ -7,5 +7,7 @@ var searchData=
   ['input_5fmouse_5fbutton',['input_mouse_button',['../structge_1_1input__mouse__button.html',1,'ge']]],
   ['input_5fmouse_5fmove',['input_mouse_move',['../structge_1_1input__mouse__move.html',1,'ge']]],
   ['input_5fscroll_5fwheel',['input_scroll_wheel',['../structge_1_1input__scroll__wheel.html',1,'ge']]],
-  ['input_5fsubsystem',['input_subsystem',['../structge_1_1input__subsystem.html',1,'ge']]]
+  ['input_5fsubsystem',['input_subsystem',['../structge_1_1input__subsystem.html',1,'ge']]],
+  ['interface_5fstorage',['interface_storage',['../structge_1_1tickable_1_1interface__storage.html',1,'ge::tickable']]],
+  ['interface_5fstorage',['interface_storage',['../structge_1_1renderable_1_1interface__storage.html',1,'ge::renderable']]]
 ];

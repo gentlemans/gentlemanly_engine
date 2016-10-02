@@ -1,10 +1,12 @@
 var searchData=
 [
   ['m_5fasset_5fmanager',['m_asset_manager',['../structge_1_1runtime.html#a08bff441455902dc1d9b97463478cb5f',1,'ge::runtime']]],
+  ['m_5fbuffer_5fname',['m_buffer_name',['../structge_1_1sound.html#a192eedab3f58ee3855fdf3a6bd3d63cb',1,'ge::sound']]],
   ['m_5fbutton',['m_button',['../structge_1_1input__mouse__button.html#ae2d09d6eb960d5ea34511a2ced715d9f',1,'ge::input_mouse_button']]],
-  ['m_5fcontext',['m_context',['../structge_1_1rocket__subsystem.html#a0a3d21f1e9aeb08ff55b28431a0b8dde',1,'ge::rocket_subsystem::m_context()'],['../structge_1_1ui_1_1rocket__input__consumer.html#a08f2697f9eb70ff994c3a8fda69a9b1e',1,'ge::ui::rocket_input_consumer::m_context()']]],
+  ['m_5fcontext',['m_context',['../structge_1_1rocket__input__consumer.html#a9b087fc53d0d8d7a6f7050365e1a49df',1,'ge::rocket_input_consumer::m_context()'],['../structge_1_1rocket__subsystem.html#a0a3d21f1e9aeb08ff55b28431a0b8dde',1,'ge::rocket_subsystem::m_context()']]],
   ['m_5finput_5fkey',['m_input_key',['../structge_1_1input__keyboard.html#aadac560b239007bb82f2683a85ae0c9d',1,'ge::input_keyboard']]],
   ['m_5flocation',['m_location',['../structge_1_1input__mouse__button.html#a5f75d88694227ca8abbf2ed8e23fb5dd',1,'ge::input_mouse_button']]],
+  ['m_5flog',['m_log',['../structge_1_1runtime.html#a48e1a72c92e780529b3a4d28e9996ca6',1,'ge::runtime']]],
   ['m_5fmaterial',['m_material',['../structge_1_1mesh__settings.html#a5714137282f037a14ba669547ef73a2a',1,'ge::mesh_settings']]],
   ['m_5fmesh',['m_mesh',['../structge_1_1mesh__settings.html#acf584b11c5d331e7e246773134a48834',1,'ge::mesh_settings']]],
   ['m_5fmesh_5fsettings',['m_mesh_settings',['../structge_1_1mesh__actor.html#a488ab0ca0d931a35d6c64e4c25cef6db',1,'ge::mesh_actor']]],
@@ -13,6 +15,7 @@ var searchData=
   ['m_5fpressed',['m_pressed',['../structge_1_1input__keyboard.html#aa0bb41259e24bd0f2b6af6b962ffd916',1,'ge::input_keyboard::m_pressed()'],['../structge_1_1input__mouse__button.html#a3899c367dd070d420961563390343439',1,'ge::input_mouse_button::m_pressed()']]],
   ['m_5fruntime',['m_runtime',['../classge_1_1actor.html#a81a4a62e282c717426a5d1c6076a4724',1,'ge::actor::m_runtime()'],['../classge_1_1asset__manager.html#a7294ee6f4c60a3555987a3822eb6c89c',1,'ge::asset_manager::m_runtime()'],['../structge_1_1subsystem.html#abe1a95828d4bacfc8fd7da4a2a9cc28b',1,'ge::subsystem::m_runtime()']]],
   ['m_5fshader',['m_shader',['../classge_1_1material.html#a8335161e3cd2aa9ff4ebca50c5b9c70a',1,'ge::material']]],
+  ['m_5fsource_5fname',['m_source_name',['../structge_1_1sound__actor.html#ae3236da109232076fdc0c414cc86a4b9',1,'ge::sound_actor']]],
   ['m_5fvertical_5funits',['m_vertical_units',['../structge_1_1camera__actor.html#a1ead773c966e616c30617e40e7477367',1,'ge::camera_actor']]],
   ['material',['material',['../classge_1_1material.html',1,'ge']]],
   ['material',['material',['../classge_1_1material.html#ac9b6382f8e072ea6ae455c5ab04a8b32',1,'ge::material::material()=default'],['../classge_1_1material.html#af90fcae2cc1cf051e128f58093f1f052',1,'ge::material::material(const std::shared_ptr&lt; shader &gt; &amp;shader)'],['../classge_1_1material.html#ab09c1f720b73050f3f761756ed54e127',1,'ge::material::material(const material &amp;)=default'],['../classge_1_1material.html#a2470ab1a6aeb44dbb4124a075fd60a83',1,'ge::material::material(material &amp;&amp;)=default']]],
