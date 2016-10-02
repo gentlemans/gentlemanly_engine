@@ -24,8 +24,11 @@ struct input_subsystem : subsystem {
 	/// The index in \c consumers of the current consumer
 	size_t active_consumer;
 
+	/// No config needed
 	struct config {
 	};
+
+	/// Init function, nothing to do
 	bool initialize(config) { return true; }
 	/// Adds an event to the input_subsystem, to be passed during the update function.
 	/// \param ev The event to pass
@@ -57,6 +60,9 @@ private:
 /// The CRTP class to build an input consumer.
 template <typename Derived>
 struct input_consumer : input_consumer_base {
+	
+	/// Constuctor
+	/// \param The runtime to add it to
 	input_consumer(runtime* run)
 	{
 		input_sub = run->get_subsystem<input_subsystem>();

@@ -104,6 +104,8 @@ public:
 
 	// Interface Interface
 	//////////////////////
+
+	/// Adds an iterface to the actor. First template parameter is the actor type, second is the interface.
 	template <typename ActorType, typename Interface>
 	void add_interface()
 	{
@@ -113,6 +115,8 @@ public:
 		m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
 			Interface::template gen_interface<ActorType>(static_cast<ActorType*>(this)));
 	}
+
+	/// Query if this actor implements a certain interface
 	template <typename Interface>
 	bool implements_interface() const
 	{
@@ -120,6 +124,8 @@ public:
 
 		return iter != m_interfaces.end();
 	}
+
+	/// Get the storage object for a given interface, nullptr if that interface isn't implemented
 	template <typename Interface>
 	auto get_interface_storage() -> typename Interface::interface_storage*
 	{
