@@ -29,7 +29,6 @@ struct camera_actor : actor {
 
 		glm::mat3 vp = p * v;
 
-		// TODO: fix
 		root.propagate_to_children([&vp](actor& act) {
 			if (act.implements_interface<renderable>()) {
 				act.get_interface_storage<renderable>()->renderfunc(vp);

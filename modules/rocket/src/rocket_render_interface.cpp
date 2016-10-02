@@ -5,7 +5,9 @@
 #include "ge/mesh_settings.hpp"
 #include "ge/ortho2d.hpp"
 #include "ge/texture.hpp"
+#include "ge/asset_manager.hpp"
 #include "ge/texture_asset.hpp"
+#include "ge/runtime.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -129,14 +131,23 @@ void rocket_render_interface::SetScissorRegion(int x, int y, int width, int heig
 bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_handle,
 	Rocket::Core::Vector2i& texture_dimensions, const Rocket::Core::String& source)
 {
+	using namespace std::string_literals;
+
 	assert(boost::filesystem::path(source.CString()).extension() == ".png");
 
 	try {
 		std::vector<unsigned char> PNGData;
 		unsigned width, height;
 
+		boost::filesystem::path p(source.CString());
+		assert(boost::filesystem::is_regular_file(p));
+
 		// load PNG data
-		lodepng::decode(PNGData, width, height, source.CString());
+		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
+		if (err != 0) {
+			m_asset_manager->m_runtime->m_log->error("Failed to load PNG: error: "s + lodepng_error_text(err));
+			return nullptr;
+		}
 
 		texture_dimensions = {int(width), int(height)};
 

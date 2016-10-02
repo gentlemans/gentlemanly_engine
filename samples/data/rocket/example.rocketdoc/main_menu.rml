@@ -2,17 +2,21 @@
 <head>
 	<title>Inventory</title>
 	<style>
-		.turret {
-			border-width: 2px;
-		  border-color: rgb(255, 0, 0);
-		  border-style: solid;
+		body {
+			padding: 20px 20px 20px 20px;
+		}
+		img {
+			border: 20px;
+			border-radius: 10px;
+			border-stype: solid;
+			border-color: red;
 		}
 
 	</style>
 </head>
 <body>
 <div class="turret">
-	<img src="turret.png" style="width: 100px; height: 100px;"></img>
+	<img src="example.rocketdoc/turret.png" style="width: 100px; height: 100px;"></img>
 </div>
 </body>
 </rml>
