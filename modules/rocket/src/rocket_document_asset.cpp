@@ -14,10 +14,11 @@ std::shared_ptr<Rocket::Core::ElementDocument> rocket_document_asset::load_asset
 {
 	using namespace std::string_literals;
 
+	std::string doc = json_get_value_with_fallback(json_data, "rml_file"s, "doc.rml"s);
+	if(doc == "doc.rml") return nullptr;
+
 	std::string path =
-		boost::filesystem::absolute(
-			json_get_value_with_fallback(json_data, "rml_file"s, "doc.rml"s), filepath)
-			.string();
+		boost::filesystem::absolute(doc, filepath).string();
 
 	// load fonts
 	auto fonts_iter = json_data.find("required_fonts");

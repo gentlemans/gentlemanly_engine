@@ -78,7 +78,7 @@ struct rocket_font_asset {
 	}
 
 	/// Requries the asset to have "asset_type": "rocket_font_asset"
-	static const char* asset_type() { return "rocket_font_asset"; }
+	static const char* asset_type() { return "rocket_font"; }
 };
 BOOST_CONCEPT_ASSERT((concept::Asset<rocket_font_asset>));
 }
