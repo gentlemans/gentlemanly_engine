@@ -24,11 +24,18 @@ if(DOXYGEN_FOUND)
 		COMMENT "Generating Doxygen documentation..."
 		DEPENDS ${GE_PRIVATE_FILES} ${GE_PUBLIC_FILES}
 	)
-		
+
 else()
-	message("If you want the target \"doc\" to be avaliable to build doxygen documentation, 
+	message("If you want the target \"doc\" to be avaliable to build doxygen documentation,
 	then install Doxygen or if it is already installed, set DOXYGEN_EXECUTABLE with a path to doxygen.")
 endif()
+
+add_subdirectory(deps/ogg)
+set(OGG_ROOT CACHE "" PATH ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg)
+set(OGG_LIBRARIES ogg)
+set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include)
+
+add_subdirectory(deps/vorbis)
 
 # These are optional, we can use the packaged if we can to avoid buliding it
 if(UNIX)
@@ -56,7 +63,7 @@ endif()
 if(NOT FREETYPE_FOUND)
 
 	message("Using submodule version of freetype, building from scratch")
-	
+
     #FT2
 
     set(BUILD_SHARED_LIBS OFF)
@@ -71,35 +78,22 @@ endif()
 set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
 
-if(UNIX)
-	find_package(OpenAL)
+set(ALSOFT_UTILS OFF CACHE BOOL "")
+set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
+set(ALSOFT_TESTS OFF CACHE BOOL "")
+set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
+
+add_subdirectory(deps/openal-soft)
+
+if(WIN32)
+	set(OPENAL_LIBRARY OpenAL32)
+else()
+	set(OPENAL_LIBRARY openal)
 endif()
 
-if(NOT OPENAL_FOUND)
+set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/openal-soft/include)
 
-	set(ALSOFT_UTILS OFF CACHE BOOL "")
-	set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
-	set(ALSOFT_TESTS OFF CACHE BOOL "")
-	set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
 
-	add_subdirectory(deps/openal-soft)
-	
-	if(WIN32)
-		set(OPENAL_LIBRARY OpenAL32)
-	else()
-		set(OPENAL_LIBRARY openal)
-	endif()
-	
-	set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/openal-soft/include)
-	
-endif()
-
-add_subdirectory(deps/ogg)
-set(OGG_ROOT CACHE "" PATH ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg)
-set(OGG_LIBRARIES ogg)
-set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include)
-
-add_subdirectory(deps/vorbis)
 
 add_subdirectory(ge)
 add_subdirectory(modules)
@@ -109,4 +103,3 @@ add_subdirectory(modules)
 if(GE_BUILD_SAMPLES)
 	add_subdirectory(samples)
 endif()
-
