@@ -13,6 +13,7 @@ struct reassign_from_json_visitor : boost::static_visitor<shader::parameter_type
 	const nlohmann::json& json_obj;
 	asset_manager& asset_man;
 
+	shader::parameter_type operator()(int) { return (int)json_obj; }
 	shader::parameter_type operator()(float) { return (float)json_obj; }
 	shader::parameter_type operator()(glm::vec2) { return glm::vec2{json_obj[0], json_obj[1]}; }
 	shader::parameter_type operator()(glm::vec3)

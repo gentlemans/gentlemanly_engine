@@ -1,4 +1,40 @@
- 
 {
-	
+	"asset_type": "shader",
+	"parameters": [
+		{
+			"glsl_name": "tex",
+			"type": "texture",
+			"name": "Texture",
+			"default": "texturedmodel/green_square.texture",
+			"description": "The texture that holds the tiled animation"
+		},
+		{
+			"glsl_name": "dimx",
+			"type": "int",
+			"name": "dimx",
+			"default": 1,
+			"description": "How many tiles are in the animation in the X direction"
+		},
+		{
+			"glsl_name": "dimy",
+			"type": "int",
+			"name": "dimy",
+			"default": 1,
+			"description": "How many tiles are in the animation in the Y direction"
+		},
+		{
+			"glsl_name": "current_frame",
+			"type": "int",
+			"name": "current_frame",
+			"default": 0,
+			"description": "The current frame, counting how you read"
+		}
+	],
+	"vertex_attributes": [
+		{
+			"type": "vec2",
+			"glsl_id": 1,
+			"name": "uv"
+		}
+	]
 }

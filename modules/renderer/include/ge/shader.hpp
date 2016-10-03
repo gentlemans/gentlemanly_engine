@@ -27,10 +27,10 @@ public:
 	/// The types uses for parameters. Parameters can either be vec{2, 3, 4} or a texutre or a
 	/// float.
 	using parameter_type =
-		boost::variant<float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr<texture>>;
+		boost::variant<int, float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr<texture>>;
 
 	/// Vertex attributes can be a float, or vec{2, 3, 4}
-	using attribute_type = boost::variant<float, glm::vec2, glm::vec3, glm::vec4>;
+	using attribute_type = boost::variant<int, float, glm::vec2, glm::vec3, glm::vec4>;
 
 	/// The metadata that is stored for parameters
 	struct parameter {
