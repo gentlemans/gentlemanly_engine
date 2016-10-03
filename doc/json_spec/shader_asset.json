@@ -58,7 +58,7 @@
 					},
 					"glsl_offset": {
 						"description": "The offset from the uniorm location fetched by glsl_name. Used for arrays, 0 by default",
-						"type": "interger",
+						"type": "integer",
 						"minimum": 0
 					},
 					"name": {
@@ -66,8 +66,23 @@
 						"type": "string"
 					},
 					"default": {
-						"desciption": "The default value for the parameter",
-						"$ref": "https://raw.githubusercontent.com/gentlemans/gentlemanly_engine/master/doc/json_spec/shader_parameter.json"
+						"description": "The default value for the parameter",
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "array",
+								"items": {
+									"type": "number"
+								},
+								"minItems": 2,
+								"maxItems": 4
+							},
+							{
+								"type": "number"
+							}
+						]
 					},
 					"description": {
 						"description": "A description of the parameter",
