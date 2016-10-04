@@ -1,6 +1,3 @@
-[submodule "deps/libRocket"]
-	path = deps/libRocket
-	url = https://github.com/librocket/libRocket
 [submodule "deps/openal-soft"]
 	path = deps/openal-soft
 	url = https://github.com/kcat/openal-soft
