@@ -31,11 +31,12 @@ else()
 endif()
 
 add_subdirectory(deps/ogg)
-set(OGG_ROOT CACHE "" PATH ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg)
-set(OGG_LIBRARIES ogg)
-set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include)
+set(OGG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg CACHE PATH "")
+set(OGG_LIBRARIES ogg CACHE STRING "")
+set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include CACHE PATH "")
 
 add_subdirectory(deps/vorbis)
+add_dependencies(vorbis ogg)
 
 # These are optional, we can use the packaged if we can to avoid buliding it
 if(UNIX)
