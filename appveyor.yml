@@ -9,11 +9,13 @@ init:
     - cd %APPVEYOR_BUILD_FOLDER%/..
     - ps: wget http://heanet.dl.sourceforge.net/project/boost/boost/1.62.0/boost_1_62_0.zip -OutFile c:/boost.zip
     - ps: Add-Type -AssemblyName System.IO.Compression.FileSystem
-    - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory("c:/boost.zip", "c:/boost/")'
-    - cd c:/boost/boost_1_62_0/
+    - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory("c:/boost.zip", "c:/")'
+    - ps: mv C:/boost_1_62_0 boost
+    - cd c:/boost/
     - bootstrap
     - b2 toolset=msvc-14.0 link=static address-model=64 variant=debug variant=release --with-system --with-filesystem
     - cd %APPVEYOR_BUILD_FOLDER%/..
+    - ps; mv stage/lib lib 
     - ps: wget https://www.libsdl.org/release/SDL2-devel-2.0.4-VC.zip -OutFile c:/sdl2.zip
     - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory("c:/sdl2.zip", "c:/")'
     - mv C:/sdl2-2.0.4 C:/sdl2
@@ -25,11 +27,11 @@ init:
 install:
     - mkdir build
     - cd build
-    - '"C:\Program Files (x86)\cmake\bin\cmake.exe" .. -G"Visual Studio 14 Win64" -DBoost_DIR=C:/boost/boost_1_62_0/ -DBoost_INCLUDE_DIR=C:/boost/boost_1_62_0/ -DBoost_FILESYSTEM_LIBRARY_DEBUG=c:/boost/boost_1_62_0/lib/stage/libboost_filesystem-vc140-mt-gd-1_62.lib -DBoost_FILESYSTEM_LIBRARY_RELEASE=c:/boost/boost_1_62_0/lib/stage/libboost_filesystem-vc140-mt-1_62.lib -DBoost_SYSTEM_LIBRARY_DEBUG=c:/boost/boost_1_62_0/lib/stage/libboost_system-vc140-mt-gd-1_62.lib -DBoost_SYSTEM_LIBRARY_RELEASE=c:/boost/boost_1_62_0/lib/stage/libboost_system-vc140-mt-1_62.lib'
+    - '"C:\Program Files (x86)\cmake\bin\cmake.exe" .. -G"Visual Studio 14 Win64"'
 
 platform: x64
 
 build:
-    parallel: true
+    parallel: false
     project: build/gentlemanly_engine.sln
 
