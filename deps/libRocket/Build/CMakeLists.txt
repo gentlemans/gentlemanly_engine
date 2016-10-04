@@ -365,10 +365,10 @@ if(BUILD_PYTHON_BINDINGS)
 
         set_target_properties(${NAME} PROPERTIES PREFIX "")
 
-        install(TARGETS ${NAME}
-                EXPORT libRocketTargets
-                LIBRARY DESTINATION ${PYTHON_INSTDIR}
-        )
+   #     install(TARGETS ${NAME}
+   #             EXPORT libRocketTargets
+   #             LIBRARY DESTINATION ${PYTHON_INSTDIR}
+   #     )
 
     endforeach(library)
 endif()
@@ -390,12 +390,12 @@ if(BUILD_LUA_BINDINGS)
                            SOVERSION ${LIBROCKET_VERSION_MAJOR}
         )
 
-        install(TARGETS ${NAME}
-            EXPORT libRocketTargets
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        )
+    #    install(TARGETS ${NAME}
+    #        EXPORT libRocketTargets
+    #        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    #        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    #        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+	  #    )
 
         set(ROCKET_EXPORTED_TARGETS ${ROCKET_EXPORTED_TARGETS} ${NAME})
     endforeach(library)
