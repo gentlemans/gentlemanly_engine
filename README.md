@@ -1,7 +1,8 @@
 
 ![Gentlemanly Engine](logo.png)
 
-[![Build Status](https://travis-ci.org/gentlemans/gentlemanly-engine.svg?branch=master)](https://travis-ci.org/gentlemans/gentlemanly-engine) [![Trello](https://img.shields.io/badge/trello-online-green.svg)](https://trello.com/b/PyLZzMbi/gentlemanly-engine) [ ![Documentation](https://img.shields.io/badge/documentation-online-green.svg)](doc/README.md)
+[![Build Status](https://travis-ci.org/gentlemans/gentlemanly-engine.svg?branch=master)](https://travis-ci.org/gentlemans/gentlemanly-engine) [![Build status](https://ci.appveyor.com/api/projects/status/mhru5cnay31dx9k2?svg=true)](https://ci.appveyor.com/project/GuapoTaco/gentlemanly-engine-pbbow)
+ [![Trello](https://img.shields.io/badge/trello-online-green.svg)](https://trello.com/b/PyLZzMbi/gentlemanly-engine) [ ![Documentation](https://img.shields.io/badge/documentation-online-green.svg)](doc/README.md) 
 
 A super standard C++ game engine
 
