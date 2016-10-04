@@ -1,3 +1,0 @@
-[submodule "deps/vorbis"]
-	path = deps/vorbis
-	url = https://github.com/xiph/vorbis
