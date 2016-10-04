@@ -3,10 +3,12 @@
 
 #pragma once
 
+#include <chrono>
+
 namespace ge
 {
 /// Represents a sound buffer in OpenAL`
-struct sound {
+struct sound  {
 	/// Constructor
 	/// \param file The OGG file to read from
 	sound(const char* file);
@@ -23,6 +25,8 @@ struct sound {
 
 	/// The OpenAL buffer name
 	unsigned int m_buffer_name;
+
+    void tick(std::chrono::duration<float> deltaT);
 };
 }
 
