@@ -25,7 +25,7 @@ init:
 install:
     - mkdir build
     - cd build
-    - "C:\Program Files (x86)\cmake\bin\cmake.exe" .. -G"Visual Studio 14 Win64" -DBoost_DIR=../boost/boost_1_62_0/ -DBoost_FILESYSTEM_LIBRARY_DEBUG=../boost/boost_1_62_0/lib/stage/libboost_filesystem-vc140-mt-gd-1_62.lib -DBoost_FILESYSTEM_LIBRARY_RELEASE=../boost/boost_1_62_0/lib/stage/libboost_filesystem-vc140-mt-1_62.lib -DBoost_SYSTEM_LIBRARY_DEBUG=../boost/boost_1_62_0/lib/stage/libboost_system-vc140-mt-gd-1_62.lib -DBoost_SYSTEM_LIBRARY_RELEASE=../boost/boost_1_62_0/lib/stage/libboost_system-vc140-mt-1_62.lib -DSDL2_LIBRARY=../sdl2/SDL2-2.0.4/lib/x64/SDL2.lib -DSDL2_INCLUDE_DIR=../sdl2/SDL2-2.0.4/include
+    - '"C:\Program Files (x86)\cmake\bin\cmake.exe" .. -G"Visual Studio 14 Win64" -DBoost_DIR=../boost/boost_1_62_0/ -DBoost_FILESYSTEM_LIBRARY_DEBUG=../boost/boost_1_62_0/lib/stage/libboost_filesystem-vc140-mt-gd-1_62.lib -DBoost_FILESYSTEM_LIBRARY_RELEASE=../boost/boost_1_62_0/lib/stage/libboost_filesystem-vc140-mt-1_62.lib -DBoost_SYSTEM_LIBRARY_DEBUG=../boost/boost_1_62_0/lib/stage/libboost_system-vc140-mt-gd-1_62.lib -DBoost_SYSTEM_LIBRARY_RELEASE=../boost/boost_1_62_0/lib/stage/libboost_system-vc140-mt-1_62.lib -DSDL2_LIBRARY=../sdl2/SDL2-2.0.4/lib/x64/SDL2.lib -DSDL2_INCLUDE_DIR=../sdl2/SDL2-2.0.4/include'
 
 platform: x64
 
