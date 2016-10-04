@@ -1,0 +1,15 @@
+language: c
+
+compiler:
+  - gcc
+  - clang
+
+addons:
+  apt:
+    packages:
+    - libogg-dev
+
+script:
+  - ./autogen.sh
+  - ./configure
+  - make -j2 V=1 distcheck
