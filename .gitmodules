@@ -1,6 +1,3 @@
-[submodule "deps/openal-soft"]
-	path = deps/openal-soft
-	url = https://github.com/kcat/openal-soft
 [submodule "deps/vorbis"]
 	path = deps/vorbis
 	url = https://github.com/xiph/vorbis
