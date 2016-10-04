@@ -8,16 +8,16 @@ init:
     - cd %APPVEYOR_BUILD_FOLDER%/..
     - ps: wget http://heanet.dl.sourceforge.net/project/boost/boost/1.62.0/boost_1_62_0.zip -OutFile boost.zip
     - ps: Add-Type -AssemblyName System.IO.Compression.FileSystem
-    - ps: $boostzip=%cd%"/boost.zip"
-    - ps: $boostdir=%cd%"/boost"
+    - ps: $boostzip=pwd - "/boost.zip"
+    - ps: $boostdir=pwd - "/boost"
     - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory($boostzip, $boostdir)'
     - cd boost/boost_1_62_0/
     - bootstrap
     - b2 toolset=msvc-14.0 link=static address-model=64 variant=debug variant=release --with-system --with-filesystem
     - cd ../..
     - ps: wget https://www.libsdl.org/release/SDL2-devel-2.0.4-VC.zip -OutFile sdl2.zip
-    - ps: $sdl2zip=%cd$"/sdl2.zip"
-    - ps: $sdl2dir=%cd%"/sdl2"
+    - ps: $sdl2zip=pwd - "/sdl2.zip"
+    - ps: $sdl2dir=pwd - "/sdl2"
     - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory($sdl2zip, $sdl2dir)'
 
 
