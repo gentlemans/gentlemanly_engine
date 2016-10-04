@@ -595,8 +595,8 @@ endif(NOT BUILD_FRAMEWORK)
         # The samples always set this as their current working directory
        # install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/${sample})
        # install(TARGETS ${sample}
-        	RUNTIME DESTINATION ${SAMPLES_DIR}/${sample}
-        	BUNDLE DESTINATION ${SAMPLES_DIR})
+        #	RUNTIME DESTINATION ${SAMPLES_DIR}/${sample}
+        #	BUNDLE DESTINATION ${SAMPLES_DIR})
     endforeach()
 
 	if(WIN32)
@@ -608,8 +608,8 @@ endif(NOT BUILD_FRAMEWORK)
 			# The samples always set this as their current working directory
 			#install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/directx)
 			#install(TARGETS directx
-				RUNTIME DESTINATION ${SAMPLES_DIR}/directx
-				BUNDLE DESTINATION ${SAMPLES_DIR})
+                        #	RUNTIME DESTINATION ${SAMPLES_DIR}/directx
+                        #	BUNDLE DESTINATION ${SAMPLES_DIR})
 		endif()
 
 		if(NOT SKIP_DIRECTX10_SAMPLE)
