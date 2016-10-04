@@ -340,13 +340,13 @@ else(NOT BUILD_FRAMEWORK)
 			PUBLIC_HEADER ${MASTER_PUB_HDR_FILES}
 		)
 
-    install(TARGETS ${NAME}
-            EXPORT libRocketTargets
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-            FRAMEWORK DESTINATION Library/Frameworks
-    )
+   # install(TARGETS ${NAME}
+   #         EXPORT libRocketTargets
+   #         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   #         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   #         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+   #         FRAMEWORK DESTINATION Library/Frameworks
+ # )
 
     set(ROCKET_EXPORTED_TARGETS ${ROCKET_EXPORTED_TARGETS} ${NAME})
 endif(NOT BUILD_FRAMEWORK)
@@ -593,8 +593,8 @@ endif(NOT BUILD_FRAMEWORK)
         bl_sample(${sample} ${sample_LIBRARIES})
 
         # The samples always set this as their current working directory
-        install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/${sample})
-        install(TARGETS ${sample}
+       # install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/${sample})
+       # install(TARGETS ${sample}
         	RUNTIME DESTINATION ${SAMPLES_DIR}/${sample}
         	BUNDLE DESTINATION ${SAMPLES_DIR})
     endforeach()
@@ -606,8 +606,8 @@ endif(NOT BUILD_FRAMEWORK)
 			bl_sample(directx ${sample_LIBRARIES}  ${DirectX_LIBRARY} ${DirectX_D3DX9_LIBRARY})
 
 			# The samples always set this as their current working directory
-			install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/directx)
-			install(TARGETS directx
+			#install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/directx)
+			#install(TARGETS directx
 				RUNTIME DESTINATION ${SAMPLES_DIR}/directx
 				BUNDLE DESTINATION ${SAMPLES_DIR})
 		endif()
@@ -618,10 +618,10 @@ endif(NOT BUILD_FRAMEWORK)
 			bl_sample(directx10 ${sample_LIBRARIES}  ${DirectX_D3D10_LIBRARIES})
 
 			# The samples always set this as their current working directory
-			install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/directx10)
-			install(TARGETS directx10
-				RUNTIME DESTINATION ${SAMPLES_DIR}/directx10
-				BUNDLE DESTINATION ${SAMPLES_DIR})
+		#	install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/directx10)
+	#		install(TARGETS directx10
+	#			RUNTIME DESTINATION ${SAMPLES_DIR}/directx10
+#			BUNDLE DESTINATION ${SAMPLES_DIR})
 		endif()
 	endif()
 
@@ -637,10 +637,10 @@ endif(NOT BUILD_FRAMEWORK)
 
 			bl_sample(sdl2 ${sample_LIBRARIES}  ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${GLEW_LIBRARY})
 			# The samples always set this as their current working directory
-			install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/sdl2)
-			install(TARGETS sdl2
-				RUNTIME DESTINATION ${SAMPLES_DIR}/sdl2
-				BUNDLE DESTINATION ${SAMPLES_DIR})
+	#		install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/sdl2)
+	#		install(TARGETS sdl2
+	#			RUNTIME DESTINATION ${SAMPLES_DIR}/sdl2
+#			BUNDLE DESTINATION ${SAMPLES_DIR})
 		else()
 		        message("-- Can SDL2 sample be built - GLEW not found")
 		endif()
@@ -665,10 +665,10 @@ endif(NOT BUILD_FRAMEWORK)
 
 		bl_sample(sfml ${sample_LIBRARIES} ${SFML_LIBRARIES})
 			# The samples always set this as their current working directory
-			install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/sfml)
-			install(TARGETS sfml
-				RUNTIME DESTINATION ${SAMPLES_DIR}/sfml
-				BUNDLE DESTINATION ${SAMPLES_DIR})
+		#	install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/sfml)
+		#	install(TARGETS sfml
+		#		RUNTIME DESTINATION ${SAMPLES_DIR}/sfml
+	#		BUNDLE DESTINATION ${SAMPLES_DIR})
 	endif()
 
 	message("-- Can SFML 2.x sample be built")
@@ -689,10 +689,10 @@ endif(NOT BUILD_FRAMEWORK)
 		endif()
 
 			# The samples always set this as their current working directory
-			install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/sfml2)
-			install(TARGETS sfml2
-				RUNTIME DESTINATION ${SAMPLES_DIR}/sfml2
-				BUNDLE DESTINATION ${SAMPLES_DIR})
+		#	install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/sfml2)
+		#	install(TARGETS sfml2
+		#		RUNTIME DESTINATION ${SAMPLES_DIR}/sfml2
+	#		BUNDLE DESTINATION ${SAMPLES_DIR})
 	endif()
 
     # Build and install the tutorials
@@ -700,34 +700,34 @@ endif(NOT BUILD_FRAMEWORK)
         bl_sample(${tutorial} ${sample_LIBRARIES})
 
         # The tutorials always set this as their current working directory
-        install(DIRECTORY DESTINATION ${SAMPLES_DIR}/tutorial/${tutorial})
-        install(TARGETS ${tutorial}
-                RUNTIME DESTINATION ${SAMPLES_DIR}/${tutorial}
-                BUNDLE DESTINATION ${SAMPLES_DIR})
+      #  install(DIRECTORY DESTINATION ${SAMPLES_DIR}/tutorial/${tutorial})
+       # install(TARGETS ${tutorial}
+      #          RUNTIME DESTINATION ${SAMPLES_DIR}/${tutorial}
+		#         BUNDLE DESTINATION ${SAMPLES_DIR})
     endforeach()
 
     # Build and install invaders sample
     bl_sample(invaders ${sample_LIBRARIES})
-    install(DIRECTORY DESTINATION ${SAMPLES_DIR}/invaders)
-    install(TARGETS invaders
-    	RUNTIME DESTINATION ${SAMPLES_DIR}/invaders
-    	BUNDLE DESTINATION ${SAMPLES_DIR})
+    #install(DIRECTORY DESTINATION ${SAMPLES_DIR}/invaders)
+    #install(TARGETS invaders
+   # 	RUNTIME DESTINATION ${SAMPLES_DIR}/invaders
+ #	BUNDLE DESTINATION ${SAMPLES_DIR})
 
 	if(BUILD_PYTHON_BINDINGS)
 	    # Build and install pyinvaders sample
 	    bl_sample(pyinvaders ${sample_LIBRARIES} ${PYTHON_LIBRARIES} ${PY_BINDINGS_LINK_LIBS})
-	    install(DIRECTORY DESTINATION ${SAMPLES_DIR}/pyinvaders)
-	    install(TARGETS pyinvaders
-	    	RUNTIME DESTINATION ${SAMPLES_DIR}/pyinvaders
-	    	BUNDLE DESTINATION ${SAMPLES_DIR})
+	   # install(DIRECTORY DESTINATION ${SAMPLES_DIR}/pyinvaders)
+	   # install(TARGETS pyinvaders
+	    #	RUNTIME DESTINATION ${SAMPLES_DIR}/pyinvaders
+		# 	BUNDLE DESTINATION ${SAMPLES_DIR})
 	endif()
 
     if(BUILD_LUA_BINDINGS)
         bl_sample(luainvaders RocketCoreLua RocketControlsLua ${sample_LIBRARIES} ${LUA_BINDINGS_LINK_LIBS})
-        install(DIRECTORY DESTINATION ${SAMPLES_DIR}/luainvaders)
-        install(TARGETS luainvaders
-        	RUNTIME DESTINATION ${SAMPLES_DIR}/luainvaders
-        	BUNDLE DESTINATION ${SAMPLES_DIR})
+       # install(DIRECTORY DESTINATION ${SAMPLES_DIR}/luainvaders)
+       # install(TARGETS luainvaders
+        #	RUNTIME DESTINATION ${SAMPLES_DIR}/luainvaders
+			#	BUNDLE DESTINATION ${SAMPLES_DIR})
     endif()
 endif()
 
@@ -737,31 +737,31 @@ endif()
 #===================================
 
 if(BUILD_LUA_BINDINGS AND BUILD_PYTHON_BINDINGS)
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
-            DESTINATION include
-    )
+   # install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
+   #         DESTINATION include
+ # )
 else()
 	if(NOT BUILD_LUA_BINDINGS AND NOT BUILD_PYTHON_BINDINGS)
-	    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
-	            DESTINATION include
-	            PATTERN "Python" EXCLUDE
-	            PATTERN "Lua" EXCLUDE
-	    )
+	   # install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
+	   #         DESTINATION include
+	   #         PATTERN "Python" EXCLUDE
+	    #        PATTERN "Lua" EXCLUDE
+		# )
 	else()
 		if(BUILD_PYTHON_BINDINGS)
-			install(FILES ${PROJECT_SOURCE_DIR}/bin/rocket.py
-				DESTINATION ${PYTHON_INSTDIR}
-			)
-			install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
-				DESTINATION include
-				PATTERN "Lua" EXCLUDE
-			)
+		#	install(FILES ${PROJECT_SOURCE_DIR}/bin/rocket.py
+		#		DESTINATION ${PYTHON_INSTDIR}
+	#	)
+		#	install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
+		#		DESTINATION include
+		#		PATTERN "Lua" EXCLUDE
+	#	)
 		else()
 			if(BUILD_LUA_BINDINGS)
-				install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
-					DESTINATION include
-					PATTERN "Python" EXCLUDE
-				)
+			#	install(DIRECTORY ${PROJECT_SOURCE_DIR}/Include/Rocket
+			#		DESTINATION include
+			#		PATTERN "Python" EXCLUDE
+		#		)
 			else()
 				message(FATAL_ERROR "ASSERT: Unexpected option combination, this is a logical impossibility.")
 			endif()
@@ -770,45 +770,45 @@ else()
 endif()
 
 if(BUILD_SAMPLES)
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/assets
-            DESTINATION ${SAMPLES_DIR}
-    )
-
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/template/data
-            DESTINATION ${SAMPLES_DIR}/tutorial/template
-    )
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/datagrid/data
-            DESTINATION ${SAMPLES_DIR}/tutorial/datagrid
-    )
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/datagrid_tree/data
-            DESTINATION ${SAMPLES_DIR}/tutorial/datagrid_tree
-    )
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/tutorial_drag/data
-            DESTINATION ${SAMPLES_DIR}/tutorial/tutorial_drag
-    )
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/basic/treeview/data
-            DESTINATION ${SAMPLES_DIR}/basic/treeview
-    )
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/basic/drag/data
-            DESTINATION ${SAMPLES_DIR}/basic/drag
-    )
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/invaders/data
-            DESTINATION ${SAMPLES_DIR}/invaders
-    )
+ #   install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/assets
+  #          DESTINATION ${SAMPLES_DIR}
+# )
+#
+ #   install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/template/data
+#            DESTINATION ${SAMPLES_DIR}/tutorial/template
+#    )
+#    install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/datagrid/data
+ #           DESTINATION ${SAMPLES_DIR}/tutorial/datagrid
+  #  )
+   # install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/datagrid_tree/data
+#            DESTINATION ${SAMPLES_DIR}/tutorial/datagrid_tree
+ #   )
+  #  install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/tutorial/tutorial_drag/data
+   #         DESTINATION ${SAMPLES_DIR}/tutorial/tutorial_drag
+ #)
+  #  install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/basic/treeview/data
+   #         DESTINATION ${SAMPLES_DIR}/basic/treeview
+ #)
+  #  install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/basic/drag/data
+   #         DESTINATION ${SAMPLES_DIR}/basic/drag
+ #)
+  #  install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/invaders/data
+   #         DESTINATION ${SAMPLES_DIR}/invaders
+ #)
 
     if(BUILD_PYTHON_BINDINGS)
-        install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/pyinvaders/data
-                DESTINATION ${SAMPLES_DIR}/pyinvaders
-        )
+  #      install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/pyinvaders/data
+   #             DESTINATION ${SAMPLES_DIR}/pyinvaders
+ #    )
     endif()
 
     if(BUILD_LUA_BINDINGS)
-        install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/data
-                DESTINATION ${SAMPLES_DIR}/luainvaders
-        )
-        install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/lua
-                DESTINATION ${SAMPLES_DIR}/luainvaders
-        )
+  #      install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/data
+   #             DESTINATION ${SAMPLES_DIR}/luainvaders
+ #    )
+  #      install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/lua
+   #             DESTINATION ${SAMPLES_DIR}/luainvaders
+ #    )
     endif()
 endif()
 
@@ -835,11 +835,11 @@ if(PkgHelpers_AVAILABLE)
     ${CMAKE_CURRENT_BINARY_DIR}/install/libRocketConfigVersion.cmake
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY SameMajorVersion )
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/install/libRocketConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/install/libRocketConfigVersion.cmake
-    DESTINATION ${LIB_INSTALL_DIR}/libRocket/cmake )
-  install(EXPORT libRocketTargets
-    DESTINATION ${LIB_INSTALL_DIR}/libRocket/cmake)
+  #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/install/libRocketConfig.cmake
+   # ${CMAKE_CURRENT_BINARY_DIR}/install/libRocketConfigVersion.cmake
+ #DESTINATION ${LIB_INSTALL_DIR}/libRocket/cmake )
+  #install(EXPORT libRocketTargets
+	# DESTINATION ${LIB_INSTALL_DIR}/libRocket/cmake)
 
   # generate configuration for build tree
   configure_package_config_file(libRocketConfig.cmake.build.in
