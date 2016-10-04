@@ -25,6 +25,6 @@ install:
 platform: x64
 
 build:
-    - parallel: true
-    - project: build/gentlemanly_engine.sln
+    parallel: true
+    project: build/gentlemanly_engine.sln
 
