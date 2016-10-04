@@ -25,6 +25,8 @@ struct actor_ticker_subsystem : subsystem {
 				act.get_interface_storage<tickable>()->tickfunc(delta);
 			}
 		});
+
+        return true;
 	}
 };
 }
