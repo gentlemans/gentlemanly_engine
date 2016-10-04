@@ -15,7 +15,8 @@ init:
     - b2 toolset=msvc-14.0 link=static address-model=64 variant=debug variant=release --with-system --with-filesystem
     - cd %APPVEYOR_BUILD_FOLDER%/..
     - ps: wget https://www.libsdl.org/release/SDL2-devel-2.0.4-VC.zip -OutFile c:/sdl2.zip
-    - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory("c:/sdl2.zip", "c:/sdl2")'
+    - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory("c:/sdl2.zip", "c:/")'
+    - mv C:/sdl2-2.0.4 C:sdl2
     - ps: cd $dir
     
 
