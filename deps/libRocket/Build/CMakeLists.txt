@@ -847,7 +847,7 @@ if(PkgHelpers_AVAILABLE)
     INSTALL_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
     PATH_VARS INCLUDE_DIR CMAKE_CURRENT_BINARY_DIR)
 #  export(TARGETS ${ROCKET_EXPORTED_TARGETS}
-    FILE "${CMAKE_CURRENT_BINARY_DIR}/libRocketTargets.cmake")
+#    FILE "${CMAKE_CURRENT_BINARY_DIR}/libRocketTargets.cmake")
   write_basic_package_version_file(
     ${CMAKE_CURRENT_BINARY_DIR}/libRocketConfigVersion.cmake
     VERSION ${PROJECT_VERSION}
