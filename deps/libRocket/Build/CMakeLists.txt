@@ -3,7 +3,7 @@
 #===================================
 
 if(APPLE)
-	# This has to be before most other options so CMake properly handles the 
+	# This has to be before most other options so CMake properly handles the
 	# compiler variables, it MUST bebefore the project() definition
 	if(IOS_PLATFORM)
 		set(CMAKE_TOOLCHAIN_FILE cmake/Platform/iOS.cmake)
@@ -12,7 +12,7 @@ if(APPLE)
 	option(BUILD_UNIVERSAL_BINARIES "Build universal binaries for all architectures supported" ON)
 	if (NOT CMAKE_OSX_ARCHITECTURES AND BUILD_UNIVERSAL_BINARIES)
 		if(IOS)
-			# set the architecture for iOS 
+			# set the architecture for iOS
 			if (${IOS_PLATFORM} STREQUAL "OS")
 				set (IOS_ARCH armv6 armv7 armv7s arm64)
 				set (CMAKE_OSX_ARCHITECTURES ${IOS_ARCH} CACHE string  "Build architecture for iOS")
@@ -24,7 +24,7 @@ if(APPLE)
 		else(IOS)
 			# set the architectures for OS X
 			set (OSXI_ARCH i386 x86_64)
-			set (CMAKE_OSX_ARCHITECTURES ${OSXI_ARCH} CACHE string  "Build architecture for OS X universal binaries")		
+			set (CMAKE_OSX_ARCHITECTURES ${OSXI_ARCH} CACHE string  "Build architecture for OS X universal binaries")
 		endif(IOS)
 	endif (NOT CMAKE_OSX_ARCHITECTURES AND BUILD_UNIVERSAL_BINARIES)
 endif(APPLE)
@@ -37,12 +37,12 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0015 NEW)
 endif(COMMAND cmake_policy)
 
-# Enable the use of MACOSX_RPATH by default for CMake v3.0+; this effectively 
-# allows plug 'n' play functionality, so to speak -- the resulting shared 
-# library files can simply be copied over into the end-user's application 
+# Enable the use of MACOSX_RPATH by default for CMake v3.0+; this effectively
+# allows plug 'n' play functionality, so to speak -- the resulting shared
+# library files can simply be copied over into the end-user's application
 # bundle or framework bundle. No mucking around with install_name_tool.
 #
-# 	See also: 
+# 	See also:
 # cmake --help-policy cmp0042
 # http://www.kitware.com/blog/home/post/510
 if(POLICY CMP0042)
@@ -180,7 +180,7 @@ IF(WIN32)
       message("Visual Studio 2010 (${MSVC_VERSION}) build fix at play (/FORCE:MULTIPLE)")
       set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /FORCE:MULTIPLE")
     endif()
-  endif() 
+  endif()
 ENDIF(WIN32)
 
 
@@ -190,11 +190,11 @@ ENDIF(WIN32)
 
 # FreeType
 if(CMAKE_MAJOR_VERSION LESS 3)
-	# Freetype changed the layout of its header files, we  need to use 
+	# Freetype changed the layout of its header files, we  need to use
 	# the FindFreetype module from cmake v3 at least, included here
-	find_package(Freetype-v2fix REQUIRED)	
+	find_package(Freetype-v2fix REQUIRED)
 else()
-	find_package(Freetype REQUIRED)	
+	find_package(Freetype REQUIRED)
 endif()
 
 if(FREETYPE_FOUND)
@@ -275,13 +275,13 @@ foreach(library ${LIBRARIES})
                            VERSION ${PROJECT_VERSION}
                            SOVERSION ${LIBROCKET_VERSION_MAJOR}
     )
-    
-    install(TARGETS ${NAME}
-            EXPORT libRocketTargets
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
+
+    #install(TARGETS ${NAME}
+    #        EXPORT libRocketTargets
+    #        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    #        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    #        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+		#)
 
     set(ROCKET_EXPORTED_TARGETS ${ROCKET_EXPORTED_TARGETS} ${NAME})
 endforeach(library)
@@ -369,7 +369,7 @@ if(BUILD_PYTHON_BINDINGS)
                 EXPORT libRocketTargets
                 LIBRARY DESTINATION ${PYTHON_INSTDIR}
         )
- 
+
     endforeach(library)
 endif()
 
@@ -389,14 +389,14 @@ if(BUILD_LUA_BINDINGS)
                            VERSION ${PROJECT_VERSION}
                            SOVERSION ${LIBROCKET_VERSION_MAJOR}
         )
-        
+
         install(TARGETS ${NAME}
             EXPORT libRocketTargets
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
             RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         )
-        
+
         set(ROCKET_EXPORTED_TARGETS ${ROCKET_EXPORTED_TARGETS} ${NAME})
     endforeach(library)
 endif()
@@ -456,7 +456,7 @@ endif()
     else()
     	add_executable(${NAME} ${${NAME}_SRC_FILES} ${${NAME}_HDR_FILES} )
     endif()
-    
+
     if (APPLE)
     	# We only support i386 for the samples as it still uses Carbon
     	set_target_properties(${NAME} PROPERTIES OSX_ARCHITECTURES "i386;" )
@@ -470,29 +470,29 @@ if(BUILD_SAMPLES)
 
     set(samples treeview customlog drag loaddocument bitmapfont)
     set(tutorials template datagrid datagrid_tree tutorial_drag)
-    
+
 if(NOT BUILD_FRAMEWORK)
     set(sample_LIBRARIES
-    	shell 
-    	RocketCore 
+    	shell
+    	RocketCore
     	RocketControls
     	RocketDebugger
     )
 else(NOT BUILD_FRAMEWORK)
     set(sample_LIBRARIES
-    	shell 
+    	shell
     	Rocket
     )
 endif(NOT BUILD_FRAMEWORK)
 
-	# Find OpenGL 
+	# Find OpenGL
 	find_package(OpenGL REQUIRED)
-    	   
+
     if(OPENGL_FOUND)
 	include_directories(${OPENGL_INCLUDE_DIR})
 	list(APPEND sample_LIBRARIES ${OPENGL_LIBRARIES})
     endif()
-    
+
     # Set up required system libraries
     if(WIN32)
 		if(SKIP_DIRECTX_SAMPLES)
@@ -558,7 +558,7 @@ endif(NOT BUILD_FRAMEWORK)
     elseif(APPLE)
 		include(FindCarbon)
     	find_package(Carbon REQUIRED)
-    	
+
     	if (Carbon_FOUND)
     		include_directories(${Carbon_INCLUDE_DIR})
         	list(APPEND sample_LIBRARIES ${Carbon_LIBRARIES})
@@ -575,7 +575,7 @@ endif(NOT BUILD_FRAMEWORK)
 		endif()
         endif()
     endif()
-   
+
     set(SAMPLES_DIR opt/Rocket/Samples CACHE PATH "path to samples dir")
 
     # The samples and tutorials use the shell library
@@ -594,7 +594,7 @@ endif(NOT BUILD_FRAMEWORK)
 
         # The samples always set this as their current working directory
         install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/${sample})
-        install(TARGETS ${sample} 
+        install(TARGETS ${sample}
         	RUNTIME DESTINATION ${SAMPLES_DIR}/${sample}
         	BUNDLE DESTINATION ${SAMPLES_DIR})
     endforeach()
@@ -607,7 +607,7 @@ endif(NOT BUILD_FRAMEWORK)
 
 			# The samples always set this as their current working directory
 			install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/directx)
-			install(TARGETS directx 
+			install(TARGETS directx
 				RUNTIME DESTINATION ${SAMPLES_DIR}/directx
 				BUNDLE DESTINATION ${SAMPLES_DIR})
 		endif()
@@ -619,7 +619,7 @@ endif(NOT BUILD_FRAMEWORK)
 
 			# The samples always set this as their current working directory
 			install(DIRECTORY DESTINATION ${SAMPLES_DIR}/basic/directx10)
-			install(TARGETS directx10 
+			install(TARGETS directx10
 				RUNTIME DESTINATION ${SAMPLES_DIR}/directx10
 				BUNDLE DESTINATION ${SAMPLES_DIR})
 		endif()
@@ -709,7 +709,7 @@ endif(NOT BUILD_FRAMEWORK)
     # Build and install invaders sample
     bl_sample(invaders ${sample_LIBRARIES})
     install(DIRECTORY DESTINATION ${SAMPLES_DIR}/invaders)
-    install(TARGETS invaders 
+    install(TARGETS invaders
     	RUNTIME DESTINATION ${SAMPLES_DIR}/invaders
     	BUNDLE DESTINATION ${SAMPLES_DIR})
 
@@ -721,11 +721,11 @@ endif(NOT BUILD_FRAMEWORK)
 	    	RUNTIME DESTINATION ${SAMPLES_DIR}/pyinvaders
 	    	BUNDLE DESTINATION ${SAMPLES_DIR})
 	endif()
-    
+
     if(BUILD_LUA_BINDINGS)
         bl_sample(luainvaders RocketCoreLua RocketControlsLua ${sample_LIBRARIES} ${LUA_BINDINGS_LINK_LIBS})
         install(DIRECTORY DESTINATION ${SAMPLES_DIR}/luainvaders)
-        install(TARGETS luainvaders 
+        install(TARGETS luainvaders
         	RUNTIME DESTINATION ${SAMPLES_DIR}/luainvaders
         	BUNDLE DESTINATION ${SAMPLES_DIR})
     endif()
@@ -803,10 +803,10 @@ if(BUILD_SAMPLES)
     endif()
 
     if(BUILD_LUA_BINDINGS)
-        install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/data 
+        install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/data
                 DESTINATION ${SAMPLES_DIR}/luainvaders
         )
-        install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/lua 
+        install(DIRECTORY ${PROJECT_SOURCE_DIR}/Samples/luainvaders/lua
                 DESTINATION ${SAMPLES_DIR}/luainvaders
         )
     endif()
@@ -846,7 +846,7 @@ if(PkgHelpers_AVAILABLE)
     ${CMAKE_CURRENT_BINARY_DIR}/libRocketConfig.cmake
     INSTALL_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
     PATH_VARS INCLUDE_DIR CMAKE_CURRENT_BINARY_DIR)
-  export(TARGETS ${ROCKET_EXPORTED_TARGETS}
+#  export(TARGETS ${ROCKET_EXPORTED_TARGETS}
     FILE "${CMAKE_CURRENT_BINARY_DIR}/libRocketTargets.cmake")
   write_basic_package_version_file(
     ${CMAKE_CURRENT_BINARY_DIR}/libRocketConfigVersion.cmake
