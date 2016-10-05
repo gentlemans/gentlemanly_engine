@@ -46,6 +46,8 @@ struct sound_actor : actor {
 	/// The OpenAL source name
 	unsigned int m_source_name;
 
+	void tick(std::chrono::duration<float> delta);
+	
 private:
 	/// The sound object to play
 	std::shared_ptr<sound> m_sound;

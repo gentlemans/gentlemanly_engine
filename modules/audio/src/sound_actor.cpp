@@ -19,6 +19,8 @@ void sound_actor::initialize(const char* assetname)
 	initialize(m_runtime->m_asset_manager.get_asset<sound_asset>(assetname));
 }
 
+sound_actor::~sound_actor() { alDeleteSources(1, &m_source_name); }
+
 void sound_actor::set_sound(std::shared_ptr<sound> new_sound)
 {
 	m_sound = std::move(new_sound);
@@ -38,4 +40,8 @@ bool sound_actor::is_playing() const
 	return false;
 }
 
-sound_actor::~sound_actor() { alDeleteSources(1, &m_source_name); }
+void sound_actor::tick(std::chrono::duration<float>)
+{
+	auto vec = get_relative_location();
+	alSource3f(m_source_name, AL_POSITION, vec.x, vec.y, 0);
+}

@@ -7,6 +7,7 @@
 #include <exception>
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace ge;
 
@@ -39,6 +40,8 @@ sound::sound(const char* filename)
 		format = AL_FORMAT_MONO16;
 	} else {
 		format = AL_FORMAT_STEREO16;
+		// TODO: logging here
+		std::cout << "\nWARNING: loading stero sound, will not be localized.\n"; 
 	}
 	ALsizei freq = vInfo->rate;
 
