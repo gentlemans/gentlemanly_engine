@@ -1,7 +1,6 @@
 if(WIN32)
 	set(Boost_USE_STATIC_LIBS ON)
 endif()
-find_package(Boost COMPONENTS filesystem system)
 find_package(Threads REQUIRED)
 
 set(GE_PRIVATE_SOURCES
@@ -31,17 +30,13 @@ add_library(gentlemanly_engine ${GE_PUBLIC_SOURCES} ${GE_PRIVATE_SOURCES})
 target_include_directories(gentlemanly_engine
 PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/../deps/glm
-	${Boost_INCLUDE_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 target_link_libraries(gentlemanly_engine
 PUBLIC 
 	Threads::Threads
-	debug ${Boost_FILESYSTEM_LIBRARY_DEBUG}
-	optimized ${Boost_FILESYSTEM_LIBRARY_RELEASE}
-	debug ${Boost_SYSTEM_LIBRARY_DEBUG}
-	optimized ${Boost_SYSTEM_LIBRARY_RELEASE}
+	boost_filesystem
 )
 
 target_compile_definitions(gentlemanly_engine

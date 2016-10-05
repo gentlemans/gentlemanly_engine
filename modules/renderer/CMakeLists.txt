@@ -60,4 +60,10 @@ PUBLIC
     ${OPENGL_LIBRARIES}
 )
 
+if(UNIX AND NOT APPLE)
+	target_link_libraries(gentlemanly_engine_renderer
+	PUBLIC
+		wayland-client
+	)
+endif()
 

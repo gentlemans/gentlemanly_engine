@@ -30,10 +30,13 @@ else()
 	then install Doxygen or if it is already installed, set DOXYGEN_EXECUTABLE with a path to doxygen.")
 endif()
 
+
+add_subdirectory(deps/boost)
+
 set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
 add_subdirectory(deps/sdl2)
 set(SDL2_LIBRARY SDL2-static CACHE STRING "")
-set(SDL2_INCLUDE_DIR deps/sdl2/include CACHE PATH "")
+set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/sdl2/include CACHE PATH "")
 
 add_subdirectory(deps/ogg)
 set(OGG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg CACHE PATH "")
