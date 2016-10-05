@@ -1,5 +1,7 @@
 sudo: required
 
+language: cpp
+
 arch:
     packages:
         - sdl2
