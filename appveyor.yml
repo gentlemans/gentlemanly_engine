@@ -4,21 +4,6 @@ max_jobs: 2
 
 image: Visual Studio 2015
 
-init: 
-    - ps: $dir=pwd
-    - cd %APPVEYOR_BUILD_FOLDER%/..
-    - ps: wget http://heanet.dl.sourceforge.net/project/boost/boost/1.62.0/boost_1_62_0.zip -OutFile c:/boost.zip
-    - ps: Add-Type -AssemblyName System.IO.Compression.FileSystem
-    - ps: '[System.IO.Compression.ZipFile]::ExtractToDirectory("c:/boost.zip", "c:/")'
-    - ps: mv C:/boost_1_62_0 c:/boost
-    - cd c:/boost/
-    - bootstrap
-    - b2 toolset=msvc-14.0 link=static address-model=64 variant=debug variant=release --with-system --with-filesystem
-    - cd %APPVEYOR_BUILD_FOLDER%/..
-    - ps: mv stage/lib lib 
-    - ps: cd $dir
-    
-
 install:
     - mkdir build
     - cd build
