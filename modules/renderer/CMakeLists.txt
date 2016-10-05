@@ -1,6 +1,5 @@
 
 find_package(OpenGL REQUIRED)
-find_package(SDL2 REQUIRED)
 
 set(RENDERER_PUBLIC_FILES
 	include/ge/gl.hpp
