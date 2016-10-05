@@ -10,23 +10,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-6.2
-      env: COMPILER=g++-6.2
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6.1
-      env: COMPILER=g++-6.1
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6.0
+            - g++-6
       env: COMPILER=g++-6
     - compiler: clang
       addons:
