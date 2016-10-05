@@ -24,11 +24,6 @@ os:
   - osx
 
 script:
-  - 'if [ "$TRAVIS_OS_NAME" = "linux" ]; then'
-  - 'curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash'
-  - else
-  - brew install boost sdl2 cmake
-  - cmake . -DCMAKE_CXX_FLAGS="-Wall"
-  - make
-  - fi
+  - 'if [ "$TRAVIS_OS_NAME" = "linux" ]; then; curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash; fi'
+  - 'if [ "$TRAVIS_OS_NAME" = "osx" ]; then; brew install boost sdl2 cmake; cmake . -DCMAKE_CXX_FLAGS="-Wall"; make;fi'
 
