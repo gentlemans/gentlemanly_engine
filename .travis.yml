@@ -1,18 +1,20 @@
 sudo: required
-dist: trusty
-
+language: cpp
 
 matrix:
   include:
     - compiler: gcc
+      dist: trusty
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
             - g++-6
+            - libwayland-dev
       env: COMPILER=g++-6
     - compiler: clang
+      dist: trusty
       addons:
         apt:
           sources:
@@ -20,8 +22,10 @@ matrix:
             - llvm-toolchain-precise-3.6
           packages:
             - clang-3.6
+            - libwayland-dev
       env: COMPILER=clang++-3.6
     - compiler: clang
+      dist: trusty
       addons:
         apt:
           sources:
@@ -29,12 +33,10 @@ matrix:
             - llvm-toolchain-precise-3.7
           packages:
             - clang-3.7
+            - libwayland-dev
       env: COMPILER=clang++-3.7
     - compiler: clang
     - os: osx
-
-
-language: cpp
 
 
 script:
