@@ -30,6 +30,7 @@ matrix:
           packages:
             - clang-3.7
       env: COMPILER=clang++-3.7
+    - compiler: clang
     - os: osx
 
 
@@ -39,5 +40,5 @@ language: cpp
 script:
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_CXX_FLAGS="-Wall"
+  - cmake .. -DCMAKE_CXX_FLAGS="-Wall" -DCMAKE_CXX_COMPILER=$COMPILER
   - make
