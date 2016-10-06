@@ -9,7 +9,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - ppa:george-edison55/cmake-3.x
+            - george-edison55/cmake-3.x
           packages:
             - g++-6
             - cmake
@@ -21,7 +21,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - ppa:george-edison55/cmake-3.x
+            - george-edison55/cmake-3.x
             - llvm-toolchain-precise-3.6
           packages:
             - clang-3.6
@@ -33,7 +33,6 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - ppa:george-edison55/cmake-3.x
             - llvm-toolchain-precise-3.7
           packages:
             - clang-3.7
@@ -41,6 +40,37 @@ matrix:
             - libwayland-dev
       env: COMPILER=clang++-3.7
     - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.8
+          packages:
+            - clang-3.8
+            - cmake
+            - libwayland-dev
+      env: COMPILER=clang++-3.8
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.9
+          packages:
+            - clang-3.9
+            - cmake
+            - libwayland-dev
+      env: COMPILER=clang++-3.9  
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - cmake
     - os: osx
 
 
