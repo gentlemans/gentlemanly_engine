@@ -9,8 +9,10 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - ppa:george-edison55/cmake-3.x
           packages:
             - g++-6
+            - cmake
             - libwayland-dev
       env: COMPILER=g++-6
     - compiler: clang
@@ -19,6 +21,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - ppa:george-edison55/cmake-3.x
             - llvm-toolchain-precise-3.6
           packages:
             - clang-3.6
@@ -30,9 +33,11 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - ppa:george-edison55/cmake-3.x
             - llvm-toolchain-precise-3.7
           packages:
             - clang-3.7
+            - cmake
             - libwayland-dev
       env: COMPILER=clang++-3.7
     - compiler: clang
