@@ -87,7 +87,7 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 					attr_type = glm::vec4{};
 				}
 
-				ret->attributes.insert(std::pair<std::string, shader::attribute>{attrib["name"], {attr_type, attrib["glsl_id"]}});
+				ret->attributes.insert(std::pair<std::string, shader::attribute>{attrib["name"], {attr_type, (std::string)attrib["glsl_id"]}});
 			}
 		}
 	}
