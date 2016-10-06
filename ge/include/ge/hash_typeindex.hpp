@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <boost/functional/hash.hpp>
 #include <boost/type_index.hpp>
 
 namespace std
