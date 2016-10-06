@@ -18,3 +18,8 @@ add_library(boost_filesystem
 )
 
 target_link_libraries(boost_filesystem PUBLIC boost_system)
+
+target_compile_definitions(boost_filesystem
+PUBLIC 
+	BOOST_ALL_NO_LIB
+)

@@ -1,6 +1,4 @@
-if(WIN32)
-	set(Boost_USE_STATIC_LIBS ON)
-endif()
+
 find_package(Threads REQUIRED)
 
 set(GE_PRIVATE_SOURCES
