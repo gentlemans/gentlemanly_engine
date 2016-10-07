@@ -14,7 +14,9 @@ matrix:
             - g++-6
             - cmake
             - libwayland-dev
-      env: COMPILER=g++-6
+      env: 
+        - COMPILER=g++-6
+        - BUILD_TYPE=Debug
     - compiler: clang
       dist: trusty
       addons:
@@ -26,7 +28,9 @@ matrix:
           packages:
             - clang-3.6
             - libwayland-dev
-      env: COMPILER=clang++-3.6
+      env: 
+        - COMPILER=clang++-3.6
+        - BUILD_TYPE=Debug
     - compiler: clang
       dist: trusty
       addons:
@@ -38,44 +42,60 @@ matrix:
             - clang-3.7
             - cmake
             - libwayland-dev
-      env: COMPILER=clang++-3.7
-    - compiler: clang
-      dist: trusty
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
-          packages:
-            - clang-3.8
-            - cmake
-            - libwayland-dev
-      env: COMPILER=clang++-3.8
-    - compiler: clang
-      dist: trusty
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.9
-          packages:
-            - clang-3.9
-            - cmake
-            - libwayland-dev
-      env: COMPILER=clang++-3.9  
-    - compiler: clang
-      dist: trusty
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - cmake
+      env: 
+        - COMPILER=clang++-3.7
+        - BUILD_TYPE=Debug
     - os: osx
+      env: BUILD_TYPE=Debug
+      
+    - compiler: gcc
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - george-edison55/cmake-3.x
+          packages:
+            - g++-6
+            - cmake
+            - libwayland-dev
+      env: 
+        - COMPILER=g++-6
+        - BUILD_TYPE=Release
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - george-edison55/cmake-3.x
+            - llvm-toolchain-precise-3.6
+          packages:
+            - clang-3.6
+            - libwayland-dev
+      env: 
+        - COMPILER=clang++-3.6
+        - BUILD_TYPE=Release
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang-3.7
+            - cmake
+            - libwayland-dev
+      env: 
+        - COMPILER=clang++-3.7
+        - BUILD_TYPE=Release
+    - os: osx
+      env: BUILD_TYPE=Release
 
 
 script:
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_CXX_FLAGS="-Wall" -DCMAKE_CXX_COMPILER=$COMPILER
+  - cmake .. -DCMAKE_CXX_FLAGS="-Wall" -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_BUILD_TYPE=$BUILD_TYPE
   - make
