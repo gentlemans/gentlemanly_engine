@@ -26,6 +26,8 @@ struct sound  {
 	/// The OpenAL buffer name
 	unsigned int m_buffer_name;
 
+    uint8_t m_channels;
+
     void tick(std::chrono::duration<float> deltaT);
 };
 }

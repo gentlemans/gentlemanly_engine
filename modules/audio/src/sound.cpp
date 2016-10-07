@@ -39,9 +39,7 @@ sound::sound(const char* filename)
 	if (vInfo->channels == 1) {
 		format = AL_FORMAT_MONO16;
 	} else {
-		format = AL_FORMAT_STEREO16;
-		// TODO: logging here
-		std::cout << "\nWARNING: loading stero sound, will not be localized.\n"; 
+        format = AL_FORMAT_STEREO16;
 	}
 	ALsizei freq = vInfo->rate;
 

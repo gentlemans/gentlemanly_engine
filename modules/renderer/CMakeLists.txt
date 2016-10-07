@@ -19,6 +19,7 @@ set(RENDERER_PUBLIC_FILES
 	include/ge/sound_cue.hpp
 	include/ge/texture_asset.hpp
 	include/ge/texture.hpp
+        include/ge/animation_actor.hpp
 )
 
 set(RENDERER_PRIVATE_FILES
@@ -33,7 +34,7 @@ set(RENDERER_PRIVATE_FILES
 	src/shader_asset.cpp
 	src/shader.cpp
 	src/texture_asset.cpp
-	src/texture.cpp
+        src/texture.cpp
 )
 
 if(WIN32)
