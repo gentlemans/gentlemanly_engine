@@ -351,7 +351,11 @@ inline std::string errno_str(int err_num)
         return "Unkown error";
 
 #else  // gnu version (might not use the given buf, so its retval pointer must be used)
+#ifdef EMSCRIPTEN
     return std::to_string(strerror_r(err_num, buf, buf_size));
+#else
+	return std::string(strerror_r(err_num, buf, buf_size));
+#endif
 #endif
 }
 
