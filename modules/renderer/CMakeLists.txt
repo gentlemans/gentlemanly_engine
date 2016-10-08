@@ -19,7 +19,7 @@ set(RENDERER_PUBLIC_FILES
 	include/ge/sound_cue.hpp
 	include/ge/texture_asset.hpp
 	include/ge/texture.hpp
-        include/ge/animation_actor.hpp
+    include/ge/animation_actor.hpp
 )
 
 set(RENDERER_PRIVATE_FILES
@@ -34,7 +34,8 @@ set(RENDERER_PRIVATE_FILES
 	src/shader_asset.cpp
 	src/shader.cpp
 	src/texture_asset.cpp
-        src/texture.cpp
+    src/texture.cpp
+    src/tiny_obj_loader.cc
 )
 
 if(WIN32)
@@ -46,7 +47,6 @@ add_library(gentlemanly_engine_renderer ${RENDERER_PUBLIC_FILES} ${RENDERER_PRIV
 target_include_directories(gentlemanly_engine_renderer
 PRIVATE
 	${SDL2_INCLUDE_DIR}
-	../../deps/assimp/include
 	${OPENGL_INCLUDE_DIR}
 PUBLIC
 	include
@@ -56,7 +56,6 @@ target_link_libraries(gentlemanly_engine_renderer
 PRIVATE
 	gentlemanly_engine
 	${SDL2_LIBRARY}
-	assimp
 PUBLIC
     ${OPENGL_LIBRARIES}
 )

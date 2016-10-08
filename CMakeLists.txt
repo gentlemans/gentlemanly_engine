@@ -46,41 +46,12 @@ set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include CACHE PATH "")
 add_subdirectory(deps/vorbis)
 add_dependencies(vorbis ogg)
 
-# These are optional, we can use the packaged if we can to avoid buliding it
-if(UNIX)
-	find_package(Freetype)
-endif()
 
-if(UNIX)
-	find_package(assimp)
-endif()
+set(BUILD_SHARED_LIBS OFF)
+add_subdirectory(deps/freetype2)
+set(FREETYPE_LIBRARY freetype CACHE STRING "")
+set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
 
-message("DIR: ${ASSIMP_INCLUDE_DIRS}")
-
-#ASSIMP
-if(NOT ASSIMP_INCLUDE_DIRS)
-
-	message("Using submodule version of assimp, building from scratch")
-
-    set(ASSIMP_BUILD_TESTS OFF)
-    set(ASSIMP_BUILD_SAMPLES OFF)
-    set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
-    add_subdirectory(deps/assimp)
-
-endif()
-
-if(NOT FREETYPE_FOUND)
-
-	message("Using submodule version of freetype, building from scratch")
-
-    #FT2
-
-    set(BUILD_SHARED_LIBS OFF)
-    add_subdirectory(deps/freetype2)
-    set(FREETYPE_LIBRARY freetype CACHE STRING "")
-    set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
-
-endif()
 
 # LIBROCKET
 
