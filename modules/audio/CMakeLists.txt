@@ -16,12 +16,22 @@ add_library(gentlemanly_engine_audio_subsystem ${GE_AUDIO_PUBLIC_FILES} ${GE_AUD
 
 target_include_directories(gentlemanly_engine_audio_subsystem
 PRIVATE
-	${OPENAL_INCLUDE_DIR}
 	../../deps/vorbis/include
 	../../deps/ogg/include
 PUBLIC
 	include/
 )
+
+if(NOT EMSCRIPTEN)
+	target_include_directories(gentlemanly_engine_audio_subsystem
+	PRIVATE
+		${OPENAL_INCLUDE_DIR}
+	)
+	target_link_libraries(gentlemanly_engine_audio_subsystem
+	PRIVATE
+		${OPENAL_LIBRARY}
+	)
+endif()
 
 target_link_libraries(gentlemanly_engine_audio_subsystem
 PUBLIC

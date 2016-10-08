@@ -1,0 +1,14 @@
+PROJECT_NAME           = "gentlemanly_engine"
+PROJECT_NUMBER         = 0.1.0
+STRIP_FROM_PATH        = /home/russellg/projects/gentlemanly_engine
+INPUT                  = /home/russellg/projects/gentlemanly_engine/modules \
+                         /home/russellg/projects/gentlemanly_engine/ge
+FILE_PATTERNS          = *.hpp 
+EXCLUDE_PATTERNS       = */json.hpp \
+					     */lodepng.cpp \
+					     */lodepng.h \
+					     */spdlog/
+RECURSIVE              = YES
+OUTPUT_DIRECTORY       = doc
+JAVADOC_AUTOBRIEF      = YES
+PREDEFINED             = DOXYGEN_SHOULD_SKIP_THIS

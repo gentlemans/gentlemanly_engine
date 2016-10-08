@@ -42,8 +42,12 @@ PUBLIC
 	BOOST_ALL_NO_LIB
 )
 
-target_compile_features(gentlemanly_engine
-PUBLIC
-	cxx_generic_lambdas
-	cxx_variadic_templates
-)
+if(NOT EMSCRIPTEN)
+	target_compile_features(gentlemanly_engine
+	PUBLIC
+		cxx_generic_lambdas
+		cxx_variadic_templates
+	)
+else()
+	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14")
+endif()

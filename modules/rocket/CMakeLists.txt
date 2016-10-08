@@ -31,3 +31,7 @@ PUBLIC
 	../../deps/libRocket/Include/
 	include
 )
+
+if(EMSCRIPTEN)
+	set_target_properties(gentlemanly_engine_rocket_subsystem PROPERTIES LINK_FLAGS "-s USE_SDL=2")
+endif()

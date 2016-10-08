@@ -31,12 +31,22 @@ else()
 endif()
 
 
+if (EMSCRIPTEN)
+    set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc")
+    set(CMAKE_C_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>")
+    set(CMAKE_CXX_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>")
+endif()
+
+set(CMAKE_CXX_COMPILE_FLAGS ${CMAKE_CXX_COMPILE_FLAGS} "-g4")
+
 add_subdirectory(deps/boost)
 
-set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
-add_subdirectory(deps/sdl2)
-set(SDL2_LIBRARY SDL2-static CACHE STRING "")
-set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/sdl2/include CACHE PATH "")
+if(NOT EMSCRIPTEN)
+	set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
+	add_subdirectory(deps/sdl2)
+	set(SDL2_LIBRARY SDL2-static CACHE STRING "")
+	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/sdl2/include CACHE PATH "")
+endif()
 
 add_subdirectory(deps/ogg)
 set(OGG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg CACHE PATH "")
@@ -58,22 +68,22 @@ set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
 set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
 
-set(ALSOFT_UTILS OFF CACHE BOOL "")
-set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
-set(ALSOFT_TESTS OFF CACHE BOOL "")
-set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
+if(NOT EMSCRIPTEN)
+	set(ALSOFT_UTILS OFF CACHE BOOL "")
+	set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
+	set(ALSOFT_TESTS OFF CACHE BOOL "")
+	set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
 
-add_subdirectory(deps/openal-soft)
+	add_subdirectory(deps/openal-soft)
 
-if(WIN32)
-	set(OPENAL_LIBRARY OpenAL32)
-else()
-	set(OPENAL_LIBRARY openal)
+	if(WIN32)
+		set(OPENAL_LIBRARY OpenAL32)
+	else()
+		set(OPENAL_LIBRARY openal)
+	endif()
+
+	set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/openal-soft/include)
 endif()
-
-set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/openal-soft/include)
-
-
 
 add_subdirectory(ge)
 add_subdirectory(modules)
