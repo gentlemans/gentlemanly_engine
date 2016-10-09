@@ -19,6 +19,7 @@ set(RENDERER_PUBLIC_FILES
 	include/ge/sound_cue.hpp
 	include/ge/texture_asset.hpp
 	include/ge/texture.hpp
+    include/ge/animation_actor.hpp
 )
 
 set(RENDERER_PRIVATE_FILES
@@ -33,7 +34,8 @@ set(RENDERER_PRIVATE_FILES
 	src/shader_asset.cpp
 	src/shader.cpp
 	src/texture_asset.cpp
-	src/texture.cpp
+    src/texture.cpp
+    src/tiny_obj_loader.cc
 )
 
 if(WIN32)
@@ -44,8 +46,6 @@ add_library(gentlemanly_engine_renderer ${RENDERER_PUBLIC_FILES} ${RENDERER_PRIV
 
 target_include_directories(gentlemanly_engine_renderer
 PRIVATE
-	${SDL2_INCLUDE_DIR}
-	../../deps/assimp/include
 	${OPENGL_INCLUDE_DIR}
 PUBLIC
 	include
@@ -54,13 +54,26 @@ PUBLIC
 target_link_libraries(gentlemanly_engine_renderer
 PRIVATE
 	gentlemanly_engine
-	${SDL2_LIBRARY}
-	assimp
 PUBLIC
     ${OPENGL_LIBRARIES}
 )
 
-if(UNIX AND NOT APPLE)
+if(NOT EMSCRIPTEN)
+	target_link_libraries(gentlemanly_engine_renderer
+	PRIVATE
+		${SDL2_LIBRARY}
+	)
+	target_include_directories(gentlemanly_engine_renderer
+	PRIVATE
+		${SDL2_INCLUDE_DIR}
+	)
+endif()
+
+if(EMSCRIPTEN)
+	set_target_properties(gentlemanly_engine_renderer PROPERTIES  LINK_FLAGS "-s USE_SDL=2" COMPILE_FLAGS "-s USE_SDL=2")
+endif()
+
+if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
 	target_link_libraries(gentlemanly_engine_renderer
 	PUBLIC
 		wayland-client

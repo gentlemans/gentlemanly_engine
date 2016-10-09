@@ -11,8 +11,13 @@
 
 using namespace ge;
 
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#endif
+
 int main(int argc, char** argv)
 {
+	try {
 	runtime r;
 	r.m_asset_manager.add_asset_path("data/");
 	r.add_subsystem<input_subsystem>({});
@@ -32,7 +37,17 @@ int main(int argc, char** argv)
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
-
+#ifdef EMSCRIPTEN
+	emscripten_set_main_loop_arg([](void* run_ptr){
+		runtime* runt = (runtime*)run_ptr;
+		
+		runt->tick();
+	}, &r, 0, true);
+#else
 	while (r.tick())
 		;
+#endif
+	}catch(std::exception& e) {
+		std::cerr << e.what();
+	}
 }

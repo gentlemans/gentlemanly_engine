@@ -4,6 +4,7 @@
 #pragma once
 
 #include <boost/type_index.hpp>
+#include <boost/functional/hash.hpp>		
 
 namespace std
 {

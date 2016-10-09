@@ -31,12 +31,22 @@ else()
 endif()
 
 
+if (EMSCRIPTEN)
+    set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc")
+    set(CMAKE_C_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>")
+    set(CMAKE_CXX_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>")
+endif()
+
+set(CMAKE_CXX_COMPILE_FLAGS ${CMAKE_CXX_COMPILE_FLAGS} "-g4")
+
 add_subdirectory(deps/boost)
 
-set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
-add_subdirectory(deps/sdl2)
-set(SDL2_LIBRARY SDL2-static CACHE STRING "")
-set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/sdl2/include CACHE PATH "")
+if(NOT EMSCRIPTEN)
+	set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
+	add_subdirectory(deps/sdl2)
+	set(SDL2_LIBRARY SDL2-static CACHE STRING "")
+	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/sdl2/include CACHE PATH "")
+endif()
 
 add_subdirectory(deps/ogg)
 set(OGG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg CACHE PATH "")
@@ -46,63 +56,34 @@ set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include CACHE PATH "")
 add_subdirectory(deps/vorbis)
 add_dependencies(vorbis ogg)
 
-# These are optional, we can use the packaged if we can to avoid buliding it
-if(UNIX)
-	find_package(Freetype)
-endif()
 
-if(UNIX)
-	find_package(assimp)
-endif()
+set(BUILD_SHARED_LIBS OFF)
+add_subdirectory(deps/freetype2)
+set(FREETYPE_LIBRARY freetype CACHE STRING "")
+set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
 
-message("DIR: ${ASSIMP_INCLUDE_DIRS}")
-
-#ASSIMP
-if(NOT ASSIMP_INCLUDE_DIRS)
-
-	message("Using submodule version of assimp, building from scratch")
-
-    set(ASSIMP_BUILD_TESTS OFF)
-    set(ASSIMP_BUILD_SAMPLES OFF)
-    set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
-    add_subdirectory(deps/assimp)
-
-endif()
-
-if(NOT FREETYPE_FOUND)
-
-	message("Using submodule version of freetype, building from scratch")
-
-    #FT2
-
-    set(BUILD_SHARED_LIBS OFF)
-    add_subdirectory(deps/freetype2)
-    set(FREETYPE_LIBRARY freetype CACHE STRING "")
-    set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
-
-endif()
 
 # LIBROCKET
 
 set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
 
-set(ALSOFT_UTILS OFF CACHE BOOL "")
-set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
-set(ALSOFT_TESTS OFF CACHE BOOL "")
-set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
+if(NOT EMSCRIPTEN)
+	set(ALSOFT_UTILS OFF CACHE BOOL "")
+	set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
+	set(ALSOFT_TESTS OFF CACHE BOOL "")
+	set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
 
-add_subdirectory(deps/openal-soft)
+	add_subdirectory(deps/openal-soft)
 
-if(WIN32)
-	set(OPENAL_LIBRARY OpenAL32)
-else()
-	set(OPENAL_LIBRARY openal)
+	if(WIN32)
+		set(OPENAL_LIBRARY OpenAL32)
+	else()
+		set(OPENAL_LIBRARY openal)
+	endif()
+
+	set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/openal-soft/include)
 endif()
-
-set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/openal-soft/include)
-
-
 
 add_subdirectory(ge)
 add_subdirectory(modules)
