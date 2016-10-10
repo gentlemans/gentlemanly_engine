@@ -24,7 +24,6 @@ bool audio_subsystem::initialize(audio_subsystem::config)
 	m_pimpl = std::make_unique<pimpl>();
 
 	const char* devicename = alcGetString(NULL, ALC_ALL_DEVICES_SPECIFIER);
-	std::cout << devicename;
 	m_pimpl->device = alcOpenDevice(devicename);
 	if (!m_pimpl->device) {
 		log->error("Failed to open OpenAL device.");

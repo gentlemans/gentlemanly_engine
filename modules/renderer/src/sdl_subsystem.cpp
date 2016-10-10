@@ -115,9 +115,7 @@ int sdl_mods_to_ge(int mod)
 
 bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 {
-	std::cout << "Start SDL init\n";
 	SDL_Init(SDL_INIT_VIDEO);
-	std::cout << "SDL initialized\n";
 
 	// create the window
 	int flags = SDL_WINDOW_OPENGL | (config.fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) |
@@ -134,7 +132,6 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	// initalize the window
 	m_window =
 		SDL_CreateWindow(config.title.c_str(), loc.x, loc.y, config.size.x, config.size.y, flags);
-	std::cout << "SDL Window Created\n";
 
 	using namespace std::string_literals;
 	if (!m_window) {
@@ -144,7 +141,6 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	// create the context
 	m_context = SDL_GL_CreateContext(m_window);
 	SDL_GL_MakeCurrent(m_window, m_context);
-	std::cout << "SDL GL Context Created\n";
 
 #ifdef WIN32
 	if (!gladLoadGL()) {
@@ -155,10 +151,8 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 
 	// Enable blending
 	glEnable(GL_BLEND);
-	std::cout << "Enabled Blend\n";
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	std::cout << "DOne init SDL!\n";
 	return true;
 }
 
