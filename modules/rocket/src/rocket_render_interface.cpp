@@ -44,7 +44,8 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	material mat(m_shader);
 
 	if (texture) {
-		mat.m_property_values["Texture"] = *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
+		mat.m_property_values["Texture"] =
+			*reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
 	}
 	mesh_settings set(me, mat);
 
@@ -145,8 +146,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		// load PNG data
 		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
 		if (err != 0) {
-			log->error(
-				"Failed to load PNG: error: "s + lodepng_error_text(err));
+			log->error("Failed to load PNG: error: "s + lodepng_error_text(err));
 			return false;
 		}
 

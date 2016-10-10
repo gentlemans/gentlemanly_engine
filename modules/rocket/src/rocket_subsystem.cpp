@@ -17,13 +17,14 @@ bool rocket_subsystem::initialize(rocket_subsystem::config)
 	std::cout << "Created rocket render interface, creating system...\n";
 	auto m_system_interface = new rocket_system_interface(*m_runtime);
 	std::cout << "Created system interface, about to initialize rocket\n";
-	
+
 	Rocket::Core::SetSystemInterface(m_system_interface);
 	Rocket::Core::SetRenderInterface(m_render_interface);
 
 	Rocket::Core::Initialise();
-	std::cout << "Rocket initialized, creating context\n";;
-	
+	std::cout << "Rocket initialized, creating context\n";
+	;
+
 	m_context = Rocket::Core::CreateContext(
 		"default", {int(sdl_sub->get_size().x), int(sdl_sub->get_size().y)});
 

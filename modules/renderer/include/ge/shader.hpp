@@ -88,11 +88,9 @@ public:
 
 	/// The location of the mvp matrix uniform value
 	int32_t m_mvp_uniform_location;
-	
+
 	/// Validity checking
-	operator bool() {
-		return m_program_name != ~0;
-	}
+	operator bool() { return m_program_name != ~0; }
 };
 }
 

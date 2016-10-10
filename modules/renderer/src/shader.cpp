@@ -60,7 +60,7 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 		std::string info_log(info_length + 1, '\0');
 		glGetProgramInfoLog(m_program_name, info_length, nullptr, &info_log[0]);
 		log->error("Failed to link program: " + info_log);
-		m_program_name = ~0; // invalidate
+		m_program_name = ~0;  // invalidate
 		return;
 	}
 

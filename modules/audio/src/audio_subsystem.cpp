@@ -1,6 +1,6 @@
 #include "ge/audio_subsystem.hpp"
-#include "ge/runtime.hpp"
 #include "ge/log.hpp"
+#include "ge/runtime.hpp"
 
 using namespace ge;
 
@@ -36,7 +36,7 @@ bool audio_subsystem::initialize(audio_subsystem::config)
 
 	if (!m_pimpl->context) {
 		log->error("Failed to create OpenAL context. Error: " +
-								boost::lexical_cast<std::string>(alcGetError(m_pimpl->device)));
+				   boost::lexical_cast<std::string>(alcGetError(m_pimpl->device)));
 		return false;
 	}
 	return true;

@@ -32,11 +32,9 @@ public:
 
 	/// The OpenGL name of the texture
 	unsigned int texture_name = ~0;
-	
+
 	/// Validity test
-	operator bool() const {
-		return texture_name != ~0;
-	}
+	operator bool() const { return texture_name != ~0; }
 };
 }
 

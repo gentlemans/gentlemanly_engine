@@ -5,8 +5,8 @@
 
 #include "ge/asset_manager.hpp"
 #include "ge/hash_typeindex.hpp"
-#include "ge/subsystem.hpp"
 #include "ge/log.hpp"
+#include "ge/subsystem.hpp"
 
 #include <chrono>
 #include <memory>
@@ -20,11 +20,12 @@ class actor;
 /// The subsystem manager for the engine. This is the highest up primative the engine defines
 struct runtime {
 	/// Defualt constructor
-	runtime() :  m_asset_manager{*this} {
-		if(!log) log = spdlog::stdout_logger_mt("ge_log", true);
-		
+	runtime() : m_asset_manager{*this}
+	{
+		if (!log) log = spdlog::stdout_logger_mt("ge_log", true);
+
 		log->flush_on(spdlog::level::level_enum::err);
-		
+
 		log->info("Runtime constructed!");
 	}
 	/// Destructor
@@ -36,13 +37,13 @@ struct runtime {
 			bool this_success = (*iter)->shutdown();
 			if (!overall_success) overall_success = this_success;
 		}
-		
-		if(overall_success) {
+
+		if (overall_success) {
 			log->info("Rutime destroyed successfully!");
 		} else {
-			log->error("Runtime not destroyed successfully, some subsystems not shut down correctly.");
+			log->error(
+				"Runtime not destroyed successfully, some subsystems not shut down correctly.");
 		}
-
 	}
 
 	/// Adds a new subsystem. Subsystems must derrive from \c ge::subsystem and also must implemet a
@@ -73,7 +74,7 @@ struct runtime {
 				"Subsystem \"" + type_id<Subsystem>().pretty_name() + "\" sucessfully loaded.");
 		} else {
 			log->error("Subsystem \"" + type_id<Subsystem>().pretty_name() +
-						 "\" failed to load. Program execution will continue, but it could be messy");
+					   "\" failed to load. Program execution will continue, but it could be messy");
 		}
 
 		// add it!
@@ -132,7 +133,7 @@ struct runtime {
 	/// Get the total elased time of the runtiime since the first tick
 	std::chrono::duration<float> get_elapsed_time() const { return first_tick - last_tick; }
 	/// The asset manager
-	
+
 	asset_manager m_asset_manager;
 
 private:
@@ -146,9 +147,8 @@ private:
 }
 
 #include "ge/actor.hpp"
-namespace ge {
-
+namespace ge
+{
 void runtime::set_root_actor(actor* new_root) { m_root_actor = actor::shared(new_root); }
-
 }
 #endif  // GE_RUNTIME_HPP

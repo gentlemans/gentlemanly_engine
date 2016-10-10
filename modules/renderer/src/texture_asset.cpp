@@ -12,8 +12,7 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 	} else if (type_str == "PNG") {
 		type_to_load = type::PNG;
 	} else {
-		log->error(
-			"Unrecognized texture type found when loading texture_asset: " + type_str); 
+		log->error("Unrecognized texture type found when loading texture_asset: " + type_str);
 		return nullptr;
 	}
 

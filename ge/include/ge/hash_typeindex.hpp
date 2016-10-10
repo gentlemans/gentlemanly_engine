@@ -3,8 +3,8 @@
 
 #pragma once
 
+#include <boost/functional/hash.hpp>
 #include <boost/type_index.hpp>
-#include <boost/functional/hash.hpp>		
 
 namespace std
 {

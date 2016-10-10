@@ -38,7 +38,7 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 				shader::parameter_type param_data;
 
 				// figure out type
-				if(type == "int") {
+				if (type == "int") {
 					param_data = (int)parameter["default"];
 				} else if (type == "float") {
 					param_data = (float)parameter["default"];
@@ -74,10 +74,9 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 				// find out type
 				std::string type = attrib["type"];
 				auto attr_type = shader::attribute_type{};
-				if(type == "int") {
+				if (type == "int") {
 					attr_type = int{};
-				}
-				else if (type == "float") {
+				} else if (type == "float") {
 					attr_type = float{};
 				} else if (type == "vec2") {
 					attr_type = glm::vec2{};
@@ -88,7 +87,8 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 				}
 				unsigned int glsl_id = attrib["glsl_id"];
 				std::string attr_name = attrib["name"];
-				ret->m_attributes.insert(std::pair<std::string, shader::attribute>{attr_name, shader::attribute{attr_type, glsl_id}});
+				ret->m_attributes.insert(std::pair<std::string, shader::attribute>{
+					attr_name, shader::attribute{attr_type, glsl_id}});
 			}
 		}
 	}

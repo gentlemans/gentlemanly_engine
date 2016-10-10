@@ -17,7 +17,6 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 
-
 namespace ge
 {
 struct runtime;

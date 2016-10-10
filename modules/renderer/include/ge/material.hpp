@@ -40,11 +40,9 @@ public:
 
 	/// The overrided properties over the shader.
 	std::unordered_map<std::string, shader::parameter_type> m_property_values;
-	
+
 	/// Validity check
-	operator bool() const {
-		return m_shader != nullptr;
-	}
+	operator bool() const { return m_shader != nullptr; }
 };
 }
 

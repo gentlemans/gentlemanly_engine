@@ -127,7 +127,7 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 #endif
-	
+
 	glm::uvec2 loc = config.location ? config.location.get()
 									 : glm::uvec2{SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED};
 
@@ -137,7 +137,7 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	std::cout << "SDL Window Created\n";
 
 	using namespace std::string_literals;
-	if (!m_window) { 
+	if (!m_window) {
 		log->error("Error initalizing SDL window"s + SDL_GetError());
 		return false;
 	}
@@ -145,7 +145,6 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	m_context = SDL_GL_CreateContext(m_window);
 	SDL_GL_MakeCurrent(m_window, m_context);
 	std::cout << "SDL GL Context Created\n";
-
 
 #ifdef WIN32
 	if (!gladLoadGL()) {

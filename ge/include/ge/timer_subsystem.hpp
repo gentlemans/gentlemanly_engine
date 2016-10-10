@@ -35,8 +35,8 @@ struct timer_int_data {
 /// This is similar to a `boost::signals2::connection`, it allows you to manage a timer.
 struct timer_handle {
 	/// This is called from the timer_manager, you don't have to worry about it.
-	timer_handle(timer_manager<void()>* manager,
-		const std::shared_ptr<timer_int_data<void()>>& timer)
+	timer_handle(
+		timer_manager<void()>* manager, const std::shared_ptr<timer_int_data<void()>>& timer)
 		: m_manager{manager}, m_data{timer} {};
 
 	/// Gets if the timer has been called
@@ -58,11 +58,10 @@ private:
 
 /// This class manages timers
 struct timer_subsystem : subsystem {
-	
 	/// no config
-	struct config{};
-	bool initialize(config){return true;};
-	
+	struct config {
+	};
+	bool initialize(config) { return true; };
 	/// Allow timer_handle to modify the manager's internals
 	friend timer_handle<void(ArgTypes...)>;
 
@@ -70,8 +69,7 @@ struct timer_subsystem : subsystem {
 	/// \param func The function to be called when the time is right
 	/// \param duration How long to wait before calling the function
 	/// \return The timer_handle used to handle the timer
-	timer_handle add_timer(
-		std::function<void()> func, std::chrono::duration<float> duration)
+	timer_handle add_timer(std::function<void()> func, std::chrono::duration<float> duration)
 	{
 		auto dat = std::make_shared<timer_int_data>(func, last_tick + duration);
 
@@ -101,8 +99,8 @@ struct timer_subsystem : subsystem {
 	}
 
 private:
-	static bool comp(const std::shared_ptr<timer_int_data>& a,
-		const std::shared_ptr<timer_int_data>& b)
+	static bool comp(
+		const std::shared_ptr<timer_int_data>& a, const std::shared_ptr<timer_int_data>& b)
 	{
 		return a->expiration_time > b->expiration_time;
 	}
@@ -111,7 +109,4 @@ private:
 
 	std::vector<std::shared_ptr<timer_int_data>> m_data;
 };
-
-
-
 }

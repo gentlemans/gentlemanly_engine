@@ -3,10 +3,10 @@
 
 #pragma once
 
+#include "ge/actor.hpp"
 #include "ge/runtime.hpp"
 #include "ge/subsystem.hpp"
 #include "ge/tickable.hpp"
-#include "ge/actor.hpp"
 
 namespace ge
 {
@@ -27,7 +27,7 @@ struct actor_ticker_subsystem : subsystem {
 			}
 		});
 
-        return true;
+		return true;
 	}
 };
 }

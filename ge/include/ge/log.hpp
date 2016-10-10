@@ -7,8 +7,9 @@
 
 #include <memory>
 
-namespace ge {
-	extern std::shared_ptr<spdlog::logger> log;
+namespace ge
+{
+extern std::shared_ptr<spdlog::logger> log;
 }
 
-#endif // GE_LOG_HPP
+#endif  // GE_LOG_HPP

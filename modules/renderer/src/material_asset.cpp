@@ -37,7 +37,7 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 	const char* filepath, const nlohmann::json& json_data)
 {
 	using namespace std::string_literals;
-	
+
 	std::string shader_asset_name = json_data["shader"];
 	auto shader_ass = manager.get_asset<shader_asset>(shader_asset_name.c_str());
 
@@ -53,7 +53,7 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 			auto default_paramater_iter = ret.m_shader->m_parameters.find(parameter_name);
 			if (default_paramater_iter == ret.m_shader->m_parameters.end()) {
 				log->error("Could not find property: " + parameter_name +
-										 " in shader while loading material asset: " + asset_name);
+						   " in shader while loading material asset: " + asset_name);
 				return {};
 			}
 			auto default_value = default_paramater_iter->second.value;

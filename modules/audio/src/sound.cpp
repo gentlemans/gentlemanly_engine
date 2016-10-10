@@ -6,9 +6,9 @@
 
 #include <array>
 #include <exception>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 using namespace ge;
 
@@ -40,7 +40,7 @@ sound::sound(const char* filename)
 	if (vInfo->channels == 1) {
 		format = AL_FORMAT_MONO16;
 	} else {
-        format = AL_FORMAT_STEREO16;
+		format = AL_FORMAT_STEREO16;
 	}
 	ALsizei freq = vInfo->rate;
 
