@@ -6,6 +6,9 @@
 #include "ge/concept/asset.hpp"
 #include "ge/json.hpp"
 #include "ge/subsystem.hpp"
+#include "ge/log.hpp"
+
+#include <spdlog/spdlog.h>
 
 #include <functional>
 #include <map>
@@ -19,8 +22,11 @@
 #include <boost/filesystem.hpp>
 #include <boost/mpl/if.hpp>
 
+#include <boost/type_index.hpp>
+
 namespace ge
 {
+
 /// Asset loader, and cacher.
 class asset_manager
 {
@@ -101,7 +107,7 @@ public:
 	void add_asset_path(std::string path, uint8_t priority = 0)
 	{
 		if (!boost::filesystem::is_directory(path)) {
-			throw std::runtime_error("Error opening asset path: " + path);
+			log->error("Error opening asset path: " + path + ". Execution will continue, but assets might not load.");
 		}
 
 		m_search_paths[priority].emplace_back(std::move(path));
@@ -118,6 +124,8 @@ public:
 	auto get_asset(const char* name, extra_args_types&&... extra_args)
 	{
 		using namespace std::string_literals;
+		
+		log->debug("Trying to load asset "s + name + " with type " + boost::typeindex::type_id<asset_type>().pretty_name());
 
 		// make sure it's an asset
 		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
@@ -136,15 +144,19 @@ public:
 		std::string asset_type_from_json = root["asset_type"];
 
 		if (std::string(asset_type::asset_type()) != asset_type_from_json) {
-			throw std::runtime_error("Asset type " + std::string(asset_type::asset_type()) +
+			log->debug("Failed to load asset "s + name);
+
+			log->error("Asset type " + std::string(asset_type::asset_type()) +
 									 " but the asset.json file in asset " + name +
-									 " had asset type " + asset_type_from_json);
+									 " had asset type " + asset_type_from_json + ". Asset will still be attempted to be loaded, but no promises.");
 		}
 
 		auto data = asset_type::load_asset(
 			*this, name, abs_path.c_str(), root, std::forward<extra_args_types>(extra_args)...);
 
 		cache_adder_helper<asset_type>::exec(*this, name, data);
+		
+		log->info("Successfully loaded asset \""s + name + "\" of type: " + boost::typeindex::type_id<asset_type>().pretty_name());
 
 		return data;
 	}
@@ -158,6 +170,8 @@ public:
 	{
 		using namespace std::string_literals;
 
+		log->debug("Trying to load void asset "s + name + " with type " + boost::typeindex::type_id<asset_type>().pretty_name());
+		
 		// make sure it's an asset
 		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
 
@@ -181,15 +195,19 @@ public:
 		std::string asset_type_from_json = root["asset_type"];
 
 		if (std::string(asset_type::asset_type()) != asset_type_from_json) {
-			throw std::runtime_error("Asset type " + std::string(asset_type::asset_type()) +
+			log->debug("Failed to load asset "s + name);
+			log->error("Asset type " + std::string(asset_type::asset_type()) +
 									 " but the asset.json file in asset " + name +
-									 " had asset type " + asset_type_from_json);
+									 " had asset type " + asset_type_from_json + ". Asset will still be attempted to be loaded, but no promises.");
 		}
 
 		asset_type::load_asset(
 			*this, name, abs_path.c_str(), root, std::forward<extra_args_types>(extra_args)...);
-
+		
+		log->info("Successfully loaded asset \""s + name + "\" of type: " + boost::typeindex::type_id<asset_type>().pretty_name());
+		
 		if (is_cached) loaded_void_assets.insert(name);
+		
 	}
 
 	/// The runtime object that this manger belongs to
@@ -213,12 +231,12 @@ private:
 		}
 
 		if (abs_path.empty()) {
-			throw std::runtime_error(
+			log->error(
 				"Could not find asset named "s + name + " in any of the search paths");
 		}
 
 		if (!boost::filesystem::exists(abs_path + "/asset.json")) {
-			throw std::runtime_error("Asset "s + name + " that was found in folder " + abs_path +
+			log->error("Asset "s + name + " that was found in folder " + abs_path +
 									 " does not have a asset.json file");
 		}
 

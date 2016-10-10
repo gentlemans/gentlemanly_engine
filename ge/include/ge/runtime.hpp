@@ -6,6 +6,7 @@
 #include "ge/asset_manager.hpp"
 #include "ge/hash_typeindex.hpp"
 #include "ge/subsystem.hpp"
+#include "ge/log.hpp"
 
 #include <chrono>
 #include <memory>
@@ -13,15 +14,19 @@
 
 #include <boost/type_index.hpp>
 
-#include <spdlog/spdlog.h>
-
 namespace ge
 {
 class actor;
 /// The subsystem manager for the engine. This is the highest up primative the engine defines
 struct runtime {
 	/// Defualt constructor
-	runtime() : m_asset_manager{*this} { m_log = spdlog::stdout_logger_mt("ge_log"); }
+	runtime() :  m_asset_manager{*this} {
+		if(!log) log = spdlog::stdout_logger_mt("ge_log", true);
+		
+		log->flush_on(spdlog::level::level_enum::err);
+		
+		log->info("Runtime constructed!");
+	}
 	/// Destructor
 	~runtime()
 	{
@@ -31,9 +36,13 @@ struct runtime {
 			bool this_success = (*iter)->shutdown();
 			if (!overall_success) overall_success = this_success;
 		}
+		
+		if(overall_success) {
+			log->info("Rutime destroyed successfully!");
+		} else {
+			log->error("Runtime not destroyed successfully, some subsystems not shut down correctly.");
+		}
 
-		// see if it was successful
-		// TODO: logging
 	}
 
 	/// Adds a new subsystem. Subsystems must derrive from \c ge::subsystem and also must implemet a
@@ -60,11 +69,11 @@ struct runtime {
 		bool success = new_subsystem->initialize(config);
 
 		if (success) {
-			m_log->info(
+			log->info(
 				"Subsystem \"" + type_id<Subsystem>().pretty_name() + "\" sucessfully loaded.");
 		} else {
-			m_log->error("Subsystem \"" + type_id<Subsystem>().pretty_name() +
-						 "\" failed to load. Program execution will continue, but ");
+			log->error("Subsystem \"" + type_id<Subsystem>().pretty_name() +
+						 "\" failed to load. Program execution will continue, but it could be messy");
 		}
 
 		// add it!
@@ -123,10 +132,8 @@ struct runtime {
 	/// Get the total elased time of the runtiime since the first tick
 	std::chrono::duration<float> get_elapsed_time() const { return first_tick - last_tick; }
 	/// The asset manager
+	
 	asset_manager m_asset_manager;
-
-	/// Logger object.
-	std::shared_ptr<spdlog::logger> m_log;
 
 private:
 	std::shared_ptr<actor> m_root_actor;
@@ -137,7 +144,11 @@ private:
 	std::chrono::system_clock::time_point first_tick, last_tick;
 };
 }
-#include "ge/actor.hpp"
 
-void ge::runtime::set_root_actor(actor* new_root) { m_root_actor = ge::actor::shared(new_root); }
+#include "ge/actor.hpp"
+namespace ge {
+
+void runtime::set_root_actor(actor* new_root) { m_root_actor = actor::shared(new_root); }
+
+}
 #endif  // GE_RUNTIME_HPP

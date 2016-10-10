@@ -2,6 +2,7 @@
 #include "ge/runtime.hpp"
 #include "ge/sound_asset.hpp"
 #include "ge/tickable.hpp"
+#include "ge/log.hpp"
 
 #include <AL/al.h>
 
@@ -12,7 +13,7 @@ void sound_actor::initialize(std::shared_ptr<sound> sound)
 	m_sound = std::move(sound);
 
     if(sound->m_channels == 2) {
-        m_runtime->m_log->warn("Attaching stero sound to sound actor, won't be localized");
+        log->warn("Attaching stero sound to sound actor, won't be localized");
     }
 
 	alGenSources(1, &m_source_name);

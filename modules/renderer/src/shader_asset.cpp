@@ -58,7 +58,7 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 						parameter["default"].get<std::string>().c_str());
 				}
 
-				ret->parameters[name] = {param_data, glsl_name, description, offset};
+				ret->m_parameters[name] = {param_data, glsl_name, description, offset};
 			}
 		}
 	}
@@ -88,7 +88,7 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 				}
 				unsigned int glsl_id = attrib["glsl_id"];
 				std::string attr_name = attrib["name"];
-				ret->attributes.insert(std::pair<std::string, shader::attribute>{attr_name, shader::attribute{attr_type, glsl_id}});
+				ret->m_attributes.insert(std::pair<std::string, shader::attribute>{attr_name, shader::attribute{attr_type, glsl_id}});
 			}
 		}
 	}

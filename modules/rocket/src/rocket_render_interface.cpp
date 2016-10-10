@@ -44,7 +44,7 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	material mat(m_shader);
 
 	if (texture) {
-		mat.property_values["Texture"] = *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
+		mat.m_property_values["Texture"] = *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
 	}
 	mesh_settings set(me, mat);
 
@@ -86,7 +86,7 @@ Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
 	// the property_values needs a shared pointer, so create one that won't delete it when it is
 	// done
 	if (texturehandle) {
-		settings->m_material.property_values["Texture"] =
+		settings->m_material.m_property_values["Texture"] =
 			*reinterpret_cast<std::shared_ptr<texture>*>(texturehandle);
 	}
 	return reinterpret_cast<intptr_t>(settings);
@@ -145,7 +145,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		// load PNG data
 		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
 		if (err != 0) {
-			m_asset_manager->m_runtime->m_log->error(
+			log->error(
 				"Failed to load PNG: error: "s + lodepng_error_text(err));
 			return false;
 		}

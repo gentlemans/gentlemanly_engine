@@ -6,6 +6,8 @@
 #include "ge/hash_typeindex.hpp"
 #include "ge/transform.hpp"
 
+#include <spdlog/spdlog.h>
+
 #include <memory>
 
 #include <glm/glm.hpp>
@@ -14,6 +16,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
+
 
 namespace ge
 {

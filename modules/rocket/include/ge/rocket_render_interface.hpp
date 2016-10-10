@@ -28,7 +28,7 @@ public:
 	rocket_render_interface(asset_manager& asset_man, glm::uvec2 size)
 		: viewport_size{size}, m_asset_manager{&asset_man}
 	{
-		m_shader = asset_man.get_asset<shader_asset>("texturedmodel/textured.shader");
+		m_shader = asset_man.get_asset<shader_asset>("texturedmodel/textured.emshader");
 	}
 
 private:

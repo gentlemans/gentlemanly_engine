@@ -22,7 +22,7 @@ class shader
 {
 public:
 	/// The OpenGL program name
-	uint32_t program_name;
+	uint32_t m_program_name = ~0;
 
 	/// The types uses for parameters. Parameters can either be vec{2, 3, 4} or a texutre or a
 	/// float.
@@ -79,15 +79,20 @@ public:
 
 	/// The default parameters, don't directly change this change it in the material
 	/// If you change it here, you will be changing the defaults for _everyone using this texture_
-	std::unordered_map<std::string, parameter> parameters;
+	std::unordered_map<std::string, parameter> m_parameters;
 
 	/// The attributes. don't directly change this unless you know what you are doing, it changes
 	/// the default
 	/// Instead of changing your specific instance
-	std::unordered_map<std::string, attribute> attributes;
+	std::unordered_map<std::string, attribute> m_attributes;
 
 	/// The location of the mvp matrix uniform value
-	int32_t mvp_uniform_location;
+	int32_t m_mvp_uniform_location;
+	
+	/// Validity checking
+	operator bool() {
+		return m_program_name != ~0;
+	}
 };
 }
 

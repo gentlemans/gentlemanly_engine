@@ -3,6 +3,7 @@ find_package(Threads REQUIRED)
 
 set(GE_PRIVATE_SOURCES
 	src/actor.cpp
+	src/log.cpp
 )
 
 set(GE_PUBLIC_SOURCES

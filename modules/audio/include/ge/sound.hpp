@@ -24,11 +24,14 @@ struct sound  {
 	sound& operator=(sound&&) = delete;
 
 	/// The OpenAL buffer name
-	unsigned int m_buffer_name;
+	unsigned int m_buffer_name = ~0;
 
+	/// How many channels it holds
     uint8_t m_channels;
 
-    void tick(std::chrono::duration<float> deltaT);
+	operator bool() const {
+		return m_buffer_name != ~0;
+	}
 };
 }
 

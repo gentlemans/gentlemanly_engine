@@ -1,5 +1,6 @@
 #include "ge/shader.hpp"
 #include "ge/gl.hpp"
+#include "ge/log.hpp"
 
 namespace ge
 {
@@ -31,7 +32,8 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	if (info_length > 1) {
 		std::string info_log(info_length + 1, '\n');
 		glGetShaderInfoLog(vert_shader, info_length, nullptr, &info_log[0]);
-		throw std::runtime_error("Failed to compile vertex shader: " + info_log);
+		log->error("Failed to compile vertex shader: " + info_log);
+		return;
 	}
 
 	// check fragment shader
@@ -40,29 +42,32 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	if (info_length > 1) {
 		std::string info_log(info_length + 1, '\n');
 		glGetShaderInfoLog(frag_shader, info_length, nullptr, &info_log[0]);
-		throw std::runtime_error("Failed to compile fragment shader: " + info_log);
+		log->error("Failed to compile fragment shader: " + info_log);
+		return;
 	}
 
 	// link the shaders together
-	program_name = glCreateProgram();
+	m_program_name = glCreateProgram();
 
-	glAttachShader(program_name, vert_shader);
-	glAttachShader(program_name, frag_shader);
-	glLinkProgram(program_name);
+	glAttachShader(m_program_name, vert_shader);
+	glAttachShader(m_program_name, frag_shader);
+	glLinkProgram(m_program_name);
 
 	// chcek the link
-	glGetProgramiv(program_name, GL_LINK_STATUS, &res);
-	glGetProgramiv(program_name, GL_INFO_LOG_LENGTH, &info_length);
+	glGetProgramiv(m_program_name, GL_LINK_STATUS, &res);
+	glGetProgramiv(m_program_name, GL_INFO_LOG_LENGTH, &info_length);
 	if (info_length > 1) {
 		std::string info_log(info_length + 1, '\0');
-		glGetProgramInfoLog(program_name, info_length, nullptr, &info_log[0]);
-		throw std::runtime_error("Failed to link program: " + info_log);
+		glGetProgramInfoLog(m_program_name, info_length, nullptr, &info_log[0]);
+		log->error("Failed to link program: " + info_log);
+		m_program_name = ~0; // invalidate
+		return;
 	}
 
 	// delete the shaders--they will stay alive until the program is deleted
 	glDeleteShader(vert_shader);
 	glDeleteShader(frag_shader);
 
-	mvp_uniform_location = glGetUniformLocation(program_name, "mvp_matrix");
+	m_mvp_uniform_location = glGetUniformLocation(m_program_name, "mvp_matrix");
 }
 }

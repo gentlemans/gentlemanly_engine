@@ -47,8 +47,9 @@ struct rocket_font_asset {
 			} else if (font_style_str == "italic") {
 				e_style = Rocket::Core::Font::STYLE_ITALIC;
 			} else {
-				throw std::runtime_error(
+				log->error(
 					"Unrecognized font_style \"" + font_style_str + "\" in asset: " + filepath);
+				return;
 			}
 
 			Rocket::Core::Font::Weight e_weight;
@@ -57,8 +58,9 @@ struct rocket_font_asset {
 			} else if (font_weight_str == "bold") {
 				e_weight = Rocket::Core::Font::WEIGHT_BOLD;
 			} else {
-				throw std::runtime_error(
+				log->error(
 					"Unrecognized font_weight \"" + font_weight_str + "\" in asset: " + filepath);
+				return;
 			}
 
 			Rocket::Core::FontDatabase::LoadFontFace(

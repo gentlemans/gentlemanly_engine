@@ -23,7 +23,7 @@ public:
 	/// Default constructor--this will be an invalid material
 	material() = default;
 	/// Constructor from a shader
-	material(const std::shared_ptr<shader>& shader);
+	material(const std::shared_ptr<const shader>& shader);
 
 	/// Copy constructor
 	material(const material&) = default;
@@ -39,7 +39,12 @@ public:
 	material& operator=(material&&) = default;
 
 	/// The overrided properties over the shader.
-	std::unordered_map<std::string, shader::parameter_type> property_values;
+	std::unordered_map<std::string, shader::parameter_type> m_property_values;
+	
+	/// Validity check
+	operator bool() const {
+		return m_shader != nullptr;
+	}
 };
 }
 

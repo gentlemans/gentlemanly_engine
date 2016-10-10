@@ -28,11 +28,13 @@ std::shared_ptr<mesh> mesh_asset::load_asset(asset_manager& manager, const std::
 	bool success = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.c_str(), nullptr, true);
 	
 	if (!success) {
-		throw std::runtime_error(
+		log->error(
 			"Failed to import file: " + path + " Reason: " + err);
+		return nullptr;
 	}
 	if (shapes.size() == 0) {
-		throw std::runtime_error("Failed to import file: " + path + " Reason: no meshes");
+		log->error("Failed to import file: " + path + " Reason: no meshes");
+		return nullptr;
 	}
 
 	auto& mesh_ref = shapes[0].mesh;

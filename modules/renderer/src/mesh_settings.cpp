@@ -41,14 +41,14 @@ void mesh_settings::render(const glm::mat3& mvp) const
 {
 	auto shader_ref = *m_material.m_shader;
 
-	glUseProgram(shader_ref.program_name);
+	glUseProgram(shader_ref.m_program_name);
 	// set parameters
-	for (auto& param : shader_ref.parameters) {
+	for (auto& param : shader_ref.m_parameters) {
 		shader::parameter_type value;
 
 		// check if it is in the material
-		auto iter_in_mat = m_material.property_values.find(param.first);
-		if (iter_in_mat != m_material.property_values.end()) {
+		auto iter_in_mat = m_material.m_property_values.find(param.first);
+		if (iter_in_mat != m_material.m_property_values.end()) {
 			value = iter_in_mat->second;
 		} else {
 			value = param.second.value;
@@ -56,14 +56,14 @@ void mesh_settings::render(const glm::mat3& mvp) const
 		// set it
 		parameter_setter_visitor v;
 		v.uniform_index =
-			glGetUniformLocation(shader_ref.program_name, param.second.glsl_name.c_str()) +
+			glGetUniformLocation(shader_ref.m_program_name, param.second.glsl_name.c_str()) +
 			param.second.offset;
 
 		value.apply_visitor(v);
 	}
 
 	// set uniform in shader
-	glUniformMatrix3fv(shader_ref.mvp_uniform_location, 1, GL_FALSE, &mvp[0][0]);
+	glUniformMatrix3fv(shader_ref.m_mvp_uniform_location, 1, GL_FALSE, &mvp[0][0]);
 
 	glBindVertexArray(m_mesh->vertex_array);
 
@@ -72,7 +72,7 @@ void mesh_settings::render(const glm::mat3& mvp) const
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
 	size_t next_attribarray = 1;
-	for (auto& attr : shader_ref.attributes) {
+	for (auto& attr : shader_ref.m_attributes) {
 		assert(
 			m_mesh->additonal_vertex_data.find(attr.first) != m_mesh->additonal_vertex_data.end());
 		attr_applying_visitor visitor;
