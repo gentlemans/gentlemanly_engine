@@ -33,5 +33,5 @@ PUBLIC
 )
 
 if(EMSCRIPTEN)
-	set_target_properties(gentlemanly_engine_rocket_subsystem PROPERTIES LINK_FLAGS "-s USE_SDL=2")
+	target_compile_options(gentlemanly_engine_rocket_subsystem PUBLIC -s USE_FREETYPE=1)
 endif()

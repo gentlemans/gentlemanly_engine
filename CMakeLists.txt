@@ -32,41 +32,47 @@ endif()
 
 
 if (EMSCRIPTEN)
-    set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc")
-    set(CMAKE_C_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>")
-    set(CMAKE_CXX_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>")
+    set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc" CACHE STRING "")
+    set(CMAKE_C_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>" CACHE STRING "")
+    set(CMAKE_CXX_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>" CACHE STRING "")
 endif()
-
-set(CMAKE_CXX_COMPILE_FLAGS ${CMAKE_CXX_COMPILE_FLAGS} "-g4")
 
 add_subdirectory(deps/boost)
 
+# All of these are in ports
 if(NOT EMSCRIPTEN)
 	set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
 	add_subdirectory(deps/sdl2)
 	set(SDL2_LIBRARY SDL2-static CACHE STRING "")
 	set(SDL2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps/sdl2/include CACHE PATH "")
+
+	add_subdirectory(deps/ogg)
+	set(OGG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg CACHE PATH "")
+	set(OGG_LIBRARIES ogg CACHE STRING "")
+	set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include CACHE PATH "")
+
+	add_subdirectory(deps/vorbis)
+	add_dependencies(vorbis ogg)
+
+
+	set(BUILD_SHARED_LIBS OFF)
+	add_subdirectory(deps/freetype2)
+	set(FREETYPE_LIBRARY freetype CACHE STRING "")
+	set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
+else()
+	set(FREETYPE_LIBRARY "freetype")
+	set(FREETYPE_INCLUDE_DIRS "./")
 endif()
-
-add_subdirectory(deps/ogg)
-set(OGG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg CACHE PATH "")
-set(OGG_LIBRARIES ogg CACHE STRING "")
-set(OGG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/ogg/include CACHE PATH "")
-
-add_subdirectory(deps/vorbis)
-add_dependencies(vorbis ogg)
-
-
-set(BUILD_SHARED_LIBS OFF)
-add_subdirectory(deps/freetype2)
-set(FREETYPE_LIBRARY freetype CACHE STRING "")
-set(FREETYPE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/deps/freetype2/include)
-
 
 # LIBROCKET
 
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "")
 set(BUILD_SAMPLES OFF CACHE BOOL "")
 add_subdirectory(deps/libRocket/Build)
+
+if(EMSCRIPTEN)
+	set_target_properties(RocketCore PROPERTIES COMPILE_FLAGS "-s USE_FREETYPE=1")
+endif()
 
 if(NOT EMSCRIPTEN)
 	set(ALSOFT_UTILS OFF CACHE BOOL "")

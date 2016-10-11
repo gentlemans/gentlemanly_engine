@@ -15,9 +15,6 @@ set(GE_AUDIO_PUBLIC_FILES
 add_library(gentlemanly_engine_audio_subsystem ${GE_AUDIO_PUBLIC_FILES} ${GE_AUDIO_PRIVATE_FILES})
 
 target_include_directories(gentlemanly_engine_audio_subsystem
-PRIVATE
-	../../deps/vorbis/include
-	../../deps/ogg/include
 PUBLIC
 	include/
 )
@@ -25,21 +22,25 @@ PUBLIC
 if(NOT EMSCRIPTEN)
 	target_include_directories(gentlemanly_engine_audio_subsystem
 	PRIVATE
+		../../deps/vorbis/include
+		../../deps/ogg/include
 		${OPENAL_INCLUDE_DIR}
 	)
 	target_link_libraries(gentlemanly_engine_audio_subsystem
 	PRIVATE
 		${OPENAL_LIBRARY}
+		vorbisfile
+		vorbisenc
+		vorbis
 	)
 endif()
 
 target_link_libraries(gentlemanly_engine_audio_subsystem
 PUBLIC
 	gentlemanly_engine
-PRIVATE
-	vorbis
-	vorbisenc
-	vorbisfile
-	${OPENAL_LIBRARY}
 )
+
+if(EMSCRIPTEN)
+	set_target_properties(gentlemanly_engine_audio_subsystem PROPERTIES COMPILE_OPTIONS "-s USE_OGG=1;-s USE_VORBIS=1" INTERFACE_COMPILE_OPTIONS "-s USE_OGG=1;-s USE_VORBIS=1")
+endif()
 
