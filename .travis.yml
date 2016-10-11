@@ -13,7 +13,7 @@ matrix:
             - g++-6
             - cmake
             - libwayland-dev
-      env: 
+      env:
         - COMPILER=g++-6
         - BUILD_TYPE=Debug
     - compiler: clang
@@ -26,7 +26,7 @@ matrix:
           packages:
             - clang-3.6
             - libwayland-dev
-      env: 
+      env:
         - COMPILER=clang++-3.6
         - BUILD_TYPE=Debug
     - compiler: clang
@@ -40,12 +40,12 @@ matrix:
             - clang-3.7
             - cmake
             - libwayland-dev
-      env: 
+      env:
         - COMPILER=clang++-3.7
         - BUILD_TYPE=Debug
     - os: osx
       env: BUILD_TYPE=Debug
-      
+
     - compiler: gcc
       dist: trusty
       addons:
@@ -56,7 +56,7 @@ matrix:
             - g++-6
             - cmake
             - libwayland-dev
-      env: 
+      env:
         - COMPILER=g++-6
         - BUILD_TYPE=Release
     - compiler: clang
@@ -70,7 +70,7 @@ matrix:
           packages:
             - clang-3.6
             - libwayland-dev
-      env: 
+      env:
         - COMPILER=clang++-3.6
         - BUILD_TYPE=Release
     - compiler: clang
@@ -84,16 +84,17 @@ matrix:
             - clang-3.7
             - cmake
             - libwayland-dev
-      env: 
+      env:
         - COMPILER=clang++-3.7
         - BUILD_TYPE=Release
     - dist: trusty
       apt:
         packages: emscripten
       script:
-        - 'mkdir build'
-        - 'cmake .. -DCMAKE_TOOLCHAIN_FILE=/usr/share/emscripten/cmake/Platform/Emscripten.cmake'
-        - 'make'
+        - mkdir build
+        - cd build
+        - cmake .. -DCMAKE_TOOLCHAIN_FILE=/usr/share/emscripten/cmake/Platform/Emscripten.cmake
+        - make
     - os: osx
       env: BUILD_TYPE=Release
 
