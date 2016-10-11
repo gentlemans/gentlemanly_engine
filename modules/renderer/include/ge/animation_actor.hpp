@@ -35,7 +35,7 @@ public:
 				std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
 			m_time_until_next_frame = time_per_frame;
 		}
-		m_mesh_settings.m_material.property_values["current_frame"] = current_frame;
+        m_mesh_settings.m_material.m_property_values["current_frame"] = current_frame;
 	}
 
 	float m_frames_per_second;
