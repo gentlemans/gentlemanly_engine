@@ -6,6 +6,7 @@ arch:
   packages: 
     - cmake
     - emscripten
+    - python
   script:
     - mkdir build
     - cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=/usr/lib/emscripten/cmake/Modules/Platform/Emscripten.cmake && make

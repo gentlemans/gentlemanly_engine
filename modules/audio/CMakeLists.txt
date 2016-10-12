@@ -41,6 +41,6 @@ PUBLIC
 )
 
 if(EMSCRIPTEN)
-	set_target_properties(gentlemanly_engine_audio_subsystem PROPERTIES COMPILE_OPTIONS "-s USE_OGG=1;-s USE_VORBIS=1" INTERFACE_COMPILE_OPTIONS "-s USE_OGG=1;-s USE_VORBIS=1")
+	set_target_properties(gentlemanly_engine_audio_subsystem PROPERTIES COMPILE_FLAGS "-s USE_OGG=1;-s USE_VORBIS=1")
 endif()
 
