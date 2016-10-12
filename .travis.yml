@@ -99,7 +99,7 @@ matrix:
       script: 
         - 'curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash'
       env: 
-        - ARCH_TRAVIS_MIRROR=http://mirrors.abscission.net/archlinux
+        - 'ARCH_TRAVIS_MIRROR="http://mirrors.abscission.net/archlinux"'
     - os: osx
       env: BUILD_TYPE=Release
 
