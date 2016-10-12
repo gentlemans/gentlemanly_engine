@@ -15,7 +15,7 @@ matrix:
       script: 
         - 'curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash'
       env: 
-        - 'ARCH_TRAVIS_MIRROR="http://mirrors.abscission.net/archlinux"'
+        - 'ARCH_TRAVIS_MIRROR=http://mirrors.abscission.net/archlinux'
     - compiler: gcc
       dist: trusty
       addons:
