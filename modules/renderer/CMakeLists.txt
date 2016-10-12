@@ -1,5 +1,6 @@
-
-find_package(OpenGL REQUIRED)
+if(NOT EMSCRIPTEN)
+    find_package(OpenGL REQUIRED)
+endif()
 
 set(RENDERER_PUBLIC_FILES
 	include/ge/gl.hpp
@@ -45,8 +46,6 @@ endif()
 add_library(gentlemanly_engine_renderer ${RENDERER_PUBLIC_FILES} ${RENDERER_PRIVATE_FILES})
 
 target_include_directories(gentlemanly_engine_renderer
-PRIVATE
-	${OPENGL_INCLUDE_DIR}
 PUBLIC
 	include
 )
@@ -54,18 +53,19 @@ PUBLIC
 target_link_libraries(gentlemanly_engine_renderer
 PRIVATE
 	gentlemanly_engine
-PUBLIC
-    ${OPENGL_LIBRARIES}
 )
 
 if(NOT EMSCRIPTEN)
 	target_link_libraries(gentlemanly_engine_renderer
 	PRIVATE
 		${SDL2_LIBRARY}
+        PUBLIC
+            ${OPENGL_LIBRARIES}
 	)
 	target_include_directories(gentlemanly_engine_renderer
 	PRIVATE
 		${SDL2_INCLUDE_DIR}
+                ${OPENGL_INCLUDE_DIR}
 	)
 endif()
 
