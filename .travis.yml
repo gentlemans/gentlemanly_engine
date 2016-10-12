@@ -88,8 +88,10 @@ matrix:
         - COMPILER=clang++-3.7
         - BUILD_TYPE=Release
     - dist: trusty
-      apt:
-        packages: emscripten
+      addons:
+        apt:
+          packages: 
+            - emscripten
       script:
         - mkdir build
         - cd build
