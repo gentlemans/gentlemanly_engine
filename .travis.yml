@@ -97,7 +97,7 @@ matrix:
           - cmake .. -DCMAKE_TOOLCHAIN_FILE=usr/lib/emscripten/cmake/Modules/Platform/Emscripten.cmake
           - make
       script: 
-        - 'curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash'
+        - 'ARCH_TRAVIS_MIRROR=http://mirrors.abscission.net/archlinux curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash'
     - os: osx
       env: BUILD_TYPE=Release
 
