@@ -8,7 +8,9 @@ arch:
     - emscripten
   script:
     - mkdir build
+    - pwd
     - cd build
+    - pwd
     - cmake .. -DCMAKE_TOOLCHAIN_FILE=usr/lib/emscripten/cmake/Modules/Platform/Emscripten.cmake
     - make
 
