@@ -29,7 +29,7 @@ int main() {
 	msettings.m_material.m_property_values["dimx"] = 6;
 	msettings.m_material.m_property_values["dimy"] = 4;
 
-    auto animation_act = actor::factory<animation_actor>(root_actor.get(), msettings, 10.f);
+    auto animation_act = actor::factory<animation_actor>(root_actor.get(), msettings, 40.f);
 
     auto camera = actor::factory<camera_actor>(root_actor.get(), 4);
     sdl.set_camera(camera.get());
