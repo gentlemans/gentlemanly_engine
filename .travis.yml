@@ -6,6 +6,9 @@ arch:
   packages: 
     - cmake
     - python
+    - nodejs
+    - llvm
+    - emscripten
     - python2
   script:
     - git clone https://github.com/kripken/emscripten
