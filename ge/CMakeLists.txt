@@ -1,5 +1,6 @@
-
-find_package(Threads REQUIRED)
+if(NOT EMSCRIPTEN)
+  find_package(Threads REQUIRED)
+endif()
 
 set(GE_PRIVATE_SOURCES
 	src/actor.cpp
@@ -34,7 +35,6 @@ PUBLIC
 
 target_link_libraries(gentlemanly_engine
 PUBLIC 
-	Threads::Threads
 	boost_filesystem
 )
 
@@ -49,6 +49,7 @@ if(NOT EMSCRIPTEN)
 		cxx_generic_lambdas
 		cxx_variadic_templates
 	)
+  target_link_libraries(gentlemanly_engine PUBLIC Threads::Threads)
 else()
 	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14")
 endif()
