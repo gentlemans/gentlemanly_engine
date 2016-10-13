@@ -12,7 +12,7 @@ arch:
     - python2
   script:
     - git clone https://github.com/kripken/emscripten
-    - echo "LLVM_ROOT=usr/lib/emscripten-fastcomp" > ~/.emscripten
+    - echo "LLVM_ROOT='usr/lib/emscripten-fastcomp'" > ~/.emscripten
     - export PATH=$PATH:`pwd`/emscripten
     - mkdir build
     - cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=../emscripten/cmake/Modules/Platform/Emscripten.cmake && make
