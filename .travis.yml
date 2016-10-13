@@ -2,8 +2,8 @@ sudo: required
 language: cpp
 
 
-arch: 
-  packages: 
+arch:
+  packages:
     - cmake
     - python
     - nodejs
@@ -12,16 +12,16 @@ arch:
     - python2
   script:
     - git clone https://github.com/kripken/emscripten
-    - echo "LLVM_ROOT=usr/lib/emscripten-fastcomp" > ~/.emscripten
+    - echo "LLVM_ROOT=/usr/lib/emscripten-fastcomp" > ~/.emscripten
     - export PATH=$PATH:`pwd`/emscripten
     - mkdir build
     - cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=../emscripten/cmake/Modules/Platform/Emscripten.cmake && make
 
 matrix:
   include:
-    - script: 
+    - script:
         - 'curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash'
-      env: 
+      env:
         - 'ARCH_TRAVIS_MIRROR=http://mirrors.abscission.net/archlinux'
     - compiler: gcc
       dist: trusty
