@@ -2,12 +2,19 @@
 
 #include <ge/actor.hpp>
 #include "grid.hpp"
+#include "toweractor.hpp"
+#include "gridtick_interface.hpp"
 
-class zombie : public ge::actor
+class zombie : public toweractor
 {
-	glm::uvec2 m_location;
+    void initialize(glm::uvec3 location) {
+        toweractor::initialize(location);
 
-	grid* m_grid;
+        add_interface<zombie, gridtick_interface>();
 
-	zombie(grid& grid, glm::uvec2 location) : m_location{location}, m_grid{&grid} {}
+    }
+
+    void gridtick() {
+
+    }
 };

@@ -16,8 +16,8 @@ struct timer_subsystem;
 struct timer_int_data {
 	/// Constructor stuff
 	timer_int_data(const std::function<void()>& cal,
-		std::chrono::time_point<std::chrono::system_clock, std::chrono::duration<float>> expir)
-		: callback{cal}, expiration_time{expir}
+        std::chrono::time_point<std::chrono::system_clock, std::chrono::duration<float>> expir,  std::chrono::duration<float> duration_arg, bool loops_arg)
+        : callback{cal}, expiration_time{expir}, duration{duration_arg}, loops(loops_arg)
 	{
 	}
 
@@ -27,16 +27,18 @@ struct timer_int_data {
 	/// The time at which a timer expires
 	std::chrono::time_point<std::chrono::system_clock, std::chrono::duration<float>>
 		expiration_time;
+    std::chrono::duration<float> duration;
 
 	/// If the timer has already been triggered
 	bool triggered = false;
+    bool loops;
 };
 
 /// This is similar to a `boost::signals2::connection`, it allows you to manage a timer.
 struct timer_handle {
 	/// This is called from the timer_manager, you don't have to worry about it.
 	timer_handle(
-		timer_manager<void()>* manager, const std::shared_ptr<timer_int_data<void()>>& timer)
+        timer_subsystem* manager, const std::shared_ptr<timer_int_data>& timer)
 		: m_manager{manager}, m_data{timer} {};
 
 	/// Gets if the timer has been called
@@ -46,13 +48,10 @@ struct timer_handle {
 	void cancel() { m_data->callback = {}; }
 	/// Gets how much time is left on the timer since the last tick
 	/// \return The float duration of how much time is left
-	std::chrono::duration<float> time_left() const
-	{
-		return std::chrono::duration<float>(m_manager->last_tick - m_data->expiration_time);
-	}
+    inline std::chrono::duration<float> time_left() const;
 
 private:
-	timer_manager* m_manager;
+    timer_subsystem* m_manager;
 	std::shared_ptr<timer_int_data> m_data;
 };
 
@@ -63,15 +62,16 @@ struct timer_subsystem : subsystem {
 	};
 	bool initialize(config) { return true; };
 	/// Allow timer_handle to modify the manager's internals
-	friend timer_handle<void(ArgTypes...)>;
+    friend timer_handle;
 
 	/// Add a timer to the manager
 	/// \param func The function to be called when the time is right
 	/// \param duration How long to wait before calling the function
+    /// \param loop If the timer should be looped
 	/// \return The timer_handle used to handle the timer
-	timer_handle add_timer(std::function<void()> func, std::chrono::duration<float> duration)
+    timer_handle add_timer(std::function<void()> func, std::chrono::duration<float> duration, bool loop = false)
 	{
-		auto dat = std::make_shared<timer_int_data>(func, last_tick + duration);
+        auto dat = std::make_shared<timer_int_data>(func, last_tick + duration, duration, loop);
 
 		m_data.push_back(dat);
 		std::push_heap(m_data.begin(), m_data.end(), comp);
@@ -88,13 +88,17 @@ struct timer_subsystem : subsystem {
 
 		while (!m_data.empty() && m_data[0]->expiration_time <= last_tick) {
 			if (m_data[0]->callback) {
-				m_data[0]->callback(args...);
+                m_data[0]->callback();
 				m_data[0]->triggered = true;
 			}
 
+            auto int_data = m_data[0];
 			// remove the element and retain the heap
 			std::pop_heap(m_data.begin(), m_data.end(), comp);
 			m_data.pop_back();
+
+            if(int_data->loops) add_timer(int_data->callback, int_data->duration, true);
+
 		}
 	}
 
@@ -109,4 +113,9 @@ private:
 
 	std::vector<std::shared_ptr<timer_int_data>> m_data;
 };
+
+std::chrono::duration<float> timer_handle::time_left() const
+{
+    return std::chrono::duration<float>(m_manager->last_tick - m_data->expiration_time);
 }
+} // ge

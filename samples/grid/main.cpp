@@ -3,6 +3,7 @@
 #include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
+#include <ge/timer_subsystem.hpp>
 
 #include <glm/glm.hpp>
 
@@ -21,6 +22,7 @@ int main()
 
 	r.m_asset_manager.add_asset_path("data/");
 	r.add_subsystem<input_subsystem>({});
+    r.add_subsystem<timer_subsystem>({});
 	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
 	r.add_subsystem<rocket_subsystem>({});
 
@@ -33,7 +35,7 @@ int main()
 	r.set_root_actor(root.get());
 
 	// initialize the grid
-	auto g = actor::factory<grid>(root.get(), glm::uvec3{11, 11, 3});
+    auto g = actor::factory<grid>(root.get(), glm::uvec3{11, 11, 3}, 4.f);
 
 	g->getActorFromCoord({0, 0, 0}) = actor::factory<turret>(g.get(), glm::uvec3(0, 0, 0)).get();
 

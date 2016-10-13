@@ -21,7 +21,7 @@ set(GE_PUBLIC_SOURCES
 	include/ge/json_helper.hpp
 	include/ge/runtime.hpp
 	include/ge/subsystem.hpp
-	include/ge/timer_manager.hpp
+        include/ge/timer_subsystem.hpp
 	include/ge/transform.hpp
 )
 
