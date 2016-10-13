@@ -14,7 +14,7 @@ struct gridtick_interface {
     };
 
     template<typename ActorType>
-    std::shared_ptr<interface_storage> gen_interface(ActorType* act) {
+    static std::shared_ptr<interface_storage> gen_interface(ActorType* act) {
         return std::make_shared<interface_storage>([act]() {
 
             // If you get an error here, then you need to define the tick_grid function
