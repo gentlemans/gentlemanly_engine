@@ -9,7 +9,7 @@ out vec2 tex_coords;
 
 void main() {
 	gl_Position.xyw = mvp_matrix * vec3(loc, 1.0);
-	gl_Position.z = 0.0
+	gl_Position.z = 0.0;
 	
 	tex_coords = uvs;
 }

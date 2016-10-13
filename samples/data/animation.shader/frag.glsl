@@ -16,9 +16,10 @@ void main() {
 	int currenty = current_frame / dimx;
 
 	frag_color = texture(tex, vec2(
-		(tex_coords.x * (currentx + 1)) / dimx,
-		(tex_coords.y * (currenty + 1)) / dimy
+		(currentx + tex_coords.x) / float(dimx),
+		(currenty + tex_coords.y) / float(dimy)
 	));
 	
 	if(frag_color.a < 0.1) discard;
+	
 }

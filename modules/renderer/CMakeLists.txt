@@ -70,7 +70,7 @@ if(NOT EMSCRIPTEN)
 endif()
 
 if(EMSCRIPTEN)
-	target_compile_options(gentlemanly_engine_renderer PUBLIC "-s" "USE_SDL=2")
+	set_target_properties(gentlemanly_engine_renderer PROPERTIES COMPILE_FLAGS "-s USE_SDL=2")
 endif()
 
 if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)

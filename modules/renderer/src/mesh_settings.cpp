@@ -20,6 +20,7 @@ struct parameter_setter_visitor : boost::static_visitor<void> {
 		glActiveTexture(GL_TEXTURE0 + bind_loc);
 		glBindTexture(GL_TEXTURE_2D, tex->texture_name);
 	}
+	void operator()(int i) { glUniform1i(uniform_index, i); }
 };
 
 struct attr_applying_visitor : boost::static_visitor<void> {

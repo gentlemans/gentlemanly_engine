@@ -33,5 +33,5 @@ PUBLIC
 )
 
 if(EMSCRIPTEN)
-	target_compile_options(gentlemanly_engine_rocket_subsystem PUBLIC -s USE_FREETYPE=1)
+	set_target_properties(gentlemanly_engine_rocket_subsystem PROPERTIES COMPILE_FLAGS "-s USE_FREETYPE=1")
 endif()

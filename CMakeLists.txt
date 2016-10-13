@@ -12,6 +12,8 @@ option(GE_BUILD_SAMPLES "Should the samples be built?" ON)
 # update the module path so cmake can find libraries that don't have built in CMake support
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
+include(cmake/emscripten.cmake)
+
 find_package(Doxygen)
 
 if(DOXYGEN_FOUND)

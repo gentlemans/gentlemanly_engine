@@ -17,6 +17,7 @@ public:
 	{
 		mesh_actor::initialize(mes);
 		m_frames_per_second = fps;
+		m_time_until_next_frame = std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
 
 		add_interface<animation_actor, tickable>();
 	}
@@ -28,19 +29,27 @@ public:
 
 	void tick(std::chrono::duration<float> delta)
 	{
-		while (delta > m_time_until_next_frame) {
+		const std::chrono::duration<float> time_per_frame =
+			std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
+		
+		if (delta >= m_time_until_next_frame) {
 			++current_frame;
 			delta -= m_time_until_next_frame;
-			const std::chrono::duration<float> time_per_frame =
-				std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
 			m_time_until_next_frame = time_per_frame;
 		}
+		
+		current_frame += delta / time_per_frame;
+		m_time_until_next_frame -= delta;
+		
+		
+		current_frame %= boost::get<int>(m_mesh_settings.m_material.m_property_values["dimx"]) * 
+			boost::get<int>(m_mesh_settings.m_material.m_property_values["dimy"]);
         m_mesh_settings.m_material.m_property_values["current_frame"] = current_frame;
 	}
 
 	float m_frames_per_second;
 
-	std::chrono::duration<float> m_time_until_next_frame = {};
+	std::chrono::duration<float> m_time_until_next_frame;
 
 	int current_frame = 0;
 };
