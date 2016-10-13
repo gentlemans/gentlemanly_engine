@@ -6,6 +6,7 @@ arch:
   packages: 
     - cmake
     - python
+    - python2
   script:
     - git clone https://github.com/kripken/emscripten
     - export PATH=$PATH:`pwd`/emscripten
