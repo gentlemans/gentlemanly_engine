@@ -6,6 +6,7 @@ SCRIPTSDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPTSDIR/..
 
 # generate docs
+rm -rf build
 mkdir -p build
 cd build
 cmake .. 
