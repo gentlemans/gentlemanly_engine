@@ -10,12 +10,14 @@
 
 namespace ge
 {
-class animation_actor : public mesh_actor
+class animation_actor : public actor
 {
 public:
+	mesh_actor* m_mesh;
+	
 	void initialize(const mesh_settings& mes, float fps)
 	{
-		mesh_actor::initialize(mes);
+		m_mesh = factory<mesh_actor>(this, mes).get();
 		m_frames_per_second = fps;
 		m_time_until_next_frame = std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
 
@@ -42,9 +44,9 @@ public:
 		m_time_until_next_frame -= delta;
 		
 		
-		current_frame %= boost::get<int>(m_mesh_settings.m_material.m_property_values["dimx"]) * 
-			boost::get<int>(m_mesh_settings.m_material.m_property_values["dimy"]);
-        m_mesh_settings.m_material.m_property_values["current_frame"] = current_frame;
+		current_frame %= boost::get<int>(m_mesh->m_mesh_settings.m_material.m_property_values["dimx"]) * 
+			boost::get<int>(m_mesh->m_mesh_settings.m_material.m_property_values["dimy"]);
+        m_mesh->m_mesh_settings.m_material.m_property_values["current_frame"] = current_frame;
 	}
 
 	float m_frames_per_second;

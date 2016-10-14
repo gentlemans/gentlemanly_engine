@@ -23,7 +23,7 @@ int main()
 	r.m_asset_manager.add_asset_path("data/");
 	r.add_subsystem<input_subsystem>({});
     r.add_subsystem<timer_subsystem>({});
-	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {}, {1024, 720}});
+	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {1024, 720}});
 	r.add_subsystem<rocket_subsystem>({});
 
 	auto root = actor::root_factory(&r);

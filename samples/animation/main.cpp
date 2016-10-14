@@ -10,29 +10,32 @@ using namespace ge;
 
 int main() {
 
+	// create a runtime object
     runtime r;
+	
+	// make sure it can find assets. This will fail if working directory isn't gentlemanly_engine/samples
     r.m_asset_manager.add_asset_path("data/");
-    r.add_subsystem<input_subsystem>({});
+	
+	// animations need tick events, so we need the ticker subsystem
 	r.add_subsystem<actor_ticker_subsystem>({});
+	
+	// create a window
     auto& sdl = r.add_subsystem<sdl_subsystem>({
-        "Example",
-        {},
-        {1280, 720}
+        "Example",  // title 
+        {1280, 720} // size
     });
 
+	// create a root or world actor
     auto root_actor = actor::root_factory(&r);
     r.set_root_actor(root_actor.get());
 
-    mesh_settings msettings = r.m_asset_manager.get_asset<mesh_settings_asset>("texturedmodel/textured.meshsettings");
-	msettings.m_material.m_shader = r.m_asset_manager.get_asset<shader_asset>("animation.shader");
-    msettings.m_material.m_property_values["Texture"] = r.m_asset_manager.get_asset<texture_asset>("animationtest.texture");
-	msettings.m_material.m_property_values["dimx"] = 6;
-	msettings.m_material.m_property_values["dimy"] = 4;
+	// create the animation actor
+    auto animation_act = actor::factory<animation_actor>(root_actor.get(), "animation/jumpanimation.meshsettings", 40.f);
 
-    auto animation_act = actor::factory<animation_actor>(root_actor.get(), msettings, 40.f);
-
+	// create a camera to see through
     auto camera = actor::factory<camera_actor>(root_actor.get(), 4);
     sdl.set_camera(camera.get());
 
+	// run the engine!
     while(r.tick());
 }

@@ -23,7 +23,7 @@ struct sdl_subsystem : subsystem {
 	/// The subsystem config
 	struct config {
 		/// Constructor
-		config(const std::string& str, boost::optional<glm::uvec2> loc, glm::uvec2 sz,
+		config(const std::string& str,  glm::uvec2 sz, boost::optional<glm::uvec2> loc = {},
 			bool fullscr = false, bool decor = true)
 			: title(str), location(loc), size(sz), fullscreen(fullscr), decorated(decor)
 		{
@@ -32,11 +32,11 @@ struct sdl_subsystem : subsystem {
 		/// The title of the window
 		std::string title;
 
-		/// The location of the window on the screen, or {} to let the OS decide
-		boost::optional<glm::uvec2> location;
-
 		///  The size of the window
 		glm::uvec2 size;
+
+		/// The location of the window on the screen, or {} to let the OS decide
+		boost::optional<glm::uvec2> location;
 
 		/// Should the window be fullscreen?
 		bool fullscreen = false;
