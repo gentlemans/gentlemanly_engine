@@ -24,9 +24,9 @@ struct runtime {
 	{
 		if (!logger) logger = spdlog::stdout_logger_mt("ge_log", true);
 
-		      logger->flush_on(spdlog::level::level_enum::err);
+		logger->flush_on(spdlog::level::level_enum::err);
 
-		      logger->info("Runtime constructed!");
+		logger->info("Runtime constructed!");
 	}
 	/// Destructor
 	~runtime()
@@ -39,9 +39,9 @@ struct runtime {
 		}
 
 		if (overall_success) {
-			         logger->info("Rutime destroyed successfully!");
+			logger->info("Rutime destroyed successfully!");
 		} else {
-			         logger->error(
+			logger->error(
 				"Runtime not destroyed successfully, some subsystems not shut down correctly.");
 		}
 	}
@@ -70,11 +70,12 @@ struct runtime {
 		bool success = new_subsystem->initialize(config);
 
 		if (success) {
-			         logger->info(
+			logger->info(
 				"Subsystem \"" + type_id<Subsystem>().pretty_name() + "\" sucessfully loaded.");
 		} else {
-			         logger->error("Subsystem \"" + type_id<Subsystem>().pretty_name() +
-					   "\" failed to load. Program execution will continue, but it could be messy");
+			logger->error(
+				"Subsystem \"" + type_id<Subsystem>().pretty_name() +
+				"\" failed to load. Program execution will continue, but it could be messy");
 		}
 
 		// add it!

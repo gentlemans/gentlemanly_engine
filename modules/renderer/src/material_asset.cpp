@@ -52,8 +52,8 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 			// get the type from the shader
 			auto default_paramater_iter = ret.m_shader->m_parameters.find(parameter_name);
 			if (default_paramater_iter == ret.m_shader->m_parameters.end()) {
-				            logger->error("Could not find property: " + parameter_name +
-						   " in shader while loading material asset: " + asset_name);
+				logger->error("Could not find property: " + parameter_name +
+							  " in shader while loading material asset: " + asset_name);
 				return {};
 			}
 			auto default_value = default_paramater_iter->second.value;
@@ -63,7 +63,7 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 			try {
 				ret.m_property_values[parameter_name] = default_value.apply_visitor(vis);
 			} catch (std::exception& e) {
-				            logger->error("ERROR THROWN while applying visitor: "s + e.what());
+				logger->error("ERROR THROWN while applying visitor: "s + e.what());
 				return {};
 			}
 		}

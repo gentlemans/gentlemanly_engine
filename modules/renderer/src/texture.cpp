@@ -57,7 +57,7 @@ texture::texture(const unsigned char* data)
 	case FOURCC_DXT3: format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT; break;
 	case FOURCC_DXT5: format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT; break;
 	default:
-		      logger->error("Unrecognized DXT format in texture");
+		logger->error("Unrecognized DXT format in texture");
 		texture_name = ~0;
 		return;
 	}

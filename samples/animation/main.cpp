@@ -43,15 +43,15 @@ int main()
 	sdl.set_camera(camera.get());
 
 #ifdef EMSCRIPTEN
-		emscripten_set_main_loop_arg(
-			[](void* run_ptr) {
-				runtime* runt = (runtime*)run_ptr;
+	emscripten_set_main_loop_arg(
+		[](void* run_ptr) {
+			runtime* runt = (runtime*)run_ptr;
 
-				runt->tick();
-			},
-			&r, 0, true);
+			runt->tick();
+		},
+		&r, 0, true);
 #else
-		while (r.tick())
-			;
+	while (r.tick())
+		;
 #endif
 }

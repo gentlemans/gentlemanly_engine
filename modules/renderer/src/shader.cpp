@@ -32,7 +32,7 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	if (info_length > 1) {
 		std::string info_log(info_length + 1, '\n');
 		glGetShaderInfoLog(vert_shader, info_length, nullptr, &info_log[0]);
-		      logger->error("Failed to compile vertex shader: " + info_log);
+		logger->error("Failed to compile vertex shader: " + info_log);
 		return;
 	}
 
@@ -42,7 +42,7 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	if (info_length > 1) {
 		std::string info_log(info_length + 1, '\n');
 		glGetShaderInfoLog(frag_shader, info_length, nullptr, &info_log[0]);
-		      logger->error("Failed to compile fragment shader: " + info_log);
+		logger->error("Failed to compile fragment shader: " + info_log);
 		return;
 	}
 
@@ -59,7 +59,7 @@ shader::shader(std::istream& vertex_stream, std::istream& frag_stream)
 	if (info_length > 1) {
 		std::string info_log(info_length + 1, '\0');
 		glGetProgramInfoLog(m_program_name, info_length, nullptr, &info_log[0]);
-		      logger->error("Failed to link program: " + info_log);
+		logger->error("Failed to link program: " + info_log);
 		m_program_name = ~0;  // invalidate
 		return;
 	}

@@ -1,6 +1,7 @@
 #include "ge/rocket_render_interface.hpp"
 #include "ge/asset_manager.hpp"
 #include "ge/gl.hpp"
+#include "ge/log.hpp"
 #include "ge/material.hpp"
 #include "ge/mesh.hpp"
 #include "ge/mesh_settings.hpp"
@@ -8,7 +9,6 @@
 #include "ge/runtime.hpp"
 #include "ge/texture.hpp"
 #include "ge/texture_asset.hpp"
-#include "ge/log.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -54,7 +54,6 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
 
 	set.render(mvp);
-	
 }
 
 Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
@@ -105,7 +104,6 @@ void rocket_render_interface::RenderCompiledGeometry(
 	auto m = reinterpret_cast<mesh_settings*>(geometry);
 
 	m->render(mvp);
-	
 }
 
 // Called by Rocket when it wants to release application-compiled geometry.
@@ -149,7 +147,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		// load PNG data
 		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
 		if (err != 0) {
-			         logger->error("Failed to load PNG: error: "s + lodepng_error_text(err));
+			logger->error("Failed to load PNG: error: "s + lodepng_error_text(err));
 			return false;
 		}
 
@@ -161,8 +159,8 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 	} catch (const std::exception&) {
 		return false;
 	}
-	
-	   logger->info("Loaded image "s + source.CString() + " for rocket.");
+
+	logger->info("Loaded image "s + source.CString() + " for rocket.");
 
 	return true;
 }

@@ -22,14 +22,14 @@ audio_subsystem::~audio_subsystem() = default;
 bool audio_subsystem::initialize(audio_subsystem::config)
 {
 	using namespace std::string_literals;
-	
+
 	m_pimpl = std::make_unique<pimpl>();
 
 	const char* devicename = alcGetString(NULL, ALC_ALL_DEVICES_SPECIFIER);
-	   logger->info("Trying to connect to audio device \""s + devicename + "\"");
+	logger->info("Trying to connect to audio device \""s + devicename + "\"");
 	m_pimpl->device = alcOpenDevice(devicename);
 	if (!m_pimpl->device) {
-		      logger->error("Failed to open OpenAL device.");
+		logger->error("Failed to open OpenAL device.");
 		return false;
 	}
 
@@ -37,8 +37,8 @@ bool audio_subsystem::initialize(audio_subsystem::config)
 	alcMakeContextCurrent(m_pimpl->context);
 
 	if (!m_pimpl->context) {
-		      logger->error("Failed to create OpenAL context. Error: " +
-				   boost::lexical_cast<std::string>(alcGetError(m_pimpl->device)));
+		logger->error("Failed to create OpenAL context. Error: " +
+					  boost::lexical_cast<std::string>(alcGetError(m_pimpl->device)));
 		return false;
 	}
 	return true;

@@ -13,7 +13,7 @@ void sound_actor::initialize(std::shared_ptr<sound> sound)
 	m_sound = std::move(sound);
 
 	if (m_sound->m_channels == 2) {
-		      logger->warn("Attaching stero sound to sound actor, won't be localized");
+		logger->warn("Attaching stero sound to sound actor, won't be localized");
 	}
 
 	alGenSources(1, &m_source_name);
