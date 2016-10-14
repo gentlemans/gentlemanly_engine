@@ -12,11 +12,9 @@ arch:
     - python2
   script:
     - git clone https://github.com/kripken/emscripten
-    - export PATH=$PATH:`pwd`/emscripten
-    - emcc --help # generate .emscripten
-    - "sed -i \"s/LLVM_ROOT.*/LLVM_ROOT='\\/usr\\/lib\\/emscripten-fastcomp'/\" ~/.emscripten" # fix it to use the right path
+    - "export PATH=$PATH:`pwd`/emscripten && emcc --help && sed -i \"s/LLVM_ROOT.*/LLVM_ROOT='\\/usr\\/lib\\/emscripten-fastcomp'/\" ~/.emscripten"
     - mkdir build
-    - cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=../emscripten/cmake/Modules/Platform/Emscripten.cmake && make
+    - export PATH=$PATH:`pwd`/emscripten && cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=../emscripten/cmake/Modules/Platform/Emscripten.cmake && make
 
 matrix:
   include:
