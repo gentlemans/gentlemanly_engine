@@ -8,6 +8,7 @@
 #include "ge/runtime.hpp"
 #include "ge/texture.hpp"
 #include "ge/texture_asset.hpp"
+#include "ge/log.hpp"
 
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -53,6 +54,7 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	mvp = glm::translate(mvp, glm::vec2(translation.x, translation.y));
 
 	set.render(mvp);
+	
 }
 
 Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
@@ -103,6 +105,7 @@ void rocket_render_interface::RenderCompiledGeometry(
 	auto m = reinterpret_cast<mesh_settings*>(geometry);
 
 	m->render(mvp);
+	
 }
 
 // Called by Rocket when it wants to release application-compiled geometry.
@@ -158,6 +161,8 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 	} catch (const std::exception&) {
 		return false;
 	}
+	
+	log->info("Loaded image "s + source.CString() + " for rocket.");
 
 	return true;
 }

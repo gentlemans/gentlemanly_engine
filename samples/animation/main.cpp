@@ -6,6 +6,10 @@
 #include <ge/shader_asset.hpp>
 #include <ge/texture_asset.hpp>
 
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#endif
+
 using namespace ge;
 
 int main()
@@ -38,7 +42,16 @@ int main()
 	auto camera = actor::factory<camera_actor>(root_actor.get(), 4);
 	sdl.set_camera(camera.get());
 
-	// run the engine!
-	while (r.tick())
-		;
+#ifdef EMSCRIPTEN
+		emscripten_set_main_loop_arg(
+			[](void* run_ptr) {
+				runtime* runt = (runtime*)run_ptr;
+
+				runt->tick();
+			},
+			&r, 0, true);
+#else
+		while (r.tick())
+			;
+#endif
 }

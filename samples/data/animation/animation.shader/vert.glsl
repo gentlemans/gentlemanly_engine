@@ -1,11 +1,11 @@
-#version 330 core
+#version 100
 
-layout(location = 0) in vec2 loc;
-layout(location = 1) in vec2 uvs;
+attribute vec2 loc;
+attribute vec2 uvs;
 
 uniform mat3 mvp_matrix;
 
-out vec2 tex_coords;
+varying vec2 tex_coords;
 
 void main() {
 	gl_Position.xyw = mvp_matrix * vec3(loc, 1.0);

@@ -14,7 +14,8 @@ macro(GEEmscriptenTarget target genhtml datapaths)
 		LINK_FLAGS 
 			"-s USE_SDL=2 -s USE_FREETYPE=1 -s USE_OGG=1 -s USE_VORBIS=1 ${CPL_FLAGS}"
 		)
-		if(genthml) 
+		if(${genhtml}) 
+			message("Generating HTML for ${target}")
 			set_target_properties(${target} PROPERTIES SUFFIX ".html")
 		endif()
 		

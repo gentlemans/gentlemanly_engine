@@ -1,15 +1,14 @@
-#version 330 core
-
-in vec2 tex_coords;
-
-out vec4 frag_color;
+#version 100
+precision highp float;
 
 uniform sampler2D tex;
 
+varying vec2 tex_coords;
+
 void main()
 {
+	gl_FragColor = texture2D(tex, tex_coords);
 
-	frag_color = texture(tex, tex_coords);
-
-	if(frag_color.a < 0.1) discard;
+	if(gl_FragColor.a < 0.1) discard;
+	
 }

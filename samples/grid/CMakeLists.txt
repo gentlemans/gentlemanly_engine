@@ -9,4 +9,4 @@ target_link_libraries(grid
 	gentlemanly_engine_rocket_subsystem
 )
 
-GEEmscriptenTarget(grid TRUE ${CMAKE_CURRENT_SOURCE_DIR}../data@/data)
+GEEmscriptenTarget(grid TRUE ${CMAKE_CURRENT_SOURCE_DIR}/../data@/data)

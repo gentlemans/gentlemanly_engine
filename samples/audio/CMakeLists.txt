@@ -6,4 +6,4 @@ target_link_libraries(audio
 	gentlemanly_engine_renderer
 )
 
-GEEmscriptenTarget(audio TRUE ${CMAKE_CURRENT_SOURCE_DIR}../data@/data)
+GEEmscriptenTarget(audio TRUE ${CMAKE_CURRENT_SOURCE_DIR}/../data@/data)
