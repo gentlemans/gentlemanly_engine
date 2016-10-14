@@ -90,13 +90,13 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a4483402a79adb69c837e6a9f151bf85f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a4483402a79adb69c837e6a9f151bf85f">parameter_type</a> = boost::variant&lt; float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr&lt; <a class="el" href="classge_1_1texture.html">texture</a> &gt;&gt;</td></tr>
-<tr class="memdesc:a4483402a79adb69c837e6a9f151bf85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The types uses for parameters.  <a href="#a4483402a79adb69c837e6a9f151bf85f">More...</a><br /></td></tr>
-<tr class="separator:a4483402a79adb69c837e6a9f151bf85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add9cf31ed53b89c09aba54ef890a7c9d"><td class="memItemLeft" align="right" valign="top"><a id="add9cf31ed53b89c09aba54ef890a7c9d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#add9cf31ed53b89c09aba54ef890a7c9d">attribute_type</a> = boost::variant&lt; float, glm::vec2, glm::vec3, glm::vec4 &gt;</td></tr>
-<tr class="memdesc:add9cf31ed53b89c09aba54ef890a7c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex attributes can be a float, or vec{2, 3, 4}. <br /></td></tr>
-<tr class="separator:add9cf31ed53b89c09aba54ef890a7c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e63316186469b8cc081bd9a7243ccb1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a5e63316186469b8cc081bd9a7243ccb1">parameter_type</a> = boost::variant&lt; int, float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr&lt; <a class="el" href="classge_1_1texture.html">texture</a> &gt;&gt;</td></tr>
+<tr class="memdesc:a5e63316186469b8cc081bd9a7243ccb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The types uses for parameters.  <a href="#a5e63316186469b8cc081bd9a7243ccb1">More...</a><br /></td></tr>
+<tr class="separator:a5e63316186469b8cc081bd9a7243ccb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1a6596b181891ccfcc26434b182a503"><td class="memItemLeft" align="right" valign="top"><a id="ad1a6596b181891ccfcc26434b182a503"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#ad1a6596b181891ccfcc26434b182a503">attribute_type</a> = boost::variant&lt; int, float, glm::vec2, glm::vec3, glm::vec4 &gt;</td></tr>
+<tr class="memdesc:ad1a6596b181891ccfcc26434b182a503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex attributes can be a float, or vec{2, 3, 4}. <br /></td></tr>
+<tr class="separator:ad1a6596b181891ccfcc26434b182a503"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -109,36 +109,40 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab0db72d9eba213eac46d44d516789dcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#ab0db72d9eba213eac46d44d516789dcb">shader</a> (const char *vertex_filename, const char *frag_filename)</td></tr>
 <tr class="memdesc:ab0db72d9eba213eac46d44d516789dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience constructor that just opens the files.  <a href="#ab0db72d9eba213eac46d44d516789dcb">More...</a><br /></td></tr>
 <tr class="separator:ab0db72d9eba213eac46d44d516789dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e970b22a4d572392c0243ffbc8dc97f"><td class="memItemLeft" align="right" valign="top"><a id="a8e970b22a4d572392c0243ffbc8dc97f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a8e970b22a4d572392c0243ffbc8dc97f">operator bool</a> ()</td></tr>
+<tr class="memdesc:a8e970b22a4d572392c0243ffbc8dc97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validity checking. <br /></td></tr>
+<tr class="separator:a8e970b22a4d572392c0243ffbc8dc97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab42030235b32a04b484f8d6e3720f1b3"><td class="memItemLeft" align="right" valign="top"><a id="ab42030235b32a04b484f8d6e3720f1b3"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#ab42030235b32a04b484f8d6e3720f1b3">program_name</a></td></tr>
-<tr class="memdesc:ab42030235b32a04b484f8d6e3720f1b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The OpenGL program name. <br /></td></tr>
-<tr class="separator:ab42030235b32a04b484f8d6e3720f1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98692c00ba7d5a15c9cad285922d8122"><td class="memItemLeft" align="right" valign="top"><a id="a98692c00ba7d5a15c9cad285922d8122"></a>
-std::unordered_map&lt; std::string, <a class="el" href="structge_1_1shader_1_1parameter.html">parameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a98692c00ba7d5a15c9cad285922d8122">parameters</a></td></tr>
-<tr class="memdesc:a98692c00ba7d5a15c9cad285922d8122"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default parameters, don't directly change this change it in the material If you change it here, you will be changing the defaults for <em>everyone using this texture</em> <br /></td></tr>
-<tr class="separator:a98692c00ba7d5a15c9cad285922d8122"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4481124906591418d9b4640fa2c4bdba"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="structge_1_1shader_1_1attribute.html">attribute</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a4481124906591418d9b4640fa2c4bdba">attributes</a></td></tr>
-<tr class="memdesc:a4481124906591418d9b4640fa2c4bdba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The attributes.  <a href="#a4481124906591418d9b4640fa2c4bdba">More...</a><br /></td></tr>
-<tr class="separator:a4481124906591418d9b4640fa2c4bdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a650e9f71b2a5f002f6f39d7d7c73b624"><td class="memItemLeft" align="right" valign="top"><a id="a650e9f71b2a5f002f6f39d7d7c73b624"></a>
-int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a650e9f71b2a5f002f6f39d7d7c73b624">mvp_uniform_location</a></td></tr>
-<tr class="memdesc:a650e9f71b2a5f002f6f39d7d7c73b624"><td class="mdescLeft">&#160;</td><td class="mdescRight">The location of the mvp matrix uniform value. <br /></td></tr>
-<tr class="separator:a650e9f71b2a5f002f6f39d7d7c73b624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc25e42125360f6bcebeec64fd7ef729"><td class="memItemLeft" align="right" valign="top"><a id="acc25e42125360f6bcebeec64fd7ef729"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#acc25e42125360f6bcebeec64fd7ef729">m_program_name</a> = ~0</td></tr>
+<tr class="memdesc:acc25e42125360f6bcebeec64fd7ef729"><td class="mdescLeft">&#160;</td><td class="mdescRight">The OpenGL program name. <br /></td></tr>
+<tr class="separator:acc25e42125360f6bcebeec64fd7ef729"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a6812ff1130755bb368b41f2d06db99"><td class="memItemLeft" align="right" valign="top"><a id="a5a6812ff1130755bb368b41f2d06db99"></a>
+std::unordered_map&lt; std::string, <a class="el" href="structge_1_1shader_1_1parameter.html">parameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a5a6812ff1130755bb368b41f2d06db99">m_parameters</a></td></tr>
+<tr class="memdesc:a5a6812ff1130755bb368b41f2d06db99"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default parameters, don't directly change this change it in the material If you change it here, you will be changing the defaults for <em>everyone using this texture</em> <br /></td></tr>
+<tr class="separator:a5a6812ff1130755bb368b41f2d06db99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15dbe389429b9f149b1e8963ff904dd8"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="structge_1_1shader_1_1attribute.html">attribute</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#a15dbe389429b9f149b1e8963ff904dd8">m_attributes</a></td></tr>
+<tr class="memdesc:a15dbe389429b9f149b1e8963ff904dd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The attributes.  <a href="#a15dbe389429b9f149b1e8963ff904dd8">More...</a><br /></td></tr>
+<tr class="separator:a15dbe389429b9f149b1e8963ff904dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc7a2d9066ac4d2269f661e3a838574c"><td class="memItemLeft" align="right" valign="top"><a id="adc7a2d9066ac4d2269f661e3a838574c"></a>
+int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classge_1_1shader.html#adc7a2d9066ac4d2269f661e3a838574c">m_mvp_uniform_location</a></td></tr>
+<tr class="memdesc:adc7a2d9066ac4d2269f661e3a838574c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The location of the mvp matrix uniform value. <br /></td></tr>
+<tr class="separator:adc7a2d9066ac4d2269f661e3a838574c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a OpenGL program very directly, with not many extra features except easily programmable parameters. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a4483402a79adb69c837e6a9f151bf85f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4483402a79adb69c837e6a9f151bf85f">&sect;&nbsp;</a></span>parameter_type</h2>
+<a id="a5e63316186469b8cc081bd9a7243ccb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e63316186469b8cc081bd9a7243ccb1">&sect;&nbsp;</a></span>parameter_type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classge_1_1shader.html#a4483402a79adb69c837e6a9f151bf85f">ge::shader::parameter_type</a> =  boost::variant&lt;float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr&lt;<a class="el" href="classge_1_1texture.html">texture</a>&gt;&gt;</td>
+          <td class="memname">using <a class="el" href="classge_1_1shader.html#a5e63316186469b8cc081bd9a7243ccb1">ge::shader::parameter_type</a> =  boost::variant&lt;int, float, glm::vec2, glm::vec3, glm::vec4, std::shared_ptr&lt;<a class="el" href="classge_1_1texture.html">texture</a>&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -277,14 +281,14 @@ int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a4481124906591418d9b4640fa2c4bdba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4481124906591418d9b4640fa2c4bdba">&sect;&nbsp;</a></span>attributes</h2>
+<a id="a15dbe389429b9f149b1e8963ff904dd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15dbe389429b9f149b1e8963ff904dd8">&sect;&nbsp;</a></span>m_attributes</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;std::string, <a class="el" href="structge_1_1shader_1_1attribute.html">attribute</a>&gt; ge::shader::attributes</td>
+          <td class="memname">std::unordered_map&lt;std::string, <a class="el" href="structge_1_1shader_1_1attribute.html">attribute</a>&gt; ge::shader::m_attributes</td>
         </tr>
       </table>
 </div><div class="memdoc">

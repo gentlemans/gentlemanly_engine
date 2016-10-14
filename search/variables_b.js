@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['renderfunc',['renderfunc',['../structge_1_1renderable_1_1interface__storage.html#a768e44e9b5c040005da7d8091c124923',1,'ge::renderable::interface_storage']]],
-  ['rotation',['rotation',['../structge_1_1transform.html#a2c557fff8a1364527e33834117d6434e',1,'ge::transform']]]
+  ['scale',['scale',['../structge_1_1transform.html#a80e02c5ad7639085494a17d6075a70ff',1,'ge::transform']]],
+  ['size',['size',['../structge_1_1sdl__subsystem_1_1config.html#a3b593f2d059fecac187bef0c812892fe',1,'ge::sdl_subsystem::config::size()'],['../classge_1_1texture.html#a4a5bb6197afd1f1ee794f85942a9212d',1,'ge::texture::size()']]]
 ];

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['parameters',['parameters',['../classge_1_1shader.html#a98692c00ba7d5a15c9cad285922d8122',1,'ge::shader']]],
-  ['program_5fname',['program_name',['../classge_1_1shader.html#ab42030235b32a04b484f8d6e3720f1b3',1,'ge::shader']]],
-  ['property_5fvalues',['property_values',['../classge_1_1material.html#a24ecefdf9d2ac05fc4a3269ddcae034c',1,'ge::material']]]
+  ['renderfunc',['renderfunc',['../structge_1_1renderable_1_1interface__storage.html#a768e44e9b5c040005da7d8091c124923',1,'ge::renderable::interface_storage']]],
+  ['rotation',['rotation',['../structge_1_1transform.html#a2c557fff8a1364527e33834117d6434e',1,'ge::transform']]]
 ];

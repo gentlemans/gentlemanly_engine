@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>gentlemanly_engine: ge::timer_handle&lt; ArgTypes &gt; Struct Template Reference</title>
+<title>gentlemanly_engine: ge::timer_handle Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,12 +63,97 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="structge_1_1timer__handle-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">ge::timer_handle&lt; ArgTypes &gt; Struct Template Reference</div>  </div>
+<div class="title">ge::timer_handle Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This is similar to a <code>boost::signals2::connection</code>, it allows you to manage a timer.  
+ <a href="structge_1_1timer__handle.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="timer__subsystem_8hpp_source.html">timer_subsystem.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa0305445f5d8eaff488476afb312d6f1"><td class="memItemLeft" align="right" valign="top"><a id="aa0305445f5d8eaff488476afb312d6f1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__handle.html#aa0305445f5d8eaff488476afb312d6f1">timer_handle</a> (<a class="el" href="structge_1_1timer__subsystem.html">timer_subsystem</a> *manager, const std::shared_ptr&lt; <a class="el" href="structge_1_1timer__int__data.html">timer_int_data</a> &gt; &amp;timer)</td></tr>
+<tr class="memdesc:aa0305445f5d8eaff488476afb312d6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called from the timer_manager, you don't have to worry about it. <br /></td></tr>
+<tr class="separator:aa0305445f5d8eaff488476afb312d6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab72635a576165cc402822f8e137fde3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__handle.html#aab72635a576165cc402822f8e137fde3">has_been_called</a> () const</td></tr>
+<tr class="memdesc:aab72635a576165cc402822f8e137fde3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets if the timer has been called.  <a href="#aab72635a576165cc402822f8e137fde3">More...</a><br /></td></tr>
+<tr class="separator:aab72635a576165cc402822f8e137fde3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac82d501517b227b93674f612619e3eff"><td class="memItemLeft" align="right" valign="top"><a id="ac82d501517b227b93674f612619e3eff"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__handle.html#ac82d501517b227b93674f612619e3eff">cancel</a> ()</td></tr>
+<tr class="memdesc:ac82d501517b227b93674f612619e3eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels the timer so it won't be called. <br /></td></tr>
+<tr class="separator:ac82d501517b227b93674f612619e3eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad501f1b7e0dc5c9933b52759ee4aea24"><td class="memItemLeft" align="right" valign="top">std::chrono::duration&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__handle.html#ad501f1b7e0dc5c9933b52759ee4aea24">time_left</a> () const</td></tr>
+<tr class="memdesc:ad501f1b7e0dc5c9933b52759ee4aea24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets how much time is left on the timer since the last tick.  <a href="#ad501f1b7e0dc5c9933b52759ee4aea24">More...</a><br /></td></tr>
+<tr class="separator:ad501f1b7e0dc5c9933b52759ee4aea24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This is similar to a <code>boost::signals2::connection</code>, it allows you to manage a timer. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aab72635a576165cc402822f8e137fde3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab72635a576165cc402822f8e137fde3">&sect;&nbsp;</a></span>has_been_called()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ge::timer_handle::has_been_called </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets if the timer has been called. </p>
+<dl class="section return"><dt>Returns</dt><dd>If the timer has been called </dd></dl>
+
+</div>
+</div>
+<a id="ad501f1b7e0dc5c9933b52759ee4aea24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad501f1b7e0dc5c9933b52759ee4aea24">&sect;&nbsp;</a></span>time_left()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::chrono::duration&lt; float &gt; ge::timer_handle::time_left </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets how much time is left on the timer since the last tick. </p>
+<dl class="section return"><dt>Returns</dt><dd>The float duration of how much time is left </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>ge/include/ge/<a class="el" href="timer__manager_8hpp_source.html">timer_manager.hpp</a></li>
+<li>ge/include/ge/<a class="el" href="timer__subsystem_8hpp_source.html">timer_subsystem.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

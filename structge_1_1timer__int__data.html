@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>gentlemanly_engine: ge::timer_int_data&lt; ArgTypes &gt; Struct Template Reference</title>
+<title>gentlemanly_engine: ge::timer_int_data Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,12 +63,52 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structge_1_1timer__int__data-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">ge::timer_int_data&lt; ArgTypes &gt; Struct Template Reference</div>  </div>
+<div class="title">ge::timer_int_data Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>ge/include/ge/<a class="el" href="timer__manager_8hpp_source.html">timer_manager.hpp</a></li>
+
+<p>This class represents the metadata for a select timer, you don't have to worry about this class.  
+ <a href="structge_1_1timer__int__data.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="timer__subsystem_8hpp_source.html">timer_subsystem.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1fe3be64ca179d0424db3f449d27713d"><td class="memItemLeft" align="right" valign="top"><a id="a1fe3be64ca179d0424db3f449d27713d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__int__data.html#a1fe3be64ca179d0424db3f449d27713d">timer_int_data</a> (const std::function&lt; void()&gt; &amp;cal, std::chrono::time_point&lt; std::chrono::system_clock, std::chrono::duration&lt; float &gt;&gt; expir, std::chrono::duration&lt; float &gt; duration_arg, bool loops_arg)</td></tr>
+<tr class="memdesc:a1fe3be64ca179d0424db3f449d27713d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor stuff. <br /></td></tr>
+<tr class="separator:a1fe3be64ca179d0424db3f449d27713d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a55e8d78b72e157ba7e346d22de83c697"><td class="memItemLeft" align="right" valign="top"><a id="a55e8d78b72e157ba7e346d22de83c697"></a>
+std::function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__int__data.html#a55e8d78b72e157ba7e346d22de83c697">callback</a></td></tr>
+<tr class="memdesc:a55e8d78b72e157ba7e346d22de83c697"><td class="mdescLeft">&#160;</td><td class="mdescRight">The callback object. <br /></td></tr>
+<tr class="separator:a55e8d78b72e157ba7e346d22de83c697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab78d21158ecbe98aa3f75553dacd435a"><td class="memItemLeft" align="right" valign="top"><a id="ab78d21158ecbe98aa3f75553dacd435a"></a>
+std::chrono::time_point&lt; std::chrono::system_clock, std::chrono::duration&lt; float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__int__data.html#ab78d21158ecbe98aa3f75553dacd435a">expiration_time</a></td></tr>
+<tr class="memdesc:ab78d21158ecbe98aa3f75553dacd435a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time at which a timer expires. <br /></td></tr>
+<tr class="separator:ab78d21158ecbe98aa3f75553dacd435a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed5f2d059eb15c75feeed7129b3f0ea9"><td class="memItemLeft" align="right" valign="top"><a id="aed5f2d059eb15c75feeed7129b3f0ea9"></a>
+std::chrono::duration&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>duration</b></td></tr>
+<tr class="separator:aed5f2d059eb15c75feeed7129b3f0ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57b312fbbdb76b207c01a20928252638"><td class="memItemLeft" align="right" valign="top"><a id="a57b312fbbdb76b207c01a20928252638"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structge_1_1timer__int__data.html#a57b312fbbdb76b207c01a20928252638">triggered</a> = false</td></tr>
+<tr class="memdesc:a57b312fbbdb76b207c01a20928252638"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the timer has already been triggered. <br /></td></tr>
+<tr class="separator:a57b312fbbdb76b207c01a20928252638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad97238f902bf84fc5fe943100818f1c1"><td class="memItemLeft" align="right" valign="top"><a id="ad97238f902bf84fc5fe943100818f1c1"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>loops</b></td></tr>
+<tr class="separator:ad97238f902bf84fc5fe943100818f1c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class represents the metadata for a select timer, you don't have to worry about this class. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>ge/include/ge/<a class="el" href="timer__subsystem_8hpp_source.html">timer_subsystem.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

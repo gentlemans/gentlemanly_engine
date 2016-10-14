@@ -15,8 +15,8 @@ var searchData=
   ['input_5fscroll_5fwheel',['input_scroll_wheel',['../structge_1_1input__scroll__wheel.html#a82aa14fb76080a4fa84bcd61c3e202e3',1,'ge::input_scroll_wheel::input_scroll_wheel()=default'],['../structge_1_1input__scroll__wheel.html#a192aab5978a644d48ab85411a7665c21',1,'ge::input_scroll_wheel::input_scroll_wheel(const input_scroll_wheel &amp;event)=default'],['../structge_1_1input__scroll__wheel.html#ac75cd776375df82b5a4bbe779a97b6f7',1,'ge::input_scroll_wheel::input_scroll_wheel(input_scroll_wheel &amp;&amp;event)=default']]],
   ['input_5fscroll_5fwheel',['input_scroll_wheel',['../structge_1_1input__scroll__wheel.html',1,'ge']]],
   ['input_5fsubsystem',['input_subsystem',['../structge_1_1input__subsystem.html',1,'ge']]],
-  ['interface_5fstorage',['interface_storage',['../structge_1_1renderable_1_1interface__storage.html',1,'ge::renderable']]],
-  ['interface_5fstorage',['interface_storage',['../structge_1_1renderable_1_1interface__storage.html#af7dc5f3b55f0cb8f107a5f9d324c67ca',1,'ge::renderable::interface_storage::interface_storage()'],['../structge_1_1tickable_1_1interface__storage.html#ae9654eb5371dd7dd6c0a490305d01352',1,'ge::tickable::interface_storage::interface_storage()']]],
   ['interface_5fstorage',['interface_storage',['../structge_1_1tickable_1_1interface__storage.html',1,'ge::tickable']]],
+  ['interface_5fstorage',['interface_storage',['../structge_1_1renderable_1_1interface__storage.html#af7dc5f3b55f0cb8f107a5f9d324c67ca',1,'ge::renderable::interface_storage::interface_storage()'],['../structge_1_1tickable_1_1interface__storage.html#ae9654eb5371dd7dd6c0a490305d01352',1,'ge::tickable::interface_storage::interface_storage()']]],
+  ['interface_5fstorage',['interface_storage',['../structge_1_1renderable_1_1interface__storage.html',1,'ge::renderable']]],
   ['is_5fplaying',['is_playing',['../structge_1_1sound__actor.html#a7c45eeeadc98e450f5a9d0c366c9d725',1,'ge::sound_actor']]]
 ];
