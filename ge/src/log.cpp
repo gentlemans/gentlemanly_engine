@@ -2,5 +2,5 @@
 
 namespace ge
 {
-std::shared_ptr<spdlog::logger> log = nullptr;
+std::shared_ptr<spdlog::logger> logger = nullptr;
 }

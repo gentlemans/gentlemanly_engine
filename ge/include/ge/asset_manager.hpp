@@ -108,11 +108,11 @@ public:
 		using namespace std::string_literals;
 
 		if (!boost::filesystem::is_directory(path)) {
-			log->error("Error opening asset path: " + path +
+			         logger->error("Error opening asset path: " + path +
 					   ". Execution will continue, but assets might not load.");
 			return;
 		}
-		log->info("Added asset path \""s + path + "\"");
+		      logger->info("Added asset path \""s + path + "\"");
 
 		m_search_paths[priority].emplace_back(std::move(path));
 	}
@@ -129,7 +129,7 @@ public:
 	{
 		using namespace std::string_literals;
 
-		log->debug("Trying to load asset "s + name + " with type " +
+		      logger->debug("Trying to load asset "s + name + " with type " +
 				   boost::typeindex::type_id<asset_type>().pretty_name());
 
 		// make sure it's an asset
@@ -149,9 +149,9 @@ public:
 		std::string asset_type_from_json = root["asset_type"];
 
 		if (std::string(asset_type::asset_type()) != asset_type_from_json) {
-			log->debug("Failed to load asset "s + name);
+			         logger->debug("Failed to load asset "s + name);
 
-			log->error("Asset type " + std::string(asset_type::asset_type()) +
+			         logger->error("Asset type " + std::string(asset_type::asset_type()) +
 					   " but the asset.json file in asset " + name + " had asset type " +
 					   asset_type_from_json +
 					   ". Asset will still be attempted to be loaded, but no promises.");
@@ -162,7 +162,7 @@ public:
 
 		cache_adder_helper<asset_type>::exec(*this, name, data);
 
-		log->info("Successfully loaded asset \""s + name + "\" of type: " +
+		      logger->info("Successfully loaded asset \""s + name + "\" of type: " +
 				  boost::typeindex::type_id<asset_type>().pretty_name());
 
 		return data;
@@ -177,7 +177,7 @@ public:
 	{
 		using namespace std::string_literals;
 
-		log->debug("Trying to load void asset "s + name + " with type " +
+		      logger->debug("Trying to load void asset "s + name + " with type " +
 				   boost::typeindex::type_id<asset_type>().pretty_name());
 
 		// make sure it's an asset
@@ -203,8 +203,8 @@ public:
 		std::string asset_type_from_json = root["asset_type"];
 
 		if (std::string(asset_type::asset_type()) != asset_type_from_json) {
-			log->debug("Failed to load asset "s + name);
-			log->error("Asset type " + std::string(asset_type::asset_type()) +
+			         logger->debug("Failed to load asset "s + name);
+			         logger->error("Asset type " + std::string(asset_type::asset_type()) +
 					   " but the asset.json file in asset " + name + " had asset type " +
 					   asset_type_from_json +
 					   ". Asset will still be attempted to be loaded, but no promises.");
@@ -213,7 +213,7 @@ public:
 		asset_type::load_asset(
 			*this, name, abs_path.c_str(), root, std::forward<extra_args_types>(extra_args)...);
 
-		log->info("Successfully loaded asset \""s + name + "\" of type: " +
+		      logger->info("Successfully loaded asset \""s + name + "\" of type: " +
 				  boost::typeindex::type_id<asset_type>().pretty_name());
 
 		if (is_cached) loaded_void_assets.insert(name);
@@ -240,11 +240,11 @@ private:
 		}
 
 		if (abs_path.empty()) {
-			log->error("Could not find asset named "s + name + " in any of the search paths");
+			         logger->error("Could not find asset named "s + name + " in any of the search paths");
 		}
 
 		if (!boost::filesystem::exists(abs_path + "/asset.json")) {
-			log->error("Asset "s + name + " that was found in folder " + abs_path +
+			         logger->error("Asset "s + name + " that was found in folder " + abs_path +
 					   " does not have a asset.json file");
 		}
 

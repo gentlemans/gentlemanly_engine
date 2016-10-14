@@ -135,7 +135,7 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 
 	using namespace std::string_literals;
 	if (!m_window) {
-		log->error("Error initalizing SDL window"s + SDL_GetError());
+		      logger->error("Error initalizing SDL window"s + SDL_GetError());
 		return false;
 	}
 	// create the context

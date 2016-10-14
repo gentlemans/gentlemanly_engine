@@ -149,7 +149,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		// load PNG data
 		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
 		if (err != 0) {
-			log->error("Failed to load PNG: error: "s + lodepng_error_text(err));
+			         logger->error("Failed to load PNG: error: "s + lodepng_error_text(err));
 			return false;
 		}
 
@@ -162,7 +162,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 		return false;
 	}
 	
-	log->info("Loaded image "s + source.CString() + " for rocket.");
+	   logger->info("Loaded image "s + source.CString() + " for rocket.");
 
 	return true;
 }

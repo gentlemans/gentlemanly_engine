@@ -25,10 +25,14 @@ private:
 		using Rocket::Core::Log;
 
 		switch (type) {
-		case Log::LT_ERROR: log->error(message.CString()); break;
-		case Log::LT_ASSERT: log->critical(message.CString()); break;
-		case Log::LT_WARNING: log->warn(message.CString()); break;
-		case Log::LT_INFO: log->info(message.CString()); break;
+		case Log::LT_ERROR: 
+            logger->error(message.CString()); break;
+		case Log::LT_ASSERT: 
+            logger->critical(message.CString()); break;
+		case Log::LT_WARNING: 
+            logger->warn(message.CString()); break;
+		case Log::LT_INFO: 
+            logger->info(message.CString()); break;
 		default: break;
 		}
 		return true;

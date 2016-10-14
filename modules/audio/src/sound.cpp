@@ -21,7 +21,7 @@ sound::sound(const char* filename)
 	FILE* file = fopen(filename, "rb");
 
 	if (!file) {
-		log->error("Error opening file while opening sound: "s + filename);
+		      logger->error("Error opening file while opening sound: "s + filename);
 		return;
 	}
 
@@ -29,7 +29,7 @@ sound::sound(const char* filename)
 
 	// the SDK now owns the FILE* object
 	if (ov_open(file, &oggfile, NULL, 0)) {
-		log->error("Error opening OGG file: "s + filename + " for decoding");
+		      logger->error("Error opening OGG file: "s + filename + " for decoding");
 		return;
 	}
 
@@ -59,7 +59,7 @@ sound::sound(const char* filename)
 
 		if (bytes < 0) {
 			ov_clear(&oggfile);
-			log->error("Error decoding OGG file: "s + filename);
+			         logger->error("Error decoding OGG file: "s + filename);
 			return;
 		}
 

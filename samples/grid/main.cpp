@@ -14,6 +14,10 @@
 #include "turret.hpp"
 #include "zombie.hpp"
 
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#endif 
+
 using namespace ge;
 
 int main()
@@ -40,7 +44,17 @@ int main()
 	g->getActorFromCoord({0, 0, 0}) = actor::factory<turret>(g.get(), glm::uvec3(0, 0, 0)).get();
 
 	g->getActorFromCoord({2, 2, 2}) = actor::factory<zombie>(g.get(), glm::uvec3(2, 2, 2)).get();
+	
+#ifdef EMSCRIPTEN
+		emscripten_set_main_loop_arg(
+			[](void* run_ptr) {
+				runtime* runt = (runtime*)run_ptr;
 
-	while (r.tick())
-		;
+				runt->tick();
+			},
+			&r, 0, true);
+#else
+		while (r.tick())
+			;
+#endif
 }

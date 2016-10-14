@@ -9,7 +9,7 @@
 
 namespace ge
 {
-extern std::shared_ptr<spdlog::logger> log;
+extern std::shared_ptr<spdlog::logger> logger;
 }
 
 #endif  // GE_LOG_HPP
