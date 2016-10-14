@@ -13,7 +13,7 @@ class grid : public ge::actor
 	glm::uvec3 m_size;
 
 public:
-    void initialize(glm::uvec3 size, float tps);
+	void initialize(glm::uvec3 size, float tps);
 
 	std::vector<toweractor*> towers;
 

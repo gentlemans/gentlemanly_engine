@@ -14,12 +14,13 @@ class animation_actor : public actor
 {
 public:
 	mesh_actor* m_mesh;
-	
+
 	void initialize(const mesh_settings& mes, float fps)
 	{
 		m_mesh = factory<mesh_actor>(this, mes).get();
 		m_frames_per_second = fps;
-		m_time_until_next_frame = std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
+		m_time_until_next_frame =
+			std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
 
 		add_interface<animation_actor, tickable>();
 	}
@@ -33,20 +34,20 @@ public:
 	{
 		const std::chrono::duration<float> time_per_frame =
 			std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
-		
+
 		if (delta >= m_time_until_next_frame) {
 			++current_frame;
 			delta -= m_time_until_next_frame;
 			m_time_until_next_frame = time_per_frame;
 		}
-		
+
 		current_frame += delta / time_per_frame;
 		m_time_until_next_frame -= delta;
-		
-		
-		current_frame %= boost::get<int>(m_mesh->m_mesh_settings.m_material.m_property_values["dimx"]) * 
+
+		current_frame %=
+			boost::get<int>(m_mesh->m_mesh_settings.m_material.m_property_values["dimx"]) *
 			boost::get<int>(m_mesh->m_mesh_settings.m_material.m_property_values["dimy"]);
-        m_mesh->m_mesh_settings.m_material.m_property_values["current_frame"] = current_frame;
+		m_mesh->m_mesh_settings.m_material.m_property_values["current_frame"] = current_frame;
 	}
 
 	float m_frames_per_second;

@@ -18,17 +18,16 @@ void grid::initialize(glm::uvec3 size, float tps)
 	getActorFromCoord({size.x / 2, size.y / 2, 2}) =
 		ge::actor::factory<base>(this, glm::uvec3{size.x / 2, size.y / 2, 2}).get();
 
-    auto timer = m_runtime->get_subsystem<ge::timer_subsystem>();
+	auto timer = m_runtime->get_subsystem<ge::timer_subsystem>();
 
-    auto func = [this]{
-        m_runtime->get_root_actor()->propagate_to_children([](actor& act){
-            auto storage = act.get_interface_storage<gridtick_interface>();
-            if(storage) {
-                storage->callback();
-            }
-        });
-    };
+	auto func = [this] {
+		m_runtime->get_root_actor()->propagate_to_children([](actor& act) {
+			auto storage = act.get_interface_storage<gridtick_interface>();
+			if (storage) {
+				storage->callback();
+			}
+		});
+	};
 
-    timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
-
+	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
 }

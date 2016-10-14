@@ -23,7 +23,7 @@ struct sdl_subsystem : subsystem {
 	/// The subsystem config
 	struct config {
 		/// Constructor
-		config(const std::string& str,  glm::uvec2 sz, boost::optional<glm::uvec2> loc = {},
+		config(const std::string& str, glm::uvec2 sz, boost::optional<glm::uvec2> loc = {},
 			bool fullscr = false, bool decor = true)
 			: title(str), location(loc), size(sz), fullscreen(fullscr), decorated(decor)
 		{

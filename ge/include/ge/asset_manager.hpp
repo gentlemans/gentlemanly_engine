@@ -106,12 +106,12 @@ public:
 	void add_asset_path(std::string path, uint8_t priority = 0)
 	{
 		using namespace std::string_literals;
-		
+
 		if (!boost::filesystem::is_directory(path)) {
 			log->error("Error opening asset path: " + path +
 					   ". Execution will continue, but assets might not load.");
 			return;
-		} 
+		}
 		log->info("Added asset path \""s + path + "\"");
 
 		m_search_paths[priority].emplace_back(std::move(path));

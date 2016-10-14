@@ -13,9 +13,9 @@ int main()
 	r.add_subsystem<ge::sdl_subsystem>({
 		"hello ge!",  // title of the window
 		{720, 1280},  // the size of the window
-		{},  // location on the screen, {} for OS defined (it's a boost::optional<glm::uvec2>)
-		false,		  // fullscreen or not
-		true		  // if the window should be decorated (border etc).
+		{},		// location on the screen, {} for OS defined (it's a boost::optional<glm::uvec2>)
+		false,  // fullscreen or not
+		true	// if the window should be decorated (border etc).
 	});
 
 	while (r.tick())
