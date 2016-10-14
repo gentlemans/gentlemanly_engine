@@ -144,7 +144,7 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 
 #ifdef WIN32
 	if (!gladLoadGL()) {
-		log->error("Failed to load OpenGL functions from glad");
+		logger->error("Failed to load OpenGL functions from glad");
 		return false;
 	}
 #endif
