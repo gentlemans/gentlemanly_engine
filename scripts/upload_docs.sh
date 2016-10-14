@@ -6,11 +6,10 @@ SCRIPTSDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPTSDIR/..
 
 # generate docs
-rm -rf build
 mkdir -p build
 cd build
 cmake .. 
-make doc
+cmake --build . --target doc
 cd ..
 
 # make a temporary dir to store them
