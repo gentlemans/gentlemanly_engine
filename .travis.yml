@@ -111,6 +111,7 @@ matrix:
 
 
 script:
+  - ./scripts/compile_dependencies.sh
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_CXX_FLAGS="-Wall" -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_BUILD_TYPE=$BUILD_TYPE

@@ -1,6 +1,4 @@
-if(NOT EMSCRIPTEN)
-  find_package(Threads REQUIRED)
-endif()
+
 
 set(GE_PRIVATE_SOURCES
 	src/actor.cpp
@@ -21,11 +19,16 @@ set(GE_PUBLIC_SOURCES
 	include/ge/json_helper.hpp
 	include/ge/runtime.hpp
 	include/ge/subsystem.hpp
-        include/ge/timer_subsystem.hpp
+	include/ge/timer_subsystem.hpp
 	include/ge/transform.hpp
 )
 
 add_library(gentlemanly_engine ${GE_PUBLIC_SOURCES} ${GE_PRIVATE_SOURCES})
+
+if(NOT EMSCRIPTEN)
+  find_package(Threads REQUIRED)
+  find_package(Boost REQUIRED COMPONENTS filesystem system)
+endif()
 
 target_include_directories(gentlemanly_engine
 PUBLIC
@@ -49,7 +52,12 @@ if(NOT EMSCRIPTEN)
 		cxx_generic_lambdas
 		cxx_variadic_templates
 	)
-  target_link_libraries(gentlemanly_engine PUBLIC Threads::Threads)
+	target_include_directories(gentlemanly_engine PUBLIC ${Boost_INCLUDE_DIR})
+	target_link_libraries(gentlemanly_engine PUBLIC Threads::Threads ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 else()
 	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14")
+	target_link_libraries(gentlemanly_engine
+	PUBLIC 
+		boost_filesystem
+	)
 endif()
