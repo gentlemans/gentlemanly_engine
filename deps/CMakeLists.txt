@@ -16,3 +16,4 @@ set(FREETYPE2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/freetype2/include)
 add_subdirectory(libRocket/Build)
 
 add_subdirectory(openal-soft)
+add_subdirectory(boost)
