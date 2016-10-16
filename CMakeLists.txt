@@ -34,6 +34,18 @@ else()
 	then install Doxygen or if it is already installed, set DOXYGEN_EXECUTABLE with a path to doxygen.")
 endif()
 
+# Compile Dependencies
+if(NOT EMSCRIPTEN)
+	execute_process( COMMAND mkdir build WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps)
+	execute_process(
+		COMMAND ${CMAKE_COMMAND} .. -G"${CMAKE_GENERATOR}" 
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
+	)
+	execute_process(
+		COMMAND ${CMAKE_COMMAND} --build . --target install
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
+	)
+endif()
 
 if (EMSCRIPTEN)
     set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc" CACHE STRING "")
