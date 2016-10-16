@@ -40,7 +40,7 @@ if(NOT EMSCRIPTEN)
 		message("Compiling dependencies for the first time, this might take a while but only happens once, ${CMAKE_COMMAND} .. -G\"${CMAKE_GENERATOR}\"")
 		execute_process( COMMAND mkdir build WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps)
 		execute_process(
-			COMMAND cmake .. -G "Unix Makefiles"
+			COMMAND ${CMAKE_COMMAND} .. -G "${CMAKE_GENERATOR}"
 			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
 			RESULT_VARIABLE CONFIG_SUCCESS
 		)
