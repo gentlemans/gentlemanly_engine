@@ -36,15 +36,25 @@ endif()
 
 # Compile Dependencies
 if(NOT EMSCRIPTEN)
-	execute_process( COMMAND mkdir build WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps)
-	execute_process(
-		COMMAND ${CMAKE_COMMAND} .. -G"${CMAKE_GENERATOR}" 
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
-	)
-	execute_process(
-		COMMAND ${CMAKE_COMMAND} --build . --target install
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
-	)
+	if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/deps/build)
+		message("Compiling dependencies for the first time, this might take a while but only happens once, ${CMAKE_COMMAND} .. -G\"${CMAKE_GENERATOR}\"")
+		execute_process( COMMAND mkdir build WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps)
+		execute_process(
+			COMMAND cmake .. -G "Unix Makefiles"
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
+			RESULT_VARIABLE CONFIG_SUCCESS
+		)
+		if(NOT CONIFG_SUCCESS)
+			message(error, "Failed to configure dependencies. :(")
+		endif()
+		message("Dependencies configured, compiling")
+		execute_process(
+			COMMAND ${CMAKE_COMMAND} --build . --target install
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
+		)
+	else()
+		message("Dependencies already compiled, delete deps/build to recompile")
+	endif()
 endif()
 
 if (EMSCRIPTEN)
