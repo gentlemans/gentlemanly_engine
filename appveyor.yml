@@ -5,7 +5,6 @@ max_jobs: 2
 image: Visual Studio 2015
 
 install:
-    - scripts/compile_dependencies_vs
     - mkdir build
     - cd build
     - '"C:\Program Files (x86)\cmake\bin\cmake.exe" .. -G"Visual Studio 14 Win64"'
