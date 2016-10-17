@@ -10,7 +10,7 @@
 #include <memory>
 
 #include "grid.hpp"
-#include "toweractor.hpp"
+#include "piece.hpp"
 #include "turret.hpp"
 #include "zombie.hpp"
 
