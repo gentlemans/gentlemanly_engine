@@ -37,20 +37,28 @@ endif()
 # Compile Dependencies
 if(NOT EMSCRIPTEN)
 	if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/deps/build)
-		message("Compiling dependencies for the first time, this might take a while but only happens once, ${CMAKE_COMMAND} .. -G\"${CMAKE_GENERATOR}\"")
-		execute_process( COMMAND mkdir build WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps)
+		message("Compiling dependencies for the first time, this might take a while but only happens once")
+		execute_process( 
+			COMMAND mkdir -p build/l1 
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps)
+		execute_process( 
+			COMMAND mkdir -p build/l2
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps)
 		execute_process(
-			COMMAND ${CMAKE_COMMAND} .. -G "${CMAKE_GENERATOR}"
-			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
-			RESULT_VARIABLE CONFIG_SUCCESS
-		)
-		if(NOT CONIFG_SUCCESS)
-			message(error, "Failed to configure dependencies. :(")
-		endif()
-		message("Dependencies configured, compiling")
+			COMMAND ${CMAKE_COMMAND} ../.. -DLEVEL=1 -G "${CMAKE_GENERATOR}"
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/l1
+		)	
 		execute_process(
 			COMMAND ${CMAKE_COMMAND} --build . --target install
-			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/l1
+		)		
+		execute_process(
+			COMMAND ${CMAKE_COMMAND} ../.. -DLEVEL=2 -G ${CMAKE_GENERATOR}
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/ll
+		)
+		execute_process(
+			COMMAND ${CMAKE_COMMAND} --build . --target install
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/ll
 		)
 	else()
 		message("Dependencies already compiled, delete deps/build to recompile")
