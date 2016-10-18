@@ -54,11 +54,11 @@ if(NOT EMSCRIPTEN)
 		)		
 		execute_process(
 			COMMAND ${CMAKE_COMMAND} ../.. -DLEVEL=2 -G ${CMAKE_GENERATOR}
-			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/ll
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/l2
 		)
 		execute_process(
 			COMMAND ${CMAKE_COMMAND} --build . --target install
-			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/ll
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/l2
 		)
 	else()
 		message("Dependencies already compiled, delete deps/build to recompile")
