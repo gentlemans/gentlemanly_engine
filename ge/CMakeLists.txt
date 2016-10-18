@@ -36,11 +36,6 @@ PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_link_libraries(gentlemanly_engine
-PUBLIC 
-	boost_filesystem
-)
-
 target_compile_definitions(gentlemanly_engine
 PUBLIC
 	BOOST_ALL_NO_LIB
@@ -57,7 +52,7 @@ if(NOT EMSCRIPTEN)
 else()
 	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14")
 	target_link_libraries(gentlemanly_engine
-	PUBLIC 
+	PUBLIC
 		boost_filesystem
 		boost_system
 	)

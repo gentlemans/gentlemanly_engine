@@ -21,14 +21,13 @@ if(NOT EMSCRIPTEN)
 	find_package(libRocket REQUIRED)
 endif()
 
-target_link_libraries(gentlemanly_engine_rocket_subsystem 
+target_link_libraries(gentlemanly_engine_rocket_subsystem
 PUBLIC
 	RocketCore
 	RocketDebugger
 	RocketControls
 	gentlemanly_engine
 	gentlemanly_engine_renderer
-	png
 )
 
 target_include_directories(gentlemanly_engine_rocket_subsystem
