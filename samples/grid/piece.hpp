@@ -1,4 +1,4 @@
-#ifndef GE_TOWERACTOR_HPP
+#ifndef GE_PIECE_HPP
 #define GE_TOWERACTOR_HPP
 
 #pragma once

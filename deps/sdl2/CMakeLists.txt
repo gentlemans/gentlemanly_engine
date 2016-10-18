@@ -1460,7 +1460,7 @@ if(SDL_SHARED)
     set_target_properties(SDL2 PROPERTIES
       VERSION ${LT_VERSION}
       SOVERSION ${LT_REVISION}
-      OUTPUT_NAME "SDL2-${LT_RELEASE}")
+      OUTPUT_NAME "SDL2")
   else()
     set_target_properties(SDL2 PROPERTIES
       VERSION ${SDL_VERSION}

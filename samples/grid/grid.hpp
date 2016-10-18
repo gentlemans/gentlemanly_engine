@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-class toweractor;
+class piece;
 
 class grid : public ge::actor
 {
@@ -15,9 +15,9 @@ class grid : public ge::actor
 public:
 	void initialize(glm::uvec3 size, float tps);
 
-	std::vector<toweractor*> towers;
+	std::vector<piece*> towers;
 
-	toweractor*& getActorFromCoord(glm::uvec3 loc)
+	piece*& getActorFromCoord(glm::uvec3 loc)
 	{
 		assert(loc.x < m_size.x);
 		assert(loc.y < m_size.y);

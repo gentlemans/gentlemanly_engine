@@ -28,6 +28,7 @@ PUBLIC
 	RocketControls
 	gentlemanly_engine
 	gentlemanly_engine_renderer
+	png
 )
 
 target_include_directories(gentlemanly_engine_rocket_subsystem
