@@ -24,4 +24,8 @@ public:
 		assert(loc.z < 3);
 		return towers[loc.z * m_size.x * m_size.y + loc.y * m_size.x + loc.x];
 	}
+	glm::uvec2 get_size() const
+	{
+		return{ m_size.x, m_size.y };
+	}
 };

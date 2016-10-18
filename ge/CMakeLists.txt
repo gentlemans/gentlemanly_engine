@@ -59,5 +59,6 @@ else()
 	target_link_libraries(gentlemanly_engine
 	PUBLIC 
 		boost_filesystem
+		boost_system
 	)
 endif()
