@@ -12,11 +12,11 @@ if(LEVEL STREQUAL 1)
 	add_subdirectory(boost)
 	add_subdirectory(freetype2)
 	add_subdirectory(openal-soft)
-	
+
 	set(VIDEO_WAYLAND OFF CACHE BOOL "")
 	add_subdirectory(sdl2)
 else()
-	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PAT};${CMAKE_INSTALL_PREFIX})
+	set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH};${CMAKE_INSTALL_PREFIX})
 	add_subdirectory(vorbis)
 	add_subdirectory(libRocket/Build)
 endif()
