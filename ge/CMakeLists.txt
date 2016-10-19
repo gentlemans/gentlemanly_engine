@@ -50,7 +50,7 @@ if(NOT EMSCRIPTEN)
 	target_include_directories(gentlemanly_engine PUBLIC ${Boost_INCLUDE_DIR})
 	target_link_libraries(gentlemanly_engine PUBLIC Threads::Threads ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 else()
-	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14")
+	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14 " "-I${CMAKE_CURRENT_SOURCE_DIR}/../deps/boost")
 	target_link_libraries(gentlemanly_engine
 	PUBLIC
 		boost_filesystem

@@ -79,6 +79,7 @@ if(EMSCRIPTEN)
 	set(FREETYPE_INCLUDE_DIRS hellom8)
 	add_subdirectory(deps/libRocket/Build)
 	set_target_properties(RocketCore PROPERTIES COMPILE_FLAGS "-s USE_FREETYPE=1")
+	add_subdirectory(deps/boost)
 endif()
 
 add_subdirectory(ge)

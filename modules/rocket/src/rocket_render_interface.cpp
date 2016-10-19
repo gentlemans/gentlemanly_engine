@@ -116,17 +116,17 @@ void rocket_render_interface::ReleaseCompiledGeometry(Rocket::Core::CompiledGeom
 
 // Called by Rocket when it wants to enable or disable scissoring to clip content.
 void rocket_render_interface::EnableScissorRegion(bool enable)
-{
+{/*
 	if (enable)
 		glEnable(GL_SCISSOR_TEST);
 	else
 		glDisable(GL_SCISSOR_TEST);
-}
+*/}
 
 // Called by Rocket when it wants to change the scissor region.
 void rocket_render_interface::SetScissorRegion(int x, int y, int width, int height)
 {
-	glScissor(x, viewport_size.y - (y + height), width, height);
+//	glScissor(x, viewport_size.y - (y + height), width, height);
 }
 
 // Called by Rocket when a texture is required by the library.
