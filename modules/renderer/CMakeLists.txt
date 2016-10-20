@@ -1,3 +1,7 @@
+if(NOT EMSCRIPTEN)
+    find_package(OpenGL REQUIRED)
+endif()
+
 set(RENDERER_PUBLIC_FILES
 	include/ge/gl.hpp
 	include/ge/lodepng.h
@@ -52,20 +56,16 @@ PRIVATE
 )
 
 if(NOT EMSCRIPTEN)
-
-	find_package(OpenGL REQUIRED)
-	find_package(SDL2 REQUIRED)
-	
 	target_link_libraries(gentlemanly_engine_renderer
 	PRIVATE
 		${SDL2_LIBRARY}
-	PUBLIC
-		${OPENGL_LIBRARIES}
+        PUBLIC
+            ${OPENGL_LIBRARIES}
 	)
 	target_include_directories(gentlemanly_engine_renderer
 	PRIVATE
 		${SDL2_INCLUDE_DIR}
-		${OPENGL_INCLUDE_DIR}
+                ${OPENGL_INCLUDE_DIR}
 	)
 endif()
 

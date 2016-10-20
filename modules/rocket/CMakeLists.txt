@@ -16,10 +16,6 @@ set(GE_ROCKET_PRIVATE_FILES
 
 add_library(gentlemanly_engine_rocket_subsystem ${GE_ROCKET_PUBLIC_FILES} ${GE_ROCKET_PRIVATE_FILES})
 
-if(NOT EMSCRIPTEN)
-	# Import the targets
-	find_package(libRocket REQUIRED)
-endif()
 
 target_link_libraries(gentlemanly_engine_rocket_subsystem 
 PUBLIC

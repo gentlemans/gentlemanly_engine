@@ -28,11 +28,3 @@ target_compile_definitions(boost_filesystem
 PUBLIC 
 	BOOST_ALL_NO_LIB
 )
-
-install(TARGETS boost_filesystem boost_system 
-	RUNTIME DESTINATION bin 
-	LIBRARY DESTINATION lib 
-	ARCHIVE DESTINATION lib
-)
-
-install(DIRECTORY boost DESTINATION ${CMAKE_INSTALL_PREFIX}/include)

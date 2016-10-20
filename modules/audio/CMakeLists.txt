@@ -20,25 +20,18 @@ PUBLIC
 )
 
 if(NOT EMSCRIPTEN)
-
-	find_package(OpenAL REQUIRED)
-	find_package(OGG REQUIRED)
-	find_package(Vorbis REQUIRED)
-	find_package(VorbisFile REQUIRED)
-
 	target_include_directories(gentlemanly_engine_audio_subsystem
 	PRIVATE
-		${VORBIS_INCLUDE_DIR}
-		${VORBISFILE_INCLUDE_DIR}
-		${OGG_INCLUDE_DIR}
+		../../deps/vorbis/include
+		../../deps/ogg/include
 		${OPENAL_INCLUDE_DIR}
 	)
 	target_link_libraries(gentlemanly_engine_audio_subsystem
 	PRIVATE
 		${OPENAL_LIBRARY}
-		${VORBISFILE_LIBRARY}
-		${VORBIS_LIBRARY}
-		${OGG_LIBRARY}
+		vorbisfile
+		vorbisenc
+		vorbis
 	)
 endif()
 
@@ -50,3 +43,4 @@ PUBLIC
 if(EMSCRIPTEN)
 	set_target_properties(gentlemanly_engine_audio_subsystem PROPERTIES COMPILE_FLAGS "-s USE_OGG=1 -s USE_VORBIS=1")
 endif()
+
