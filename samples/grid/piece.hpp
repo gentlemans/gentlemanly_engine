@@ -1,5 +1,5 @@
 #ifndef GE_PIECE_HPP
-#define GE_TOWERACTOR_HPP
+#define GE_PIECE_HPP
 
 #pragma once
 
@@ -27,4 +27,4 @@ public:
 	}
 };
 
-#endif
+#endif // GE_PIECE_HPP

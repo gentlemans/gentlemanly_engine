@@ -124,7 +124,11 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 
 	glm::uvec2 loc = config.location ? config.location.get()
 									 : glm::uvec2{SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED};
-
+#ifdef __APPLE__
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#endif
 	// initalize the window
 	m_window =
 		SDL_CreateWindow(config.title.c_str(), loc.x, loc.y, config.size.x, config.size.y, flags);

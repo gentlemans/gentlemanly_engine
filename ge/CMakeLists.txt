@@ -34,7 +34,7 @@ PUBLIC
 )
 
 target_link_libraries(gentlemanly_engine
-PUBLIC 
+PUBLIC
 	boost_filesystem
 )
 
@@ -51,9 +51,9 @@ if(NOT EMSCRIPTEN)
 	)
   target_link_libraries(gentlemanly_engine PUBLIC Threads::Threads)
 else()
-	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14")dd
+	target_compile_options(gentlemanly_engine PUBLIC "-std=c++14")
 	target_link_libraries(gentlemanly_engine
-	PUBLIC 
+	PUBLIC
 		boost_filesystem
 		boost_system
 	)

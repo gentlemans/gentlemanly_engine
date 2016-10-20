@@ -17,14 +17,13 @@ set(GE_ROCKET_PRIVATE_FILES
 add_library(gentlemanly_engine_rocket_subsystem ${GE_ROCKET_PUBLIC_FILES} ${GE_ROCKET_PRIVATE_FILES})
 
 
-target_link_libraries(gentlemanly_engine_rocket_subsystem 
+target_link_libraries(gentlemanly_engine_rocket_subsystem
 PUBLIC
 	RocketCore
 	RocketDebugger
 	RocketControls
 	gentlemanly_engine
 	gentlemanly_engine_renderer
-	png
 )
 
 target_include_directories(gentlemanly_engine_rocket_subsystem
