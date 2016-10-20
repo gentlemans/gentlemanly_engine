@@ -26,10 +26,10 @@
 						"description": "The name of the attribute in the mesh.",
 						"type": "string"
 					},
-					"glsl_id": {
-						"description": "The ID of the attribute in the shader. ie: layout(location = n).",
-						"type": "integer",
-						"minimum": 0
+					"glsl_name": {
+						"description": "The name of the attribute in GLSL",
+						"type": "string",
+						"pattern": "\\w+"
 					},
 					"type": {
 						"description": "The type of the data",

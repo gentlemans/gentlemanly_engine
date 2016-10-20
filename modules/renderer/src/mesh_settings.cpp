@@ -77,7 +77,7 @@ void mesh_settings::render(const glm::mat3& mvp) const
 		assert(
 			m_mesh->additonal_vertex_data.find(attr.first) != m_mesh->additonal_vertex_data.end());
 		attr_applying_visitor visitor;
-		visitor.attrib_id = next_attribarray++;
+		visitor.attrib_id = attr.second.attribute_id;
 		visitor.m = m_mesh.get();
 		visitor.attr = &attr;
 

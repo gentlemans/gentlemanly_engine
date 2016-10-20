@@ -74,7 +74,7 @@ public:
 		attribute_type type;
 
 		/// The location assigned in GLSL for the attribute
-		unsigned attribute_id;
+        std::string attribute_name;
 	};
 
 	/// The default parameters, don't directly change this change it in the material
