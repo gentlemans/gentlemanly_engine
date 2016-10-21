@@ -121,7 +121,6 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 	int flags = SDL_WINDOW_OPENGL | (config.fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) |
 				(config.decorated ? 0 : SDL_WINDOW_BORDERLESS);
 
-
 	glm::uvec2 loc = config.location ? config.location.get()
 									 : glm::uvec2{SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED};
 #ifdef __APPLE__

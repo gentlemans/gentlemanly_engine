@@ -24,20 +24,15 @@ public:
 		std::vector<piece*> ret;
 
 		for (auto& child : m_children) {
-
-			piece*  p = dynamic_cast<piece*>(child.get());
+			piece* p = dynamic_cast<piece*>(child.get());
 			if (!p) continue;
 
-			if (p->get_relative_location() == glm::vec2{ loc.x, loc.y } && p->m_depth == loc.z) {
+			if (p->get_relative_location() == glm::vec2{loc.x, loc.y} && p->m_depth == loc.z) {
 				ret.push_back(p);
 			}
 		}
 
 		return ret;
-
 	}
-	glm::uvec2 get_size() const
-	{
-		return{ m_size.x, m_size.y };
-	}
+	glm::uvec2 get_size() const { return {m_size.x, m_size.y}; }
 };

@@ -33,12 +33,13 @@ struct attr_applying_visitor : boost::static_visitor<size_t> {
 	template <typename T>
 	size_t operator()(T atrtype)
 	{
-		auto attrLoc = glGetAttribLocation(shad->m_program_name, attr->second.attribute_name.c_str());
+		auto attrLoc =
+			glGetAttribLocation(shad->m_program_name, attr->second.attribute_name.c_str());
 		glEnableVertexAttribArray(attrLoc);
 		glBindBuffer(GL_ARRAY_BUFFER, m->additonal_vertex_data.find(attr->first)->second);
-		glVertexAttribPointer(attrLoc, sizeof(atrtype) / sizeof(float), GL_FLOAT,
-			GL_FALSE, sizeof(atrtype), nullptr);
-		
+		glVertexAttribPointer(
+			attrLoc, sizeof(atrtype) / sizeof(float), GL_FLOAT, GL_FALSE, sizeof(atrtype), nullptr);
+
 		return attrLoc;
 	}
 };
@@ -73,11 +74,11 @@ void mesh_settings::render(const glm::mat3& mvp) const
 
 	glBindVertexArray(m_mesh->vertex_array);
 
-    // TODO: not hardcoded
-    auto locAttribLoc = glGetAttribLocation(shader_ref.m_program_name, "loc");
-    glEnableVertexAttribArray(locAttribLoc);
+	// TODO: not hardcoded
+	auto locAttribLoc = glGetAttribLocation(shader_ref.m_program_name, "loc");
+	glEnableVertexAttribArray(locAttribLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, m_mesh->vertex_buffer);
-    glVertexAttribPointer(locAttribLoc, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+	glVertexAttribPointer(locAttribLoc, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
 	std::vector<size_t> attribIDs;
 	for (auto& attr : shader_ref.m_attributes) {
@@ -94,6 +95,6 @@ void mesh_settings::render(const glm::mat3& mvp) const
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_mesh->element_buffer);
 	glDrawElements(GL_TRIANGLES, GLsizei(m_mesh->num_triangles * 3), GL_UNSIGNED_INT, nullptr);
 
-    glDisableVertexAttribArray(locAttribLoc);
-	for(auto id : attribIDs) glDisableVertexAttribArray(id);
+	glDisableVertexAttribArray(locAttribLoc);
+	for (auto id : attribIDs) glDisableVertexAttribArray(id);
 }

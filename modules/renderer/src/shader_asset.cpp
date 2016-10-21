@@ -7,19 +7,17 @@ std::shared_ptr<shader> shader_asset::load_asset(asset_manager& manager,
 {
 	using namespace std::string_literals;
 
-	std::string vert_path =
-		boost::filesystem::absolute(
-			json_get_value_with_fallback(json_data, "vert_source"s, "vert.glsl"s), abs_filepath)
-			.string();
-	std::string frag_path =
-		boost::filesystem::absolute(
-			json_get_value_with_fallback(json_data, "frag_source"s, "frag.glsl"s), abs_filepath)
-			.string();
+	std::string vert_path = boost::filesystem::absolute(
+		json_get_value_with_fallback(json_data, "vert_source"s, "vert.glsl"s),
+		abs_filepath).string();
+	std::string frag_path = boost::filesystem::absolute(
+		json_get_value_with_fallback(json_data, "frag_source"s, "frag.glsl"s),
+		abs_filepath).string();
 
 	// just load the shader
 	auto ret = std::make_shared<shader>(vert_path.c_str(), frag_path.c_str());
 
-    ret->m_vertex_location_attribute_name = json_data["location_attribute_glsl_name"];
+	ret->m_vertex_location_attribute_name = json_data["location_attribute_glsl_name"];
 
 	// load in the parameters
 	auto param_iter = json_data.find("parameters");

@@ -22,9 +22,9 @@ public:
 	{
 		m_grid->getActorFromCoord(m_loc) = NULL;
 		m_loc = loc;
-		set_relative_location({ loc.x, loc.y });
+		set_relative_location({loc.x, loc.y});
 		m_grid->getActorFromCoord(m_loc) = this;
 	}
 };
 
-#endif // GE_PIECE_HPP
+#endif  // GE_PIECE_HPP

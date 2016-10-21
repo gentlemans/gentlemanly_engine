@@ -74,7 +74,7 @@ public:
 		attribute_type type;
 
 		/// The location assigned in GLSL for the attribute
-        std::string attribute_name;
+		std::string attribute_name;
 	};
 
 	/// The default parameters, don't directly change this change it in the material
@@ -89,8 +89,8 @@ public:
 	/// The location of the mvp matrix uniform value
 	int32_t m_mvp_uniform_location;
 
-    /// The vertex location attribute name from glsl
-    std::string m_vertex_location_attribute_name;
+	/// The vertex location attribute name from glsl
+	std::string m_vertex_location_attribute_name;
 
 	/// Validity checking
 	operator bool() { return m_program_name != ~0; }

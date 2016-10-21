@@ -24,29 +24,22 @@ public:
 	}
 	void move_closer_to_center()
 	{
-		glm::uvec2 gridCenter = { m_grid->get_size().x / 2, m_grid->get_size().y / 2 };
+		glm::uvec2 gridCenter = {m_grid->get_size().x / 2, m_grid->get_size().y / 2};
 		glm::uvec2 myLocation = get_relative_location();
 		glm::uvec2 wayToGo = gridCenter - myLocation;
-			if (wayToGo.x < 0)
-			{
-				myLocation.x--;
-			}
-			else if (wayToGo.x >0)
-			{
-				myLocation.x++;
-			}
+		if (wayToGo.x < 0) {
+			myLocation.x--;
+		} else if (wayToGo.x > 0) {
+			myLocation.x++;
+		}
 
-			if (wayToGo.y < 0)
-			{
-				myLocation.y--;
-			}
-			else if (wayToGo.y >0)
-			{
-				myLocation.y++;
-			}
-			auto thingsAtPlace = m_grid->getActorFromCoord({ myLocation.x, myLocation.y, 2 });
-			if (thingsAtPlace.size() == 0 )
-			set_relative_location(myLocation);
+		if (wayToGo.y < 0) {
+			myLocation.y--;
+		} else if (wayToGo.y > 0) {
+			myLocation.y++;
+		}
+		auto thingsAtPlace = m_grid->getActorFromCoord({myLocation.x, myLocation.y, 2});
+		if (thingsAtPlace.size() == 0) set_relative_location(myLocation);
 	}
 	void tick_grid() { std::cout << "Ticked!\n"; }
 };
