@@ -26,6 +26,7 @@ struct parameter_setter_visitor : boost::static_visitor<void> {
 struct attr_applying_visitor : boost::static_visitor<void> {
 	size_t attrib_id;
 	mesh const* m;
+	shader const* shad;
 	std::pair<const std::string, shader::attribute>* attr;
 
 	template <typename T>
@@ -33,7 +34,7 @@ struct attr_applying_visitor : boost::static_visitor<void> {
 	{
 		glEnableVertexAttribArray(attrib_id);
 		glBindBuffer(GL_ARRAY_BUFFER, m->additonal_vertex_data.find(attr->first)->second);
-		glVertexAttribPointer(attr->second.attribute_id, sizeof(atrtype) / sizeof(float), GL_FLOAT,
+		glVertexAttribPointer(glGetAttribLocation(shad->m_program_name, attr->second.attribute_name.c_str()), sizeof(atrtype) / sizeof(float), GL_FLOAT,
 			GL_FALSE, sizeof(atrtype), nullptr);
 	}
 };
@@ -77,9 +78,9 @@ void mesh_settings::render(const glm::mat3& mvp) const
 		assert(
 			m_mesh->additonal_vertex_data.find(attr.first) != m_mesh->additonal_vertex_data.end());
 		attr_applying_visitor visitor;
-		visitor.attrib_id = attr.second.attribute_id;
 		visitor.m = m_mesh.get();
 		visitor.attr = &attr;
+		visitor.shad = &shader_ref;
 
 		attr.second.type.apply_visitor(visitor);
 	}
