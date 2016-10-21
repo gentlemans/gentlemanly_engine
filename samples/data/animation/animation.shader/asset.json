@@ -1,5 +1,6 @@
 {
 	"asset_type": "shader",
+  "location_attribute_glsl_name": "loc",
 	"parameters": [
 		{
 			"glsl_name": "tex",

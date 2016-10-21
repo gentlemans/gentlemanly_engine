@@ -73,9 +73,11 @@ void mesh_settings::render(const glm::mat3& mvp) const
 
 	glBindVertexArray(m_mesh->vertex_array);
 
-	glEnableVertexAttribArray(0);
+    // TODO: not hardcoded
+    auto locAttribLoc = glGetAttribLocation(shader_ref.m_program_name, "loc");
+    glEnableVertexAttribArray(locAttribLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, m_mesh->vertex_buffer);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+    glVertexAttribPointer(locAttribLoc, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
 	std::vector<size_t> attribIDs;
 	for (auto& attr : shader_ref.m_attributes) {
@@ -92,6 +94,6 @@ void mesh_settings::render(const glm::mat3& mvp) const
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_mesh->element_buffer);
 	glDrawElements(GL_TRIANGLES, GLsizei(m_mesh->num_triangles * 3), GL_UNSIGNED_INT, nullptr);
 
-	glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(locAttribLoc);
 	for(auto id : attribIDs) glDisableVertexAttribArray(id);
 }

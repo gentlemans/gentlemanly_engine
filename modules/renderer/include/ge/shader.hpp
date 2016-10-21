@@ -89,6 +89,9 @@ public:
 	/// The location of the mvp matrix uniform value
 	int32_t m_mvp_uniform_location;
 
+    /// The vertex location attribute name from glsl
+    std::string m_vertex_location_attribute_name;
+
 	/// Validity checking
 	operator bool() { return m_program_name != ~0; }
 };

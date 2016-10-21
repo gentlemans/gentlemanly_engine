@@ -16,6 +16,11 @@
 			"description": "The source file for the GLSL frragment shader, relative to the current asset path. Defaults to frag.glsl",
 			"type": "string"
 		},
+		"location_attribute_glsl_name": {
+			"description": "The name of the vertex location attribute",
+			"type": "string",
+			"pattern": "\\w+"
+		},
 		"vertex_attributes": {
 			"description": "The vertex attributes that this shader expects. These are to be added to a mesh.",
 			"type": "array",
