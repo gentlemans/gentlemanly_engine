@@ -9,7 +9,7 @@ class piece : public ge::actor
 {
 public:
 	grid* m_grid;
-	glm::uvec3 m_loc;
+	int m_level;
 
 	void initialize(glm::uvec3 loc)
 	{

@@ -26,8 +26,6 @@ class actor : public std::enable_shared_from_this<actor>
 	// no shared_ptr because that would be a cyclic reference
 	actor* m_parent = nullptr;
 
-	// set for find -- we don't care much about insertion speed, but iteration is more important.
-	boost::container::flat_set<std::shared_ptr<actor>> m_children;
 
 	transform m_transform;
 
@@ -40,6 +38,10 @@ protected:
 	// so we can use make_shared
 
 public:
+
+	// set for find -- we don't care much about insertion speed, but iteration is more important.
+	boost::container::flat_set<std::shared_ptr<actor>> m_children;
+
 	/// Creates an actor of type ActorType
 	/// \param parent The parent actor, null for a root actor
 	/// \param init_params The initialization paramters, will be passed to ActorType::initialize
