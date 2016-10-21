@@ -2,6 +2,8 @@
 
 #include "ge/gl.hpp"
 
+#include <vector>
+
 using namespace ge;
 
 struct parameter_setter_visitor : boost::static_visitor<void> {
@@ -23,19 +25,21 @@ struct parameter_setter_visitor : boost::static_visitor<void> {
 	void operator()(int i) { glUniform1i(uniform_index, i); }
 };
 
-struct attr_applying_visitor : boost::static_visitor<void> {
-	size_t attrib_id;
+struct attr_applying_visitor : boost::static_visitor<size_t> {
 	mesh const* m;
 	shader const* shad;
 	std::pair<const std::string, shader::attribute>* attr;
 
 	template <typename T>
-	void operator()(T atrtype)
+	size_t operator()(T atrtype)
 	{
-		glEnableVertexAttribArray(attrib_id);
+		auto attrLoc = glGetAttribLocation(shad->m_program_name, attr->second.attribute_name.c_str());
+		glEnableVertexAttribArray(attrLoc);
 		glBindBuffer(GL_ARRAY_BUFFER, m->additonal_vertex_data.find(attr->first)->second);
-		glVertexAttribPointer(glGetAttribLocation(shad->m_program_name, attr->second.attribute_name.c_str()), sizeof(atrtype) / sizeof(float), GL_FLOAT,
+		glVertexAttribPointer(attrLoc, sizeof(atrtype) / sizeof(float), GL_FLOAT,
 			GL_FALSE, sizeof(atrtype), nullptr);
+		
+		return attrLoc;
 	}
 };
 
@@ -73,7 +77,7 @@ void mesh_settings::render(const glm::mat3& mvp) const
 	glBindBuffer(GL_ARRAY_BUFFER, m_mesh->vertex_buffer);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
-	size_t next_attribarray = 1;
+	std::vector<size_t> attribIDs;
 	for (auto& attr : shader_ref.m_attributes) {
 		assert(
 			m_mesh->additonal_vertex_data.find(attr.first) != m_mesh->additonal_vertex_data.end());
@@ -82,12 +86,12 @@ void mesh_settings::render(const glm::mat3& mvp) const
 		visitor.attr = &attr;
 		visitor.shad = &shader_ref;
 
-		attr.second.type.apply_visitor(visitor);
+		attribIDs.push_back(attr.second.type.apply_visitor(visitor));
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_mesh->element_buffer);
 	glDrawElements(GL_TRIANGLES, GLsizei(m_mesh->num_triangles * 3), GL_UNSIGNED_INT, nullptr);
 
 	glDisableVertexAttribArray(0);
-	while (--next_attribarray) glDisableVertexAttribArray(GLuint(next_attribarray));
+	for(auto id : attribIDs) glDisableVertexAttribArray(id);
 }
