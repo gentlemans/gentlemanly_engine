@@ -221,7 +221,7 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 		m_camera->render_actors(
 			*m_runtime->get_root_actor(), float(get_size().x) / float(get_size().y));
 	}
-	
+
 	// call other things that want to render
 	m_render_signal();
 

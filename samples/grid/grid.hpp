@@ -16,6 +16,6 @@ public:
 	void initialize(glm::uvec3 size, float tps);
 
 	std::vector<piece*> get_actor_from_coord(glm::uvec3 loc);
-	
+
 	glm::uvec2 get_size() const { return {m_size.x, m_size.y}; }
 };

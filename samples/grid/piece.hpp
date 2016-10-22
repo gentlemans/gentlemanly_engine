@@ -23,7 +23,8 @@ public:
 		set_relative_location({loc.x, loc.y});
 		m_level = loc.z;
 	}
-	glm::ivec3 get_grid_location() const {
+	glm::ivec3 get_grid_location() const
+	{
 		return {int(get_relative_location().x), int(get_relative_location().y), m_level};
 	}
 };

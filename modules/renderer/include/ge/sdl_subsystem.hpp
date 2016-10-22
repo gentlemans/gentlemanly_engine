@@ -85,9 +85,10 @@ struct sdl_subsystem : subsystem {
 	void set_camera(camera_actor* cam) noexcept { m_camera = actor::shared(cam); }
 	/// Gets the root actor to draw all subactors from
 	/// \return The root actor
-	
+
 	/// Signal to connect to if you want a render callback
 	boost::signals2::signal<void()> m_render_signal;
+
 private:
 	void* m_context = nullptr;  // turns out SDL_GLContext is literally just void*
 	SDL_Window* m_window = nullptr;
