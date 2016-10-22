@@ -12,7 +12,12 @@ option(GE_BUILD_SAMPLES "Should the samples be built?" ON)
 # update the module path so cmake can find libraries that don't have built in CMake support
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
-include(cmake/emscripten.cmake)
+if(EMSCRIPTEN)
+	include(cmake/emscripten.cmake)
+endif()
+if(ANDROID)
+	include(cmake/android.cmake)
+endif()
 
 find_package(Doxygen)
 
@@ -33,11 +38,6 @@ else()
 endif()
 
 
-if (EMSCRIPTEN)
-    set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc" CACHE STRING "")
-    set(CMAKE_C_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>" CACHE STRING "")
-    set(CMAKE_CXX_CREATE_STATIC_LIBRARY "emcc -o <TARGET> <LINK_FLAGS> <OBJECTS>" CACHE STRING "")
-endif()
 
 add_subdirectory(deps/boost)
 

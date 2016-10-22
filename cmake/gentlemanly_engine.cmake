@@ -1,0 +1,31 @@
+if(EMSCRIPTEN)
+	include(emscripten.cmake)
+endif()
+
+if(ANDROID)
+	include(android.cmake)
+endif()
+
+macro(ge_create_exe name srcs package_paths)
+	
+	if(EMSCRIPTEN)
+		add_executable(${name} ${srcs})
+		
+		set(CPL_FLAGS "")
+		foreach(datapath ${package_paths})
+			set(CPL_FLAGS "${CPL_FLAGS} --preload-file ${datapath}")
+		endforeach()
+		
+		set_target_properties(${name} PROPERTIES 
+		COMPILE_FLAGS 
+			"-s USE_SDL=2 -s USE_FREETYPE=1 -s USE_OGG=1 -s USE_VORBIS=1 ${CPL_FLAGS}"
+		LINK_FLAGS 
+			"-s USE_SDL=2 -s USE_FREETYPE=1 -s USE_OGG=1 -s USE_VORBIS=1 ${CPL_FLAGS}"
+		)
+		set_target_properties(${target} PROPERTIES SUFFIX ".html")
+		
+	elseif(ANDROID)
+		
+	endif()
+
+endmacro()
