@@ -13,10 +13,7 @@ void grid::initialize(glm::uvec3 size, float tps)
 
 	m_size = size;
 
-	towers.resize(size.x * size.y * size.z);
-
-	getActorFromCoord({size.x / 2, size.y / 2, 2}) =
-		ge::actor::factory<base>(this, glm::uvec3{size.x / 2, size.y / 2, 2}).get();
+	ge::actor::factory<base>(this, glm::uvec3{size.x / 2, size.y / 2, 2}).get();
 
 	auto timer = m_runtime->get_subsystem<ge::timer_subsystem>();
 
@@ -31,3 +28,22 @@ void grid::initialize(glm::uvec3 size, float tps)
 
 	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
 }
+std::vector<piece*> grid::get_actor_from_coord(glm::uvec3 loc)
+	{
+		assert(loc.x < m_size.x);
+		assert(loc.y < m_size.y);
+		assert(loc.z < 3);
+
+		std::vector<piece*> ret;
+
+		for (auto& child : m_children) {
+			piece* p = dynamic_cast<piece*>(child.get());
+			if (!p) continue;
+
+			if (p->get_relative_location() == glm::vec2{loc.x, loc.y} && p->m_level == loc.z) {
+				ret.push_back(p);
+			}
+		}
+
+		return ret;
+	}

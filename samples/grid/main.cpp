@@ -41,9 +41,9 @@ int main()
 	// initialize the grid
 	auto g = actor::factory<grid>(root.get(), glm::uvec3{11, 11, 3}, 4.f);
 
-	g->getActorFromCoord({0, 0, 0}) = actor::factory<turret>(g.get(), glm::uvec3(0, 0, 0)).get();
+	actor::factory<turret>(g.get(), glm::uvec3(0, 0, 0));
 
-	g->getActorFromCoord({2, 2, 2}) = actor::factory<zombie>(g.get(), glm::uvec3(2, 2, 2)).get();
+	actor::factory<zombie>(g.get(), glm::uvec3(2, 2, 2));
 
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop_arg(

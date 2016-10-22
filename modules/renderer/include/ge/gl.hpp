@@ -16,8 +16,9 @@
 #endif
 
 #ifdef EMSCRIPTEN
-#include <GLES3/gl2ext.h>
 #include <GLES3/gl3.h>
+// Put this comment so clang doesn't swap these
+#include <GLES3/gl2ext.h>
 #endif
 
 #endif

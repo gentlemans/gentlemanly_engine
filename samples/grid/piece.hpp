@@ -11,19 +11,20 @@ public:
 	grid* m_grid;
 	int m_level;
 
-	void initialize(glm::uvec3 loc)
+	void initialize(glm::ivec3 loc)
 	{
 		m_grid = static_cast<grid*>(get_parent());
-		m_loc = loc;
 		set_parent(m_grid);
 		set_relative_location({float(loc.x), float(loc.y)});
+		m_level = loc.z;
 	}
-	void setGridLocation(glm::uvec3 loc)
+	void set_grid_location(glm::ivec3 loc)
 	{
-		m_grid->getActorFromCoord(m_loc) = NULL;
-		m_loc = loc;
 		set_relative_location({loc.x, loc.y});
-		m_grid->getActorFromCoord(m_loc) = this;
+		m_level = loc.z;
+	}
+	glm::ivec3 get_grid_location() const {
+		return {int(get_relative_location().x), int(get_relative_location().y), m_level};
 	}
 };
 

@@ -157,7 +157,6 @@ bool sdl_subsystem::initialize(const sdl_subsystem::config& config)
 
 bool sdl_subsystem::update(std::chrono::duration<float> delta)
 {
-	SDL_GL_SwapWindow(m_window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(m_background_color.r, m_background_color.g, m_background_color.b, 1.f);
 
@@ -222,7 +221,11 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 		m_camera->render_actors(
 			*m_runtime->get_root_actor(), float(get_size().x) / float(get_size().y));
 	}
+	
+	// call other things that want to render
+	m_render_signal();
 
+	SDL_GL_SwapWindow(m_window);
 	return true;
 }
 

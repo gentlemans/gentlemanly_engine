@@ -23,13 +23,10 @@ bool rocket_subsystem::initialize(rocket_subsystem::config)
 	m_context = Rocket::Core::CreateContext(
 		"default", {int(sdl_sub->get_size().x), int(sdl_sub->get_size().y)});
 
-	return true;
-}
-
-bool rocket_subsystem::update(std::chrono::duration<float> delta)
-{
-	m_context->Render();
-
+	sdl_sub->m_render_signal.connect([this]{
+		m_context->Render();
+	});
+	
 	return true;
 }
 

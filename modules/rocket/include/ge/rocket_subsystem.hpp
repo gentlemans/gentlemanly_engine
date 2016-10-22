@@ -21,9 +21,6 @@ struct rocket_subsystem : subsystem {
 	/// Initialize function for subsystems
 	bool initialize(config c);
 
-	/// Update function for subsystems
-	bool update(std::chrono::duration<float> delta) override;
-
 	/// Shutdown function for subsystems
 	bool shutdown() override;
 
