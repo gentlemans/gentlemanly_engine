@@ -38,7 +38,7 @@ public:
 		} else if (wayToGo.y > 0) {
 			myLocation.y++;
 		}
-		auto thingsAtPlace = m_grid->get_actor_from_coord({myLocation.x, myLocation.y, 2});
+		auto thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
 		if (thingsAtPlace.size() == 0) set_relative_location(myLocation);
 	}
 	void tick_grid() { std::cout << "Ticked!\n"; }
