@@ -7,7 +7,7 @@
 
 #include "gridtick_interface.hpp"
 
-void grid::initialize(glm::uvec3 size, float tps)
+void grid::initialize(glm::uvec2 size, float tps)
 {
 	set_relative_location(glm::vec2(-float(size.x) / 2.f, -float(size.y) / 2.f));
 
@@ -28,7 +28,7 @@ void grid::initialize(glm::uvec3 size, float tps)
 
 	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
 }
-std::vector<piece*> grid::get_actor_from_coord(glm::uvec3 loc)
+std::vector<piece*> grid::get_actors_from_coord(glm::uvec3 loc)
 {
 	assert(loc.x < m_size.x);
 	assert(loc.y < m_size.y);
