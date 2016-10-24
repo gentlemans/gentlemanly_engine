@@ -8,6 +8,8 @@ endif()
 
 macro(ge_create_exe name srcs package_paths)
 	
+	message("Configureing gentlemanly_engine executable ${name} with source files: ${srcs} and package paths: ${package_paths}")
+	
 	if(EMSCRIPTEN)
 		add_executable(${name} ${srcs})
 		
@@ -26,6 +28,10 @@ macro(ge_create_exe name srcs package_paths)
 		
 	elseif(ANDROID)
 		
+	else()
+		add_executable(${name} ${srcs})
+		
+		# TODO: package
 	endif()
 
 endmacro()

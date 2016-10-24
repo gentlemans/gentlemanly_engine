@@ -1,4 +1,5 @@
-add_executable(rocket main.cpp)
+
+ge_create_exe(rocket "main.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/../data@/data")
 
 target_link_libraries(rocket
 	gentlemanly_engine
@@ -6,4 +7,3 @@ target_link_libraries(rocket
 	gentlemanly_engine_rocket_subsystem
 )
 
-GEEmscriptenTarget(rocket TRUE "${CMAKE_CURRENT_SOURCE_DIR}/../data@/data")

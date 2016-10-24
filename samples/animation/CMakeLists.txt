@@ -1,6 +1,8 @@
-add_executable(animation main.cpp)
+ge_create_exe(animation "main.cpp" ${CMAKE_CURRENT_SOURCE_DIR}/../data@/data)
 
-target_link_libraries(animation gentlemanly_engine gentlemanly_engine_renderer)
+target_link_libraries(animation 
+	gentlemanly_engine 
+	gentlemanly_engine_renderer
+)
 
-GEEmscriptenTarget(animation ON ${CMAKE_CURRENT_SOURCE_DIR}/../data@/data)
 
