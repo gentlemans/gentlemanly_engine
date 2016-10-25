@@ -111,14 +111,14 @@ public:
 
 	/// Adds an iterface to the actor. First template parameter is the actor type, second is the
 	/// interface.
-	template <typename ActorType, typename Interface>
-	void add_interface()
+    template <typename ActorType, typename Interface, typename... ExtraArgs>
+    void add_interface(ExtraArgs&&... extraArgs)
 	{
 		static_assert(
 			std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
 
 		m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
-			Interface::template gen_interface<ActorType>(static_cast<ActorType*>(this)));
+            Interface::template gen_interface<ActorType>(static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));
 	}
 
 	/// Query if this actor implements a certain interface

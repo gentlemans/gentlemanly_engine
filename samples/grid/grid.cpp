@@ -24,6 +24,8 @@ void grid::initialize(glm::uvec2 size, float tps)
 				storage->callback();
 			}
 		});
+
+        actor::factory<zombie>(this, {get_random(0, 10), get_random(0, 10), 2});
 	};
 
 	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);

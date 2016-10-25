@@ -5,6 +5,7 @@
 #include <ge/texture_asset.hpp>
 #include "grid.hpp"
 #include "gridtick_interface.hpp"
+#include "damagable.hpp"
 #include "piece.hpp"
 
 class zombie : public piece
@@ -17,6 +18,7 @@ public:
 		piece::initialize(location);
 
 		add_interface<zombie, gridtick_interface>();
+        add_interface<zombie, damagable>(100.f);
 
 		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
 		m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
