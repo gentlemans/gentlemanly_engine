@@ -5,8 +5,8 @@
 #include <ge/mesh_actor.hpp>
 #include <ge/mesh_asset.hpp>
 #include <ge/mesh_settings_asset.hpp>
-#include <ge/texture_asset.hpp>
 #include <ge/runtime.hpp>
+#include <ge/texture_asset.hpp>
 
 #include "piece.hpp"
 
@@ -20,6 +20,7 @@ public:
 		piece::initialize(loc);
 
 		m_mesh = ge::actor::factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings");
-        m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] = m_runtime->m_asset_manager.get_asset<ge::texture_asset>("base_texture");
+		m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
+			m_runtime->m_asset_manager.get_asset<ge::texture_asset>("base_texture");
 	}
 };

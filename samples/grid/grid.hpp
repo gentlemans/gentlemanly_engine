@@ -4,8 +4,8 @@
 #include <ge/asset_manager.hpp>
 
 #include <memory>
-#include <vector>
 #include <random>
+#include <vector>
 
 class piece;
 
@@ -20,7 +20,6 @@ public:
 	std::vector<piece*> get_actors_from_coord(glm::uvec3 loc);
 
 	glm::uvec2 get_size() const { return m_size; }
-
 	int get_random(int lower, int higher)
 	{
 		std::uniform_int_distribution<> uniform_int(lower, higher);
