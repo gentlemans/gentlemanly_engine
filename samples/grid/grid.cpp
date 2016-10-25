@@ -1,6 +1,7 @@
 #include "grid.hpp"
 
 #include "base.hpp"
+#include "zombie.hpp"
 
 #include <ge/runtime.hpp>
 #include <ge/timer_subsystem.hpp>
@@ -25,7 +26,7 @@ void grid::initialize(glm::uvec2 size, float tps)
 			}
 		});
 
-        actor::factory<zombie>(this, {get_random(0, 10), get_random(0, 10), 2});
+        actor::factory<zombie>(this, glm::ivec3{get_random(0, 10), get_random(0, 10), 2});
 	};
 
 	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
