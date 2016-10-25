@@ -5,17 +5,25 @@
 
 #include <memory>
 #include <vector>
+#include <random>
 
 class piece;
 
 class grid : public ge::actor
 {
-	glm::uvec3 m_size;
+	glm::uvec2 m_size;
+	std::mt19937 rand_gen;
 
 public:
-	void initialize(glm::uvec3 size, float tps);
+	void initialize(glm::uvec2 size, float tps);
 
-	std::vector<piece*> get_actor_from_coord(glm::uvec3 loc);
+	std::vector<piece*> get_actors_from_coord(glm::uvec3 loc);
 
-	glm::uvec2 get_size() const { return {m_size.x, m_size.y}; }
+	glm::uvec2 get_size() const { return m_size; }
+
+	int get_random(int lower, int higher)
+	{
+		std::uniform_int_distribution<> uniform_int(lower, higher);
+		return uniform_int(rand_gen);
+	}
 };

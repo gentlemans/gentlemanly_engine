@@ -83,7 +83,7 @@ struct timer_subsystem : subsystem {
 	/// Advances the timers, calls the ones that need to be
 	/// \param duration How much time has happened since the last tick
 	/// \param args The arguments to be passed to any timers that have timed out
-	void tick(std::chrono::duration<float> duration)
+    bool update(std::chrono::duration<float> duration) override
 	{
 		last_tick += duration;
 
@@ -100,6 +100,8 @@ struct timer_subsystem : subsystem {
 
 			if (int_data->loops) add_timer(int_data->callback, int_data->duration, true);
 		}
+
+        return true;
 	}
 
 private:
