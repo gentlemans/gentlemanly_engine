@@ -29,19 +29,27 @@ public:
 		glm::ivec2 gridCenter = {m_grid->get_size().x / 2, m_grid->get_size().y / 2};
 		glm::ivec2 myLocation = get_grid_location();
 		glm::ivec2 wayToGo = gridCenter - myLocation;
-		if (wayToGo.x < 0) {
-			myLocation.x--;
-		} else if (wayToGo.x > 0) {
-			myLocation.x++;
+		if (m_grid->get_random(0, 1) == 1)
+		{
+			if (wayToGo.x < 0) {
+				myLocation.x--;
+			}
+			else if (wayToGo.x > 0) {
+				myLocation.x++;
+			}
 		}
-
-		if (wayToGo.y < 0) {
-			myLocation.y--;
-		} else if (wayToGo.y > 0) {
-			myLocation.y++;
+		else
+		{
+			if (wayToGo.y < 0) {
+				myLocation.y--;
+			}
+			else if (wayToGo.y > 0) {
+				myLocation.y++;
+			}
 		}
 		auto thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
         if (thingsAtPlace.size() == 0) set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 	}
     void tick_grid() { move_closer_to_center(); }
 };
+ 
