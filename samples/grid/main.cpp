@@ -39,7 +39,7 @@ int main()
 	r.set_root_actor(root.get());
 
 	// initialize the grid
-	auto g = actor::factory<grid>(root.get(), glm::uvec2{11, 11}, 4.f);
+    auto g = actor::factory<grid>(root.get(), glm::uvec2{11, 11}, 2.f);
 
 	actor::factory<turret>(g.get(), glm::uvec3(0, 0, 0));
 

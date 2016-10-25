@@ -39,7 +39,7 @@ public:
 			myLocation.y++;
 		}
 		auto thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
-		if (thingsAtPlace.size() == 0) set_relative_location(myLocation);
+        if (thingsAtPlace.size() == 0) set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 	}
-	void tick_grid() { std::cout << "Ticked!\n"; }
+    void tick_grid() { move_closer_to_center(); }
 };
