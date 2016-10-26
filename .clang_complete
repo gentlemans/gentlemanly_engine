@@ -1,0 +1,4 @@
+-I./ge/include
+-I./modules/renderer/include
+-I./modules/audio/include
+-I./modules/rocket/include
