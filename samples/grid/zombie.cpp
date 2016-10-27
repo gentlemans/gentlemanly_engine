@@ -50,9 +50,33 @@ void zombie::move_closer_to_center()
 	if (thingsAtPlace.size() == 0)
 		set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
 }
-
+void randomXY(glm::ivec2 &myLocation, int rand1, int rand2)
+{
+	if (rand1 == 0)
+	{
+		if (rand2 == 0)
+			myLocation.x++;
+		else
+			myLocation.y++;
+	}
+	else
+	{
+		if (rand2 == 0)
+			myLocation.x--;
+		else
+			myLocation.y--;
+	}
+}
 void zombie::move_random()
 {
 	glm::ivec2 myLocation = get_grid_location();
+	int rand1 = m_grid->get_random(0, 1);
+	int rand2 = m_grid->get_random(0, 1);
+	randomXY(myLocation, rand1, rand2);
 	auto thingsAtPlace = m_grid->get_actors_from_coord({ myLocation.x, myLocation.y, 2 });
+	if (thingsAtPlace.size() == 0)
+	{
+		set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
+		return
+	}
 }
