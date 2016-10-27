@@ -20,7 +20,8 @@ public:
 	/// Initialize from uncompressed 8-bit RGBA
 	/// \param pixels The pixel data, the size of this array should be 4 * size.x * size.y
 	/// \param size The size of the image
-	texture(const unsigned char* pixels, glm::uvec2 size);
+    /// \param name The name of the texture for debugging
+    texture(const unsigned char* pixels, glm::uvec2 size, const char* name);
 
 	/// Initialize from compressed DXT -- no need for size, because YOU ARE GOING TO ALSO PASS THE
 	/// HEADER!!!

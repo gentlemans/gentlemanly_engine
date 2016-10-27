@@ -45,9 +45,9 @@ public:
 		m_time_until_next_frame -= delta;
 
 		current_frame %=
-			boost::get<int>(m_mesh->m_mesh_settings.m_material.m_property_values["dimx"]) *
-			boost::get<int>(m_mesh->m_mesh_settings.m_material.m_property_values["dimy"]);
-		m_mesh->m_mesh_settings.m_material.m_property_values["current_frame"] = current_frame;
+            *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimx") *
+            *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimy");
+        m_mesh->m_mesh_settings.m_material.set_parameter("current_frame", current_frame);
 	}
 
 	float m_frames_per_second;

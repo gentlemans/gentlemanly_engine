@@ -45,8 +45,7 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	material mat(m_shader);
 
 	if (texture) {
-		mat.m_property_values["Texture"] =
-			*reinterpret_cast<std::shared_ptr<ge::texture>*>(texture);
+        mat.set_parameter("Texture", *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture));
 	}
 	mesh_settings set(me, mat);
 
@@ -88,8 +87,7 @@ Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
 	// the property_values needs a shared pointer, so create one that won't delete it when it is
 	// done
 	if (texturehandle) {
-		settings->m_material.m_property_values["Texture"] =
-			*reinterpret_cast<std::shared_ptr<texture>*>(texturehandle);
+        settings->m_material.set_parameter("Texture", *reinterpret_cast<std::shared_ptr<texture>*>(texturehandle));
 	}
 	return reinterpret_cast<intptr_t>(settings);
 }
