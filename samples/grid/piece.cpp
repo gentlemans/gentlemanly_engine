@@ -23,6 +23,7 @@ std::vector <glm::ivec2> piece::checkNearbyEmpty(glm::ivec2 myLocation)
 		}
 		auto thingsAtPlace = m_grid->get_actors_from_coord({ myLocation.x, myLocation.y, 2 });
 		if (thingsAtPlace.size() == 0)
+			emptySquares.push_back(thingsAtPlace);
 	}
 	return emptySquares;
 }
