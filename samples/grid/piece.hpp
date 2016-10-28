@@ -11,7 +11,7 @@ class piece : public ge::actor
 public:
 	grid* m_grid;
 	int m_level;
-	std::vector <glm::ivec2> checkNearbyEmpty(glm::ivec2 myLocation);
+	std::vector <std::vector <piece*> > checkNearbyEmpty(glm::ivec2 myLocation);
 	void initialize(glm::ivec3 loc)
 	{
 		m_grid = static_cast<grid*>(get_parent());
