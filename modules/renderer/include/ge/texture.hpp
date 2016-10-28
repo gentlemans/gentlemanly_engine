@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <string>
+
 #include <cstddef>
 #include <cstdint>
 
@@ -15,18 +17,18 @@ class texture
 {
 public:
 	/// Initializes a null texutre object
-	texture(){};
+    texture(){}
 
 	/// Initialize from uncompressed 8-bit RGBA
 	/// \param pixels The pixel data, the size of this array should be 4 * size.x * size.y
 	/// \param size The size of the image
     /// \param name The name of the texture for debugging
-    texture(const unsigned char* pixels, glm::uvec2 size, const char* name);
+    texture(const unsigned char* pixels, glm::uvec2 size, std::string name);
 
 	/// Initialize from compressed DXT -- no need for size, because YOU ARE GOING TO ALSO PASS THE
 	/// HEADER!!!
 	/// \param data Raw DXT data
-	texture(const unsigned char* data);
+    texture(const unsigned char* data, std::string name);
 
 	/// The size of the shader
 	glm::uvec2 size = {};
@@ -36,6 +38,9 @@ public:
 
 	/// Validity test
 	operator bool() const { return texture_name != ~0; }
+
+    /// Just for debugging
+    std::string m_name;
 };
 }
 

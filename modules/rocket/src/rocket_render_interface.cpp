@@ -151,7 +151,7 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 
 		texture_dimensions = {int(width), int(height)};
 
-		auto tex = new std::shared_ptr<texture>{new texture(PNGData.data(), {width, height})};
+        auto tex = new std::shared_ptr<texture>{new texture(PNGData.data(), {width, height}, "Rocket: "s + source.CString())};
 
 		texture_handle = reinterpret_cast<uintptr_t>(tex);
 	} catch (const std::exception&) {
@@ -170,7 +170,7 @@ bool rocket_render_interface::GenerateTexture(Rocket::Core::TextureHandle& textu
 {
 	try {
 		auto ret = new std::shared_ptr<texture>(
-			new texture(source, {source_dimensions.x, source_dimensions.y}));
+            new texture(source, {source_dimensions.x, source_dimensions.y}, "Generated Rocket Texture"));
 
 		texture_handle = reinterpret_cast<intptr_t>(ret);
 	} catch (std::exception&) {

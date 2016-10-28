@@ -10,7 +10,7 @@
 
 namespace ge
 {
-texture::texture(const unsigned char* pixels, glm::uvec2 arg_size, const char* name) : size{arg_size}
+texture::texture(const unsigned char* pixels, glm::uvec2 arg_size, std::string name) : size{arg_size}, m_name{std::move(name)}
 {
 
 	// just load straight up
@@ -25,7 +25,7 @@ texture::texture(const unsigned char* pixels, glm::uvec2 arg_size, const char* n
 	glGenerateMipmap(GL_TEXTURE_2D);
 }
 
-texture::texture(const unsigned char* data)
+texture::texture(const unsigned char* data, std::string name) : m_name{std::move(name)}
 {
 	// load DXT texture
 	// this code is from
