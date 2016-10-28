@@ -13,6 +13,12 @@ namespace ge
 texture::texture(const unsigned char* pixels, glm::uvec2 arg_size, std::string name) : size{arg_size}, m_name{std::move(name)}
 {
 
+    if(!pixels) {
+        logger->error("nullptr passed as pixels into texture named " + m_name);
+        size = {};
+        return;
+    }
+
 	// just load straight up
 	glGenTextures(1, &texture_name);
 	glBindTexture(GL_TEXTURE_2D, texture_name);
