@@ -54,10 +54,14 @@ void zombie::move_closer_to_center()
 void zombie::move_random()
 {
 	glm::ivec2 myLocation = get_grid_location();
-	std::vector <std::vector <piece*>> emptySquares=checkNearbyEmpty(myLocation);
-	if (emptySquares.size() == 0)
-		return;
-	int rand = m_grid->get_random(0, emptySquares.size());
+	std::vector <std::vector <piece*>> nearbySquares = checkNearbySquares(myLocation);
+	std::vector <int> empties;
+	for (int x; x < 4; x++)
+	{
+		if(nearbySquares[x][0]=NULL)
+
+	}
+	int rand = m_grid->get_random(0, empties.size());
 	//set_grid_location(glm::ivec3{ emptySquares[rand].x, emptySquares[rand].y, m_level });
 	return;
 

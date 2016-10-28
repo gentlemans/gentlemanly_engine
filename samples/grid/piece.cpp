@@ -1,6 +1,6 @@
 #include "piece.hpp"
 
-std::vector <std::vector <piece*> > piece::checkNearbyEmpty(glm::ivec2 myLocation)
+std::vector <std::vector <piece*> > piece::checkNearbySquares(glm::ivec2 myLocation)
 {
 	std::vector <std::vector <piece*> > emptySquares;
 	emptySquares.resize(4);
