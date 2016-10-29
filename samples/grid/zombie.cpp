@@ -58,11 +58,25 @@ void zombie::move_random()
 	std::vector <int> empties;
 	for (int x; x < 4; x++)
 	{
-		if(nearbySquares[x][0]=NULL)
-
+		if (nearbySquares[x][0] = NULL)
+		{
+			empties.push_back(x);
+		}
 	}
-	int rand = m_grid->get_random(0, empties.size());
-	//set_grid_location(glm::ivec3{ emptySquares[rand].x, emptySquares[rand].y, m_level });
+	if (empties.size() == 0)
+		return;
+	int rand = m_grid->get_random(0, empties.size()-1);
+	switch (rand)
+	{
+	case 0:myLocation.x++;
+		break;
+	case 1:myLocation.y++;
+		break;
+	case 2:myLocation.x--;
+		break;
+	case 3:myLocation.y--;
+	};
+	set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
 	return;
 
 }
