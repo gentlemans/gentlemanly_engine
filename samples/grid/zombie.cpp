@@ -66,15 +66,15 @@ void zombie::move_random()
 	if (empties.size() == 0)
 		return;
 	int rand = m_grid->get_random(0, empties.size()-1);
-	switch (rand)
+	switch (empties[rand])
 	{
-	case 0:myLocation.x++;
+	case 0:myLocation.y++;
 		break;
-	case 1:myLocation.y++;
+	case 1:myLocation.x++;
 		break;
-	case 2:myLocation.x--;
+	case 2:myLocation.y--;
 		break;
-	case 3:myLocation.y--;
+	case 3:myLocation.x--;
 	};
 	set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
 	return;

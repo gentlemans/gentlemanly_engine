@@ -41,8 +41,13 @@ int main()
 	// initialize the grid
 	auto g = actor::factory<grid>(root.get(), glm::uvec2{11, 11}, 2.f);
 
-	actor::factory<turret>(g.get(), glm::uvec3(3, 3, 2));
-
+	actor::factory<turret>(g.get(), glm::uvec3(0, 1, 2));
+	actor::factory<turret>(g.get(), glm::uvec3(1, 0, 2));
+	actor::factory<turret>(g.get(), glm::uvec3(1, 2, 2));
+	actor::factory<turret>(g.get(), glm::uvec3(3, 2, 2));
+	actor::factory<turret>(g.get(), glm::uvec3(2, 0, 2));
+	actor::factory<turret>(g.get(), glm::uvec3(3, 1, 2));
+	actor::factory<turret>(g.get(), glm::uvec3(2, 3, 2));
 	actor::factory<zombie>(g.get(), glm::uvec3(1, 1, 2));
 
 #ifdef EMSCRIPTEN
