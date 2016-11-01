@@ -56,9 +56,9 @@ void zombie::move_random()
 	glm::ivec2 myLocation = get_grid_location();
 	std::vector <std::vector <piece*>> nearbySquares = checkNearbySquares(myLocation);
 	std::vector <int> empties;
-	for (int x; x < 4; x++)
+	for (int x=0; x < 4; x++)
 	{
-		if (nearbySquares[x][0] = NULL)
+		if (nearbySquares[x].size()==0)
 		{
 			empties.push_back(x);
 		}
@@ -79,4 +79,9 @@ void zombie::move_random()
 	set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
 	return;
 
+}
+
+void zombie::tick_grid() 
+{ 
+	move_random();
 }

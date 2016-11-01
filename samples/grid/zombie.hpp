@@ -31,5 +31,5 @@ public:
 	}
 	void move_closer_to_center();
 	void move_random();
-	void tick_grid() { move_closer_to_center(); }
+	void tick_grid();
 };
