@@ -1,9 +1,8 @@
 #include "piece.hpp"
 
-std::vector <std::vector <piece*> > piece::checkNearbySquares(glm::ivec2 myLocation)
+std::array<std::vector<piece*>, 4> piece::checkNearbySquares(glm::ivec2 myLocation)
 {
-	std::vector <std::vector <piece*> > emptySquares;
-	emptySquares.resize(4);
+    std::array<std::vector<piece*>, 4> emptySquares;
 	for (int x = 0; x < 4; x++)
 	{
 		if (x == 0)
