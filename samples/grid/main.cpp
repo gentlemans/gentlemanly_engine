@@ -32,7 +32,7 @@ int main()
 
 	auto root = actor::root_factory(&r);
 
-	auto camera = actor::factory<camera_actor>(root.get(), 11);
+	auto camera = actor::factory<camera_actor>(root.get(), 13);
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
@@ -49,8 +49,15 @@ int main()
 	actor::factory<turret>(g.get(), glm::uvec3(3, 1, 2));
 	actor::factory<turret>(g.get(), glm::uvec3(2, 3, 2));
 	actor::factory<zombie>(g.get(), glm::uvec3(1, 1, 2));
-	actor::factory<zombie>(g.get(), glm::uvec3(0, 0, 2));
-
+	actor::factory<zombie>(g.get(), glm::uvec3(2, 4, 2));
+	actor::factory<zombie>(g.get(), glm::uvec3(2, 7, 2));
+	for (int x = 0; x < 12 ; x++)
+	{
+		actor::factory<turret>(g.get(), glm::uvec3(-1,x,2));
+		actor::factory<turret>(g.get(), glm::uvec3(12, x, 2));
+		actor::factory<turret>(g.get(), glm::uvec3(x, -1, 2));
+		actor::factory<turret>(g.get(), glm::uvec3(x, 12, 2));
+	}
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop_arg(
 		[](void* run_ptr) {
