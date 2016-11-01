@@ -8,13 +8,13 @@
 
 #include "gridtick_interface.hpp"
 
-void grid::initialize(glm::uvec2 size, float tps)
+void grid::initialize(glm::ivec2 size, float tps)
 {
 	set_relative_location(glm::vec2(-float(size.x) / 2.f, -float(size.y) / 2.f));
 
 	m_size = size;
 
-	ge::actor::factory<base>(this, glm::uvec3{size.x / 2, size.y / 2, 2}).get();
+	ge::actor::factory<base>(this, glm::ivec3{size.x / 2, size.y / 2, 2}).get();
 
 	auto timer = m_runtime->get_subsystem<ge::timer_subsystem>();
 
@@ -31,11 +31,8 @@ void grid::initialize(glm::uvec2 size, float tps)
 
 	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
 }
-std::vector<piece*> grid::get_actors_from_coord(glm::uvec3 loc)
+std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 {
-	assert(loc.x < m_size.x);
-	assert(loc.y < m_size.y);
-	assert(loc.z < 3);
 
 	std::vector<piece*> ret;
 

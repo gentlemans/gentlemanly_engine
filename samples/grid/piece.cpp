@@ -24,11 +24,8 @@ std::array<std::vector<piece*>, 4> piece::checkNearbySquares(glm::ivec2 myLocati
 			myLocation.y++;
 			myLocation.x--;
 		}
-		if (myLocation.x >= 0 && myLocation.y >= 0 && myLocation.x < m_grid->get_size().x && myLocation.y < m_grid->get_size().y)
-		{
 			auto thingsAtPlace = m_grid->get_actors_from_coord({ myLocation.x, myLocation.y, 2 });
 			emptySquares[x] = thingsAtPlace;
-		}
 	}
 	return emptySquares;
 }

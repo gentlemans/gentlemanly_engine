@@ -11,15 +11,15 @@ class piece;
 
 class grid : public ge::actor
 {
-	glm::uvec2 m_size;
+	glm::ivec2 m_size;
 	std::mt19937 rand_gen;
 
 public:
-	void initialize(glm::uvec2 size, float tps);
+	void initialize(glm::ivec2 size, float tps);
 
-	std::vector<piece*> get_actors_from_coord(glm::uvec3 loc);
+	std::vector<piece*> get_actors_from_coord(glm::ivec3 loc);
 
-	glm::uvec2 get_size() const { return m_size; }
+	glm::ivec2 get_size() const { return m_size; }
 	int get_random(int lower, int higher)
 	{
 		std::uniform_int_distribution<> uniform_int(lower, higher);

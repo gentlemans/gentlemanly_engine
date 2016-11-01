@@ -15,7 +15,7 @@ class base : public piece
 public:
 	std::shared_ptr<ge::mesh_actor> m_mesh;
 
-	void initialize(glm::uvec3 loc)
+	void initialize(glm::ivec3 loc)
 	{
 		piece::initialize(loc);
 

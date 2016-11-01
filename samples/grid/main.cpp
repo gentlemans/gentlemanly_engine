@@ -39,24 +39,16 @@ int main()
 	r.set_root_actor(root.get());
 
 	// initialize the grid
-	auto g = actor::factory<grid>(root.get(), glm::uvec2{11, 11}, 2.f);
-
-	actor::factory<turret>(g.get(), glm::uvec3(0, 1, 2));
-	actor::factory<turret>(g.get(), glm::uvec3(1, 0, 2));
-	actor::factory<turret>(g.get(), glm::uvec3(1, 2, 2));
-	actor::factory<turret>(g.get(), glm::uvec3(3, 2, 2));
-	actor::factory<turret>(g.get(), glm::uvec3(2, 0, 2));
-	actor::factory<turret>(g.get(), glm::uvec3(3, 1, 2));
-	actor::factory<turret>(g.get(), glm::uvec3(2, 3, 2));
-	actor::factory<zombie>(g.get(), glm::uvec3(1, 1, 2));
-	actor::factory<zombie>(g.get(), glm::uvec3(2, 4, 2));
-	actor::factory<zombie>(g.get(), glm::uvec3(2, 7, 2));
-	for (int x = 0; x < 12 ; x++)
+	auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 20.f);
+	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
+	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
+	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
+	for (int x = 0; x < 11 ; x++)
 	{
-		actor::factory<turret>(g.get(), glm::uvec3(-1,x,2));
-		actor::factory<turret>(g.get(), glm::uvec3(12, x, 2));
-		actor::factory<turret>(g.get(), glm::uvec3(x, -1, 2));
-		actor::factory<turret>(g.get(), glm::uvec3(x, 12, 2));
+		actor::factory<turret>(g.get(), glm::ivec3(-1,x,2));
+		actor::factory<turret>(g.get(), glm::ivec3(11, x, 2));
+		actor::factory<turret>(g.get(), glm::ivec3(x, -1, 2));
+		actor::factory<turret>(g.get(), glm::ivec3(x, 11, 2));
 	}
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop_arg(
