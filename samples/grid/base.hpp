@@ -20,6 +20,7 @@ public:
 		piece::initialize(loc);
 
 		m_mesh = ge::actor::factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings");
-        //m_mesh->m_mesh_settings.m_material.set_parameter("Texture", m_runtime->m_asset_manager.get_asset<ge::texture_asset>("base_texture"));
+		// m_mesh->m_mesh_settings.m_material.set_parameter("Texture",
+		// m_runtime->m_asset_manager.get_asset<ge::texture_asset>("base_texture"));
 	}
 };

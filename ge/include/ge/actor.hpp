@@ -118,8 +118,8 @@ public:
 			std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
 
 		m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
-			Interface::template gen_interface<ActorType>(static_cast<ActorType*>(this),
-								 std::forward<ExtraArgs>(extraArgs)...));
+			Interface::template gen_interface<ActorType>(
+				static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));
 	}
 
 	/// Query if this actor implements a certain interface

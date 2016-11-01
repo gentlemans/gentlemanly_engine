@@ -61,7 +61,7 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 			reassign_from_json_visitor vis{pair_iter.value(), manager};
 
 			try {
-                ret.set_parameter(parameter_name.c_str(), default_value.apply_visitor(vis));
+				ret.set_parameter(parameter_name.c_str(), default_value.apply_visitor(vis));
 			} catch (std::exception& e) {
 				logger->error("ERROR THROWN while applying visitor: "s + e.what());
 				return {};

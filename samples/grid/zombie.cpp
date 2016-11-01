@@ -8,80 +8,60 @@ void zombie::move_closer_to_center()
 	if (rand == 1) {
 		if (wayToGo.x < 0) {
 			myLocation.x--;
-		}
-		else if (wayToGo.x > 0) {
+		} else if (wayToGo.x > 0) {
 			myLocation.x++;
 		}
-	}
-	else
-	{
+	} else {
 		if (wayToGo.y < 0) {
 			myLocation.y--;
-		}
-		else if (wayToGo.y > 0) {
+		} else if (wayToGo.y > 0) {
 			myLocation.y++;
 		}
 	}
-	auto thingsAtPlace = m_grid->get_actors_from_coord({ myLocation.x, myLocation.y, 2 });
+	auto thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
 	if (thingsAtPlace.size() == 0)
-		set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
-	else
-	{
+		set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
+	else {
 		myLocation = get_grid_location();
 		if (rand == 0) {
 			if (wayToGo.x < 0) {
 				myLocation.x--;
-			}
-			else if (wayToGo.x > 0) {
+			} else if (wayToGo.x > 0) {
 				myLocation.x++;
 			}
-		}
-		else
-		{
+		} else {
 			if (wayToGo.y < 0) {
 				myLocation.y--;
-			}
-			else if (wayToGo.y > 0) {
+			} else if (wayToGo.y > 0) {
 				myLocation.y++;
 			}
 		}
 	}
-	thingsAtPlace = m_grid->get_actors_from_coord({ myLocation.x, myLocation.y, 2 });
+	thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
 	if (thingsAtPlace.size() == 0)
-		set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
+		set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 }
 
 void zombie::move_random()
 {
 	glm::ivec2 myLocation = get_grid_location();
-    std::array<std::vector <piece*>, 4> nearbySquares = checkNearbySquares(myLocation);
-	std::vector <int> empties;
-	for (int x=0; x < 4; x++)
-	{
-		if (nearbySquares[x].size()==0)
-		{
+	std::array<std::vector<piece*>, 4> nearbySquares = checkNearbySquares(myLocation);
+	std::vector<int> empties;
+	for (int x = 0; x < 4; x++) {
+		if (nearbySquares[x].size() == 0) {
 			empties.push_back(x);
 		}
 	}
-	if (empties.size() == 0)
-		return;
-	int rand = m_grid->get_random(0, empties.size()-1);
-	switch (empties[rand])
-	{
-	case 0:myLocation.y++;
-		break;
-	case 1:myLocation.x++;
-		break;
-	case 2:myLocation.y--;
-		break;
-	case 3:myLocation.x--;
+	if (empties.size() == 0) return;
+	int rand = m_grid->get_random(0, empties.size() - 1);
+	switch (empties[rand]) {
+	case 0: myLocation.y++; break;
+	case 1: myLocation.x++; break;
+	case 2: myLocation.y--; break;
+	case 3: myLocation.x--;
 	};
-	set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
+	set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 	return;
-
 }
 
-void zombie::tick_grid() 
-{ 
-	move_random();
-}
+void zombie::tick_grid() { move_random(); }

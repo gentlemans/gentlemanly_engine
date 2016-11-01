@@ -44,10 +44,9 @@ public:
 		current_frame += delta / time_per_frame;
 		m_time_until_next_frame -= delta;
 
-		current_frame %=
-            *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimx") *
-            *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimy");
-        m_mesh->m_mesh_settings.m_material.set_parameter("current_frame", current_frame);
+		current_frame %= *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimx") *
+						 *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimy");
+		m_mesh->m_mesh_settings.m_material.set_parameter("current_frame", current_frame);
 	}
 
 	float m_frames_per_second;

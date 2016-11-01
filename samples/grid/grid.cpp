@@ -26,14 +26,13 @@ void grid::initialize(glm::ivec2 size, float tps)
 			}
 		});
 
-        //actor::factory<zombie>(this, glm::ivec3{get_random(0, 10), get_random(0, 10), 2});
+		// actor::factory<zombie>(this, glm::ivec3{get_random(0, 10), get_random(0, 10), 2});
 	};
 
 	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
 }
 std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 {
-
 	std::vector<piece*> ret;
 
 	for (auto& child : m_children) {

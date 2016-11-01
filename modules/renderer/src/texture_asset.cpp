@@ -25,10 +25,10 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 		std::string dds_data(
 			(std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
 
-        auto ret = std::make_shared<texture>((const unsigned char*)dds_data.data(), arg_name);
-        // check ret
-        if(!*ret) return nullptr;
-        return ret;
+		auto ret = std::make_shared<texture>((const unsigned char*)dds_data.data(), arg_name);
+		// check ret
+		if (!*ret) return nullptr;
+		return ret;
 	} break;
 	case type::PNG: {
 		// use lodepng then pass the raw RGBA data
@@ -39,10 +39,10 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 		lodepng::decode(image_raw_data, size.x, size.y,
 			boost::filesystem::absolute(filepath.c_str(), abs_filepath).string(), LCT_RGBA, 8);
 
-        auto ret = std::make_shared<texture>(image_raw_data.data(), size, arg_name);
-        // check ret
-        if(!*ret) return nullptr;
-        return ret;
+		auto ret = std::make_shared<texture>(image_raw_data.data(), size, arg_name);
+		// check ret
+		if (!*ret) return nullptr;
+		return ret;
 	}
 	}
 	return nullptr;

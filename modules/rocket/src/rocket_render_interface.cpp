@@ -45,7 +45,7 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	material mat(m_shader);
 
 	if (texture) {
-        mat.set_parameter("Texture", *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture));
+		mat.set_parameter("Texture", *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture));
 	}
 	mesh_settings set(me, mat);
 
@@ -87,7 +87,8 @@ Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
 	// the property_values needs a shared pointer, so create one that won't delete it when it is
 	// done
 	if (texturehandle) {
-        settings->m_material.set_parameter("Texture", *reinterpret_cast<std::shared_ptr<texture>*>(texturehandle));
+		settings->m_material.set_parameter(
+			"Texture", *reinterpret_cast<std::shared_ptr<texture>*>(texturehandle));
 	}
 	return reinterpret_cast<intptr_t>(settings);
 }
@@ -151,7 +152,8 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 
 		texture_dimensions = {int(width), int(height)};
 
-        auto tex = new std::shared_ptr<texture>{new texture(PNGData.data(), {width, height}, "Rocket: "s + source.CString())};
+		auto tex = new std::shared_ptr<texture>{
+			new texture(PNGData.data(), {width, height}, "Rocket: "s + source.CString())};
 
 		texture_handle = reinterpret_cast<uintptr_t>(tex);
 	} catch (const std::exception&) {
@@ -169,8 +171,8 @@ bool rocket_render_interface::GenerateTexture(Rocket::Core::TextureHandle& textu
 	const Rocket::Core::byte* source, const Rocket::Core::Vector2i& source_dimensions)
 {
 	try {
-		auto ret = new std::shared_ptr<texture>(
-            new texture(source, {source_dimensions.x, source_dimensions.y}, "Generated Rocket Texture"));
+		auto ret = new std::shared_ptr<texture>(new texture(
+			source, {source_dimensions.x, source_dimensions.y}, "Generated Rocket Texture"));
 
 		texture_handle = reinterpret_cast<intptr_t>(ret);
 	} catch (std::exception&) {
