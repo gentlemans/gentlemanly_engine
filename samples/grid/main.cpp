@@ -49,6 +49,7 @@ int main()
 	actor::factory<turret>(g.get(), glm::uvec3(3, 1, 2));
 	actor::factory<turret>(g.get(), glm::uvec3(2, 3, 2));
 	actor::factory<zombie>(g.get(), glm::uvec3(1, 1, 2));
+	actor::factory<zombie>(g.get(), glm::uvec3(0, 0, 2));
 
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop_arg(
