@@ -12,8 +12,8 @@
 namespace ge
 {
 mesh::mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
-	const size_t num_indicies)
-	: num_triangles{num_indicies}
+	const size_t num_indicies, std::string name)
+	: num_triangles{num_indicies}, m_name{std::move(name)}
 {
 	glGenVertexArrays(1, &vertex_array);
 	glBindVertexArray(vertex_array);

@@ -21,6 +21,23 @@
 
 using namespace ge;
 
+void splitVertArray(Rocket::Core::Vertex* vertices, int num_vertices, std::vector<glm::vec2>& locs, std::vector<glm::vec2>& tex_coord, std::vector<glm::vec4>& colors) {
+	// create a ge::mesh
+	locs.reserve(num_vertices);
+	tex_coord.reserve(num_vertices);
+	colors.reserve(num_vertices);
+
+	// reconstruct the vectors in the format the engine wants
+	for (size_t id = 0ull; id < (unsigned int)num_vertices; ++id) {
+		locs.emplace_back(vertices[id].position.x, vertices[id].position.y);
+
+		tex_coord.emplace_back(vertices[id].tex_coord.x, vertices[id].tex_coord.y);
+
+		colors.emplace_back(vertices[id].colour.red, vertices[id].colour.green,
+			vertices[id].colour.blue, vertices[id].colour.alpha);
+	}
+}
+
 // Called by Rocket when it wants to render geometry that it does not wish to optimise.
 void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int num_vertices,
 	int* indices, int num_indices, const Rocket::Core::TextureHandle texture,
@@ -29,21 +46,18 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	// translate into better data
 	std::vector<glm::vec2> pos;
 	std::vector<glm::vec2> uv;
-	std::vector<glm::uvec3> indicies_vec;
+	std::vector<glm::vec4> colors;
 
-	for (auto idx = 0ull; idx < (unsigned int)num_vertices; ++idx) {
-		pos.emplace_back(vertices[idx].position.x, vertices[idx].position.y);
-		uv.emplace_back(vertices[idx].tex_coord.x, vertices[idx].tex_coord.y);
-	}
-
-	for (auto idx = 0; idx < num_indices; idx += 3) {
-		indicies_vec.emplace_back(indices[idx], indices[idx + 1], indices[idx + 2]);
-	}
-
+	splitVertArray(vertices, num_vertices, pos, uv, colors);
+	
 	auto me =
-		std::make_shared<mesh>(pos.data(), pos.size(), indicies_vec.data(), indicies_vec.size());
+		std::make_shared<mesh>(pos.data(), pos.size(), reinterpret_cast<glm::uvec3*>(indices), num_indices / 3, "Non-compiled rocket geometry");
 	material mat(m_shader);
 
+	me->add_additional_data("uv", uv.data(), sizeof(glm::vec2) * uv.size());
+	me->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
+
+	
 	if (texture) {
 		mat.set_parameter("Texture", *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture));
 	}
@@ -61,24 +75,13 @@ Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
 {
 	// create a ge::mesh
 	std::vector<glm::vec2> locs;
-	locs.reserve(num_vertices);
 	std::vector<glm::vec2> tex_coord;
-	tex_coord.reserve(num_vertices);
 	std::vector<glm::vec4> colors;
-	colors.reserve(num_vertices);
 
-	// reconstruct the vectors in the format the engine wants
-	for (size_t id = 0ull; id < (unsigned int)num_vertices; ++id) {
-		locs.emplace_back(vertices[id].position.x, vertices[id].position.y);
-
-		tex_coord.emplace_back(vertices[id].tex_coord.x, vertices[id].tex_coord.y);
-
-		colors.emplace_back(vertices[id].colour.red, vertices[id].colour.green,
-			vertices[id].colour.blue, vertices[id].colour.alpha);
-	}
-
+	splitVertArray(vertices, num_vertices, locs, tex_coord, colors);
+	
 	auto mes = std::make_shared<mesh>(
-		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3);
+		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3, "Compiled generated geometry for rocket");
 	auto settings = new mesh_settings(mes, {m_shader});
 
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
@@ -185,5 +188,5 @@ bool rocket_render_interface::GenerateTexture(Rocket::Core::TextureHandle& textu
 // Called by Rocket when a loaded texture is no longer required.
 void rocket_render_interface::ReleaseTexture(Rocket::Core::TextureHandle texture_handle)
 {
-	delete reinterpret_cast<texture*>(texture_handle);
+	delete reinterpret_cast<std::shared_ptr<texture>*>(texture_handle);
 }

@@ -82,6 +82,8 @@ void mesh_settings::render(const glm::mat3& mvp) const
 
 	std::vector<size_t> attribIDs;
 	for (auto& attr : shader_ref.m_attributes) {
+		
+		// this means that not all the attributes that are required are present.
 		assert(
 			m_mesh->additonal_vertex_data.find(attr.first) != m_mesh->additonal_vertex_data.end());
 		attr_applying_visitor visitor;

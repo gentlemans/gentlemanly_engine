@@ -28,8 +28,9 @@ public:
 	/// \param num_points The size of the points array
 	/// \param indicies The element data
 	/// \param num_indicies The size of the indicies array
+	/// \param name The name of the mesh (for debugging)
 	mesh(const glm::vec2* points, const size_t num_points, const glm::uvec3* indicies,
-		const size_t num_indicies);
+		const size_t num_indicies, std::string name);
 	// no move or copy, pointer only
 	mesh(const mesh&) = delete;
 	mesh(mesh&&) = delete;
@@ -61,6 +62,9 @@ public:
 
 	/// additional data
 	boost::container::flat_map<std::string, unsigned> additonal_vertex_data;
+	
+	/// The name for debugging purposes
+	std::string m_name;
 };
 }
 

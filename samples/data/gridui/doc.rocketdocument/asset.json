@@ -1,0 +1,7 @@
+{
+  "asset_type": "rocket_document",
+  "rml_file": "doc.rml",
+  "required_fonts": [
+    "fonts/roboto"
+  ]
+}
