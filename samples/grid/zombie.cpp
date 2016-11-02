@@ -1,5 +1,4 @@
 #include "zombie.hpp"
-
 void zombie::move_closer_to_center()
 {
 	glm::ivec2 myLocation = get_grid_location();
@@ -64,4 +63,13 @@ void zombie::move_random()
 	return;
 }
 
-void zombie::tick_grid() { move_random(); }
+void zombie::tick_grid()
+{
+	glm::ivec2 myLocation = get_grid_location();
+	glm::ivec2 gridCenter = get_grid_center();
+	int totalDistance = std::abs(myLocation.x - gridCenter.x) + std::abs(myLocation.y - gridCenter.y);
+	if (m_grid->get_random(0, totalDistance) > 3)
+		move_closer_to_center();
+	else
+		move_random();
+}
