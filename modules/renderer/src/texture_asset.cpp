@@ -6,7 +6,7 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 	const std::string& arg_name, const std::string& abs_filepath, const nlohmann::json& json_data)
 {
 	using namespace std::string_literals;
-	
+
 	std::string type_str = json_data["type"];
 	type type_to_load;
 	if (type_str == "DDS") {
@@ -39,19 +39,21 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 		glm::uvec2 size;
 
 		auto path = boost::filesystem::absolute(filepath.c_str(), abs_filepath);
-		
-		// make sure the file exists
+
+// make sure the file exists
 #ifndef _NDEBUG
-		if(!boost::filesystem::is_regular_file(path)) {
-			logger->error(path.string() + " is not a valid path to a file. Error occured while loading texture asset \"" + arg_name + "\".");
+		if (!boost::filesystem::is_regular_file(path)) {
+			logger->error(
+				path.string() +
+				" is not a valid path to a file. Error occured while loading texture asset \"" +
+				arg_name + "\".");
 		}
 #endif
-		
-		auto ec = lodepng::decode(image_raw_data, size.x, size.y,
-			path.string(), LCT_RGBA, 8);
-		if(ec == 0) {
-			
-			logger->error("Failed lode PNG file with lodepng error: "s + lodepng_error_text(ec) + std::to_string(ec));
+
+		auto ec = lodepng::decode(image_raw_data, size.x, size.y, path.string(), LCT_RGBA, 8);
+		if (ec == 0) {
+			logger->error("Failed lode PNG file with lodepng error: "s + lodepng_error_text(ec) +
+						  std::to_string(ec));
 		}
 
 		auto ret = std::make_shared<texture>(image_raw_data.data(), size, arg_name);

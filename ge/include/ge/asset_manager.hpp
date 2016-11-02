@@ -80,14 +80,13 @@ public:
 
 		// make sure it's an asset
 		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
-		
+
 		// check if it's in the cache
 		{
 			auto iter = cache.find(name);
 			if (iter != cache.end()) {
 				return std::static_pointer_cast<typename asset_type::loaded_type>(iter->second);
 			}
-			
 		}
 
 		logger->debug("Trying to load asset that's not in cache: "s + name + " with type " +
@@ -110,15 +109,15 @@ public:
 						  ". Asset will still be attempted to be loaded, but no promises.");
 		}
 
-		auto data = asset_type::load_asset(
-			*this, name, abs_path.c_str(), root);
+		auto data = asset_type::load_asset(*this, name, abs_path.c_str(), root);
 
 		// make sure it was actually loaded
-		if(!data) {
-			logger->error("Failed to load asset: "s + name + " with type " + asset_type_from_json + ". Execution will continue, but will probably be broken");
+		if (!data) {
+			logger->error("Failed to load asset: "s + name + " with type " + asset_type_from_json +
+						  ". Execution will continue, but will probably be broken");
 			return data;
 		}
-		
+
 		// add it to the cache
 		cache.insert({name, data});
 
@@ -136,7 +135,6 @@ public:
 	{
 		using namespace std::string_literals;
 
-
 		// make sure it's an asset
 		BOOST_CONCEPT_ASSERT((concept::Asset<asset_type>));
 
@@ -146,8 +144,7 @@ public:
 			return;
 		}
 		logger->debug("Trying to load void asset that's not in cache: "s + name + " with type " +
-			boost::typeindex::type_id<asset_type>().pretty_name());
-
+					  boost::typeindex::type_id<asset_type>().pretty_name());
 
 		auto abs_path = resolve_asset_path(name);
 
@@ -165,8 +162,7 @@ public:
 						  ". Asset will still be attempted to be loaded, but no promises.");
 		}
 
-		asset_type::load_asset(
-			*this, name, abs_path.c_str(), root);
+		asset_type::load_asset(*this, name, abs_path.c_str(), root);
 
 		logger->info("Successfully loaded asset \""s + name + "\" of type: " +
 					 boost::typeindex::type_id<asset_type>().pretty_name());

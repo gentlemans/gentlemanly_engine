@@ -24,13 +24,12 @@ public:
 	using loaded_type = material;
 
 	/// Asset loadeer
-	static std::shared_ptr<material> load_asset(asset_manager& manager, const char* name, const char* filepath,
-		const nlohmann::json& json_data);
+	static std::shared_ptr<material> load_asset(asset_manager& manager, const char* name,
+		const char* filepath, const nlohmann::json& json_data);
 
 	/// Require the asset to have "asset_type": "material"
 	static const char* asset_type() { return "material"; }
 };
-
 
 BOOST_CONCEPT_ASSERT((concept::Asset<material_asset>));
 }
