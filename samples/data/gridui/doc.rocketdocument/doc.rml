@@ -6,9 +6,16 @@
         font-family: "Roboto";
         font-size: 500%;
       }
+      #leftpane {
+        drag: drag;
+        color: black;
+        background-color: #000000;
+      }
     </style>
   </head>
   <body>
-    Hello Bitches
+    <div id="leftpane">
+      Hey doodes
+    </div>
   </body>
 </rml>

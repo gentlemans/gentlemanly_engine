@@ -58,8 +58,8 @@ int main()
 		actor::factory<turret>(g.get(), glm::ivec3(x, 11, 2));
 	}
 	
-	Rocket::Debugger::Initialise(rocket.m_context);
-	Rocket::Debugger::SetVisible(true);
+//	Rocket::Debugger::Initialise(rocket.m_context);
+//	Rocket::Debugger::SetVisible(true);
 	
 	
 	rocket_input_consumer ic{&r};
