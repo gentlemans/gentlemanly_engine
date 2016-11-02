@@ -44,9 +44,6 @@ auto mesh = asset_man.get_asset<ge::mesh_asset>("myfavoritemesh");
 
 Once an asset has been loaded once successfully, it is cached and will not be loaded again, and `get_asset` will return a copy of the same `shared_ptr` object. 
 
-###Passing additional arguments to assets
-Some assets require extra arguments when loading for context, settings, or something like that. These arguments can be found out by looking at the documentation or the `load_asset` function of the asset if you are familiar with the API. To add extra arguments to an asset load, just add arguments in the correct type after the name of the asset and they will be passed to the loading function.
-
 ##The `asset.json`  file
 This file defines all the settings for your asset. Each asset has it's own specification living in it's documentation and C++ file. 
 
@@ -80,7 +77,7 @@ static const char* asset_name() noexcept { return "material"; }
 This is the function that does all the heavy lifting for loading assets. The signature is either:
 
 ```C++
-static std::shared_ptr<loaded_type> load_asset(ge::asset_manager manager, const char* asset_name, const char* absolute_filepath, const  nlohmann::json& json_data, [ extra arguments... ]);
+static std::shared_ptr<loaded_type> load_asset(ge::asset_manager manager, const char* asset_name, const char* absolute_filepath, const  nlohmann::json& json_data);
 ```
 
 
