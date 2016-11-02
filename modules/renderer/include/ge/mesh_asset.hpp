@@ -26,11 +26,9 @@ public:
 
 	/// Require the asset to have "asset_type": "mesh"
 	static const char* asset_type() { return "mesh"; }
-	
 	// make sure it qualifies as an asset
 	BOOST_CONCEPT_ASSERT((concept::Asset<mesh_asset>));
 };
-
 }
 
 #endif  // GE_MESH_ASSET_HPP

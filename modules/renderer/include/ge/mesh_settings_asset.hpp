@@ -3,10 +3,10 @@
 
 #pragma once
 
+#include "ge/concept/asset.hpp"
 #include "ge/material_asset.hpp"
 #include "ge/mesh_asset.hpp"
 #include "ge/mesh_settings.hpp"
-#include "ge/concept/asset.hpp"
 
 namespace ge
 {
@@ -16,7 +16,7 @@ namespace ge
 struct mesh_settings_asset {
 	/// Loads mesh_settings objects
 	using loaded_type = mesh_settings;
-	
+
 	/// Asset loader function
 	static std::shared_ptr<mesh_settings> load_asset(asset_manager& manager, const char* asset_name,
 		const char* filepath, const nlohmann::json& json_data)
@@ -30,7 +30,6 @@ struct mesh_settings_asset {
 
 	/// Require the assets to have "asset_type": "mesh_settings_asset"
 	static const char* asset_type() { return "mesh_settings"; }
-	
 	// make sure it qualifies as an asset
 	BOOST_CONCEPT_ASSERT((concept::Asset<mesh_settings_asset>));
 };

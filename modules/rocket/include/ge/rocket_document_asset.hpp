@@ -27,7 +27,6 @@ struct rocket_document_asset {
 
 	/// Require the asset to have "asset_type": "rocket_document"
 	static const char* asset_type() { return "rocket_document"; }
-	
 	// make sure it qualifies as an asset
 	BOOST_CONCEPT_ASSERT((concept::Asset<rocket_document_asset>));
 };

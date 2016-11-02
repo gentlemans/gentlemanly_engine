@@ -33,7 +33,6 @@ public:
 
 	/// Require assets to have "asset_type": "shader"
 	static const char* asset_type() { return "shader"; }
-	
 	// make sure it qualifies as an asset
 	BOOST_CONCEPT_ASSERT((concept::Asset<shader_asset>));
 };

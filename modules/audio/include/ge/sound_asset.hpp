@@ -29,7 +29,6 @@ struct sound_asset {
 	/// Tell the asset_manager that asset.json files should be marked with "sound"
 	/// \return "sound"
 	static const char* asset_type() { return "sound"; }
-	
 	// make sure it qualifies as an asset
 	BOOST_CONCEPT_ASSERT((concept::Asset<sound_asset>));
 };

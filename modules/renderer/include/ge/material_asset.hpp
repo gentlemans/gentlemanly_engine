@@ -29,11 +29,9 @@ public:
 
 	/// Require the asset to have "asset_type": "material"
 	static const char* asset_type() { return "material"; }
-	
 	// make sure it qualifies as an asset
 	BOOST_CONCEPT_ASSERT((concept::Asset<material_asset>));
 };
-
 }
 
 #endif  // GE_MATERIAL_ASSET_HPP
