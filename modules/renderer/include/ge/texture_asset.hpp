@@ -27,9 +27,6 @@ public:
 	/// Loads textures
 	using loaded_type = texture;
 
-	/// With cacheing
-	using cached = std::true_type;
-
 	/// Asset loading function
 	static std::shared_ptr<texture> load_asset(asset_manager& manager, const std::string& arg_name,
 		const std::string& abs_filepath, const nlohmann::json& json_data);

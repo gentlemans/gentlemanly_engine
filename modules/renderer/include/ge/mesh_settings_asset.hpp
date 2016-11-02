@@ -20,14 +20,14 @@ struct mesh_settings_asset {
 	using cached = std::false_type;
 
 	/// Asset loader function
-	static mesh_settings load_asset(asset_manager& manager, const char* asset_name,
+	static std::shared_ptr<mesh_settings> load_asset(asset_manager& manager, const char* asset_name,
 		const char* filepath, const nlohmann::json& json_data)
 	{
 		std::string mat = json_data["material"];
 		std::string mesh = json_data["mesh"];
 
 		return mesh_settings{manager.get_asset<mesh_asset>(mesh.c_str()),
-			manager.get_asset<material_asset>(mat.c_str())};
+			*manager.get_asset<material_asset>(mat.c_str())};
 	}
 
 	/// Require the assets to have "asset_type": "mesh_settings_asset"

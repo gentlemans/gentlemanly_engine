@@ -33,7 +33,7 @@ struct reassign_from_json_visitor : boost::static_visitor<shader::parameter_type
 	}
 };
 
-material material_asset::load_asset(asset_manager& manager, const char* asset_name,
+std::shared_ptr<material> material_asset::load_asset(asset_manager& manager, const char* asset_name,
 	const char* filepath, const nlohmann::json& json_data)
 {
 	using namespace std::string_literals;
@@ -41,7 +41,7 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 	std::string shader_asset_name = json_data["shader"];
 	auto shader_ass = manager.get_asset<shader_asset>(shader_asset_name.c_str());
 
-	auto ret = material(shader_ass);
+	auto ret = std::make_shared<material>(shader_ass);
 
 	// load parameters
 	auto parameter_iter = json_data.find("parameters");
@@ -50,21 +50,21 @@ material material_asset::load_asset(asset_manager& manager, const char* asset_na
 			 ++pair_iter) {
 			std::string parameter_name = pair_iter.key();
 			// get the type from the shader
-			auto default_paramater_iter = ret.m_shader->m_parameters.find(parameter_name);
-			if (default_paramater_iter == ret.m_shader->m_parameters.end()) {
+			auto default_paramater_iter = ret->m_shader->m_parameters.find(parameter_name);
+			if (default_paramater_iter == ret->m_shader->m_parameters.end()) {
 				logger->error("Could not find property: " + parameter_name +
 							  " in shader while loading material asset: " + asset_name);
-				return {};
+				return nullptr;
 			}
 			auto default_value = default_paramater_iter->second.value;
 
 			reassign_from_json_visitor vis{pair_iter.value(), manager};
 
 			try {
-				ret.set_parameter(parameter_name.c_str(), default_value.apply_visitor(vis));
+				ret->set_parameter(parameter_name.c_str(), default_value.apply_visitor(vis));
 			} catch (std::exception& e) {
 				logger->error("ERROR THROWN while applying visitor: "s + e.what());
-				return {};
+				return nullptr;
 			}
 		}
 	}
