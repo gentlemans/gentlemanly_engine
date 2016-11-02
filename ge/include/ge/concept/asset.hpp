@@ -29,7 +29,8 @@ struct Asset {
 
 		static_assert(std::is_same<decltype(X::load_asset(
 									   *static_cast<asset_manager*>(0), "", "", nlohmann::json{})),
-						  std::shared_ptr<loaded_type>>::value,
+						  typename boost::mpl::if_<std::is_void<loaded_type>, void,
+							  std::shared_ptr<loaded_type>>::type>::value,
 			"load asset returns the wrong type. see "
 			"https://github.com/gentlemans/gentlemanly_engine/blob/master/doc/asset.md");
 	}

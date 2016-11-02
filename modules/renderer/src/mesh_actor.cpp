@@ -10,7 +10,7 @@ namespace ge
 {
 void mesh_actor::initialize(const char* asset_path)
 {
-	initialize(m_runtime->m_asset_manager.get_asset<mesh_settings_asset>(asset_path));
+	initialize(*m_runtime->m_asset_manager.get_asset<mesh_settings_asset>(asset_path));
 }
 
 void mesh_actor::render(const glm::mat3& vp_mat)

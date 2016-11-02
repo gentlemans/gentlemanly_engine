@@ -51,7 +51,7 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 #endif
 
 		auto ec = lodepng::decode(image_raw_data, size.x, size.y, path.string(), LCT_RGBA, 8);
-		if (ec == 0) {
+		if (ec != 0) {
 			logger->error("Failed lode PNG file with lodepng error: "s + lodepng_error_text(ec) +
 						  std::to_string(ec));
 		}

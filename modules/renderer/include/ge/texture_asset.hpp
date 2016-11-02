@@ -33,6 +33,9 @@ public:
 
 	/// Require the asset to have "asset_type": "texture"
 	static const char* asset_type() { return "texture"; }
+	
+	// make sure it qualifies as an asset
+	BOOST_CONCEPT_ASSERT((concept::Asset<texture_asset>));
 };
 }
 

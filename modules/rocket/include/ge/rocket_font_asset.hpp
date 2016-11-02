@@ -16,9 +16,6 @@ struct rocket_font_asset {
 	/// No loaded type, it is stored internally in Rocket
 	using loaded_type = void;
 
-	/// We want caching to avoid loading the same font twice
-	using cached = std::false_type;
-
 	/// Asset loading function
 	static void load_asset(asset_manager& manager, const char* asset_name, const char* filepath,
 		const nlohmann::json& json_data)
@@ -70,6 +67,8 @@ struct rocket_font_asset {
 
 	/// Requries the asset to have "asset_type": "rocket_font_asset"
 	static const char* asset_type() { return "rocket_font"; }
+	
+	// make sure it qualifies as an asset
+	BOOST_CONCEPT_ASSERT((concept::Asset<rocket_font_asset>));
 };
-BOOST_CONCEPT_ASSERT((concept::Asset<rocket_font_asset>));
 }

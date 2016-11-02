@@ -27,7 +27,7 @@ public:
 	// Just forward to the other one
 	void initialize(const char* asset_path, float fps)
 	{
-		initialize(m_runtime->m_asset_manager.get_asset<mesh_settings_asset>(asset_path), fps);
+		initialize(*m_runtime->m_asset_manager.get_asset<mesh_settings_asset>(asset_path), fps);
 	}
 
 	void tick(std::chrono::duration<float> delta)

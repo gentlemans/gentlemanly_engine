@@ -17,9 +17,6 @@ struct sound_asset {
 	/// It loads sounds
 	using loaded_type = sound;
 
-	/// They are cached
-	using cached = std::true_type;
-
 	/// Load asset function. (see asset.md)
 	/// \param manager The asset manager
 	/// \param name The name of the asset
@@ -32,6 +29,9 @@ struct sound_asset {
 	/// Tell the asset_manager that asset.json files should be marked with "sound"
 	/// \return "sound"
 	static const char* asset_type() { return "sound"; }
+	
+	// make sure it qualifies as an asset
+	BOOST_CONCEPT_ASSERT((concept::Asset<sound_asset>));
 };
 }
 
