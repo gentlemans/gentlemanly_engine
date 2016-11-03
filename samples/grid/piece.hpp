@@ -8,7 +8,15 @@
 
 class piece : public ge::actor
 {
+	int direction = 0;
 public:
+	enum Directions
+	{
+		NORTH = 0,
+		EAST = 1,
+		SOUTH = 2,
+		WEST = 3
+	};
 	grid* m_grid;
 	int m_level;
 	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);

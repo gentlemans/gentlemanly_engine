@@ -10,7 +10,7 @@
 #include <glm/glm.hpp>
 
 #include <memory>
-
+#include <cmath>
 #include "grid.hpp"
 #include "piece.hpp"
 #include "turret.hpp"
@@ -40,7 +40,7 @@ int main()
 	
 	auto root = actor::root_factory(&r);
 
-	auto camera = actor::factory<camera_actor>(root.get(), 13);
+	auto camera = actor::factory<camera_actor>(root.get(), 50);
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
@@ -51,6 +51,7 @@ int main()
 	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
+	actor::factory<turret>(g.get(), glm::ivec3(7, 7, 2));// ->set_relative_rotation(glm::half_pi<float>());
 	for (int x = 0; x < 11; x++) {
 		actor::factory<turret>(g.get(), glm::ivec3(-1, x, 2));
 		actor::factory<turret>(g.get(), glm::ivec3(11, x, 2));

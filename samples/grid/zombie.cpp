@@ -62,14 +62,16 @@ void zombie::move_random()
 	set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 	return;
 }
-
 void zombie::tick_grid()
 {
 	glm::ivec2 myLocation = get_grid_location();
 	glm::ivec2 gridCenter = get_grid_center();
+	set_relative_rotation(get_relative_rotation()+.01);
+	/*
 	int totalDistance = std::abs(myLocation.x - gridCenter.x) + std::abs(myLocation.y - gridCenter.y);
 	if (m_grid->get_random(0, totalDistance) > 3)
 		move_closer_to_center();
 	else
 		move_random();
+		*/
 }
