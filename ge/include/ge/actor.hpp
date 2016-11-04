@@ -202,16 +202,7 @@ public:
 
 	/// Calculates the model matrix for the actor
 	/// \return The model matrix
-	glm::mat3 calculate_model_matrix() const noexcept
-	{
-		glm::mat3 this_model;
-
-		this_model = glm::scale(this_model, get_relative_scale());
-		this_model = glm::translate(this_model, get_relative_location());
-		this_model = glm::rotate(this_model, get_relative_rotation());
-
-		return has_parent() ? this_model * get_parent()->calculate_model_matrix() : this_model;
-	}
+    glm::mat3 calculate_model_matrix() const noexcept;
 
 	// parent manipulation
 	//////////////////////

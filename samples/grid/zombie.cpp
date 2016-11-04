@@ -66,7 +66,7 @@ void zombie::tick_grid()
 {
 	glm::ivec2 myLocation = get_grid_location();
 	glm::ivec2 gridCenter = get_grid_center();
-	set_relative_rotation(get_relative_rotation() + .01);
+    set_relative_rotation(get_relative_rotation() + 0.01f);
 	/*
 	int totalDistance = std::abs(myLocation.x - gridCenter.x) + std::abs(myLocation.y -
 	gridCenter.y);
