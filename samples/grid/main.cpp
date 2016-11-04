@@ -1,16 +1,16 @@
 #include <ge/input_subsystem.hpp>
 #include <ge/mesh_actor.hpp>
+#include <ge/rocket_document_asset.hpp>
+#include <ge/rocket_input_consumer.hpp>
 #include <ge/rocket_subsystem.hpp>
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
 #include <ge/timer_subsystem.hpp>
-#include <ge/rocket_document_asset.hpp>
-#include <ge/rocket_input_consumer.hpp>
 
 #include <glm/glm.hpp>
 
-#include <memory>
 #include <cmath>
+#include <memory>
 #include "grid.hpp"
 #include "piece.hpp"
 #include "turret.hpp"
@@ -37,7 +37,7 @@ int main()
 	// load UI
 	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
 	doc->Show();
-	
+
 	auto root = actor::root_factory(&r);
 
 	auto camera = actor::factory<camera_actor>(root.get(), 50);
@@ -51,21 +51,21 @@ int main()
 	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
-	actor::factory<turret>(g.get(), glm::ivec3(7, 7, 2));// ->set_relative_rotation(glm::half_pi<float>());
+	actor::factory<turret>(
+		g.get(), glm::ivec3(7, 7, 2));  // ->set_relative_rotation(glm::half_pi<float>());
 	for (int x = 0; x < 11; x++) {
 		actor::factory<turret>(g.get(), glm::ivec3(-1, x, 2));
 		actor::factory<turret>(g.get(), glm::ivec3(11, x, 2));
 		actor::factory<turret>(g.get(), glm::ivec3(x, -1, 2));
 		actor::factory<turret>(g.get(), glm::ivec3(x, 11, 2));
 	}
-	
-//	Rocket::Debugger::Initialise(rocket.m_context);
-//	Rocket::Debugger::SetVisible(true);
-	
-	
+
+	//	Rocket::Debugger::Initialise(rocket.m_context);
+	//	Rocket::Debugger::SetVisible(true);
+
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
-	
+
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop_arg(
 		[](void* run_ptr) {

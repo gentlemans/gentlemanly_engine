@@ -21,7 +21,9 @@
 
 using namespace ge;
 
-void splitVertArray(Rocket::Core::Vertex* vertices, int num_vertices, std::vector<glm::vec2>& locs, std::vector<glm::vec2>& tex_coord, std::vector<glm::vec4>& colors) {
+void splitVertArray(Rocket::Core::Vertex* vertices, int num_vertices, std::vector<glm::vec2>& locs,
+	std::vector<glm::vec2>& tex_coord, std::vector<glm::vec4>& colors)
+{
 	// create a ge::mesh
 	locs.reserve(num_vertices);
 	tex_coord.reserve(num_vertices);
@@ -49,15 +51,14 @@ void rocket_render_interface::RenderGeometry(Rocket::Core::Vertex* vertices, int
 	std::vector<glm::vec4> colors;
 
 	splitVertArray(vertices, num_vertices, pos, uv, colors);
-	
-	auto me =
-		std::make_shared<mesh>(pos.data(), pos.size(), reinterpret_cast<glm::uvec3*>(indices), num_indices / 3, "Non-compiled rocket geometry");
+
+	auto me = std::make_shared<mesh>(pos.data(), pos.size(), reinterpret_cast<glm::uvec3*>(indices),
+		num_indices / 3, "Non-compiled rocket geometry");
 	material mat(m_shader);
 
 	me->add_additional_data("uv", uv.data(), sizeof(glm::vec2) * uv.size());
 	me->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
 
-	
 	if (texture) {
 		mat.set_parameter("Texture", *reinterpret_cast<std::shared_ptr<ge::texture>*>(texture));
 	}
@@ -79,9 +80,10 @@ Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
 	std::vector<glm::vec4> colors;
 
 	splitVertArray(vertices, num_vertices, locs, tex_coord, colors);
-	
-	auto mes = std::make_shared<mesh>(
-		locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices), num_indices / 3, "Compiled generated geometry for rocket");
+
+	auto mes =
+		std::make_shared<mesh>(locs.data(), num_vertices, reinterpret_cast<glm::uvec3*>(indices),
+			num_indices / 3, "Compiled generated geometry for rocket");
 	auto settings = new mesh_settings(mes, {m_shader});
 
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());

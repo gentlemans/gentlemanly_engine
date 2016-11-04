@@ -62,7 +62,7 @@ public:
 
 	/// additional data
 	boost::container::flat_map<std::string, unsigned> additonal_vertex_data;
-	
+
 	/// The name for debugging purposes
 	std::string m_name;
 };
