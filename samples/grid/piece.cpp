@@ -4,18 +4,18 @@ std::array<std::vector<piece*>, 4> piece::checkNearbySquares(glm::ivec2 myLocati
 {
 	std::array<std::vector<piece*>, 4> emptySquares;
 	for (int x = 0; x < 4; x++) {
-		if (x == 0) {
+		if (x == Directions::NORTH) {
 			myLocation.y++;
 		}
-		if (x == 1) {
+		if (x == Directions::EAST) {
 			myLocation.x++;
 			myLocation.y--;
 		}
-		if (x == 2) {
+		if (x == Directions::SOUTH) {
 			myLocation.y--;
 			myLocation.x--;
 		}
-		if (x == 3) {
+		if (x == Directions::WEST) {
 			myLocation.y++;
 			myLocation.x--;
 		}
