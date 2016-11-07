@@ -15,6 +15,7 @@
 #include "piece.hpp"
 #include "turret.hpp"
 #include "zombie.hpp"
+#include "zombiespawner.hpp"
 
 #include <Rocket/Debugger/Debugger.h>
 
@@ -54,10 +55,10 @@ int main()
 	actor::factory<turret>(
 		g.get(), glm::ivec3(7, 7, 2));  // ->set_relative_rotation(glm::half_pi<float>());
 	for (int x = 0; x < 11; x++) {
-		actor::factory<turret>(g.get(), glm::ivec3(-1, x, 2));
-		actor::factory<turret>(g.get(), glm::ivec3(11, x, 2));
-		actor::factory<turret>(g.get(), glm::ivec3(x, -1, 2));
-		actor::factory<turret>(g.get(), glm::ivec3(x, 11, 2));
+		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
+		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x, 2));
+		actor::factory<zombiespawner>(g.get(), glm::ivec3(x, -1, 2));
+		actor::factory<zombiespawner>(g.get(), glm::ivec3(x, 11, 2));
 	}
 
 	//	Rocket::Debugger::Initialise(rocket.m_context);
