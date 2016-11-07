@@ -1,5 +1,5 @@
 if(EMSCRIPTEN)
-	include(emscripten.cmake)
+	include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/emscripten.cmake)
 endif()
 
 if(ANDROID)
@@ -24,7 +24,7 @@ macro(ge_create_exe name srcs package_paths)
 		LINK_FLAGS 
 			"-s USE_SDL=2 -s USE_FREETYPE=1 -s USE_OGG=1 -s USE_VORBIS=1 ${CPL_FLAGS}"
 		)
-		set_target_properties(${target} PROPERTIES SUFFIX ".html")
+		set_target_properties(${name} PROPERTIES SUFFIX ".html")
 		
 	elseif(ANDROID)
 		
