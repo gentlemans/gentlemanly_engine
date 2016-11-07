@@ -17,8 +17,16 @@ public:
 	void initialize(glm::uvec3 location)
 	{
 		piece::initialize(location);
-
+		add_interface<zombie, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
+	}
+	void rotate(Directions direction)
+	{
+		set_relative_rotation(direction*glm::half_pi<float>());
+	}
+	void tick_grid()
+	{
+		checkNearbySquares
 	}
 };
 
