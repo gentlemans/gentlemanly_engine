@@ -5,6 +5,7 @@
 
 #include "piece.hpp"
 #include "gridtick_interface.hpp"
+#include "damagable.hpp"
 
 #include <ge/mesh.hpp>
 #include <ge/mesh_actor.hpp>
@@ -34,6 +35,14 @@ public:
             }
 
         }
+	}
+	void shoot()
+	{
+		auto d = tod->get_interface_storage<damagable>();
+		if (d)
+		{
+			d->health -= 10;
+		}
 	}
 };
 
