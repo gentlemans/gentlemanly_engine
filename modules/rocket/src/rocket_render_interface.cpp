@@ -89,11 +89,12 @@ Rocket::Core::CompiledGeometryHandle rocket_render_interface::CompileGeometry(
 	mes->add_additional_data("uv", tex_coord.data(), sizeof(glm::vec2) * tex_coord.size());
 	mes->add_additional_data("color", colors.data(), sizeof(glm::vec4) * colors.size());
 
-	// the property_values needs a shared pointer, so create one that won't delete it when it is
-	// done
 	if (texturehandle) {
 		settings->m_material.set_parameter(
 			"Texture", *reinterpret_cast<std::shared_ptr<texture>*>(texturehandle));
+		settings->m_material.set_parameter("use_texture", 1);
+	} else {
+		settings->m_material.set_parameter("use_texture", 0);
 	}
 	return reinterpret_cast<intptr_t>(settings);
 }
