@@ -38,11 +38,11 @@ public:
 	}
 	void shoot()
 	{
-		auto d = tod->get_interface_storage<damagable>();
-		if (d)
-		{
-			d->health -= 10;
-		}
+//		auto d = tod->get_interface_storage<damagable>();
+//		if (d)
+//		{
+//			d->health -= 10;
+//		}
 	}
 };
 
