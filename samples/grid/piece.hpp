@@ -8,15 +8,15 @@
 
 class piece : public ge::actor
 {
-protected:
-	enum Directions; 
-	Directions my_direction = NORTH;
 public:
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1 };
+protected:
+	Directions my_direction = NORTH;
+public:
 	grid* m_grid;
 	int m_level;
 	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);
-	std::vector<std::vector<piece*>> piece::squares_in_direction(glm::ivec2 myLocation, Directions direction, int range);
+    std::vector<std::vector<piece*>> squares_in_direction(glm::ivec2 myLocation, Directions direction, int range);
 	void initialize(glm::ivec3 loc)
 	{
 		m_grid = static_cast<grid*>(get_parent());
