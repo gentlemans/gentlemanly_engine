@@ -4,6 +4,7 @@
 #define TURRET_HPP
 
 #include "piece.hpp"
+#include "gridtick_interface.hpp"
 
 #include <ge/mesh.hpp>
 #include <ge/mesh_actor.hpp>
@@ -17,7 +18,7 @@ public:
 	void initialize(glm::uvec3 location)
 	{
 		piece::initialize(location);
-		add_interface<zombie, gridtick_interface>();
+		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 	}
 	void rotate(Directions direction)
@@ -26,7 +27,7 @@ public:
 	}
 	void tick_grid()
 	{
-		checkNearbySquares
+	//	checkNearbySquares
 	}
 };
 
