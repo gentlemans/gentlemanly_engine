@@ -27,7 +27,22 @@ public:
 	}
 	void tick_grid()
 	{
-	//	checkNearbySquares
+		auto nearby = checkNearbySquares(get_grid_location());
+		for (int x = 0; x < 4; x++)
+		{
+			Directions direction;
+			if (nearby[x].size() != 0)
+			{
+				switch (x) {
+				case 0: direction = Directions::NORTH; break;
+				case 1: direction = Directions::EAST; break;
+				case 2: direction = Directions::SOUTH; break;
+				case 3: direction = Directions::WEST;
+				};
+				rotate(direction);
+			}
+
+		}
 	}
 };
 
