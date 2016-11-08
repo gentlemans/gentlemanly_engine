@@ -154,11 +154,11 @@ public:
 	/// Gets the location of the actor relative to the parent
 	/// \return The relative location
 	glm::vec2 get_relative_location() const noexcept { return m_transform.location; }
-	/// Sets the rotation relative to the parent.
-	/// \param new_rotation the new rotation to apply
+    /// Sets the rotation relative to the parent.
+    /// \param new_rotation the new rotation to apply, in radians counter-clockwise
 	void set_relative_rotation(float new_rotation) noexcept { m_transform.rotation = new_rotation; }
 	/// Gets the rotation of the actor relative to the parent
-	/// \return The relative rotation
+    /// \return The relative rotation, in radians counter-clockwise
 	float get_relative_rotation() const noexcept { return m_transform.rotation; }
 	/// Sets the scale of the actor relative to the parent
 	/// \param new_scale The relative scale
