@@ -8,8 +8,8 @@
 
 class piece : public ge::actor
 {
-	int direction = 0;
-
+	enum Directions; 
+	Directions my_direction = NORTH;
 public:
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1 };
 	grid* m_grid;
@@ -30,6 +30,11 @@ public:
 	glm::ivec3 get_grid_location() const
 	{
 		return {int(get_relative_location().x), int(get_relative_location().y), m_level};
+	}
+	void rotate(Directions direction)
+	{
+		set_relative_rotation(direction*glm::half_pi<float>());
+		my_direction = direction;
 	}
 };
 

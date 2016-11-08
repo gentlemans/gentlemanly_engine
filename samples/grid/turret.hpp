@@ -21,10 +21,6 @@ public:
 		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 	}
-	void rotate(Directions direction)
-	{
-		set_relative_rotation(direction*glm::half_pi<float>());
-	}
 	void tick_grid()
     {
         auto nearby = checkNearbySquares(get_grid_location());
