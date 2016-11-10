@@ -24,6 +24,10 @@ public:
         void(piece* p, glm::ivec3 new_loc, glm::ivec3 old_loc)
     > sig_move;
 
+	boost::signals2::signal<
+		void(piece*)
+	> sig_die;
+
 	void initialize(glm::ivec3 loc)
 	{
 		m_grid = static_cast<grid*>(get_parent());

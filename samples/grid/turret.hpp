@@ -15,13 +15,20 @@ class turret : public piece
 {
 	ge::mesh_actor* mesh;
 
+	boost::signals2::scoped_connection die_connect;
+
 public:
 	void initialize(glm::uvec3 location)
 	{
 		piece::initialize(location);
 		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
+
+		die_connect = sig_die.connect([](piece* p) {
+			p->set_parent(NULL);
+		});
 	}
+	
 	void tick_grid()
     {
         auto nearby = checkNearbySquares(get_grid_location());
@@ -52,7 +59,7 @@ public:
 		auto d = tod->get_interface_storage<damagable>();
 		if (d)
 		{
-			d->health -= 10;
+			d->damage(10);
 		}
 	}
 };
