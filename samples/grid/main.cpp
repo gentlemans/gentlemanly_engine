@@ -41,7 +41,7 @@ int main()
 
 	auto root = actor::root_factory(&r);
 
-    auto camera = actor::factory<camera_actor>(root.get(), 13);
+    auto camera = actor::factory<camera_actor>(root.get(), 13.f);
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());

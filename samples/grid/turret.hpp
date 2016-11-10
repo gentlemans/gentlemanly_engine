@@ -28,7 +28,6 @@ public:
 			p->set_parent(NULL);
 		});
 	}
-	
 	void tick_grid()
     {
         auto nearby = checkNearbySquares(get_grid_location());
@@ -40,7 +39,7 @@ public:
                 direction = Directions(x);
                 rotate(direction);
             }
-
+			shoot();
         }
 	}
 	void shoot()
@@ -54,6 +53,10 @@ public:
 			{
 				tod = squares[x][0];
 				break;
+			}
+			else if (x==range-1)
+			{
+				return;
 			}
 		}
 		auto d = tod->get_interface_storage<damagable>();
