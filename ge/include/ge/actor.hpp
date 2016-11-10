@@ -211,15 +211,16 @@ public:
 	/// \param new_parent The new parent of the actor
 	void set_parent(actor* new_parent) noexcept
 	{
-		assert(new_parent);
-
 		// unparent from old parent
 		if (has_parent()) {
 			get_parent()->m_children.erase(shared_from_this());
 		}
 
-		new_parent->m_children.insert(shared_from_this());
-		m_parent = new_parent;
+        if(new_parent) {
+            new_parent->m_children.insert(shared_from_this());
+            m_parent = new_parent;
+        }
+
 	}
 
 	/// Gets the parent actor
