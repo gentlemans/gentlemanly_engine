@@ -7,8 +7,8 @@
 
 struct damagable {
 	struct interface_storage {
-		interface_storage(float health) : m_health{health} {}
-		float m_health;
+		interface_storage(float healtha) : health{healtha} {}
+		float health;
 	};
 
 	template <typename Actor>

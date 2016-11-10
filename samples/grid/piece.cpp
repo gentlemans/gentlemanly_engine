@@ -26,7 +26,7 @@ std::vector<std::vector<piece*>> piece::squares_in_direction(glm::ivec2 myLocati
 			checkLocation.y--;
 		if (direction == Directions::EAST)
 			checkLocation.x++;
-		m_grid->get_actors_from_coord(glm::ivec3(checkLocation.x, checkLocation.y, 2));
+		squares[x]=m_grid->get_actors_from_coord(glm::ivec3(checkLocation.x, checkLocation.y, 2));
 	}
-	//return emptySquares;
+	return squares;
 }

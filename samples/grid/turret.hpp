@@ -38,11 +38,22 @@ public:
 	}
 	void shoot()
 	{
-//		auto d = tod->get_interface_storage<damagable>();
-//		if (d)
-//		{
-//			d->health -= 10;
-//		}
+		int range = 3;
+		auto squares = squares_in_direction(get_grid_location(), my_direction, range);
+		piece* tod;
+		for (int x = 0; x < range; x++)
+		{
+			if (squares[x].size() != 0)
+			{
+				tod = squares[x][0];
+				break;
+			}
+		}
+		auto d = tod->get_interface_storage<damagable>();
+		if (d)
+		{
+			d->health -= 10;
+		}
 	}
 };
 
