@@ -1,4 +1,4 @@
-if(NOT EMSCRIPTEN)
+if(NOT EMSCRIPTEN AND NOT ANDROID)
     find_package(OpenGL REQUIRED)
 endif()
 
@@ -79,4 +79,3 @@ if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
 		wayland-client
 	)
 endif()
-

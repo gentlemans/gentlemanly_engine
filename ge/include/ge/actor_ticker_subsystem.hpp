@@ -21,11 +21,13 @@ struct actor_ticker_subsystem : subsystem {
 	/// Tick function--this calls each actor's tick function
 	virtual bool update(std::chrono::duration<float> delta) override
 	{
-		m_runtime->get_root_actor()->propagate_to_children([delta](actor& act) {
-			if (act.implements_interface<tickable>()) {
-				act.get_interface_storage<tickable>()->tickfunc(delta);
-			}
-		});
+		if (m_runtime->get_root_actor()) {
+			m_runtime->get_root_actor()->propagate_to_children([delta](actor& act) {
+				if (act.implements_interface<tickable>()) {
+					act.get_interface_storage<tickable>()->tickfunc(delta);
+				}
+			});
+		}
 
 		return true;
 	}

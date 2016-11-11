@@ -43,7 +43,7 @@ PUBLIC
 	BOOST_ALL_NO_LIB
 )
 
-if(NOT EMSCRIPTEN)
+if(NOT EMSCRIPTEN AND NOT ANDROID)
 	target_compile_features(gentlemanly_engine
 	PUBLIC
 		cxx_generic_lambdas

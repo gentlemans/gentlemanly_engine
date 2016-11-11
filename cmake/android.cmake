@@ -1,4 +1,4 @@
- 
+
 set(ANDROID_NDK_ROOT ${ANDROID_NDK})
 
 if (VERBOSE)
@@ -29,9 +29,9 @@ endif()
 # find the ant tool
 find_host_program(ANDROID_ANT ant)
 if (ANDROID_ANT)
-	message(STATUS "ant found")
+	message(STATUS "ant found at ${ANDROID_ANT}")
 else()
-	message(FATAL_ERROR "ant not found in path!")
+	message(FATAL_ERROR "${ANDROID_ANT} ant not found in path!")
 endif()
 
 if (GRADLE)
