@@ -15,6 +15,8 @@ class zombie : public piece
 public:
 	ge::mesh_actor* m_mesh;
 
+	boost::signals2::scoped_connection die_connect;
+
 	void initialize(glm::ivec3 location)
 	{
 		piece::initialize(location);
@@ -25,6 +27,9 @@ public:
 		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
 		m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
 			m_runtime->m_asset_manager.get_asset<ge::texture_asset>("zombie.texture");
+		die_connect = sig_die.connect([](piece* p) {
+			p->set_parent(NULL);
+		});
 	}
 	void move_closer_to_center();
 	void move_random();
