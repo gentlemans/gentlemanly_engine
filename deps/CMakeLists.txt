@@ -32,30 +32,30 @@ add_subdirectory(boost)
  	set(FREETYPE_LIBRARY "freetype")
  	set(FREETYPE_INCLUDE_DIRS "./")
  endif()
-#
-# # LIBROCKET
-#
-# set(BUILD_SHARED_LIBS OFF CACHE BOOL "")
-# set(BUILD_SAMPLES OFF CACHE BOOL "")
-# add_subdirectory(libRocket/Build)
-#
-# if(EMSCRIPTEN)
-# 	set_target_properties(RocketCore PROPERTIES COMPILE_FLAGS "-s USE_FREETYPE=1")
-# endif()
-#
-# if(NOT EMSCRIPTEN)
-# 	set(ALSOFT_UTILS OFF CACHE BOOL "")
-# 	set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
-# 	set(ALSOFT_TESTS OFF CACHE BOOL "")
-# 	set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
-#
-# #	add_subdirectory(openal-soft)
-#
-# 	if(WIN32)
-# 		set(OPENAL_LIBRARY OpenAL32)
-# 	else()
-# 		set(OPENAL_LIBRARY openal)
-# 	endif()
-#
-# 	set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openal-soft/include)
-# endif()
+
+ # LIBROCKET
+
+ set(BUILD_SHARED_LIBS OFF CACHE BOOL "")
+ set(BUILD_SAMPLES OFF CACHE BOOL "")
+ add_subdirectory(libRocket/Build)
+
+ if(EMSCRIPTEN)
+ 	set_target_properties(RocketCore PROPERTIES COMPILE_FLAGS "-s USE_FREETYPE=1")
+ endif()
+
+ if(NOT EMSCRIPTEN)
+ 	set(ALSOFT_UTILS OFF CACHE BOOL "")
+ 	set(ALSOFT_EXAMPLES OFF CACHE BOOL "")
+ 	set(ALSOFT_TESTS OFF CACHE BOOL "")
+ 	set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "")
+
+ 	add_subdirectory(openal-soft)
+
+ 	if(WIN32)
+ 		set(OPENAL_LIBRARY OpenAL32)
+ 	else()
+ 		set(OPENAL_LIBRARY openal)
+ 	endif()
+
+ 	set(OPENAL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openal-soft/include)
+ endif()
