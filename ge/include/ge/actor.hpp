@@ -209,19 +209,7 @@ public:
 
 	/// Sets the parent of the actor, unparenting it from the previous parent
 	/// \param new_parent The new parent of the actor
-	void set_parent(actor* new_parent) noexcept
-	{
-		// unparent from old parent
-		if (has_parent()) {
-			get_parent()->m_children.erase(shared_from_this());
-		}
-
-        if(new_parent) {
-            new_parent->m_children.insert(shared_from_this());
-            m_parent = new_parent;
-        }
-
-	}
+    void set_parent(actor* new_parent) noexcept;
 
 	/// Gets the parent actor
 	/// \return The parent actor if present, otherwise `nullptr`
