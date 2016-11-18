@@ -102,6 +102,27 @@ struct runtime {
 		return nullptr;
 	}
 
+	template<typename Interface>
+	void register_interface() {
+		
+		using boost::typeindex::type_id;
+		
+		m_interfaces[type_id<Interface>()] = std::make_shared<Interface>();
+	}
+	
+	template<typename Interface>
+	Interface* get_interface() {
+		
+		using boost::typeindex::type_id;
+		
+		auto iter = m_interfaces.find(type_id<Interface>());
+		if(iter == m_interfaces.end()) return nullptr;
+		
+		return static_cast<Interface*>(iter->second.get());
+		
+	}
+	
+	
 	/// Render the next frame
 	bool tick()
 	{
@@ -141,6 +162,7 @@ private:
 	std::shared_ptr<actor> m_root_actor;
 
 	std::unordered_map<boost::typeindex::type_index, std::unique_ptr<subsystem>> m_subsystems;
+	std::unordered_map<boost::typeindex::type_index, std::shared_ptr<void>> m_interfaces;
 	std::vector<subsystem*> m_add_order;
 
 	std::chrono::system_clock::time_point first_tick, last_tick;

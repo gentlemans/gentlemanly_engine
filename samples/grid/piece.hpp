@@ -31,7 +31,6 @@ public:
 	void initialize(glm::ivec3 loc)
 	{
 		m_grid = static_cast<grid*>(get_parent());
-		set_parent(m_grid);
 		set_relative_location({float(loc.x), float(loc.y)});
 		m_level = loc.z;
 	}

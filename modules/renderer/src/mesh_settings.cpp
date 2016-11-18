@@ -28,7 +28,7 @@ struct parameter_setter_visitor : boost::static_visitor<void> {
 struct attr_applying_visitor : boost::static_visitor<size_t> {
 	mesh const* m;
 	shader const* shad;
-	std::pair<const std::string, shader::attribute>* attr;
+	std::pair<const std::string, shader::attribute> const * attr;
 
 	template <typename T>
 	size_t operator()(T atrtype)
@@ -46,7 +46,7 @@ struct attr_applying_visitor : boost::static_visitor<size_t> {
 
 void mesh_settings::render(const glm::mat3& mvp) const
 {
-	auto shader_ref = *m_material.m_shader;
+	auto& shader_ref = *m_material.m_shader;
 
 	glUseProgram(shader_ref.m_program_name);
 	// set parameters

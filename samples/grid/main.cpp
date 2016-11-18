@@ -6,12 +6,15 @@
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
 #include <ge/timer_subsystem.hpp>
+#include <ge/renderable.hpp>
 
 #include <glm/glm.hpp>
 
 #include <cmath>
 #include <memory>
 #include "grid.hpp"
+#include "gridtick_interface.hpp"
+#include "damagable.hpp"
 #include "piece.hpp"
 #include "turret.hpp"
 #include "zombie.hpp"
@@ -28,13 +31,17 @@ using namespace ge;
 int main()
 {
 	runtime r;
-
+	
 	r.m_asset_manager.add_asset_path("data/");
 	r.add_subsystem<input_subsystem>({});
 	r.add_subsystem<timer_subsystem>({});
 	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {1024, 720}});
 	auto& rocket = r.add_subsystem<rocket_subsystem>({});
 
+	r.register_interface<renderable>();
+	r.register_interface<gridtick_interface>();
+	r.register_interface<damagable>();
+	
 	// load UI
 	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
 	doc->Show();
@@ -79,4 +86,6 @@ int main()
 	while (r.tick())
 		;
 #endif
+	
+	int& a = *(int*)0;
 }

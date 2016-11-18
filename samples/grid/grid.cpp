@@ -20,12 +20,24 @@ void grid::initialize(glm::ivec2 size, float tps)
 	auto timer = m_runtime->get_subsystem<ge::timer_subsystem>();
 
 	auto func = [this] {
-		m_runtime->get_root_actor()->propagate_to_children([](actor& act) {
-			auto storage = act.get_interface_storage<gridtick_interface>();
-			if (storage) {
-				storage->callback();
+		
+		auto* interface = m_runtime->get_interface<gridtick_interface>();
+		
+		assert(interface);
+		
+		std::vector<std::vector<std::weak_ptr<actor>>::iterator> toDel;
+		
+		for(auto actiter = interface->attached.begin(); actiter != interface->attached.end(); ++actiter) {
+			if(actiter->expired()) {
+				toDel.push_back(actiter);
+				continue;
 			}
-		});
+			actiter->lock()->get_interface_storage<gridtick_interface>()->callback();
+		}
+		
+		for(auto del : toDel) {
+			interface->attached.erase(del);
+		}
 
 		// actor::factory<zombie>(this, glm::ivec3{get_random(0, 10), get_random(0, 10), 2});
 	};

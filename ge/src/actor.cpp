@@ -9,8 +9,10 @@ actor::~actor()
 		child->m_parent = nullptr;
 	}
 
-	if (has_parent()) {
-		get_parent()->m_children.erase(shared_from_this());
+	if(has_parent()) {
+		std::remove_if(get_parent()->m_children.begin(), get_parent()->m_children.end(), [this](auto& sp) {
+			return sp.get() == this;
+		});
 	}
 }
 
@@ -37,8 +39,11 @@ void actor::set_parent(actor *new_parent) noexcept
 
     // unparent from old parent
     if (old_parent != nullptr) {
-        old_parent->m_children.erase(shared_from_this());
+		size_t numremoved = old_parent->m_children.erase(shared_from_this());
+		assert(numremoved);
     }
 
 }
+
+
 }

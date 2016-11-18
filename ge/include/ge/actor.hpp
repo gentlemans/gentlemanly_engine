@@ -112,15 +112,7 @@ public:
 	/// Adds an iterface to the actor. First template parameter is the actor type, second is the
 	/// interface.
 	template <typename ActorType, typename Interface, typename... ExtraArgs>
-	void add_interface(ExtraArgs&&... extraArgs)
-	{
-		static_assert(
-			std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
-
-		m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
-			Interface::template gen_interface<ActorType>(
-				static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));
-	}
+	void add_interface(ExtraArgs&&... extraArgs);
 
 	/// Query if this actor implements a certain interface
 	template <typename Interface>
@@ -225,6 +217,7 @@ public:
 		std::forward<F>(func)(*this);
 
 		for (auto child : m_children) {
+			if(!child) continue;
 			child->propagate_to_children(std::forward<F>(func));
 		}
 	}
@@ -232,6 +225,30 @@ public:
 	/// The runtime object that was passed down from the parent actor
 	runtime* m_runtime;
 };
+} // namespace ge
+
+#include "ge/runtime.hpp"
+
+namespace ge {
+
+template <typename ActorType, typename Interface, typename... ExtraArgs>
+void actor::add_interface(ExtraArgs&&... extraArgs)
+{
+    using boost::typeindex::type_id;
+
+    static_assert(
+        std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
+
+    auto* interface = m_runtime->get_interface<Interface>();
+    if(!interface) {
+        logger->warn("Tried to add interface " + type_id<Interface>().pretty_name() + " that wasn't registered. call runtime::register_interface");
+        return;
+    }
+
+    m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
+                         interface->template gen_interface<ActorType>(
+                             static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));
+}
 
 }  // namespace ge
 

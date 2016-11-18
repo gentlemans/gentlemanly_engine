@@ -67,6 +67,12 @@ public:
 		: shader{std::ifstream{vertex_filename}, std::ifstream{frag_filename}}
 	{
 	}
+	
+	shader(const shader&) = delete;
+	shader(shader&&) = delete;
+	
+	shader& operator=(const shader&) = delete;
+	shader& operator=(shader&&) = delete;
 
 	/// The metadata that is stored for attributes
 	struct attribute {
