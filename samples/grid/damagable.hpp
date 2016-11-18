@@ -13,6 +13,7 @@ struct damagable {
 
 		void damage(float amt) {
 			health = health - amt;
+
 			if (health <= 0)
 				pie->sig_die(pie);
 		}
