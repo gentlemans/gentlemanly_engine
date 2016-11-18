@@ -55,7 +55,7 @@ int main()
 	r.set_root_actor(root.get());
 
 	// initialize the grid
-    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 20.f);
+    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 5.f);
 	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
