@@ -17,7 +17,7 @@ void grid::initialize(glm::ivec2 size, float tps)
 
     auto b = ge::actor::factory<base>(this, glm::ivec3{size.x / 2, size.y / 2, 2});
 
-	auto timer = m_runtime->get_subsystem<ge::timer_subsystem>();
+    auto timersub = m_runtime->get_subsystem<ge::timer_subsystem>();
 
 	auto func = [this] {
 		
@@ -42,7 +42,10 @@ void grid::initialize(glm::ivec2 size, float tps)
 		// actor::factory<zombie>(this, glm::ivec3{get_random(0, 10), get_random(0, 10), 2});
 	};
 
-	timer->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
+    timersub->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
+
+    timer = ge::actor::factory<ticktimer>(this);
+
 }
 std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 {

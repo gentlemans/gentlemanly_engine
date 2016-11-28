@@ -7,6 +7,8 @@
 #include <random>
 #include <vector>
 
+#include "ticktimer.hpp"
+
 class piece;
 
 class grid : public ge::actor
@@ -36,4 +38,7 @@ public:
 		std::uniform_int_distribution<> uniform_int(lower, higher);
 		return uniform_int(rand_gen);
 	}
+
+    ticktimer* timer;
+
 };
