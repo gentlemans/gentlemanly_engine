@@ -44,7 +44,7 @@ void grid::initialize(glm::ivec2 size, float tps)
 
     timersub->add_timer(func, std::chrono::duration<float>(std::chrono::seconds(1)) / tps, true);
 
-    timer = ge::actor::factory<ticktimer>(this);
+    timer = ge::actor::factory<ticktimer>(this).get();
 
 }
 std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
