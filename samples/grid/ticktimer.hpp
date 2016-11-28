@@ -24,6 +24,9 @@ struct ticktimer : public ge::actor {
     }
 
     boost::signals2::connection addTimer(int nTicks, std::function<void()> call) {
+        if(callbacks.size() <= nTicks) {
+            callbacks.resize(nTicks + 1);
+        }
         return callbacks[nTicks].connect(call);
     }
 
