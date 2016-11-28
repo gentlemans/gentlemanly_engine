@@ -24,6 +24,10 @@ public:
         void(piece* p, glm::ivec3 new_loc, glm::ivec3 old_loc)
     > sig_move;
 
+    boost::signals2::signal<
+        void(piece* p, float amt)
+    > sig_damaged;
+
 	boost::signals2::signal<
 		void(piece*)
 	> sig_die;
