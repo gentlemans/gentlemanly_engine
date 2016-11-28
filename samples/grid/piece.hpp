@@ -11,7 +11,7 @@
 class piece : public ge::actor
 {
 public:
-    enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1 };
+    enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
 protected:
 	Directions my_direction = NORTH;
 public:
@@ -50,6 +50,23 @@ public:
 	glm::ivec3 get_grid_location() const
 	{
 		return {int(get_relative_location().x), int(get_relative_location().y), m_level};
+	}
+	Directions get_direction_to (glm::ivec2 initial, glm::ivec2 final)
+	{
+		int changeX = final.x - initial.x;
+		int changeY = final.y - initial.y;
+		if (changeX != 0 && changeY != 0)
+			return NONE;
+		if (changeX == 0 && changeY == 0)
+			return NONE;
+		if (changeX > 0)
+			return NORTH;
+		if (changeX < 0)
+			return SOUTH;
+		if (changeY > 0)
+			return EAST;
+		if (changeY < 0)
+			return WEST;
 	}
 	void rotate(Directions direction)
 	{

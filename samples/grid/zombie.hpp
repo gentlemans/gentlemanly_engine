@@ -17,9 +17,9 @@ public:
 	ge::mesh_actor* m_mesh;
 
 	boost::signals2::scoped_connection die_connect;
-	boost::signals2::scoped_connection ;
-	material zombie_mat;
-	material red_mat;
+	boost::signals2::scoped_connection take_damage;
+	ge::material zombie_mat;
+	ge::material red_mat;
 	void initialize(glm::ivec3 location)
 	{
 		piece::initialize(location);
@@ -36,7 +36,9 @@ public:
 		red_mat = *m_runtime->m_asset_manager.get_asset<ge::material_asset>("solid.material");
 		red_mat.set_parameter("Color", glm::vec4(1.f, 0.f, 0.f, 1.f));
 
-		sig_
+		take_damage = sig_damaged.connect([this](piece* p, float amt) {
+			m_mesh->m_mesh_settings.m_material = red_mat;
+		});
 
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);

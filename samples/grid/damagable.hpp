@@ -15,7 +15,7 @@ struct damagable {
 			health = health - amt;
 
             if(amt > 0.f) {
-                p->sig_damaged(amt);
+                pie->sig_damaged(pie, amt);
             }
 
 			if (health <= 0)
