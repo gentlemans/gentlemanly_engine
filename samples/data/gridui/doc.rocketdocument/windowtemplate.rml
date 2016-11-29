@@ -12,18 +12,6 @@
     }
     </style>
   </head>
-  <body>
-    Hello my
-
-    adf
-    d
-    f
-    sd
-    f
-    as
-    fs
-    adf
-    dsaf
-    
+  <body class="window">
   </body>
 </rml>

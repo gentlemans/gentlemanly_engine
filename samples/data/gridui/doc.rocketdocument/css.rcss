@@ -1,0 +1,4 @@
+body.window {
+  background-color: red;
+  color: black;
+}
