@@ -55,21 +55,25 @@ public:
 	{
 		int changeX = final.x - initial.x;
 		int changeY = final.y - initial.y;
+		Directions togo = NONE;
 		if (changeX != 0 && changeY != 0)
-			return NONE;
+			togo = NONE;
 		if (changeX == 0 && changeY == 0)
-			return NONE;
-		if (changeX > 0)
-			return NORTH;
-		if (changeX < 0)
-			return SOUTH;
+			togo = NONE;
 		if (changeY > 0)
-			return EAST;
+			togo = NORTH;
 		if (changeY < 0)
-			return WEST;
+			togo = SOUTH;
+		if (changeX > 0)
+			togo = EAST;
+		if (changeX < 0)
+			togo = WEST;
+		return togo;
 	}
 	void rotate(Directions direction)
 	{
+		if (direction == NONE)
+			return;
 		set_relative_rotation(direction*glm::half_pi<float>());
 		my_direction = direction;
 	}
