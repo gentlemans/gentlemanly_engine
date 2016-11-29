@@ -55,12 +55,12 @@ int main()
 	r.set_root_actor(root.get());
 
 	// initialize the grid
-    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 5.f);
+    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 1.f);
 	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
 	actor::factory<turret>(
-		g.get(), glm::ivec3(7, 7, 2));  // ->set_relative_rotation(glm::half_pi<float>());
+		g.get(), glm::ivec3(6, 6, 2));  // ->set_relative_rotation(glm::half_pi<float>());
 	for (int x = 0; x < 11; x++) {
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x, 2));

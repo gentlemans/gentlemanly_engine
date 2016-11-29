@@ -38,6 +38,7 @@ void zombie::move_closer_to_center()
 	}
 	thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
 	if (thingsAtPlace.size() == 0)
+		rotate(get_direction_to(glm::ivec2(get_grid_location().x,get_grid_location().y), myLocation));
 		set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 }
 
@@ -59,6 +60,7 @@ void zombie::move_random()
 	case Directions::SOUTH: myLocation.y--; break;
 	case Directions::WEST: myLocation.x--;
 	};
+	rotate(get_direction_to(glm::ivec2(get_grid_location().x, get_grid_location().y), myLocation));
 	set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 	return;
 }
