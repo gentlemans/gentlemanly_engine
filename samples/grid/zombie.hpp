@@ -38,9 +38,9 @@ public:
 
 		take_damage = sig_damaged.connect([this](piece* p, float amt) {
 			m_mesh->m_mesh_settings.m_material = red_mat;
-			m_grid->timer->addTimer(1, [this] {
+			m_grid->timer->add_timer(1, [this] {
 				m_mesh->m_mesh_settings.m_material = zombie_mat;
-			});
+			}, shared(this));
 		});
 
 		die_connect = sig_die.connect([](piece* p) {

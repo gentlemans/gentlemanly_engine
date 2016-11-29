@@ -18,17 +18,28 @@ struct ticktimer : public ge::actor {
 
     void tick_grid() {
         // run the callbakcs
-        callbacks[0]();
+		if(!callbacks.empty()) {
+			callbacks[0]();
+			
+			callbacks.pop_front();
+		}
 
-        callbacks.pop_front();
     }
 
-    boost::signals2::connection addTimer(int nTicks, std::function<void()> call) {
+    boost::signals2::connection add_timer(int nTicks, std::function<void()> call, const std::weak_ptr<void>& track) {
         if(callbacks.size() <= nTicks) {
             callbacks.resize(nTicks + 1);
         }
-        return callbacks[nTicks].connect(call);
+		return callbacks[nTicks].connect(boost::signals2::signal<void()>::slot_type(call).track_foreign(track));
     }
+    
+    boost::signals2::connection add_timer(int nTicks, std::function<void()> call) {
+		if(callbacks.size() <= nTicks) {
+			callbacks.resize(nTicks + 1);
+        }
+        
+		return callbacks[nTicks].connect(call);
+	}
 
 
 };
