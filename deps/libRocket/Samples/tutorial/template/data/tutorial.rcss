@@ -4,7 +4,7 @@ body
 	font-weight: normal;
 	font-style: normal;
 	font-size: 15;
-	color: white;
+	color: green;
 }
 
 body.window
