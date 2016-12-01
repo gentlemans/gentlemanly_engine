@@ -1,29 +1,21 @@
 <rml>
   <head>
-    <link type="text/css" href="css.rcss"/>
-    <title>Hello</title>
     <style>
-    body
-    {
-      width: 400px;
-      height: 300px;
-
-      margin: auto;
-    }
+      body {
+  			padding: 20px 20px 20px 20px;
+        font-family: "Roboto";
+        font-size: 500%;
+      }
+      #leftpane {
+        border-top: 20px;
+        border-color: blue;
+        background-color: red;
+      }
     </style>
   </head>
   <body>
-    Hello my
-
-    adf
-    d
-    f
-    sd
-    f
-    as
-    fs
-    adf
-    dsaf
-    
+    <div id="leftpane">
+      Hey doodes
+    </div>
   </body>
 </rml>
