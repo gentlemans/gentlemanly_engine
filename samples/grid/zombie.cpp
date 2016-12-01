@@ -19,7 +19,10 @@ void zombie::move_closer_to_center()
 	}
 	auto thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
 	if (thingsAtPlace.size() == 0)
-		set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
+	{
+		rotate(get_direction_to(glm::ivec2(get_grid_location().x, get_grid_location().y), myLocation));
+		set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
+	}
 	else {
 		myLocation = get_grid_location();
 		if (rand == 0) {
