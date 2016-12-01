@@ -43,9 +43,11 @@ public:
 			}, shared(this));
 		});
 
-		die_connect = sig_die.connect([](piece* p) {
+		die_connect = sig_die.connect([this](piece* p) {
+			m_grid->increment_z_count(false);
 			p->set_parent(NULL);
 		});
+		m_grid->increment_z_count(true);
 	}
 	void move_closer_to_center();
 	void move_random();

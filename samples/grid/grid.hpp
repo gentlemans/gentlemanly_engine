@@ -24,7 +24,7 @@ public:
 	glm::ivec2 get_size() const { return m_size; }
 	void increment_z_count(bool positive)
 	{
-		if (true)
+		if (positive)
 			z_count++;
 		else
 			z_count--;

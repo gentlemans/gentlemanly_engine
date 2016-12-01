@@ -59,11 +59,11 @@ int main()
 	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
-	//actor::factory<turret>(g.get(), glm::ivec3(6, 6, 2));  // ->set_relative_rotation(glm::half_pi<float>());
-	for (int x = 0; x < 11; x++) {
+	actor::factory<turret>(g.get(), glm::ivec3(6, 6, 2));  // ->set_relative_rotation(glm::half_pi<float>());
+	for (int x = 0; x < 12; x++) {
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
-		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x, 2));
-		actor::factory<zombiespawner>(g.get(), glm::ivec3(x, -1, 2));
+		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x-1, 2));
+		actor::factory<zombiespawner>(g.get(), glm::ivec3(x-1, -1, 2));
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(x, 11, 2));
 	}
 
