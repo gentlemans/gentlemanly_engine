@@ -28,6 +28,30 @@
 
 using namespace ge;
 
+struct hud : actor {
+  
+  grid* g;
+  Rocket::Core::ElementDocument* rdoc;
+  Rocket::Core::ElementText* text;
+  
+  void initialize(grid* gr, Rocket::Core::ElementDocument* doc){
+    g = gr;
+    rdoc = doc;
+    add_interface<hud, gridtick_interface>();
+    
+    auto zcount = doc->GetElementById("zcount");
+    text = rdoc->CreateTextNode("0");
+    zcount->AppendChild(text);
+  }
+  
+  void tick_grid() {
+    int zcount = g->get_z_count();
+    
+    text->SetText(std::to_string(zcount).c_str());
+  }
+  
+};
+
 int main()
 {
 	runtime r;
@@ -73,6 +97,8 @@ int main()
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
 
+    actor::factory<hud>(root.get(), g.get(), doc.get());
+    
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop_arg(
 		[](void* run_ptr) {

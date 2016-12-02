@@ -3,20 +3,15 @@
     <style>
       body {
         
-  			padding: 20px 20px 20px 20px;
+        padding: 20px 20px 20px 20px;
         font-family: "Roboto";
         font-size: 500%;
-      }
-      #leftpane {
-        border-top: 20px;
-        border-color: blue;
-        background-color: red;
       }
     </style>
   </head>
   <body>
-    <div id="leftpane">
-      Hey doodes
+    <div>
+      Zombie Count: <span id="zcount"></span>
     </div>
   </body>
 </rml>
