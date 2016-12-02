@@ -1,13 +1,6 @@
-<rml>
+﻿<rml>
   <head>
-    <style>
-      body {
-        
-        padding: 20px 20px 20px 20px;
-        font-family: "Roboto";
-        font-size: 500%;
-      }
-    </style>
+      <link type="text/css" href="rcss.rcss" />
   </head>
   <body>
     <div>
