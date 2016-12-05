@@ -3,7 +3,7 @@
       <link type="text/css" href="rcss.rcss" />
   </head>
   <body>
-    <div>
+    <div style="border-bottom: 20px rgb(0%, 23%, 80%);">
       Zombie Count: <span id="zcount"></span>
     </div>
   </body>

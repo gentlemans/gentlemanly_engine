@@ -150,22 +150,22 @@ struct input_passer_visitor : boost::static_visitor<void> {
 	void operator()(input_keyboard k)
 	{
 		if (k.m_pressed) {
-			context->ProcessKeyDown(
-				ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state));
+            std::cout << context->ProcessKeyDown(
+                ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state)) << std::endl;
 		} else {
-			context->ProcessKeyUp(
-				ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state));
+            std::cout << context->ProcessKeyUp(
+                ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state)) << std::endl;
 		}
 	}
 
 	void operator()(input_mouse_button mb)
 	{
 		if (mb.m_pressed) {
-			context->ProcessMouseButtonDown(
-				ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state));
+            std::cout << context->ProcessMouseButtonDown(
+                ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state)) << std::endl;
 		} else {
-			context->ProcessMouseButtonUp(
-				ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state));
+            std::cout << context->ProcessMouseButtonUp(
+                ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state)) << std::endl;
 		}
 	}
 

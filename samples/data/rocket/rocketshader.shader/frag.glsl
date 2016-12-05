@@ -10,7 +10,7 @@ varying vec4 vert_colors;
 
 void main()
 {
-	gl_FragColor = texture2D(tex, tex_coords) * (vert_colors / 255.0);
+	gl_FragColor = texture2D(tex, tex_coords) * vert_colors;
 
 	if(gl_FragColor.a < .01) discard;
 }

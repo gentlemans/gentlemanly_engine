@@ -646,7 +646,7 @@ static Element* FindFocusElement(Element* element)
 }
 
 // Sends a mouse-button down event into Rocket.
-void Context::ProcessMouseButtonDown(int button_index, int key_modifier_state)
+bool Context::ProcessMouseButtonDown(int button_index, int key_modifier_state)
 {
 	Dictionary parameters;
 	GenerateMouseEventParameters(parameters, button_index);
@@ -663,7 +663,7 @@ void Context::ProcessMouseButtonDown(int button_index, int key_modifier_state)
 			if (new_focus && new_focus != *focus)
 			{
 				if (!new_focus->Focus())
-					return;
+                    return true;
 			}
 		}
 
@@ -719,17 +719,20 @@ void Context::ProcessMouseButtonDown(int button_index, int key_modifier_state)
 				break;
 			}
 		}
+
+        return propogate;
 	}
 	else
 	{
 		// Not the primary mouse button, so we're not doing any special processing.
 		if (hover)
-			hover->DispatchEvent(MOUSEDOWN, parameters, true);
+            return hover->DispatchEvent(MOUSEDOWN, parameters, true);
 	}
+    return true;
 }
 
 // Sends a mouse-button up event into Rocket.
-void Context::ProcessMouseButtonUp(int button_index, int key_modifier_state)
+bool Context::ProcessMouseButtonUp(int button_index, int key_modifier_state)
 {
 	Dictionary parameters;
 	GenerateMouseEventParameters(parameters, button_index);
@@ -738,15 +741,16 @@ void Context::ProcessMouseButtonUp(int button_index, int key_modifier_state)
 	// Process primary click.
 	if (button_index == 0)
 	{
+        bool used = false;
 		// The elements in the new hover chain have the 'onmouseup' event called on them.
 		if (hover)
-			hover->DispatchEvent(MOUSEUP, parameters, true);
+            used = hover->DispatchEvent(MOUSEUP, parameters, true) || used;
 
 		// If the active element (the one that was being hovered over when the mouse button was pressed) is still being
 		// hovered over, we click it.
 		if (hover && active && active == FindFocusElement(*hover))
 		{
-			active->DispatchEvent(CLICK, parameters, true);
+            used = active->DispatchEvent(CLICK, parameters, true) || used;
 		}
 
 		// Unset the 'active' pseudo-class on all the elements in the active chain; because they may not necessarily
@@ -767,12 +771,12 @@ void Context::ProcessMouseButtonUp(int button_index, int key_modifier_state)
 				{
 					if (drag_verbose)
 					{
-						drag_hover->DispatchEvent(DRAGDROP, drag_parameters, true);
-						drag_hover->DispatchEvent(DRAGOUT, drag_parameters, true);
+                        used = drag_hover->DispatchEvent(DRAGDROP, drag_parameters, true) || used;
+                        used = drag_hover->DispatchEvent(DRAGOUT, drag_parameters, true) || used;
 					}
 				}
 
-				drag->DispatchEvent(DRAGEND, drag_parameters, true);
+                used = drag->DispatchEvent(DRAGEND, drag_parameters, true) || used;
 
 				ReleaseDragClone();
 			}
@@ -781,13 +785,17 @@ void Context::ProcessMouseButtonUp(int button_index, int key_modifier_state)
 			drag_hover = NULL;
 			drag_hover_chain.clear();
 		}
+
+        return !used;
 	}
 	else
 	{
 		// Not the left mouse button, so we're not doing any special processing.
 		if (hover)
-			hover->DispatchEvent(MOUSEUP, parameters, true);
+            return hover->DispatchEvent(MOUSEUP, parameters, true);
 	}
+
+    return true;
 }
 
 // Sends a mouse-wheel movement event into Rocket.
