@@ -67,12 +67,28 @@ void zombie::move_random()
 	set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 	return;
 }
+void zombie::move_off_spawner()
+{
+	glm::ivec2 myLocation = get_grid_location();
+	if (myLocation.x == -1 && myLocation.y == -1)
+	{
+
+	}
+}
 void zombie::tick_grid()
 {
 	glm::ivec2 myLocation = get_grid_location();
 	glm::ivec2 gridCenter = get_grid_center();
 	int totalDistance = std::abs(myLocation.x - gridCenter.x) + std::abs(myLocation.y -
 	gridCenter.y);
+	std::vector <piece*> actors_at_my_location = m_grid->get_actors_from_coord(get_grid_location());
+	for (int x = 0; x < actors_at_my_location.size(); x++)
+	{
+		if (typeid(*actors_at_my_location[x]) == typeid(zombiespawner))
+		{
+
+		}
+	}
 	if (m_grid->get_random(0, totalDistance) > 3)
 		move_closer_to_center();
 	else

@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "ticktimer.hpp"
+#include "zombiespawner.hpp"
 
 class piece;
 
@@ -52,6 +53,11 @@ private:
 					y = 11;
 				x = position;
 			}
+			actor::factory<zombiespawner>(this, glm::ivec3(x, y, 2));
+			timer->add_timer(1, [this] {
+				spawning = false;
+				try_spawn_z();
+			}, shared(this));
 		}
 		else
 			spawning = false;

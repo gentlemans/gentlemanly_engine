@@ -6,7 +6,8 @@
 #include <boost/signals2.hpp>
 
 #include <ge/actor.hpp>
-#include "grid.hpp"
+
+class grid;
 
 class piece : public ge::actor
 {
@@ -32,12 +33,7 @@ public:
 		void(piece*)
 	> sig_die;
 
-	void initialize(glm::ivec3 loc)
-	{
-		m_grid = static_cast<grid*>(get_parent());
-		set_relative_location({float(loc.x), float(loc.y)});
-		m_level = loc.z;
-	}
+	void initialize(glm::ivec3 loc);
 	void set_grid_location(glm::ivec3 loc)
 	{
         glm::ivec3 old = get_grid_location();

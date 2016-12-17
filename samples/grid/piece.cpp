@@ -1,4 +1,5 @@
 #include "piece.hpp"
+#include "grid.hpp"
 
 std::array<std::vector<piece*>, 4> piece::checkNearbySquares(glm::ivec2 myLocation)
 {
@@ -29,4 +30,12 @@ std::vector<std::vector<piece*>> piece::squares_in_direction(glm::ivec2 myLocati
 		squares[x]=m_grid->get_actors_from_coord(glm::ivec3(checkLocation.x, checkLocation.y, 2));
 	}
 	return squares;
+}
+
+
+void piece::initialize(glm::ivec3 loc)
+{
+	m_grid = static_cast<grid*>(get_parent());
+	set_relative_location({ float(loc.x), float(loc.y) });
+	m_level = loc.z;
 }
