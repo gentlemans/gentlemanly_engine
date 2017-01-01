@@ -70,9 +70,61 @@ void zombie::move_random()
 void zombie::move_off_spawner()
 {
 	glm::ivec2 myLocation = get_grid_location();
-	if (myLocation.x == -1 && myLocation.y == -1)
+	if (myLocation.x == -1)
 	{
-
+		if (myLocation.y == -1)
+		{
+			set_grid_location(glm::ivec3{ myLocation.x, myLocation.y+1, m_level });
+			return;
+		}
+		if (myLocation.y == 12)
+		{
+			set_grid_location(glm::ivec3{ myLocation.x+1, myLocation.y, m_level });
+			return;
+		}
+		std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x + 1,myLocation.y, m_level });
+		if (pvec.size() == 0)
+		{
+			set_grid_location(glm::ivec3{ myLocation.x + 1,myLocation.y, m_level });
+			return;
+		}
+	}
+	if (myLocation.x == 12)
+	{
+		if (myLocation.y == -1)
+		{
+			set_grid_location(glm::ivec3{ myLocation.x-1, myLocation.y, m_level });
+			return;
+		}
+		if (myLocation.y == 12)
+		{
+			set_grid_location(glm::ivec3{ myLocation.x, myLocation.y-1, m_level });
+			return;
+		}
+		std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x - 1,myLocation.y, m_level });
+		if (pvec.size() == 0)
+		{
+			set_grid_location(glm::ivec3{ myLocation.x - 1,myLocation.y, m_level });
+			return;
+		}
+		if (myLocation.y == -1)
+		{
+			std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x,myLocation.y+1, m_level });
+			if (pvec.size() == 0)
+			{
+				set_grid_location(glm::ivec3{ myLocation.x,myLocation.y+1, m_level });
+				return;
+			}
+		}
+		if (myLocation.y == 12)
+		{
+			std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x,myLocation.y - 1, m_level });
+			if (pvec.size() == 0)
+			{
+				set_grid_location(glm::ivec3{ myLocation.x,myLocation.y - 1, m_level });
+			}
+		}
+		std::cout << "Zombie on spawner not moved"<<'\n'; 
 	}
 }
 void zombie::tick_grid()
@@ -86,7 +138,7 @@ void zombie::tick_grid()
 	{
 		if (typeid(*actors_at_my_location[x]) == typeid(zombiespawner))
 		{
-
+			move_off_spawner();
 		}
 	}
 	if (m_grid->get_random(0, totalDistance) > 3)
