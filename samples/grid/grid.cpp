@@ -84,7 +84,6 @@ void grid::try_spawn_z()
 			x = position;
 		}
         actor::factory<zombie>(this, glm::ivec3(x, y, 2));
-        //increment_z_count(1);
 		timer->add_timer(1, [this] {
 			spawning = false;
 			try_spawn_z();
