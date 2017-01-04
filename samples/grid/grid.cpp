@@ -62,3 +62,37 @@ std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 
 	return ret;
 }
+void grid::try_spawn_z()
+{
+	if (z_count < max_z && spawning == false)
+	{
+		int x;
+		int y;
+		int bool1 = get_random(0, 1); //choses if the zombie will be spawned on x or y axis
+		int bool2 = get_random(0, 1); // choses if the zombie will be top or bottom/left or right
+		int position = get_random(0, 10); // choses where on that row/collumn the zombie will be spawned
+		if (bool1 == 1)
+		{
+			if (bool2 == 1)
+				x = -1;
+			else
+				x = 11;
+			y = position;
+		}
+		else
+		{
+			if (bool2 == 1)
+				y = -1;
+			else
+				y = 11;
+			x = position;
+		}
+		actor::factory<zombiespawner>(this, glm::ivec3(x, y, 2));
+		timer->add_timer(1, [this] {
+			spawning = false;
+			try_spawn_z();
+		}, shared(this));
+	}
+	else
+		spawning = false;
+}
