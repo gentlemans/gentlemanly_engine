@@ -24,19 +24,15 @@ void grid::initialize(glm::ivec2 size, float tps)
 		auto* interface = m_runtime->get_interface<gridtick_interface>();
 		
 		assert(interface);
-		
-		std::vector<std::vector<std::weak_ptr<actor>>::iterator> toDel;
-		
-		for(auto actiter = interface->attached.begin(); actiter != interface->attached.end(); ++actiter) {
-			if(actiter->expired()) {
-				toDel.push_back(actiter);
-				continue;
-			}
-			actiter->lock()->get_interface_storage<gridtick_interface>()->callback();
-		}
-		
-		for(auto del : toDel) {
-			interface->attached.erase(del);
+
+        for(auto id = 0ull; id != interface->attached.size(); /*don't ++ here because if we delete we don't want to*/) {
+            auto& weakActor = interface->attached[id];
+            if(weakActor.expired()) {
+                interface->attached.erase(interface->attached.begin() + id);
+            } else {
+                weakActor.lock()->get_interface_storage<gridtick_interface>()->callback();
+                ++id;
+            }
 		}
 
 		// actor::factory<zombie>(this, glm::ivec3{get_random(0, 10), get_random(0, 10), 2});
@@ -87,8 +83,8 @@ void grid::try_spawn_z()
 				y = 11;
 			x = position;
 		}
-		actor::factory<zombiespawner>(this, glm::ivec3(x, y, 2));
-		increment_z_count(1);
+        actor::factory<zombie>(this, glm::ivec3(x, y, 2));
+        //increment_z_count(1);
 		timer->add_timer(1, [this] {
 			spawning = false;
 			try_spawn_z();
