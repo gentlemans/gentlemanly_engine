@@ -80,9 +80,11 @@ int main()
 
 	// initialize the grid
     auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 1.f);
+	/*
 	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
+	*/
 	actor::factory<turret>(g.get(), glm::ivec3(6, 6, 2));  // ->set_relative_rotation(glm::half_pi<float>());
 	for (int x = 0; x < 12; x++) {
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
@@ -90,6 +92,7 @@ int main()
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(x-1, -1, 2));
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(x, 11, 2));
 	}
+	g->try_spawn_z();
 
 //    Rocket::Debugger::Initialise(rocket.m_context);
 //    Rocket::Debugger::SetVisible(true);
