@@ -19,10 +19,10 @@ struct input_consumer_base {
 /// The manager for input_consumers. It stores the active one and forwards all events to it.
 struct input_subsystem : subsystem {
 	/// The signature of a function that consumes input
-	using consumer_func = void(input_event event, input_consumer_base* ptr);
+	using consumer_func = bool(input_event event, input_consumer_base* ptr);
 
 	/// The index in \c consumers of the current consumer
-	size_t active_consumer;
+    std::deque<size_t> consumer_list;
 
 	/// No config needed
 	struct config {
@@ -37,12 +37,16 @@ struct input_subsystem : subsystem {
 	virtual bool update(std::chrono::duration<float>) override
 	{
 		// if the active consumer doesn't exist, then return early
-		if (consumers.size() <= active_consumer) return true;
 		size_t before_size = buffered_events.size();
 		if (before_size == 0) return true;  // No events
 
 		for (auto& ev : buffered_events) {
-			consumers[active_consumer].first(ev, consumers[active_consumer].second);
+            for(auto idIter = consumer_list.begin(); idIter != consumer_list.end(); ++idIter) {
+				if (consumers.size() <= *idIter) return true;
+                if(consumers[*idIter].first(ev, consumers[*idIter].second)) {
+					break; // done processing this event
+				}
+            }
 		}
 		// empty the buffer--conserve elements that were added during the callbacks.
 		buffered_events.erase(buffered_events.begin(), buffered_events.begin() + before_size);
@@ -66,13 +70,13 @@ struct input_consumer : input_consumer_base {
 	{
 		input_sub = run->get_subsystem<input_subsystem>();
 
-		// the input subsystem must be loaded before initialzing an input_consumer
+		// the input subsystem must be loaded before initializing an input_consumer
 		if (!input_sub) std::terminate();
 
-		input_sub->consumers.push_back({[](input_event event, input_consumer_base* ptr) {
+		input_sub->consumers.push_back({[](input_event event, input_consumer_base* ptr) -> bool {
 											Derived* der = static_cast<Derived*>(ptr);
 
-											der->handle_input(event);
+											return der->handle_input(event);
 										},
 			this});
 
@@ -81,7 +85,7 @@ struct input_consumer : input_consumer_base {
 
 protected:
 	/// This function is to be ran from the base class and it forwards all input to this class.
-	void steal_input() { input_sub->active_consumer = consumer_id; }
+    void steal_input() { input_sub->consumer_list.push_front(consumer_id); }
 private:
 	size_t consumer_id;
 	input_subsystem* input_sub;

@@ -52,6 +52,19 @@ struct hud : actor {
   
 };
 
+struct myIC : input_consumer<myIC> {
+
+	myIC(runtime* rt) : input_consumer(rt) {
+
+	}
+
+	bool handle_input(ge::input_event ev) {
+		std::cout << ev.type().name() << std::endl;
+		return true;
+	}
+
+};
+
 int main()
 {
 	runtime r;
@@ -79,7 +92,7 @@ int main()
 	r.set_root_actor(root.get());
 
 	// initialize the grid
-    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 1.f);
+    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 2.f);
 	/*
 	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
 	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));

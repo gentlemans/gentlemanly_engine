@@ -136,7 +136,8 @@ void zombie::tick_grid()
 	std::vector <piece*> actors_at_my_location = m_grid->get_actors_from_coord(get_grid_location());
 	for (int x = 0; x < actors_at_my_location.size(); x++)
 	{
-		if (typeid(*actors_at_my_location[x]) == typeid(zombiespawner))
+		auto& act = *actors_at_my_location[x];
+		if (typeid(act) == typeid(zombiespawner))
 		{
 			move_off_spawner();
 		}
