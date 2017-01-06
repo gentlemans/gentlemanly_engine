@@ -23,6 +23,7 @@ public:
 		piece::initialize(location);
 		add_interface<spike, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
+		mesh->m_mesh_settings.m_material.set_parameter("Texture", m_runtime->m_asset_manager.get_asset("spike.texture"));
 
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);
