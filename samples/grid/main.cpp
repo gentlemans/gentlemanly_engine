@@ -55,11 +55,12 @@ struct hud : actor {
 struct myIC : input_consumer<myIC> {
 
 	myIC(runtime* rt) : input_consumer(rt) {
-
+        steal_input();
 	}
 
 	bool handle_input(ge::input_event ev) {
-		std::cout << ev.type().name() << std::endl;
+        static int i = 0;
+		std::cout << i++ << std::endl;
 		return true;
 	}
 
@@ -109,6 +110,8 @@ int main()
 
 //    Rocket::Debugger::Initialise(rocket.m_context);
 //    Rocket::Debugger::SetVisible(true);
+
+    myIC otherIC{&r};
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
