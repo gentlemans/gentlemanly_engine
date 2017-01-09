@@ -10,6 +10,7 @@
 #include <ge/mesh.hpp>
 #include <ge/mesh_actor.hpp>
 #include <ge/texture_asset.hpp>
+#include "grid.hpp"
 
 class spike : public piece
 {
@@ -31,7 +32,8 @@ public:
 	}
 	void tick_grid()
 	{
-		auto nearby = checkNearbySquares(get_grid_location());
+		glm::ivec3 myLocation = get_grid_location();
+		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x,myLocation.y,2));
 		for (int x = 0; x < 4; x++)
 		{
 			Directions direction;
