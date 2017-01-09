@@ -19,6 +19,7 @@
 #include "turret.hpp"
 #include "zombie.hpp"
 #include "zombiespawner.hpp"
+#include "grid_rocket_element.hpp
 
 #include <Rocket/Debugger/Debugger.h>
 
@@ -52,20 +53,6 @@ struct hud : actor {
   
 };
 
-struct myIC : input_consumer<myIC> {
-
-	myIC(runtime* rt) : input_consumer(rt) {
-        steal_input();
-	}
-
-	bool handle_input(ge::input_event ev) {
-        static int i = 0;
-		std::cout << i++ << std::endl;
-		return true;
-	}
-
-};
-
 int main()
 {
 	runtime r;
@@ -86,7 +73,7 @@ int main()
 
 	auto root = actor::root_factory(&r);
 
-    auto camera = actor::factory<camera_actor>(root.get(), 13.f);
+    auto camera = actor::factory<camera_actor>(root.get(), 13.f, float(sdl->get_size().x) / float(sdl->get_size().y));
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
@@ -108,10 +95,24 @@ int main()
 	}
 	g->try_spawn_z();
 
-//    Rocket::Debugger::Initialise(rocket.m_context);
-//    Rocket::Debugger::SetVisible(true);
 
-    myIC otherIC{&r};
+
+    // create virtual rocket elements
+    auto vp = camera->get_vp_matrix();
+    auto tmpActor = actor::factory<piece>(g.get(), glm::ivec3(0, 0, 0));
+    for(int x = 0; x < 11; ++x) {
+        for(int y = 0; y < 11; ++y) {
+
+            auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x, y, 1);
+            auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + 1, y + 1, 1);
+
+            Rocket::Core::Factory::InstanceElement(doc.get(), )
+        }
+    }
+
+    Rocket::Debugger::Initialise(rocket.m_context);
+    Rocket::Debugger::SetVisible(true);
+
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
