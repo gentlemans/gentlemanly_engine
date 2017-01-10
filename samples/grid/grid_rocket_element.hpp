@@ -9,13 +9,28 @@
 
 #include <iostream>
 
+class grid_rocket_instancer : public Rocket::Core::ElementInstancer {
+    Rocket::Core::Element* InstanceElement(Rocket::Core::Element* parent,
+    const Rocket::Core::String& tag,
+    const Rocket::Core::XMLAttributes& attributes) override {
+        attributes.Get("start")->Get<glm::uvec3>();
+    }
+
+};
+
 class grid_rocket_element : public Rocket::Core::Element {
-    grid_rocket_element(glm::vec2 startPx, glm::vec2 sizePx, glm::uvec2 id) : Rocket::Core::Element("grid_rocket_element"), m_id{id} {
+    grid_rocket_element(glm::vec2 startPx, glm::vec2 sizePx, glm::uvec3 id) : Rocket::Core::Element("grid_rocket_element"), m_id{id} {
         Rocket::Core::Box b;
         b.SetOffset({startPx.x, startPx.y});
         b.SetContent({sizePx.x, sizePx.y});
 
         SetBox(b);
+    }
+
+    static void registerInstancer() {
+        Rocket::Core::ElementInstancer* custom_instancer = new Rocket::Core::ElementInstancerGeneric< grid_rocket_element >();
+        Rocket::Core::Factory::RegisterElementInstancer("grid_piece", custom_instancer);
+
     }
 
     void ProcessEvent(Rocket::Core::Event& ev) override  {
