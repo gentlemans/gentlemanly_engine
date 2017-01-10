@@ -24,7 +24,7 @@ public:
 		piece::initialize(location);
 		add_interface<spike, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
-		mesh->m_mesh_settings.m_material.set_parameter("Texture", m_runtime->m_asset_manager.get_asset("spike.texture"));
+		mesh->m_mesh_settings.m_material.set_parameter("Texture", m_runtime->m_asset_manager.get_asset<ge::texture_asset>("spike.texture"));
 
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);
@@ -34,38 +34,13 @@ public:
 	{
 		glm::ivec3 myLocation = get_grid_location();
 		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x,myLocation.y,2));
-		for (int x = 0; x < 4; x++)
+		for (int x = 0; x < actors.size(); x++)
 		{
-			Directions direction;
-			if (nearby[x].size() != 0)
+			auto d = actors[x]->get_interface_storage<damagable>();
+			if (d)
 			{
-				direction = Directions(x);
-				rotate(direction);
+				d->damage(10);
 			}
-			shoot();
-		}
-	}
-	void shoot()
-	{
-		int range = 3;
-		auto squares = squares_in_direction(get_grid_location(), my_direction, range);
-		piece* tod;
-		for (int x = 0; x < range; x++)
-		{
-			if (squares[x].size() != 0)
-			{
-				tod = squares[x][0];
-				break;
-			}
-			else if (x == range - 1)
-			{
-				return;
-			}
-		}
-		auto d = tod->get_interface_storage<damagable>();
-		if (d)
-		{
-			d->damage(10);
 		}
 	}
 };

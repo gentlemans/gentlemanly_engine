@@ -19,6 +19,8 @@
 #include "turret.hpp"
 #include "zombie.hpp"
 #include "zombiespawner.hpp"
+#include "spike.hpp"
+
 
 #include <Rocket/Debugger/Debugger.h>
 
@@ -94,12 +96,11 @@ int main()
 
 	// initialize the grid
     auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 2.f);
-	/*
-	actor::factory<zombie>(g.get(), glm::ivec3(1, 1, 2));
-	actor::factory<zombie>(g.get(), glm::ivec3(2, 4, 2));
-	actor::factory<zombie>(g.get(), glm::ivec3(2, 7, 2));
-	*/
-	actor::factory<turret>(g.get(), glm::ivec3(6, 6, 2));  // ->set_relative_rotation(glm::half_pi<float>());
+	actor::factory<spike>(g.get(), glm::ivec3(4, 4, 1));
+	actor::factory<spike>(g.get(), glm::ivec3(4, 6, 1));
+	actor::factory<spike>(g.get(), glm::ivec3(6, 4, 1));
+	actor::factory<spike>(g.get(), glm::ivec3(6, 6, 1));
+	actor::factory<turret>(g.get(), glm::ivec3(4, 5, 2));  // ->set_relative_rotation(glm::half_pi<float>());
 	for (int x = 0; x < 12; x++) {
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x-1, 2));
