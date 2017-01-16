@@ -1,0 +1,14 @@
+List of remotes for the subtrees:
+
+assimp: https://github.com/assimp/assimp
+freetype2: https://github.com/cpp-mirrors/freetype2
+glm: https://github.com/g-truc/glm
+libRocket: https://github.com/librocket/libRocket
+ogg: https://github.com/xiph/ogg
+openal-soft: https://github.com/kcat/openal-soft
+vorbis: https://github.com/xiph/vorbis
+
+spdlog: https://github.com/gabime/spdlog
+json: https://github.com/nlohmann/json
+
+glad: http://glad.dav1d.de/

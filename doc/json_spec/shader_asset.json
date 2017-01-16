@@ -16,6 +16,11 @@
 			"description": "The source file for the GLSL frragment shader, relative to the current asset path. Defaults to frag.glsl",
 			"type": "string"
 		},
+		"location_attribute_glsl_name": {
+			"description": "The name of the vertex location attribute",
+			"type": "string",
+			"pattern": "\\w+"
+		},
 		"vertex_attributes": {
 			"description": "The vertex attributes that this shader expects. These are to be added to a mesh.",
 			"type": "array",
@@ -26,15 +31,15 @@
 						"description": "The name of the attribute in the mesh.",
 						"type": "string"
 					},
-					"glsl_id": {
-						"description": "The ID of the attribute in the shader. ie: layout(location = n).",
-						"type": "integer",
-						"minimum": 0
+					"glsl_name": {
+						"description": "The name of the attribute in GLSL",
+						"type": "string",
+						"pattern": "\\w+"
 					},
 					"type": {
 						"description": "The type of the data",
 						"type": "string",
-						"pattern": "float|vec2|vec3|vec4"
+						"pattern": "int|float|vec2|vec3|vec4"
 					}
 				},
 				"required": ["name", "glsl_id", "type"]
@@ -49,7 +54,7 @@
 					"type": {
 						"description": "The type of the object",
 						"type": "string",
-						"pattern": "float|vec2|vec3|vec4|texture"
+						"pattern": "int|float|vec2|vec3|vec4|texture"
 					},
 					"glsl_name": {
 						"description": "The name of the uniorm in GLSL",
@@ -58,7 +63,7 @@
 					},
 					"glsl_offset": {
 						"description": "The offset from the uniorm location fetched by glsl_name. Used for arrays, 0 by default",
-						"type": "interger",
+						"type": "integer",
 						"minimum": 0
 					},
 					"name": {
@@ -66,16 +71,18 @@
 						"type": "string"
 					},
 					"default": {
-						"description": "The default value if it isn't overriden by the material",
+						"description": "The default value for the parameter",
 						"anyOf": [
 							{
 								"type": "string"
 							},
 							{
 								"type": "array",
-								"items": { "type": "number" },
-								"minItems": "2",
-								"maxItems": "4"
+								"items": {
+									"type": "number"
+								},
+								"minItems": 2,
+								"maxItems": 4
 							},
 							{
 								"type": "number"

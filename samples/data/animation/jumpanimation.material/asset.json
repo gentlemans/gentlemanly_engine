@@ -1,0 +1,9 @@
+{
+  "asset_type": "material",
+  "shader": "animation/animation.shader",
+  "parameters": {
+    "dimx": 6,
+    "dimy": 4,
+    "Texture": "animation/jumpanimation.texture"
+  }
+} 

@@ -1,5 +1,8 @@
 
-add_executable(opening_window main.cpp)
+ge_create_exe(tutorial01 "main.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/../data@data")
 
-target_link_libraries(opening_window gentlemanly_engine)
+target_link_libraries(tutorial01 
+	gentlemanly_engine 
+	gentlemanly_engine_renderer
+)
 

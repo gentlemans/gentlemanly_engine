@@ -1,0 +1,22 @@
+{
+	"$schema": "http://json-spec.org/draft-04/schema#",
+	"name": "Texture asset.json specification",
+	"description": "Texture asset.json specification for gentlemanly_engine",
+	"type": "object",
+	"properties": {
+		"asset_type": {
+			"type": "string",
+			"pattern": "texture"
+		},
+		"type": {
+			"description": "The image type",
+			"type": "string",
+			"pattern": "DDS|PNG"
+		},
+		"file": {
+			"description": "Path to image file",
+			"type": "string"
+		}
+	},
+	"required": ["asset_type"]
+}

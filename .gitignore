@@ -1,7 +1,10 @@
 .kdev4/
 *.kdev4
+.idea/
 
 build/
+embuild/
+cmake-build-debug/
 
 # For qt creator
 CMakeFiles/

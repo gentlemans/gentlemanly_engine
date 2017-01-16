@@ -1,18 +1,117 @@
 sudo: required
+language: cpp
+
 
 arch:
-    packages:
-        - sdl2
-        - qt5-base
-        - cmake
-        - assimp
-        - glm
-        - boost
-        - glu
-    script:
-        - cmake -DENTITYX_BUILD_TESTING=OFF .
-        - make
-        
-script:
-  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+  packages:
+    - cmake
+    - python
+    - nodejs
+    - llvm
+    - emscripten
+    - python2
+  script:
+    - git clone https://github.com/kripken/emscripten
+    - "export PATH=$PATH:`pwd`/emscripten && emcc --help && sed -i \"s/LLVM_ROOT.*/LLVM_ROOT='\\/usr\\/lib\\/emscripten-fastcomp'/\" ~/.emscripten && echo \"int main(){}\" > main.cpp &&  emcc main.cpp -o main.js -s USE_SDL=2 -s USE_FREETYPE=1 -s USE_OGG=1 -s USE_VORBIS=1"
+    - mkdir build
+    - export PATH=$PATH:`pwd`/emscripten && cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=../emscripten/cmake/Modules/Platform/Emscripten.cmake && make
 
+matrix:
+  include:
+    #- script:
+    #    - 'curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash'
+    #  env:
+    #    - 'ARCH_TRAVIS_MIRROR=http://mirrors.abscission.net/archlinux'
+    - compiler: gcc
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+            - cmake
+            - libwayland-dev
+      env:
+        - COMPILER=g++-6
+        - BUILD_TYPE=Debug
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.6
+          packages:
+            - clang-3.6
+            - libwayland-dev
+      env:
+        - COMPILER=clang++-3.6
+        - BUILD_TYPE=Debug
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang-3.7
+            - cmake
+            - libwayland-dev
+      env:
+        - COMPILER=clang++-3.7
+        - BUILD_TYPE=Debug
+    - os: osx
+      env: BUILD_TYPE=Debug
+
+    - compiler: gcc
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+            - cmake
+            - libwayland-dev
+      env:
+        - COMPILER=g++-6
+        - BUILD_TYPE=Release
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - george-edison55/cmake-3.x
+            - llvm-toolchain-precise-3.6
+          packages:
+            - clang-3.6
+            - libwayland-dev
+      env:
+        - COMPILER=clang++-3.6
+        - BUILD_TYPE=Release
+    - compiler: clang
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang-3.7
+            - cmake
+            - libwayland-dev
+      env:
+        - COMPILER=clang++-3.7
+        - BUILD_TYPE=Release
+    - os: osx
+      env: BUILD_TYPE=Release
+
+
+script:
+  - mkdir build
+  - cd build
+  - cmake .. -DCMAKE_CXX_FLAGS="-Wall" -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+  - make

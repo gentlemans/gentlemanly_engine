@@ -42,8 +42,7 @@ auto mesh = asset_man.get_asset<ge::mesh_asset>("myfavoritemesh");
 
 ```
 
-###Passing additional arguments to assets
-Some assets require extra arguments when loading for context, settings, or something like that. These arguments can be found out by looking at the documentation or the `load_asset` function of the asset if you are familiar with the API. To add extra arguments to an asset load, just add arguments in the correct type after the name of the asset and they will be passed to the loading function.
+Once an asset has been loaded once successfully, it is cached and will not be loaded again, and `get_asset` will return a copy of the same `shared_ptr` object. 
 
 ##The `asset.json`  file
 This file defines all the settings for your asset. Each asset has it's own specification living in it's documentation and C++ file. 
@@ -61,38 +60,24 @@ When defining a new asset, it is helpful to first write an JSON asset specificat
 First, start by opening a new `struct` or `class`. This class is pretty much never going to be instantiated, so all of the functions are static. There are a few settings aliases that are needed so `asset_manager` knows how to load your class. 
 
 ####The  `loaded_type` alias
-This is the type that is loaded. There is a intentional disconnect between the engine primitives and the loading classes because in general the primatives are more general than the loaders so people could theoretically write their own loaders easily. 
+This is the type that is loaded. There is a intentional disconnect between the engine primitives and the loading classes because in general the primitives are more general than the loaders so people could theoretically write their own loaders easily. 
 
 ```C++
 using loaded_type =  <your primitive type here>;
 ```
 
-####The `cached` alias
-One important part of asset loading is caching, but not all assets want caching, for whatever reason. In general, data storage types want caching (classes like [`shader`](https://gentlemans.github.io/classge_1_1shader.html) or [`texture`](https://gentlemans.github.io/classge_1_1texture.html)), and settings classes like [`material`](https://gentlemans.github.io/classge_1_1material.html) or  [`mesh_settings`](https://gentlemans.github.io/structge_1_1mesh__settings.html) don't want caching. The biggest difference between caching is that __non-cached types return `loaded_type` from `load_asset`, while cached assets return `std::shared_ptr<loaded_type>`__ 
-
-For non-cached assets, it is required for `loaded_type` to be default constructable, movable and copyable. There are no restrictions on cached assets. 
-
-
-
 ####The `asset_name` function
-Because each `asset.json` file is required to have an `asset_type` field, it is required that assets provide a short name for their asset to be checked aginst the `asset.json` file. This should just be a static function that return a `const char*`:
+Because each `asset.json` file is required to have an `asset_type` field, it is required that assets provide a short name for their asset to be checked against the `asset.json` file. This should just be a static function that return a `const char*`:
 
 ```C++
 static const char* asset_name() noexcept { return "material"; }
 ```
 
 ####The `load_asset` function
-This is the function that does all the heavy lifting for loading assets. The signautre is either:
+This is the function that does all the heavy lifting for loading assets. The signature is either:
 
 ```C++
-// Signature for cached assets
-static std::shared_ptr<loaded_type> load_asset(ge::asset_manager manager, const char* asset_name, const char* absolute_filepath, const  nlohmann::json& json_data, [ extra arguments... ]);
+static std::shared_ptr<loaded_type> load_asset(ge::asset_manager manager, const char* asset_name, const char* absolute_filepath, const  nlohmann::json& json_data);
 ```
-for cached assets or
 
-```C++
-// Signature for non-cached assets
-static loaded_type load_asset(ge::asset_manager manager, const char* asset_name, const char* absolute_filepath, const  nlohmann::json& json_data, [ extra arguments... ]);
-```
-for non-cached assets
 
