@@ -17,6 +17,8 @@ public:
         b.SetOffset({startPx.x, startPx.y});
         b.SetContent({sizePx.x, sizePx.y});
 
+        std::cout << "Good god instancing " << startPx.x << ", " << startPx.y << " ; " << sizePx.x << ", " << sizePx.y << std::endl;
+
         SetBox(b);
     }
 
