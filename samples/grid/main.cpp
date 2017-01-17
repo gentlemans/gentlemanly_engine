@@ -106,7 +106,13 @@ int main()
             auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x, y, 1);
             auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + 1, y + 1, 1);
 
-            Rocket::Core::Factory::InstanceElement(doc.get(), )
+            auto xml = Rocket::Core::XMLAttributes();
+            xml.Set("idx", x);
+            xml.Set("idy", y);
+            xml.Set("start", Rocket::Core::Vector2f{start.x, start.y});
+            xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
+
+            Rocket::Core::Factory::InstanceElement(doc.get(), "grid_rocket", "grid_rocket", xml);
         }
     }
 
