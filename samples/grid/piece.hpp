@@ -12,7 +12,16 @@ class grid;
 class piece : public ge::actor
 {
 public:
+	struct stats {
+		float health;
+		float damage;
+		float speed;
+		float regen;
+	};
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
+private:
+	stats inital;
+	stats now;
 protected:
 	Directions my_direction = NORTH;
 public:

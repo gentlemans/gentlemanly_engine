@@ -77,7 +77,7 @@ void zombie::move_off_spawner()
 			set_grid_location(glm::ivec3{ myLocation.x, myLocation.y+1, m_level });
 			return;
 		}
-		if (myLocation.y == 12)
+		if (myLocation.y == 11)
 		{
 			set_grid_location(glm::ivec3{ myLocation.x+1, myLocation.y, m_level });
 			return;
@@ -89,14 +89,14 @@ void zombie::move_off_spawner()
 			return;
 		}
 	}
-	if (myLocation.x == 12)
+	if (myLocation.x == 11)
 	{
 		if (myLocation.y == -1)
 		{
 			set_grid_location(glm::ivec3{ myLocation.x-1, myLocation.y, m_level });
 			return;
 		}
-		if (myLocation.y == 12)
+		if (myLocation.y == 11)
 		{
 			set_grid_location(glm::ivec3{ myLocation.x, myLocation.y-1, m_level });
 			return;
@@ -116,7 +116,7 @@ void zombie::move_off_spawner()
 				return;
 			}
 		}
-		if (myLocation.y == 12)
+		if (myLocation.y == 11)
 		{
 			std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x,myLocation.y - 1, m_level });
 			if (pvec.size() == 0)

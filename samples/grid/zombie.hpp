@@ -20,13 +20,13 @@ public:
 	boost::signals2::scoped_connection take_damage;
 	ge::material zombie_mat;
 	ge::material red_mat;
-	void initialize(glm::ivec3 location)
+
+	void initialize(glm::ivec3 location, stats stat)
 	{
 		piece::initialize(location);
 
 		add_interface<zombie, gridtick_interface>();
-		add_interface<zombie, damagable>(100.f);  // 100 starting health
-
+		
 		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
 		m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
 			m_runtime->m_asset_manager.get_asset<ge::texture_asset>("zombie.texture");
