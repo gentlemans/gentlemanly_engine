@@ -23,7 +23,7 @@ protected:
 	stats inital;
 	stats now;
 	Directions my_direction = NORTH;
-	void piece::modify_health(float damage);
+	void modify_health(float damage);
 public:
 	virtual void damage(float damage) {};
 	grid* m_grid;
