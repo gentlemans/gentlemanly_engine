@@ -23,7 +23,7 @@ set(GE_PUBLIC_SOURCES
 	include/ge/subsystem.hpp
         include/ge/timer_subsystem.hpp
 	include/ge/transform.hpp
-)
+        ../samples/grid/grid_rocket_element.hpp)
 
 add_library(gentlemanly_engine ${GE_PUBLIC_SOURCES} ${GE_PRIVATE_SOURCES})
 
