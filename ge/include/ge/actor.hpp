@@ -245,6 +245,7 @@ void actor::add_interface(ExtraArgs&&... extraArgs)
         return;
     }
 
+	// if you get an error here, that means you didn't have the right arguments to actor::add_interface
     m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
                          interface->template gen_interface<ActorType>(
                              static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));

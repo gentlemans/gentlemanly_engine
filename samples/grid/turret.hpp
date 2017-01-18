@@ -5,7 +5,7 @@
 
 #include "piece.hpp"
 #include "gridtick_interface.hpp"
-#include "damagable.hpp"
+
 
 #include <ge/mesh.hpp>
 #include <ge/mesh_actor.hpp>
@@ -18,11 +18,14 @@ class turret : public piece
 	boost::signals2::scoped_connection die_connect;
 
 public:
+	void damage(float damage) override
+	{
+		now.health
+	}
 	void initialize(glm::uvec3 location)
 	{
 		piece::initialize(location);
 		add_interface<turret, gridtick_interface>();
-		add_interface<turret, gridtick_interface>(250);
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 
 		die_connect = sig_die.connect([](piece* p) {
@@ -60,11 +63,7 @@ public:
 				return;
 			}
 		}
-		auto d = tod->get_interface_storage<damagable>();
-		if (d)
-		{
-			d->damage(10);
-		}
+		tod->damage(now.damage);
 	}
 };
 

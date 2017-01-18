@@ -5,7 +5,6 @@
 #include <ge/runtime.hpp>
 #include <ge/texture_asset.hpp>
 #include <ge/material_asset.hpp>
-#include "damagable.hpp"
 #include "grid.hpp"
 #include "gridtick_interface.hpp"
 #include "piece.hpp"
@@ -36,18 +35,19 @@ public:
 		red_mat = *m_runtime->m_asset_manager.get_asset<ge::material_asset>("solid.material");
 		red_mat.set_parameter("Color", glm::vec4(1.f, 0.f, 0.f, 1.f));
 
-		take_damage = sig_damaged.connect([this](piece* p, float amt) {
-			m_mesh->m_mesh_settings.m_material = red_mat;
-			m_grid->timer->add_timer(1, [this] {
-				m_mesh->m_mesh_settings.m_material = zombie_mat;
-			}, shared(this));
-		});
-
 		die_connect = sig_die.connect([this](piece* p) {
 			m_grid->increment_z_count(false);
 			p->set_parent(NULL);
 		});
 		m_grid->increment_z_count(true);
+	}
+	void damage(float damage) override
+	{
+		m_mesh->m_mesh_settings.m_material = red_mat;
+		m_grid->timer->add_timer(1, [this] {
+			m_mesh->m_mesh_settings.m_material = zombie_mat;
+		});
+		modify_health(-damage);
 	}
 	void move_closer_to_center();
 	void move_random();

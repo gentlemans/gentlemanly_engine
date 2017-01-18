@@ -39,3 +39,16 @@ void piece::initialize(glm::ivec3 loc)
 	set_relative_location({ float(loc.x), float(loc.y) });
 	m_level = loc.z;
 }
+
+void piece::modify_health(float amount)
+{
+	now.health = now.health + amount;
+	if (now.health > inital.health)
+		now.health = inital.health;
+	if (amount<0)
+		sig_damaged(this, amount);
+	if (now.health <= 0)
+	{
+		sig_die(this);
+	}
+}

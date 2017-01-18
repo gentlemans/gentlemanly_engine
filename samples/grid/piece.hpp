@@ -13,18 +13,19 @@ class piece : public ge::actor
 {
 public:
 	struct stats {
-		float health;
-		float damage;
-		float speed;
-		float regen;
+		float health =1;
+		float damage =1;
+		float speed =1;
+		float regen =0;
 	};
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
-private:
+protected:
 	stats inital;
 	stats now;
-protected:
 	Directions my_direction = NORTH;
+	void piece::modify_health(float damage);
 public:
+	virtual void damage(float damage) {};
 	grid* m_grid;
 	int m_level;
 	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);
