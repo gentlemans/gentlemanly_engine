@@ -97,6 +97,8 @@ int main()
 
 
 
+	grid_rocket_instancer::registerInstancer();
+
     // create virtual rocket elements
     auto vp = camera->get_vp_matrix();
     auto tmpActor = actor::factory<piece>(g.get(), glm::ivec3(0, 0, 0));
@@ -105,6 +107,14 @@ int main()
 
             auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x, y, 1);
             auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + 1, y + 1, 1);
+
+			start += 1;
+			start.x *= (float)sdl.get_size().x / 2.f;
+			start.y *= (float)sdl.get_size().y / 2.f;
+
+			end += 1;
+			end.x *= (float)sdl.get_size().x / 2.f;
+			end.y *= (float)sdl.get_size().y / 2.f;
 
             auto xml = Rocket::Core::XMLAttributes();
             xml.Set("idx", x);
