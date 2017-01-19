@@ -46,7 +46,7 @@ public:
 		m_mesh->m_mesh_settings.m_material = red_mat;
 		m_grid->timer->add_timer(1, [this] {
 			m_mesh->m_mesh_settings.m_material = zombie_mat;
-		});
+		}, shared(this));
 		modify_health(-damage);
 	}
 	void move_closer_to_center();
