@@ -126,8 +126,8 @@ int main()
         }
     }
 
-    Rocket::Debugger::Initialise(rocket.m_context);
-    Rocket::Debugger::SetVisible(true);
+    //Rocket::Debugger::Initialise(rocket.m_context);
+    //Rocket::Debugger::SetVisible(true);
 
 
 	rocket_input_consumer ic{&r};
