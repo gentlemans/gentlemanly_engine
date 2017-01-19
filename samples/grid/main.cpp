@@ -122,13 +122,18 @@ int main()
             xml.Set("start", Rocket::Core::Vector2f{start.x, start.y});
             xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
 
-            Rocket::Core::Factory::InstanceElement(doc.get(), "grid_rocket", "grid_rocket", xml);
+            auto elem = Rocket::Core::Factory::InstanceElement(doc.get(), "grid_rocket", "grid_rocket", xml);
+
+			auto str = "grid_" + std::to_string(x) + "_" + std::to_string(y);
+			elem->SetId(str.c_str());
         }
     }
 
-    //Rocket::Debugger::Initialise(rocket.m_context);
-    //Rocket::Debugger::SetVisible(true);
+    Rocket::Debugger::Initialise(rocket.m_context);
+    Rocket::Debugger::SetVisible(true);
 
+	auto elem = rocket.m_context->GetElementAtPoint({500, 500}, nullptr, doc.get());
+	//std::cout << "CHosen: " << elem->GetId().CString();
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
