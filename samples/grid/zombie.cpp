@@ -82,10 +82,15 @@ void zombie::move_off_spawner()
 			set_grid_location(glm::ivec3{ myLocation.x+1, myLocation.y, m_level });
 			return;
 		}
-		std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x + 1,myLocation.y, m_level });
+		std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x + 1,myLocation.y, 2 });
 		if (pvec.size() == 0)
 		{
 			set_grid_location(glm::ivec3{ myLocation.x + 1,myLocation.y, m_level });
+			return;
+		}
+		else
+		{
+			set_grid_location(glm::ivec3{ myLocation.x,myLocation.y+1, m_level });
 			return;
 		}
 	}
@@ -101,27 +106,43 @@ void zombie::move_off_spawner()
 			set_grid_location(glm::ivec3{ myLocation.x, myLocation.y-1, m_level });
 			return;
 		}
-		std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x - 1,myLocation.y, m_level });
+		std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x - 1,myLocation.y, 2 });
 		if (pvec.size() == 0)
 		{
 			set_grid_location(glm::ivec3{ myLocation.x - 1,myLocation.y, m_level });
 			return;
 		}
+		else
+		{
+			set_grid_location(glm::ivec3{ myLocation.x,myLocation.y-1, m_level });
+			return;
+		}
 		if (myLocation.y == -1)
 		{
-			std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x,myLocation.y+1, m_level });
+			std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x,myLocation.y+1, 2 });
 			if (pvec.size() == 0)
 			{
 				set_grid_location(glm::ivec3{ myLocation.x,myLocation.y+1, m_level });
 				return;
 			}
+			else
+			{
+				set_grid_location(glm::ivec3{ myLocation.x - 1,myLocation.y, m_level });
+				return;
+			}
 		}
 		if (myLocation.y == 11)
 		{
-			std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x,myLocation.y - 1, m_level });
+			std::vector<piece *> pvec = m_grid->get_actors_from_coord(glm::ivec3{ myLocation.x,myLocation.y - 1, 2 });
 			if (pvec.size() == 0)
 			{
 				set_grid_location(glm::ivec3{ myLocation.x,myLocation.y - 1, m_level });
+				return;
+			}
+			else
+			{
+				set_grid_location(glm::ivec3{ myLocation.x+1,myLocation.y, m_level });
+				return;
 			}
 		}
 		std::cout << "Zombie on spawner not moved"<<'\n'; 
@@ -140,10 +161,17 @@ void zombie::tick_grid()
 		if (typeid(act) == typeid(zombiespawner))
 		{
 			move_off_spawner();
+			return;
 		}
 	}
 	if (m_grid->get_random(0, totalDistance) > 3)
+	{
 		move_closer_to_center();
+		return;
+	}
 	else
+	{
 		move_random();
+		return;
+	}
 }

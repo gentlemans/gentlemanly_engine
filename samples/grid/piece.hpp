@@ -13,10 +13,11 @@ class piece : public ge::actor
 {
 public:
 	struct stats {
-		float health =1;
-		float damage =1;
-		float speed =1;
-		float regen =0;
+		stats(float h = 1, float d = 1, float s = 1, float r = 0) : health{ h }, damage{ d }, speed{ s }, regen{ r } {}
+		float health;
+		float damage;
+		float speed;
+		float regen;
 	};
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
 protected:
