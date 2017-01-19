@@ -20,7 +20,7 @@ class turret : public piece
 public:
 	void damage(float damage) override
 	{
-		now.health
+		modify_health(-damage);
 	}
 	void initialize(glm::uvec3 location)
 	{
