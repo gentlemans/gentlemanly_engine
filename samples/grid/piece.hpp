@@ -31,6 +31,7 @@ public:
 	int m_level;
 	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);
     std::vector<std::vector<piece*>> squares_in_direction(glm::ivec2 myLocation, Directions direction, int range);
+	glm::ivec2 get_location_from_direction(glm::ivec3 myLocation, Directions direction, int Length);
 
     boost::signals2::signal<
         void(piece* p, glm::ivec3 new_loc, glm::ivec3 old_loc)
@@ -77,6 +78,7 @@ public:
 			togo = WEST;
 		return togo;
 	}
+
 	void rotate(Directions direction)
 	{
 		if (direction == NONE)

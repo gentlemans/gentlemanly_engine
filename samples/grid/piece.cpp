@@ -12,7 +12,6 @@ std::array<std::vector<piece*>, 4> piece::checkNearbySquares(glm::ivec2 myLocati
 
 	return emptySquares;
 }
-
 std::vector<std::vector<piece*>> piece::squares_in_direction(glm::ivec2 myLocation, Directions direction, int range)
 {
 	glm::ivec2 checkLocation = myLocation;
@@ -30,6 +29,21 @@ std::vector<std::vector<piece*>> piece::squares_in_direction(glm::ivec2 myLocati
 		squares[x]=m_grid->get_actors_from_coord(glm::ivec3(checkLocation.x, checkLocation.y, 2));
 	}
 	return squares;
+}
+glm::ivec2 piece::get_location_from_direction(glm::ivec3 myLocation, Directions direction, int Length)
+{
+	glm::ivec2 finalDirection(myLocation.x, myLocation.y);
+	switch (direction)
+	{
+	case NORTH:finalDirection.y = finalDirection.y + Length;
+		return;
+	case WEST:finalDirection.x = finalDirection.x - Length;
+		return;
+	case SOUTH:finalDirection.y = finalDirection.y - Length;
+		return;
+	case EAST:finalDirection.x = finalDirection.x + Length;
+	}
+	return finalDirection;
 }
 
 

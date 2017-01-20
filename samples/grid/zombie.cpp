@@ -148,6 +148,10 @@ void zombie::move_off_spawner()
 		}
 		std::cout << "Zombie on spawner not moved"<<'\n'; 
 }
+void zombie::damage_in_direction(Directions d)
+{
+
+}
 void zombie::tick_grid()
 {
 	glm::ivec2 myLocation = get_grid_location();
