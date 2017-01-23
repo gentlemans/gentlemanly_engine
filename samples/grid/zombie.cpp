@@ -1,4 +1,5 @@
 #include "zombie.hpp"
+#include "connector.hpp"
 void zombie::move_closer_to_center()
 {
 	glm::ivec2 myLocation = get_grid_location();
@@ -154,9 +155,9 @@ void zombie::damage_in_direction(Directions d)
 	}
 	rotate(d);
 	attacking = true;
-	p[0]->sig_moved.connect([this](piece*) {
+	connect_track(p[0]->sig_moved, [this](piece*) {
 		attacking = false;
-	});
+	}, shared(this));
 	p[0]->damage(now.damage);
 }
 void zombie::tick_grid()

@@ -5,7 +5,6 @@
 
 #include "piece.hpp"
 #include "gridtick_interface.hpp"
-#include "damagable.hpp"
 
 #include <ge/mesh.hpp>
 #include <ge/mesh_actor.hpp>
@@ -36,11 +35,7 @@ public:
 		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x,myLocation.y,2));
 		for (int x = 0; x < actors.size(); x++)
 		{
-			auto d = actors[x]->get_interface_storage<damagable>();
-			if (d)
-			{
-				d->damage(10);
-			}
+			actors[x]->damage(10);
 		}
 	}
 };

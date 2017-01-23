@@ -14,7 +14,6 @@
 #include <memory>
 #include "grid.hpp"
 #include "gridtick_interface.hpp"
-#include "damagable.hpp"
 #include "piece.hpp"
 #include "turret.hpp"
 #include "zombie.hpp"
@@ -66,7 +65,6 @@ int main()
 
 	r.register_interface<renderable>();
 	r.register_interface<gridtick_interface>();
-	r.register_interface<damagable>();
 	
 	// load UI
 	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
