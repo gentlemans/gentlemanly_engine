@@ -17,32 +17,17 @@ void zombie::move_closer_to_center()
 			myLocation.y++;
 		}
 	}
-	auto thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
+	auto thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, m_level});
 	if (thingsAtPlace.size() == 0)
 	{
 		rotate(get_direction_to(glm::ivec2(get_grid_location().x, get_grid_location().y), myLocation));
 		set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
 	}
-	else {
-		myLocation = get_grid_location();
-		if (rand == 0) {
-			if (wayToGo.x < 0) {
-				myLocation.x--;
-			} else if (wayToGo.x > 0) {
-				myLocation.x++;
-			}
-		} else {
-			if (wayToGo.y < 0) {
-				myLocation.y--;
-			} else if (wayToGo.y > 0) {
-				myLocation.y++;
-			}
-		}
+	else
+	{
+		glm::ivec3 TrueLocation= get_grid_location();
+		damage_in_direction(get_direction_to(glm::ivec2(TrueLocation.x, TrueLocation.y), glm::ivec2(myLocation.x, myLocation.y)));
 	}
-	thingsAtPlace = m_grid->get_actors_from_coord({myLocation.x, myLocation.y, 2});
-	if (thingsAtPlace.size() == 0)
-		rotate(get_direction_to(glm::ivec2(get_grid_location().x,get_grid_location().y), myLocation));
-		set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
 }
 
 void zombie::move_random()
@@ -50,8 +35,15 @@ void zombie::move_random()
 	glm::ivec2 myLocation = get_grid_location();
 	std::array<std::vector<piece*>, 4> nearbySquares = checkNearbySquares(myLocation);
 	std::vector<int> empties;
-	for (int x = 0; x < 4; x++) {
-		if (nearbySquares[x].size() == 0) {
+	for (int x = 0; x < 4; x++)
+	{
+		if (nearbySquares[x].size() == 0) 
+		{
+			empties.push_back(x);
+		}
+		else
+		{
+			empties.push_back(x);
 			empties.push_back(x);
 		}
 	}
@@ -64,7 +56,10 @@ void zombie::move_random()
 	case Directions::WEST: myLocation.x--;
 	};
 	rotate(get_direction_to(glm::ivec2(get_grid_location().x, get_grid_location().y), myLocation));
-	set_grid_location(glm::ivec3{myLocation.x, myLocation.y, m_level});
+	if (m_grid->get_actors_from_coord(glm::ivec3(myLocation.x, myLocation.y, 2)).size() == 0)
+		set_grid_location(glm::ivec3{ myLocation.x, myLocation.y, m_level });
+	else
+		damage_in_direction(my_direction);
 	return;
 }
 void zombie::move_off_spawner()
@@ -150,7 +145,10 @@ void zombie::move_off_spawner()
 }
 void zombie::damage_in_direction(Directions d)
 {
-
+	glm::ivec2 target = get_location_from_direction(get_grid_location(), d, 1);
+	std::vector<piece*> p = m_grid->get_actors_from_coord(glm::ivec3(target.x, target.y, 2));
+	rotate(d);
+	p[0]->damage(now.damage);
 }
 void zombie::tick_grid()
 {

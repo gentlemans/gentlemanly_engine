@@ -36,11 +36,11 @@ glm::ivec2 piece::get_location_from_direction(glm::ivec3 myLocation, Directions 
 	switch (direction)
 	{
 	case NORTH:finalDirection.y = finalDirection.y + Length;
-		return;
+		break;
 	case WEST:finalDirection.x = finalDirection.x - Length;
-		return;
+		break;
 	case SOUTH:finalDirection.y = finalDirection.y - Length;
-		return;
+		break;
 	case EAST:finalDirection.x = finalDirection.x + Length;
 	}
 	return finalDirection;
