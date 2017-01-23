@@ -177,6 +177,7 @@ void zombie::tick_grid()
 	if (attacking == true) //second priority attack if you just attacked something
 	{
 		damage_in_direction(my_direction);
+        return;
 	}
 	int totalDistance = std::abs(myLocation.x - gridCenter.x) + std::abs(myLocation.y - gridCenter.y);
 	if (m_grid->get_random(0, totalDistance) > 3)
