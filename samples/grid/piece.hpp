@@ -33,6 +33,9 @@ public:
     std::vector<std::vector<piece*>> squares_in_direction(glm::ivec2 myLocation, Directions direction, int range);
 	glm::ivec2 get_location_from_direction(glm::ivec3 myLocation, Directions direction, int Length);
 
+	boost::signals2::signal<
+		void(piece* p)
+	> sig_moved;
     boost::signals2::signal<
         void(piece* p, glm::ivec3 new_loc, glm::ivec3 old_loc)
     > sig_move;
