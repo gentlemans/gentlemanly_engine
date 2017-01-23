@@ -147,7 +147,16 @@ void zombie::damage_in_direction(Directions d)
 {
 	glm::ivec2 target = get_location_from_direction(get_grid_location(), d, 1);
 	std::vector<piece*> p = m_grid->get_actors_from_coord(glm::ivec3(target.x, target.y, 2));
+	if (p.size() < 1)
+	{
+		move_random();
+		return;
+	}
 	rotate(d);
+	attacking = true;
+	p[0]->sig_moved.connect([this](piece*) {
+		attacking = false;
+	});
 	p[0]->damage(now.damage);
 }
 void zombie::tick_grid()

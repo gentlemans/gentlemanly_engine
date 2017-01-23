@@ -58,6 +58,10 @@ std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 
 	return ret;
 }
+piece::stats grid::generate_stats()
+{
+
+}
 void grid::try_spawn_z()
 {
 	if (z_count < max_z && spawning == false)

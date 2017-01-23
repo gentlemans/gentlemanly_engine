@@ -20,6 +20,7 @@ class grid : public ge::actor
 	unsigned int max_z = 20;
 	const int z_spawn_delay = 1;
 	bool spawning = false;
+	piece::stats generate_stats();
 public:
 	ticktimer* timer;
 	int get_random(int lower, int higher)
