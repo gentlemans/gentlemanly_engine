@@ -17,7 +17,7 @@ class grid : public ge::actor
 	glm::ivec2 m_size;
 	std::mt19937 rand_gen;
 	unsigned int z_count=0;
-	unsigned int max_z = 5;
+	unsigned int max_z = 20;
 	const int z_spawn_delay = 1;
 	bool spawning = false;
 public:
