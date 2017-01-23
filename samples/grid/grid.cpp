@@ -58,10 +58,11 @@ std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 
 	return ret;
 }
-piece::stats grid::generate_stats()
+/*piece::stats grid::generate_stats()
 {
 
 }
+*/
 void grid::try_spawn_z()
 {
 	if (z_count < max_z && spawning == false)
@@ -87,7 +88,7 @@ void grid::try_spawn_z()
 				y = 11;
 			x = position;
 		}
-        actor::factory<zombie>(this, glm::ivec3(x, y, 2), piece::stats(100, 10, 1, 0));
+        actor::factory<zombie>(this, glm::ivec3(x, y, 2), piece::stats(10000, 10, 1, 0));
 		timer->add_timer(1, [this] {
 			spawning = false;
 			try_spawn_z();

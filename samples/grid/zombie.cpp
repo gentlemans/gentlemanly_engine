@@ -148,9 +148,10 @@ void zombie::damage_in_direction(Directions d)
 {
 	glm::ivec2 target = get_location_from_direction(get_grid_location(), d, 1);
 	std::vector<piece*> p = m_grid->get_actors_from_coord(glm::ivec3(target.x, target.y, 2));
-	if (p.size() < 1)
+	if (p.size() < 1 || typeid(p[0])==typeid(zombiespawner))
 	{
 		move_random();
+		attacking = false;
 		return;
 	}
 	rotate(d);

@@ -14,7 +14,7 @@ class zombie : public piece
 {
 	glm::ivec2 get_grid_center() { return {m_grid->get_size().x / 2, m_grid->get_size().y / 2}; }
 	void damage_in_direction(Directions d);
-	float attacking;
+	bool attacking;
 public:
 	ge::mesh_actor* m_mesh;
 
