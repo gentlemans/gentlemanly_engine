@@ -17,7 +17,20 @@ class turret : public piece
 
 	boost::signals2::scoped_connection die_connect;
 
+	std::array<int, 1> upgrades;
 public:
+	enum upgradesenum {
+		DamagePlus,
+		HealthPlus,
+		RegenPlus,
+	};
+	void increment_upgrade(upgradesenum to_increment, bool positive)
+	{
+		if (positive)
+			upgrades[to_increment]++;
+		else
+			upgrades[to_increment]--;
+	}
 	void damage(float damage) override
 	{
 		modify_health(-damage);
