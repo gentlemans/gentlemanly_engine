@@ -22,8 +22,9 @@ public:
 	{
 		modify_health(-damage);
 	}
-	void initialize(glm::uvec3 location)
+	void initialize(glm::uvec3 location, Directions direction)
 	{
+		my_direction = direction;
 		piece::initialize(location);
 		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
@@ -33,18 +34,8 @@ public:
 		});
 	}
 	void tick_grid()
-    {
-        auto nearby = checkNearbySquares(get_grid_location());
-        for (int x = 0; x < 4; x++)
-        {
-            Directions direction;
-            if (nearby[x].size() != 0)
-            {
-                direction = Directions(x);
-                rotate(direction);
-            }
-			shoot();
-        }
+    {      
+		shoot();
 	}
 	void shoot()
 	{
