@@ -20,12 +20,22 @@ public:
 		float regen;
 	};
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
+
+    std::list<std::pair<std::function<void(stats&)>, std::weak_ptr<void>>> mBuffs;
 protected:
 	stats inital;
 	stats now;
 	Directions my_direction = NORTH;
 	void modify_health(float damage);
 public:
+    std::function<void()> add_buff(std::function<void(stats&)> buff_applyer, int amt, std::weak_ptr<void> track) {
+        mBuffs.emplace_back(buff_applyer, track);
+
+    }
+    void run_buffs(stats& toModify) {
+
+    }
+
 	virtual void damage(float damage) {};
 	grid* m_grid;
 	int m_level;

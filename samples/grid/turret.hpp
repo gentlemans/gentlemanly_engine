@@ -18,6 +18,7 @@ class turret : public piece
 	boost::signals2::scoped_connection die_connect;
 
 public:
+
 	void damage(float damage) override
 	{
 		modify_health(-damage);

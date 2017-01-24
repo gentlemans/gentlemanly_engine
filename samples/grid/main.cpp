@@ -65,7 +65,7 @@ int main()
 
 	r.register_interface<renderable>();
 	r.register_interface<gridtick_interface>();
-	
+
 	// load UI
 	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
 	doc->Show();
@@ -84,7 +84,11 @@ int main()
 	actor::factory<spike>(g.get(), glm::ivec3(4, 6, 1));
 	actor::factory<spike>(g.get(), glm::ivec3(6, 4, 1));
 	actor::factory<spike>(g.get(), glm::ivec3(6, 6, 1));
-	actor::factory<turret>(g.get(), glm::ivec3(4, 5, 2));  // ->set_relative_rotation(glm::half_pi<float>());
+
+	actor::factory<turret>(g.get(), glm::ivec3(4, 5, 2), piece::WEST);
+	actor::factory<turret>(g.get(), glm::ivec3(5, 6, 2), piece::NORTH);
+	actor::factory<turret>(g.get(), glm::ivec3(4, 7, 2), piece::EAST);
+	actor::factory<turret>(g.get(), glm::ivec3(5, 6, 2), piece::SOUTH);
 	for (int x = 0; x < 12; x++) {
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x-1, 2));
