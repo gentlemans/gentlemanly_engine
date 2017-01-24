@@ -59,9 +59,11 @@ void piece::modify_health(float amount)
 	now.health = now.health + amount;
 	if (now.health > inital.health)
 		now.health = inital.health;
-	if (amount<0)
+	if (now.health < 0)
+		now.health = 0;
+	if (amount>0)
 		sig_damaged(this, amount);
-	if (now.health <= 0)
+	if (now.health == 0)
 	{
 		sig_die(this);
 	}

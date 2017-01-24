@@ -26,7 +26,8 @@ public:
 	void initialize(glm::ivec3 location, stats stat)
 	{
 		piece::initialize(location);
-
+		now = stat;
+		inital = stat;
 		add_interface<zombie, gridtick_interface>();
 		
 		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
