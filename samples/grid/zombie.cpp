@@ -180,8 +180,8 @@ void zombie::tick_grid()
 		damage_in_direction(my_direction);
         return;
 	}
-	int totalDistance = std::abs(myLocation.x - gridCenter.x) + std::abs(myLocation.y - gridCenter.y);
-	if (m_grid->get_random(0, totalDistance) > 3)
+	//int totalDistance = std::abs(myLocation.x - gridCenter.x) + std::abs(myLocation.y - gridCenter.y);
+	if (m_grid->get_random(0, 10) > 5)
 	{
 		move_closer_to_center();
 		return;
