@@ -39,7 +39,7 @@ int main()
 		root_actor.get(), "animation/jumpanimation.meshsettings", 40.f);
 
 	// create a camera to see through
-	auto camera = actor::factory<camera_actor>(root_actor.get(), 4);
+	auto camera = actor::factory<camera_actor>(root_actor.get(), 4, float(sdl.get_size().x) / float(sdl.get_size().y));
 	sdl.set_camera(camera.get());
 
 #ifdef EMSCRIPTEN
