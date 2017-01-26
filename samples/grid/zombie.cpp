@@ -4,7 +4,13 @@ void zombie::move_closer_to_center()
 {
 	glm::ivec2 myLocation = get_grid_location();
 	glm::ivec2 wayToGo = get_grid_center() - myLocation;
-	int rand = m_grid->get_random(0, 1);
+	int rand;
+	if (wayToGo.x != 0 && wayToGo.y != 0)
+		rand = m_grid->get_random(0, 1);
+	else if (wayToGo.x == 0)
+		rand = 0;
+	else if (wayToGo.y == 0)
+		rand = 1;
 	if (rand == 1) {
 		if (wayToGo.x < 0) {
 			myLocation.x--;
