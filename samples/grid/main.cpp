@@ -87,8 +87,8 @@ int main()
 
 	actor::factory<turret>(g.get(), glm::ivec3(4, 5, 2), piece::WEST);
 	actor::factory<turret>(g.get(), glm::ivec3(5, 6, 2), piece::NORTH);
-	actor::factory<turret>(g.get(), glm::ivec3(4, 7, 2), piece::EAST);
-	actor::factory<turret>(g.get(), glm::ivec3(5, 6, 2), piece::SOUTH);
+	actor::factory<turret>(g.get(), glm::ivec3(6, 5, 2), piece::EAST);
+	actor::factory<turret>(g.get(), glm::ivec3(5, 4, 2), piece::SOUTH);
 	for (int x = 0; x < 12; x++) {
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
 		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x-1, 2));

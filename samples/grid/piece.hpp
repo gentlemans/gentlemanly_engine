@@ -31,9 +31,16 @@ public:
     std::function<void()> add_buff(std::function<void(stats&)> buff_applyer, int amt, std::weak_ptr<void> track) {
         mBuffs.emplace_back(buff_applyer, track);
 
+        // TODO: recalculate stats
     }
     void run_buffs(stats& toModify) {
-
+        for(auto iter = mBuffs.begin(); iter != mBuffs.end(); ++iter) {
+            if(iter->second.expired()) {
+                mBuffs.erase(iter);
+            } else {
+                iter->first(toModify);
+            }
+        }
     }
 
 	virtual void damage(float damage) {};
