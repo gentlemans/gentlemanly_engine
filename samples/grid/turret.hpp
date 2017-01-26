@@ -31,6 +31,7 @@ public:
 		else
 			upgrades[to_increment]--;
 	}
+
 	void damage(float damage) override
 	{
 		modify_health(-damage);
