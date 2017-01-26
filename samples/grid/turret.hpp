@@ -38,7 +38,7 @@ public:
 	}
 	void initialize(glm::uvec3 location, Directions direction)
 	{
-		my_direction = direction;
+		rotate(direction);
 		piece::initialize(location);
 		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
