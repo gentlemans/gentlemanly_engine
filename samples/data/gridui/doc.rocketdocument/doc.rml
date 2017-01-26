@@ -6,6 +6,6 @@
     <div style="border-bottom: 3px rgb(0%, 23%, 80%);">
       Zombie Count: <span id="zcount"></span>
     </div>
-    <div style="position: absolute; width: 55.3846; height: 55.3846; top: 733.537; left: 415.636">a</div>
+    <div style="position: absolute; width: 55.3846px; height: 55.3846px; bottom: 733.537px; left: 415.636px;">a</div>
   </body>
 </rml>
