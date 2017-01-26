@@ -124,7 +124,10 @@ int main()
             xml.Set("start", Rocket::Core::Vector2f{start.x, start.y});
             xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
 
-            auto elem = Rocket::Core::Factory::InstanceElement(doc.get(), "grid_rocket", "grid_rocket", xml);
+            auto elem = Rocket::Core::Factory::InstanceElement(nullptr, "grid_rocket", "grid_rocket", xml);
+            auto text = doc->CreateTextNode("1");
+            //elem->AppendChild(text);
+            doc->AppendChild(elem);
 
 			auto str = "grid_" + std::to_string(x) + "_" + std::to_string(y);
 			elem->SetId(str.c_str());

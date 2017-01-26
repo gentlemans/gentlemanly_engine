@@ -20,6 +20,7 @@ public:
         std::cout << "Good god instancing " << startPx.x << ", " << startPx.y << " ; " << sizePx.x << ", " << sizePx.y << std::endl;
 
         SetBox(b);
+
     }
 
 
@@ -42,6 +43,7 @@ public:
         glm::uvec2 id = {attributes.Get("idx")->Get<int>(), attributes.Get("idy")->Get<int>()};
         glm::vec2 start = {attributes.Get("start")->Get<Rocket::Core::Vector2f>().x, attributes.Get("start")->Get<Rocket::Core::Vector2f>().y};
         glm::vec2 size = {attributes.Get("size")->Get<Rocket::Core::Vector2f>().x, attributes.Get("size")->Get<Rocket::Core::Vector2f>().y};
+
 
         return new grid_rocket_element(start, size, id);
     }

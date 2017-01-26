@@ -22,12 +22,26 @@ public:
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
 
     std::list<std::pair<std::function<void(stats&)>, std::weak_ptr<void>>> mBuffs;
+	std::unordered_map<std::string, int> m_upgrades;
 protected:
 	stats inital;
 	stats now;
 	Directions my_direction = NORTH;
 	void modify_health(float damage);
 public:
+	bool has_upgrade(const std::string& test) const {
+		return m_upgrades.find(test) == m_upgrades.end();
+	}
+	int get_upgrade(const std::string& name) const {
+		if(has_upgrade(name)) {
+			return m_upgrades.find(name)->second;
+		}
+		return -1;
+	}
+	void set_upgrade(const std::string& name, int val) {
+		m_upgrades[name] = val;
+		// TODO: signals
+	}
     std::function<void()> add_buff(std::function<void(stats&)> buff_applyer, int amt, std::weak_ptr<void> track) {
         mBuffs.emplace_back(buff_applyer, track);
 
