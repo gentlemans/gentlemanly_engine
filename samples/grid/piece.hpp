@@ -28,6 +28,7 @@ protected:
 	stats initial;
 	stats buffed;
 	stats now;
+	int countdown_to_action=0;
 	Directions my_direction = NORTH;
 	void modify_health(float damage);
 public:

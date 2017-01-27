@@ -45,12 +45,20 @@ public:
 		now.damage = 50;
 		inital.health = 100;
 		now.health = 100;
+		now.speed = 4;
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);
 		});
 	}
 	void tick_grid()
-    {      
+    {  
+		if (countdown_to_action >= 0)
+		{
+			countdown_to_action--;
+			return;
+		}
+		else
+			countdown_to_action = now.speed;
 		shoot();
 	}
 	void shoot()
@@ -71,6 +79,7 @@ public:
 			}
 		}
 		tod->damage(now.damage);
+		tod->add_buff([](stats& s) { s.speed = 0;  }, 100, shared(this));
 	}
 };
 
