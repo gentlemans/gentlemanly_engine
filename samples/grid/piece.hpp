@@ -8,8 +8,6 @@
 #include <ge/actor.hpp>
 #include "grid.hpp"
 
-class grid;
-
 class piece : public ge::actor
 {
 public:
