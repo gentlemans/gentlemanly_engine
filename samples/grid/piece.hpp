@@ -6,6 +6,7 @@
 #include <boost/signals2.hpp>
 
 #include <ge/actor.hpp>
+#include "grid.hpp"
 
 class grid;
 
@@ -24,7 +25,8 @@ public:
     std::list<std::pair<std::function<void(stats&)>, std::weak_ptr<void>>> mBuffs;
 	std::unordered_map<std::string, int> m_upgrades;
 protected:
-	stats inital;
+	stats initial;
+	stats buffed;
 	stats now;
 	Directions my_direction = NORTH;
 	void modify_health(float damage);
@@ -42,17 +44,28 @@ public:
 		m_upgrades[name] = val;
 		// TODO: signals
 	}
-    std::function<void()> add_buff(std::function<void(stats&)> buff_applyer, int amt, std::weak_ptr<void> track) {
+    std::function<void()> add_buff(std::function<void(stats&)> buff_applyer, int duration, std::weak_ptr<void> track) {
         mBuffs.emplace_back(buff_applyer, track);
 
-        // TODO: recalculate stats
+		auto buffIter = mBuffs.end();
+		buffIter--;
+
+		m_grid->timer->add_timer(duration, [=]{
+			mBuffs.erase(buffIter);
+
+			recalculate_buffs();
+		}, track);
+
+		recalculate_buffs();
+
     }
-    void run_buffs(stats& toModify) {
+    void recalculate_buffs() {
+		buffed = initial;
         for(auto iter = mBuffs.begin(); iter != mBuffs.end(); ++iter) {
             if(iter->second.expired()) {
                 mBuffs.erase(iter);
             } else {
-                iter->first(toModify);
+                iter->first(buffed);
             }
         }
     }
