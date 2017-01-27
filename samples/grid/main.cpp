@@ -79,7 +79,7 @@ int main()
 	r.set_root_actor(root.get());
 
 	// initialize the grid
-    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 2.f);
+    auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 20.f);
 	actor::factory<spike>(g.get(), glm::ivec3(4, 4, 1));
 	actor::factory<spike>(g.get(), glm::ivec3(4, 6, 1));
 	actor::factory<spike>(g.get(), glm::ivec3(6, 4, 1));

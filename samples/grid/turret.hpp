@@ -45,7 +45,7 @@ public:
 		now.damage = 50;
 		inital.health = 100;
 		now.health = 100;
-		now.speed = 0;
+		now.speed = 4;
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);
 		});
@@ -79,6 +79,7 @@ public:
 			}
 		}
 		tod->damage(now.damage);
+		tod->add_buff([](stats& s) { s.speed = 0;  }, 100, shared(this));
 	}
 };
 

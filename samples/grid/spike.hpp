@@ -31,11 +31,18 @@ public:
 	}
 	void tick_grid()
 	{
+		if (countdown_to_action >= 0)
+		{
+			countdown_to_action--;
+			return;
+		}
+		else
+			countdown_to_action = now.speed;
 		glm::ivec3 myLocation = get_grid_location();
 		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x,myLocation.y,2));
 		for (int x = 0; x < actors.size(); x++)
 		{
-			actors[x]->damage(10);
+			actors[x]->damage(3);
 		}
 	}
 };
