@@ -4,7 +4,6 @@
 #define GENTLEMANLY_ENGINE_GRID_ROCKET_ELEMENT_HPP
 
 #include <Rocket/Core.h>
-#include <Rocket/Core/ElementS
 
 #include <glm/glm.hpp>
 
@@ -20,7 +19,6 @@ public:
 
         std::cout << "Good god instancing " << startPx.x << ", " << startPx.y << " ; " << sizePx.x << ", " << sizePx.y << std::endl;
 
-        GetStyle()->
         SetBox(b);
 
     }

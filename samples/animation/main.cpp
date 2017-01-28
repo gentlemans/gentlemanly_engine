@@ -16,6 +16,10 @@ int main()
 {
 	// create a runtime object
 	runtime r;
+	
+	r.register_interface<renderable>();
+	r.register_interface<tickable>();
+
 
 	// make sure it can find assets. This will fail if working directory isn't
 	// gentlemanly_engine/samples

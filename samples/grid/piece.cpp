@@ -54,11 +54,39 @@ void piece::initialize(glm::ivec3 loc)
 	m_level = loc.z;
 }
 
+std::function<void()> piece::add_buff(std::function<void(stats&)> buff_applyer, int duration, std::weak_ptr<void> track) {
+		std::cout << "1";
+		std::cout.flush();
+        mBuffs.emplace_back(buff_applyer, track);
+
+		std::cout << "2";
+		std::cout.flush();
+
+		auto buffIter = mBuffs.end();
+		buffIter--;
+
+
+		std::cout << "3";
+		std::cout.flush();
+
+		m_grid->timer->add_timer(duration, [=]{
+			mBuffs.erase(buffIter);
+
+			recalculate_buffs();
+		}, track);
+
+		std::cout << "4";
+		std::cout.flush();
+
+		recalculate_buffs();
+
+    }
+
 void piece::modify_health(float amount)
 {
 	now.health = now.health + amount;
-	if (now.health > inital.health)
-		now.health = inital.health;
+	if (now.health > initial.health)
+		now.health = initial.health;
 	if (now.health < 0)
 		now.health = 0;
 	if (amount>0)

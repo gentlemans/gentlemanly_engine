@@ -27,7 +27,7 @@ public:
 	{
 		piece::initialize(location);
 		now = stat;
-		inital = stat;
+		initial = stat;
 		add_interface<zombie, gridtick_interface>();
 		
 		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();

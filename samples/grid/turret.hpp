@@ -43,7 +43,7 @@ public:
 		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 		now.damage = 50;
-		inital.health = 100;
+		initial.health = 100;
 		now.health = 100;
 		now.speed = 4;
 		die_connect = sig_die.connect([](piece* p) {
