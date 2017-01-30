@@ -9,11 +9,11 @@
 
 #include <iostream>
 
+#include "grid.hpp"
 
 class grid_rocket_element : public Rocket::Core::Element {
 public:
     grid_rocket_element(glm::vec2 startPx, glm::vec2 sizePx, glm::uvec2 id) : Rocket::Core::Element("grid_rocket_element"), m_id{id} {
-        std::cout << "Good god instancing " << startPx.x << ", " << startPx.y << " ; " << sizePx.x << ", " << sizePx.y << std::endl;
 
         SetProperty("position", "absolute");
         SetProperty("left", std::to_string(startPx.x).c_str());
@@ -21,11 +21,13 @@ public:
         SetProperty("width", std::to_string(sizePx.x).c_str());
         SetProperty("height", std::to_string(sizePx.y).c_str());
 
+        //SetProperty("background-color", ("rgb(0%, " + std::to_string(rand() % 256)+ "%, " + std::to_string(rand() % 256) + "%)").c_str());
+
     }
 
 
     void ProcessEvent(Rocket::Core::Event& ev) override  {
-        if(ev.GetType() == "mouse") {
+        if(ev.GetType() == "mousedown") {
             std::cout << m_id.x << ", " << m_id.y << ", " << std::endl;
         }
     }

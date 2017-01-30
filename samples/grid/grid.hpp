@@ -50,7 +50,7 @@ public:
 		return z_count;
 	}
 
-
+	static grid* global_grid;
     
 
 };

@@ -8,8 +8,13 @@
 
 #include "gridtick_interface.hpp"
 
+
+grid* grid::global_grid = nullptr;
+
 void grid::initialize(glm::ivec2 size, float tps)
 {
+	global_grid = this;
+
     // the 0.5 is because the locations are the centers, so we need to account for that
     set_relative_location(glm::vec2(-float(size.x) / 2.f + 0.5, -float(size.y) / 2.f + 0.5));
 

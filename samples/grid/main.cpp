@@ -34,6 +34,7 @@ struct hud : actor {
   grid* g;
   Rocket::Core::ElementDocument* rdoc;
   Rocket::Core::ElementText* text;
+	Rocket::Core::ElementText* resourceamount;
   
   void initialize(grid* gr, Rocket::Core::ElementDocument* doc){
     g = gr;
@@ -43,6 +44,10 @@ struct hud : actor {
     auto zcount = doc->GetElementById("zcount");
     text = rdoc->CreateTextNode("0");
     zcount->AppendChild(text);
+
+	  auto resCount = doc->GetElementById("resamt");
+	  resourceamount = rdoc->CreateTextNode("0");
+
   }
   
   void tick_grid() {

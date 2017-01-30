@@ -78,6 +78,7 @@ public:
 				return;
 			}
 		}
+		tod->damage(now.damage);
 	}
 };
 
