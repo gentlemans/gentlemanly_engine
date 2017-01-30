@@ -15,6 +15,7 @@ class zombie : public piece
 	glm::ivec2 get_grid_center() { return {m_grid->get_size().x / 2, m_grid->get_size().y / 2}; }
 	void damage_in_direction(Directions d);
 	bool attacking;
+	double Calculate_Resources();
 public:
 	ge::mesh_actor* m_mesh;
 
@@ -29,7 +30,6 @@ public:
 		now = stat;
 		initial = stat;
 		add_interface<zombie, gridtick_interface>();
-		
 		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
         m_mesh->m_mesh_settings.m_material.m_shader = m_runtime->m_asset_manager.get_asset<ge::shader_asset>("zombie.shader");
 		m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
@@ -44,6 +44,7 @@ public:
 
 		die_connect = sig_die.connect([this](piece* p) {
 			m_grid->increment_z_count(false);
+			m_grid->change_resources(Calculate_Resources());
 			p->set_parent(NULL);
 		});
 		m_grid->increment_z_count(true);

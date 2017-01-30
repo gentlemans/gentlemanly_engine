@@ -167,6 +167,10 @@ void zombie::damage_in_direction(Directions d)
 	}, shared(this));
 	p[0]->damage(now.damage);
 }
+double zombie::Calculate_Resources()
+{
+	return initial.damage*initial.health*initial.speed;
+}
 void zombie::tick_grid()
 {
 	if (countdown_to_action >= 0)
