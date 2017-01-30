@@ -108,8 +108,8 @@ int main()
     for(int x = 0; x < 11; ++x) {
         for(int y = 0; y < 11; ++y) {
 
-            auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x, y, 1);
-            auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + 1, y + 1, 1);
+            auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x - .5, y - .5, 1);
+            auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + .5, y + .5, 1);
 
 			start += 1;
 			start.x *= (float)sdl.get_size().x / 2.f;

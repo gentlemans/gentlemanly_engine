@@ -78,8 +78,6 @@ public:
 				return;
 			}
 		}
-		tod->damage(now.damage);
-		tod->add_buff([](stats& s) { s.speed = 0;  }, 100, shared(this));
 	}
 };
 

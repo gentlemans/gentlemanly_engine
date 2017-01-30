@@ -13,13 +13,13 @@
 class grid_rocket_element : public Rocket::Core::Element {
 public:
     grid_rocket_element(glm::vec2 startPx, glm::vec2 sizePx, glm::uvec2 id) : Rocket::Core::Element("grid_rocket_element"), m_id{id} {
-        Rocket::Core::Box b;
-        b.SetOffset({startPx.x, startPx.y});
-        b.SetContent({sizePx.x, sizePx.y});
-
         std::cout << "Good god instancing " << startPx.x << ", " << startPx.y << " ; " << sizePx.x << ", " << sizePx.y << std::endl;
 
-        SetBox(b);
+        SetProperty("position", "absolute");
+        SetProperty("left", std::to_string(startPx.x).c_str());
+        SetProperty("top", std::to_string(startPx.y).c_str());
+        SetProperty("width", std::to_string(sizePx.x).c_str());
+        SetProperty("height", std::to_string(sizePx.y).c_str());
 
     }
 

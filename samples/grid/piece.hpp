@@ -21,11 +21,9 @@ public:
 	};
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
 
-    std::list<std::pair<std::function<void(stats&)>, std::weak_ptr<void>>> mBuffs;
 	std::unordered_map<std::string, int> m_upgrades;
 protected:
 	stats initial;
-	stats buffed;
 	stats now;
 	int countdown_to_action=0;
 	Directions my_direction = NORTH;
@@ -44,17 +42,6 @@ public:
 		m_upgrades[name] = val;
 		// TODO: signals
 	}
-    std::function<void()> add_buff(std::function<void(stats&)> buff_applyer, int duration, std::weak_ptr<void> track);
-    void recalculate_buffs() {
-		buffed = initial;
-        for(auto iter = mBuffs.begin(); iter != mBuffs.end(); ++iter) {
-            if(iter->second.expired()) {
-                mBuffs.erase(iter);
-            } else {
-                iter->first(buffed);
-            }
-        }
-    }
 
 	virtual void damage(float damage) {};
 	grid* m_grid;
