@@ -15,6 +15,7 @@ class piece;
 class grid : public ge::actor
 {
 	glm::ivec2 m_size;
+	double resources = 0;
 	unsigned int z_count=0;
 	unsigned int max_z = 5;
 	const int z_spawn_delay = 1;
@@ -27,6 +28,10 @@ public:
 	{
 		std::uniform_int_distribution<> uniform_int(lower, higher);
 		return uniform_int(rand_gen);
+	}
+	void change_resources(double amount)
+	{
+		resources = resources - amount;
 	}
 	void initialize(glm::ivec2 size, float tps);
 

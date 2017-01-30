@@ -140,9 +140,9 @@ int main()
         }
     }
 
-    Rocket::Debugger::Initialise(rocket.m_context);
+    /*Rocket::Debugger::Initialise(rocket.m_context);
     Rocket::Debugger::SetVisible(true);
-
+*/
 	auto elem = rocket.m_context->GetElementAtPoint({500, 500}, nullptr, doc.get());
 	//std::cout << "CHosen: " << elem->GetId().CString();
 
