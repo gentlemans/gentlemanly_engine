@@ -42,7 +42,7 @@ public:
 		piece::initialize(location);
 		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
-		now.damage = 50;
+		initial.damage = 50;
 		initial.health = 100;
 		now.health = 100;
 		now.speed = 4;
@@ -52,6 +52,47 @@ public:
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);
 		});
+	}
+	void calculate_upgrades(const std::string& name) override
+	{
+		if (name == "Attack Speed Up")
+		{
+			int amount = get_upgrade(name);
+			if (amount < 0)
+				return;
+			now.speed = initial.speed;
+			for (int x = 0; x < amount; x++)
+			{
+				now.speed -= 2;
+				if (now.speed > 0)
+				{
+					now.speed = 0;
+				}
+			}
+		}
+		if (name == "Damage Up")
+		{
+			int amount = get_upgrade(name);
+			if (amount < 0)
+				return;
+			now.damage = initial.damage;
+			for (int x = 0; x < amount; x++)
+			{
+				now.damage = now.damage*1.1;
+			}
+		}
+		if (name == "Regen Up")
+		{
+			int amount = get_upgrade(name);
+			if (amount < 0)
+				return;
+			now.regen = initial.regen;
+			for (int x = 0; x < amount; x++)
+			{
+				now.regen += 1;
+			}
+		}
+		return;
 	}
 	void tick_grid()
     {  
@@ -63,6 +104,7 @@ public:
 		else
 			countdown_to_action = now.speed;
 		shoot();
+		modify_health(-now.regen*(now.speed+1));
 	}
 	void shoot()
 	{
