@@ -54,6 +54,7 @@ struct hud : actor {
     int zcount = g->get_z_count();
     
     text->SetText(std::to_string(zcount).c_str());
+	resourceamount->SetText(std::to_string(g->get_resources()).c_str());
   }
   
 };

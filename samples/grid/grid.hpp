@@ -29,6 +29,10 @@ public:
 		std::uniform_int_distribution<> uniform_int(lower, higher);
 		return uniform_int(rand_gen);
 	}
+	double get_resources()
+	{
+		return resources;
+	}
 	void change_resources(double amount)
 	{
 		resources = resources - amount;
