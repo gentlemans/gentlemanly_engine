@@ -48,6 +48,7 @@ struct hud : actor {
 
 	  auto resCount = doc->GetElementById("resamt");
 	  resourceamount = rdoc->CreateTextNode("0");
+	  resCount->AppendChild(resourceamount);
 
   }
   
@@ -80,7 +81,7 @@ int main()
 
 	auto root = actor::root_factory(&r);
 
-    auto camera = actor::factory<camera_actor>(root.get(), 13.f, float(sdl.get_size().x) / float(sdl.get_size().y));
+    auto camera = actor::factory<camera_actor>(root.get(), 14.f, float(sdl.get_size().x) / float(sdl.get_size().y));
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
@@ -116,8 +117,8 @@ int main()
     for(int x = 0; x < 11; ++x) {
         for(int y = 0; y < 11; ++y) {
 
-            auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x - .5, y - .5, 1);
-            auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + .5, y + .5, 1);
+            auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x - .5, y + .5, 1);
+            auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + .5, y + 1.5, 1);
 
 			start += 1;
 			start.x *= (float)sdl.get_size().x / 2.f;
@@ -129,8 +130,8 @@ int main()
 
             auto xml = Rocket::Core::XMLAttributes();
             xml.Set("idx", x);
-            xml.Set("idy", 10 - y); // flip over y
-            xml.Set("start", Rocket::Core::Vector2f{start.x, start.y});
+            xml.Set("idy", y);
+            xml.Set("start", Rocket::Core::Vector2f{start.x, sdl.get_size().y - start.y});
             xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
 
             auto elem = Rocket::Core::Factory::InstanceElement(nullptr, "grid_rocket", "grid_rocket", xml);
@@ -145,8 +146,8 @@ int main()
     
     std::cout << rocket.m_context->GetDimensions().x << " " << rocket.m_context->GetDimensions().y << std::endl;
 
-    Rocket::Debugger::Initialise(rocket.m_context);
-    Rocket::Debugger::SetVisible(true);
+//     Rocket::Debugger::Initialise(rocket.m_context);
+//     Rocket::Debugger::SetVisible(true);
 
 	auto elem = rocket.m_context->GetElementAtPoint({500, 500}, nullptr, doc.get());
 	//std::cout << "CHosen: " << elem->GetId().CString();

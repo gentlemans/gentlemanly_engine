@@ -22,11 +22,11 @@ public:
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
 
 	std::unordered_map<std::string, int> m_upgrades;
+	Directions my_direction = NORTH;
 protected:
 	stats initial;
 	stats now;
 	int countdown_to_action=0;
-	Directions my_direction = NORTH;
 	void modify_health(float damage);
 public:
 	bool has_upgrade(const std::string& test) const {
@@ -106,6 +106,10 @@ public:
 			return;
 		set_relative_rotation(direction*glm::half_pi<float>());
 		my_direction = direction;
+	}
+	
+	Directions get_rotation() const {
+		return my_direction;
 	}
 };
 

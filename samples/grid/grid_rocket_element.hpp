@@ -20,13 +20,25 @@ public:
         SetProperty("top", std::to_string(startPx.y).c_str());
         SetProperty("width", std::to_string(sizePx.x).c_str());
         SetProperty("height", std::to_string(sizePx.y).c_str());
+        
+// 		SetProperty("background-color", ("rgb(0%, " + std::to_string(rand() % 256)+ "%, " + std::to_string(rand() % 256) + "%)").c_str());
 
     }
 
 
     void ProcessEvent(Rocket::Core::Event& ev) override  {
         if(ev.GetType() == "mousedown") {
-            std::cout << m_id.x << ", " << m_id.y << ", " << std::endl;
+			
+			auto g = grid::global_grid;
+			
+			auto acts = g->get_actors_from_coord({m_id.x, m_id.y, 2});
+			
+			if(acts.size() == 1 && typeid(*acts[0]) == typeid(turret)) {
+				acts[0]->rotate(piece::Directions((acts[0]->get_rotation() + 1) % 4));
+			} else {
+				ge::actor::factory<turret>(grid::global_grid, glm::ivec3(m_id.x, m_id.y, 2), piece::NORTH);
+			}
+			
         }
     }
 
