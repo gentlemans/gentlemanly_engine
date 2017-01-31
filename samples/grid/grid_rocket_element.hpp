@@ -23,6 +23,20 @@ public:
         
 // 		SetProperty("background-color", ("rgb(0%, " + std::to_string(rand() % 256)+ "%, " + std::to_string(rand() % 256) + "%)").c_str());
 
+//        const char* borderCol = "5px rgb(0%, 0%, 0%)";
+/*
+        if(id.x == 0) {
+            SetProperty("border-left", borderCol);
+        }
+        if(id.x == 10) {
+            SetProperty("border-right", borderCol);
+        }
+        if(id.y == 0) {
+            SetProperty("border-bottom", borderCol);
+        }
+        if(id.y == 10) {
+            SetProperty("border-top", borderCol);
+        }*/
     }
 
 

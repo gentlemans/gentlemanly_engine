@@ -69,7 +69,7 @@ int main()
 	r.m_asset_manager.add_asset_path("data/");
 	r.add_subsystem<input_subsystem>({});
 	r.add_subsystem<timer_subsystem>({});
-	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {1024, 720}});
+	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {640, 960}});
 	auto& rocket = r.add_subsystem<rocket_subsystem>({});
 
 	r.register_interface<renderable>();
@@ -79,9 +79,12 @@ int main()
 	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
 	doc->Show();
 
+    auto griddoc = rocket.m_context->CreateDocument("");
+
 	auto root = actor::root_factory(&r);
 
-    auto camera = actor::factory<camera_actor>(root.get(), 14.f, float(sdl.get_size().x) / float(sdl.get_size().y));
+    auto camera = actor::factory<camera_actor>(root.get(), 16.5, float(sdl.get_size().x) / float(sdl.get_size().y));
+    camera->set_relative_location(camera->get_relative_location() + glm::vec2(0, 2.75 ));
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
@@ -134,10 +137,7 @@ int main()
             xml.Set("start", Rocket::Core::Vector2f{start.x, sdl.get_size().y - start.y});
             xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
 
-            auto elem = Rocket::Core::Factory::InstanceElement(nullptr, "grid_rocket", "grid_rocket", xml);
-            auto text = doc->CreateTextNode("1");
-            //elem->AppendChild(text);
-            doc->AppendChild(elem);
+            auto elem = Rocket::Core::Factory::InstanceElement(griddoc, "grid_rocket", "grid_rocket", xml);
 
 			auto str = "grid_" + std::to_string(x) + "_" + std::to_string(y);
 			elem->SetId(str.c_str());
@@ -148,9 +148,6 @@ int main()
 
 //     Rocket::Debugger::Initialise(rocket.m_context);
 //     Rocket::Debugger::SetVisible(true);
-
-	auto elem = rocket.m_context->GetElementAtPoint({500, 500}, nullptr, doc.get());
-	//std::cout << "CHosen: " << elem->GetId().CString();
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
