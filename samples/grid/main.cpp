@@ -32,9 +32,9 @@ using namespace ge;
 struct hud : actor {
   
   grid* g;
-  Rocket::Core::ElementDocument* rdoc;
-  Rocket::Core::ElementText* text;
-	Rocket::Core::ElementText* resourceamount;
+  Rocket::Core::ElementDocument* rdoc = nullptr;
+  Rocket::Core::ElementText* text = nullptr;
+	Rocket::Core::ElementText* resourceamount = nullptr;
   
   void initialize(grid* gr, Rocket::Core::ElementDocument* doc){
     g = gr;
@@ -42,6 +42,7 @@ struct hud : actor {
     add_interface<hud, gridtick_interface>();
     
     auto zcount = doc->GetElementById("zcount");
+	if(!zcount) return;
     text = rdoc->CreateTextNode("0");
     zcount->AppendChild(text);
 
@@ -53,6 +54,7 @@ struct hud : actor {
   void tick_grid() {
     int zcount = g->get_z_count();
     
+	if(!text) return;
     text->SetText(std::to_string(zcount).c_str());
 	resourceamount->SetText(std::to_string(g->get_resources()).c_str());
   }
@@ -127,7 +129,7 @@ int main()
 
             auto xml = Rocket::Core::XMLAttributes();
             xml.Set("idx", x);
-            xml.Set("idy", y);
+            xml.Set("idy", 10 - y); // flip over y
             xml.Set("start", Rocket::Core::Vector2f{start.x, start.y});
             xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
 
@@ -140,10 +142,12 @@ int main()
 			elem->SetId(str.c_str());
         }
     }
+    
+    std::cout << rocket.m_context->GetDimensions().x << " " << rocket.m_context->GetDimensions().y << std::endl;
 
-    /*Rocket::Debugger::Initialise(rocket.m_context);
+    Rocket::Debugger::Initialise(rocket.m_context);
     Rocket::Debugger::SetVisible(true);
-*/
+
 	auto elem = rocket.m_context->GetElementAtPoint({500, 500}, nullptr, doc.get());
 	//std::cout << "CHosen: " << elem->GetId().CString();
 

@@ -195,11 +195,11 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			ev = input_mouse_button{sdl_mb_to_ge(event.button.button), true,
-				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}};
+				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.y}};
 			break;
 		case SDL_MOUSEBUTTONUP:
 			ev = input_mouse_button{sdl_mb_to_ge(event.button.button), false,
-				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.x}};
+				sdl_mods_to_ge(SDL_GetModState()), {event.button.x, event.button.y}};
 			break;
 		case SDL_MOUSEWHEEL:
 			if (event.wheel.direction == SDL_MOUSEWHEEL_NORMAL) {

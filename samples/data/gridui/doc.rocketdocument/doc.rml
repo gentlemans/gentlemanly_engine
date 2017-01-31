@@ -5,9 +5,9 @@
   <body>
     <div style="border-bottom: 3px rgb(0%, 23%, 80%);">
       Zombie Count: <span id="zcount"></span>
-      <p>
-        Resource Amount: <span id="resamt"></span>
-      </p>
     </div>
+	<div>
+	  Resource Amount: <span id="resamt"></span>
+	</div>
   </body>
 </rml>

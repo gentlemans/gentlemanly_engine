@@ -21,8 +21,6 @@ public:
         SetProperty("width", std::to_string(sizePx.x).c_str());
         SetProperty("height", std::to_string(sizePx.y).c_str());
 
-        //SetProperty("background-color", ("rgb(0%, " + std::to_string(rand() % 256)+ "%, " + std::to_string(rand() % 256) + "%)").c_str());
-
     }
 
 
