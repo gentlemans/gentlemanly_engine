@@ -169,7 +169,7 @@ void zombie::damage_in_direction(Directions d)
 }
 double zombie::Calculate_Resources()
 {
-	return initial.damage*initial.health*initial.speed;
+	return initial.damage*initial.health/(initial.speed+1);
 }
 void zombie::tick_grid()
 {

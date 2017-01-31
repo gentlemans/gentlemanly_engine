@@ -46,6 +46,9 @@ public:
 		initial.health = 100;
 		now.health = 100;
 		now.speed = 4;
+		set_upgrade("Attack Speed Up", 1);
+		set_upgrade("Damage Up", 1);
+		set_upgrade("Regen Up", 1);
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);
 		});

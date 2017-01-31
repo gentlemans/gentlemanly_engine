@@ -35,7 +35,7 @@ public:
 	}
 	void change_resources(double amount)
 	{
-		resources = resources - amount;
+		resources = resources + amount;
 	}
 	void initialize(glm::ivec2 size, float tps);
 
