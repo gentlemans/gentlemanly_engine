@@ -79,7 +79,8 @@ int main()
 	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
 	doc->Show();
 
-    auto griddoc = rocket.m_context->CreateDocument("");
+    auto griddoc = rocket.m_context->CreateDocument("body");
+	griddoc->Show();
 
 	auto root = actor::root_factory(&r);
 
@@ -137,17 +138,15 @@ int main()
             xml.Set("start", Rocket::Core::Vector2f{start.x, sdl.get_size().y - start.y});
             xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
 
-            auto elem = Rocket::Core::Factory::InstanceElement(griddoc, "grid_rocket", "grid_rocket", xml);
+            auto elem = Rocket::Core::Factory::InstanceElement(nullptr, "grid_rocket", "grid_rocket", xml);
+			griddoc->AppendChild(elem);
 
 			auto str = "grid_" + std::to_string(x) + "_" + std::to_string(y);
 			elem->SetId(str.c_str());
         }
     }
-    
-    std::cout << rocket.m_context->GetDimensions().x << " " << rocket.m_context->GetDimensions().y << std::endl;
-
-//     Rocket::Debugger::Initialise(rocket.m_context);
-//     Rocket::Debugger::SetVisible(true);
+    Rocket::Debugger::Initialise(rocket.m_context);
+    Rocket::Debugger::SetVisible(true);
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
