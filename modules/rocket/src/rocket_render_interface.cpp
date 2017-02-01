@@ -141,31 +141,12 @@ bool rocket_render_interface::LoadTexture(Rocket::Core::TextureHandle& texture_h
 {
 	using namespace std::string_literals;
 
-	assert(boost::filesystem::path(source.CString()).extension() == ".png");
+	auto tex = m_asset_manager->get_asset<texture_asset>(source.CString());
 
-	try {
-		std::vector<unsigned char> PNGData;
-		unsigned width, height;
+	auto pSp = new std::shared_ptr<texture>(tex);
 
-		boost::filesystem::path p(source.CString());
-		assert(boost::filesystem::is_regular_file(p));
+	texture_handle = reinterpret_cast<uintptr_t>(pSp);
 
-		// load PNG data
-		auto err = lodepng::decode(PNGData, width, height, p.string().c_str());
-		if (err != 0) {
-			logger->error("Failed to load PNG: error: "s + lodepng_error_text(err));
-			return false;
-		}
-
-		texture_dimensions = {int(width), int(height)};
-
-		auto tex = new std::shared_ptr<texture>{
-			new texture(PNGData.data(), {width, height}, "Rocket: "s + source.CString())};
-
-		texture_handle = reinterpret_cast<uintptr_t>(tex);
-	} catch (const std::exception&) {
-		return false;
-	}
 
 	logger->info("Loaded image "s + source.CString() + " for rocket.");
 

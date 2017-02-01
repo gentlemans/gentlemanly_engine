@@ -78,9 +78,14 @@ int main()
 	// load UI
 	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
 	doc->Show();
-
+	
     auto griddoc = rocket.m_context->CreateDocument("body");
 	griddoc->Show();
+	
+	auto pieceSelector = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/piecebrowser.rocketdocument");
+	pieceSelector->Show();
+	pieceSelector->PullToFront();
+
 
 	auto root = actor::root_factory(&r);
 
@@ -145,8 +150,8 @@ int main()
 			elem->SetId(str.c_str());
         }
     }
-    Rocket::Debugger::Initialise(rocket.m_context);
-    Rocket::Debugger::SetVisible(true);
+//     Rocket::Debugger::Initialise(rocket.m_context);
+//     Rocket::Debugger::SetVisible(true);
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
