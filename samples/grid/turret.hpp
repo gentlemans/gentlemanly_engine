@@ -19,20 +19,7 @@ class turret : public piece
 
 	std::array<int, 1> upgrades;
 public:
-	enum upgradesenum {
-		DamagePlus,
-		HealthPlus,
-		RegenPlus,
-	};
-	void increment_upgrade(upgradesenum to_increment, bool positive)
-	{
-		if (positive)
-			upgrades[to_increment]++;
-		else
-			upgrades[to_increment]--;
-	}
-
-	void damage(float damage) override
+	void damage(double damage) override
 	{
 		modify_health(-damage);
 	}
@@ -58,47 +45,7 @@ public:
 			p->set_parent(NULL);
 		});
 	}
-	void calculate_upgrades(const std::string& name) override
-	{
-		if (name == "Attack Speed Up")
-		{
-			int amount = get_upgrade(name);
-			if (amount < 0)
-				return;
-			now.speed = initial.speed;
-			for (int x = 0; x < amount; x++)
-			{
-				now.speed -= 2;
-				if (now.speed > 0)
-				{
-					now.speed = 0;
-				}
-			}
-		}
-		if (name == "Damage Up")
-		{
-			int amount = get_upgrade(name);
-			if (amount < 0)
-				return;
-			now.damage = initial.damage;
-			for (int x = 0; x < amount; x++)
-			{
-				now.damage = now.damage*1.1;
-			}
-		}
-		if (name == "Regen Up")
-		{
-			int amount = get_upgrade(name);
-			if (amount < 0)
-				return;
-			now.regen = initial.regen;
-			for (int x = 0; x < amount; x++)
-			{
-				now.regen += 1;
-			}
-		}	
-		return;
-	}
+	void calculate_upgrades(const std::string& name) override;
 	void tick_grid()
     {  
 		if (countdown_to_action >= 0)
@@ -111,6 +58,7 @@ public:
 		shoot();
 		modify_health(-now.regen*(now.speed+1));
 	}
+	int hitStreak = 0;
 	void shoot()
 	{
 		int range = 3;
@@ -120,15 +68,18 @@ public:
 		{
 			if (squares[x].size() != 0)
 			{
+				hitStreak = 0;
 				tod = squares[x][0];
 				break;
 			}
 			else if (x==range-1)
 			{
+				hitStreak = 0;
 				return;
 			}
 		}
-		tod->damage(now.damage);
+		double calculated_damage = now.damage*pow(1.1,hitStreak);
+		tod->damage(calculated_damage);
 	}
 };
 

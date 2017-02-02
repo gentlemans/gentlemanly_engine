@@ -13,11 +13,11 @@ class piece : public ge::actor
 {
 public:
 	struct stats {
-		stats(float h = 1, float d = 1, float s = 1, float r = 0) : health{ h }, damage{ d }, speed{ s }, regen{ r } {}
-		float health;
-		float damage;
-		float speed;
-		float regen;
+		stats(double h = 1, double d = 1, double s = 1, double r = 0) : health{ h }, damage{ d }, speed{ s }, regen{ r } {}
+		double health;
+		double damage;
+		double speed;
+		double regen;
 	};
     enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5};
 
@@ -27,7 +27,7 @@ protected:
 	stats initial;
 	stats now;
 	int countdown_to_action=0;
-	void modify_health(float damage);
+	void modify_health(double damage);
 public:
 	virtual void calculate_upgrades(const std::string& name) {};
 	bool has_upgrade(const std::string& test) const {
@@ -45,7 +45,7 @@ public:
 		// TODO: signals
 	}
 
-	virtual void damage(float damage) {};
+	virtual void damage(double damage) {};
 	grid* m_grid;
 	int m_level;
 	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);
@@ -61,7 +61,7 @@ public:
     > sig_move;
 
     boost::signals2::signal<
-        void(piece* p, float amt)
+        void(piece* p, double amt)
     > sig_damaged;
 
 	boost::signals2::signal<

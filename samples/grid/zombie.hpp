@@ -49,7 +49,7 @@ public:
 		});
 		m_grid->increment_z_count(true);
 	}
-	void damage(float damage) override
+	void damage(double damage) override
 	{
 		m_mesh->m_mesh_settings.m_material = red_mat;
 		m_grid->timer->add_timer(1, [this] {

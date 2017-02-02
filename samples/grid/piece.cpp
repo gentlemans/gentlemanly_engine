@@ -55,7 +55,7 @@ void piece::initialize(glm::ivec3 loc)
 }
 
 
-void piece::modify_health(float amount)
+void piece::modify_health(double amount)
 {
 	now.health = now.health + amount;
 	if (now.health > initial.health)

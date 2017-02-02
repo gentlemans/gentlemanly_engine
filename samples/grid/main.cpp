@@ -150,6 +150,7 @@ int main()
 			elem->SetId(str.c_str());
         }
     }
+
 #ifndef WIN32
 	Rocket::Debugger::Initialise(rocket.m_context);
 	Rocket::Debugger::SetVisible(true);
