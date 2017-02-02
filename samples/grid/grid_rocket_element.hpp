@@ -53,7 +53,9 @@ public:
 				ge::actor::factory<turret>(grid::global_grid, glm::ivec3(m_id.x, m_id.y, 2), piece::NORTH);
 			}
 			
-        }
+        } else if (ev.GetType() == "dragdrop") {
+			std::cout << "Dropped on!" << std::endl;
+		}
     }
 
     glm::uvec2 m_id;
