@@ -1,6 +1,6 @@
 #include "turret.hpp"
 
-inline void turret::calculate_upgrades(const std::string & name)
+void turret::calculate_upgrades(const std::string & name)
 {
 	if (name == "Attack Speed Up")
 	{
