@@ -150,8 +150,10 @@ int main()
 			elem->SetId(str.c_str());
         }
     }
-//     Rocket::Debugger::Initialise(rocket.m_context);
-//     Rocket::Debugger::SetVisible(true);
+#ifndef WIN32
+	Rocket::Debugger::Initialise(rocket.m_context);
+	Rocket::Debugger::SetVisible(true);
+#endif
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
