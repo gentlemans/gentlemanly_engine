@@ -68,7 +68,8 @@ public:
 		{
 			if (squares[x].size() != 0)
 			{
-				hitStreak = 0;
+				if(hitStreak < 3)
+					hitStreak++;
 				tod = squares[x][0];
 				break;
 			}
