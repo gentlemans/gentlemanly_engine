@@ -196,12 +196,12 @@ Element* Element::Clone() const
 
 	if (instancer != NULL)
 	{
-		clone = instancer->InstanceElement(NULL, GetTagName(), attributes);
+		clone = instancer->InstanceElement(const_cast<Element*>(this)->GetOwnerDocument(), GetTagName(), attributes);
 		if (clone != NULL)
 			clone->SetInstancer(instancer);
 	}
 	else
-		clone = Factory::InstanceElement(NULL, GetTagName(), GetTagName(), attributes);
+		clone = Factory::InstanceElement(const_cast<Element*>(this)->GetOwnerDocument(), GetTagName(), GetTagName(), attributes);
 
 	if (clone != NULL)
 	{
