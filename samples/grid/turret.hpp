@@ -19,7 +19,7 @@ class turret : public piece
 
 	std::array<int, 1> upgrades;
 public:
-	void damage(double damage) override
+	void damage(double damage, piece* calling) override
 	{
 		modify_health(-damage);
 	}
@@ -81,7 +81,7 @@ public:
 			}
 		}
 		double calculated_damage = now.damage*pow(1.1,hitStreak);
-		tod->damage(calculated_damage);
+		tod->damage(calculated_damage, this); 
 	}
 };
 

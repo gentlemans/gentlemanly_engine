@@ -12,6 +12,7 @@
 
 #include <cmath>
 #include <memory>
+#include "wall.hpp"
 #include "grid.hpp"
 #include "gridtick_interface.hpp"
 #include "piece.hpp"
@@ -98,10 +99,13 @@ int main()
 
 	// initialize the grid
     auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 20.f);
-	actor::factory<spike>(g.get(), glm::ivec3(4, 4, 1));
-	actor::factory<spike>(g.get(), glm::ivec3(4, 6, 1));
-	actor::factory<spike>(g.get(), glm::ivec3(6, 4, 1));
-	actor::factory<spike>(g.get(), glm::ivec3(6, 6, 1));
+	actor::factory<wall>(g.get(), glm::ivec3(4, 4, 2));
+	actor::factory<wall>(g.get(), glm::ivec3(4, 6, 2));
+	actor::factory<wall>(g.get(), glm::ivec3(6, 4, 2));
+	actor::factory<wall>(g.get(), glm::ivec3(6, 6, 2));
+
+	actor::factory<spike>(g.get(), glm::ivec3(3, 4, 1));
+	actor::factory<spike>(g.get(), glm::ivec3(3, 6, 1));
 
 	actor::factory<turret>(g.get(), glm::ivec3(4, 5, 2), piece::WEST);
 	actor::factory<turret>(g.get(), glm::ivec3(5, 6, 2), piece::NORTH);

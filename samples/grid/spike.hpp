@@ -42,7 +42,7 @@ public:
 		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x,myLocation.y,2));
 		for (int x = 0; x < actors.size(); x++)
 		{
-			actors[x]->damage(3);
+			actors[x]->damage(3,this);
 		}
 	}
 };

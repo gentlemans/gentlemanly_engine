@@ -44,7 +44,7 @@ public:
 		// TODO: signals
 	}
 
-	virtual void damage(double damage) {};
+	virtual void damage(double damage, piece* calling) {};
 	grid* m_grid;
 	int m_level;
 	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);

@@ -165,7 +165,7 @@ void zombie::damage_in_direction(Directions d)
 	connect_track(p[0]->sig_moved, [this](piece*) {
 		attacking = false;
 	}, shared(this));
-	p[0]->damage(now.damage);
+	p[0]->damage(now.damage,this);
 }
 double zombie::Calculate_Resources()
 {

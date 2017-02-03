@@ -19,14 +19,17 @@ class wall : public piece
 
 	std::array<int, 1> upgrades;
 public:
-	void damage(double damage) override
+	void damage(double damage, piece* calling) override
 	{
 		modify_health(-damage);
-
+		int x = get_upgrade("Barbed Wire");
+		if (x > 0)
+		{
+			calling->damage(damage*(log(x) / 10 +  x / 100), this);
+		}
 	}
-	void initialize(glm::uvec3 location, Directions direction)
+	void initialize(glm::uvec3 location)
 	{
-		rotate(direction);
 		piece::initialize(location);
 		add_interface<wall, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
@@ -39,7 +42,7 @@ public:
 		//Increases the action speed of the tower
 		set_upgrade("Hp Up", 1);
 		//Each upgrade adds a stacking 10% health increase
-		set_upgrade("Regen Up", 5);
+		set_upgrade("Regen Up", 1);
 		//Adds 5 helth points regenerated per tick, given on peice action
 		set_upgrade("Barbed Wire", 1);
 		//Adds a small amount of damage that zombies take every time they attack you
