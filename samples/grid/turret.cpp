@@ -2,27 +2,19 @@
 
 void turret::calculate_upgrades(const std::string & name)
 {
+	now = initial;
 	if (name == "Attack Speed Up")
 	{
-		int amount = get_upgrade(name);
-		if (amount < 0)
-			return;
-		now.speed = initial.speed;
-		for (int x = 0; x < amount; x++)
-		{
-			now.speed -= 2;
-			if (now.speed > 0)
-			{
-				now.speed = 0;
-			}
-		}
+		now.speed =now.speed - (2*get_upgrade(name));
+		if (now.speed > 0)
+			now.speed = 0;
+		return;
 	}
 	if (name == "Damage Up")
 	{
 		int amount = get_upgrade(name);
 		if (amount < 0)
 			return;
-		now.damage = initial.damage;
 		for (int x = 0; x < amount; x++)
 		{
 			now.damage = now.damage*1.1;
@@ -30,14 +22,8 @@ void turret::calculate_upgrades(const std::string & name)
 	}
 	if (name == "Regen Up")
 	{
-		int amount = get_upgrade(name);
-		if (amount < 0)
-			return;
-		now.regen = initial.regen;
-		for (int x = 0; x < amount; x++)
-		{
-			now.regen += 1;
-		}
+		now.regen = now.regen + (get_upgrade(name) * 2);
+		return;
 	}
 	return;
 }
