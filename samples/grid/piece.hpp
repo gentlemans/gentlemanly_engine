@@ -29,7 +29,7 @@ protected:
 	int countdown_to_action=0;
 	void modify_health(double damage);
 public:
-	virtual void calculate_upgrades(const std::string& name) {};
+	virtual void calculate_upgrades() {};
 	bool has_upgrade(const std::string& test) const {
 		return m_upgrades.find(test) != m_upgrades.end();
 	}
@@ -41,7 +41,6 @@ public:
 	}
 	void set_upgrade(const std::string& name, int val) {
 		m_upgrades[name] = val;
-		calculate_upgrades(name);
 		// TODO: signals
 	}
 

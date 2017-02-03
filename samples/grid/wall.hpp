@@ -47,7 +47,7 @@ public:
 			p->set_parent(NULL);
 		});
 	}
-	void calculate_upgrades(const std::string& name) override;
+	void calculate_upgrades() override;
 	void tick_grid()
 	{
 		if (countdown_to_action >= 0)
@@ -55,9 +55,8 @@ public:
 			countdown_to_action--;
 			return;
 		}
-		else
-			countdown_to_action = now.speed;
-		modify_health(-now.regen*(now.speed + 1));
+		countdown_to_action = now.speed;
+		modify_health(-now.regen);
 	}
 };
 

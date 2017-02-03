@@ -23,6 +23,7 @@ public:
 	{
 		modify_health(-damage);
 	}
+	void calculate_upgrades() override;
 	void initialize(glm::uvec3 location, Directions direction)
 	{
 		rotate(direction);
@@ -31,8 +32,9 @@ public:
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 		initial.damage = 50;
 		initial.health = 100;
-		now.health = 100;
-		now.speed = 4;
+		initial.speed = 4;
+		initial.regen = 0;
+		now = initial;
 		set_upgrade("Attack Speed Up", 1);
 		//Increases the action speed of the tower
 		set_upgrade("Damage Up", 1);
@@ -41,11 +43,11 @@ public:
 		//Adds one helth point regenerated per tick, given on peice action
 		set_upgrade("Increaded Accuracy", 1);
 		//Adds a stacking 10% increase to speed up to a total of 33% for each shot the turret doesn't miss
+		calculate_upgrades();
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);
 		});
 	}
-	void calculate_upgrades(const std::string& name) override;
 	void tick_grid()
     {  
 		if (countdown_to_action >= 0)
@@ -53,10 +55,9 @@ public:
 			countdown_to_action--;
 			return;
 		}
-		else
-			countdown_to_action = now.speed;
+		countdown_to_action = now.speed;
 		shoot();
-		modify_health(-now.regen*(now.speed+1));
+		modify_health(now.regen);
 	}
 	int hitStreak = 0;
 	void shoot()
