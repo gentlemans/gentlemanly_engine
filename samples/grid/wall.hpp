@@ -21,12 +21,12 @@ class wall : public piece
 public:
 	void damage(double damage, piece* calling) override
 	{
-		modify_health(-damage);
 		int x = get_upgrade("Barbed Wire");
 		if (x > 0)
 		{
 			calling->damage(damage*(log(x) / 10 +  x / 100), this);
 		}
+		modify_health(-damage);
 	}
 	void initialize(glm::uvec3 location)
 	{

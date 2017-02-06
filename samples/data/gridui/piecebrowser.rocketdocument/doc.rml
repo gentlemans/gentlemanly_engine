@@ -5,7 +5,6 @@
 			.piece {
 				padding: 20px;
 				background-color: rgb(0%, 70%, 70%);
-				drag: clone;
 			}
 			img {
 				vertical-align: text-top;
