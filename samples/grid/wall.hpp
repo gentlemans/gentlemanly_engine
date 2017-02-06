@@ -33,6 +33,7 @@ public:
 		piece::initialize(location);
 		add_interface<wall, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
+		mesh->m_mesh_settings.m_material.set_parameter("Texture", m_runtime->m_asset_manager.get_asset<ge::texture_asset>("wall.texture"));
 		initial.damage = 0;
 		initial.health = 1000;
 		initial.regen = 5;
