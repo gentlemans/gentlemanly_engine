@@ -21,6 +21,7 @@
 #include "zombiespawner.hpp"
 #include "grid_rocket_element.hpp"
 #include "spike.hpp"
+#include "zombieupgrade.hpp"
 
 #include <Rocket/Debugger/Debugger.h>
 
@@ -99,6 +100,7 @@ int main()
 
 	// initialize the grid
     auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 20.f);
+	actor::factory<zombieupgrade>();
 	actor::factory<wall>(g.get(), glm::ivec3(4, 4, 2));
 	actor::factory<wall>(g.get(), glm::ivec3(4, 6, 2));
 	actor::factory<wall>(g.get(), glm::ivec3(6, 4, 2));
