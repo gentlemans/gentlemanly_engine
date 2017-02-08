@@ -9,6 +9,7 @@
 
 #include "ticktimer.hpp"
 #include "zombiespawner.hpp"
+#include "zombieupgrade.hpp"
 
 class piece;
 
@@ -20,7 +21,6 @@ class grid : public ge::actor
 	unsigned int max_z = 5;
 	const int z_spawn_delay = 1;
 	bool spawning = false;
-	piece::stats generate_stats();
 public:
 	std::mt19937 rand_gen;
 	ticktimer* timer;
@@ -28,6 +28,11 @@ public:
 	{
 		std::uniform_int_distribution<> uniform_int(lower, higher);
 		return uniform_int(rand_gen);
+	}
+	double get_random(double lower, double higher)
+	{
+		std::uniform_int_distribution<> uniform_double(lower, higher);
+		return uniform_double(rand_gen);
 	}
 	double get_resources()
 	{
@@ -41,6 +46,7 @@ public:
 
 	std::vector<piece*> get_actors_from_coord(glm::ivec3 loc);
 
+	piece::stats get_z_stats();
 	void try_spawn_z();
 
 	glm::ivec2 get_size() { return m_size; }

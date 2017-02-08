@@ -63,11 +63,27 @@ std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 
 	return ret;
 }
-/*piece::stats grid::generate_stats()
-{
 
+piece::stats grid::get_z_stats()
+{
+	std::vector<piece*> upgradesvec = get_actors_from_coord(glm::ivec3(-2, -2, -2));
+	piece* upgrades = upgradesvec[0];
+	double mn_h = upgrades->get_upgrade("Mimimum Health Up");
+	double mx_h = upgrades->get_upgrade("Max Health Up");
+	double mx_s = upgrades->get_upgrade("Max Speed Up");
+	double mn_s = upgrades->get_upgrade("Minimum Speed Up");
+	double mx_d = upgrades->get_upgrade("Max Damage Up");
+	double mn_d = upgrades->get_upgrade("Minimum Damage Up");
+	double health = get_random(100 * mn_h, 100 * mx_h);
+	double damage = get_random(10 * mn_d, 10 * mx_d);
+	int speed = get_random(15 / mn_s, 15 / mx_s);
+	piece::stats stat;
+	stat.damage = damage;
+	stat.speed = speed;
+	stat.health = health;
+
+	return stat;
 }
-*/
 void grid::try_spawn_z()
 {
 	if (z_count < max_z && spawning == false)
@@ -93,7 +109,7 @@ void grid::try_spawn_z()
 				y = 11;
 			x = position;
 		}
-        actor::factory<zombie>(this, glm::ivec3(x, y, 2), piece::stats(100, 10, 9, 0));
+        actor::factory<zombie>(this, glm::ivec3(x, y, 2), get_z_stats());
 		timer->add_timer(1, [this] {
 			spawning = false;
 			try_spawn_z();
