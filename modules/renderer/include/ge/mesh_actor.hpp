@@ -25,13 +25,15 @@ struct mesh_actor : actor {
 	/// Load from a mesh_asset path
 	/// \param asset_path The path to a mesh_asset_settings asset
 	void initialize(const char* asset_path);
-	
+
 	// convenience functions
-	void set_shader(std::shared_ptr<shader> sh) {
+	void set_shader(std::shared_ptr<shader> sh)
+	{
 		m_mesh_settings.m_material.m_shader = std::move(sh);
 	}
-	
-	void set_mat_param(const char* name, shader::parameter_type value) {
+
+	void set_mat_param(const char* name, shader::parameter_type value)
+	{
 		m_mesh_settings.m_material.set_parameter(name, std::move(value));
 	}
 

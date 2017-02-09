@@ -13,7 +13,11 @@ namespace ge
 struct camera_actor : actor {
 	/// Initialize function for the actor
 	/// \param arg_vert_units The nubmer of vertical units to be visible on the screen
-	void initialize(float arg_vert_units, float aspect_ratio) { m_vertical_units = arg_vert_units; m_aspect_ratio = aspect_ratio; }
+	void initialize(float arg_vert_units, float aspect_ratio)
+	{
+		m_vertical_units = arg_vert_units;
+		m_aspect_ratio = aspect_ratio;
+	}
 	/// The nubmer of vertical units to display on the screen
 	float m_vertical_units;
 
@@ -24,7 +28,6 @@ struct camera_actor : actor {
 	/// \param root The root actor. All children actors under this will be rendered.
 	void render_actors(actor& root)
 	{
-
 		glm::mat3 vp = get_vp_matrix();
 
 		root.propagate_to_children([&vp](actor& act) {
@@ -34,9 +37,11 @@ struct camera_actor : actor {
 		});
 	}
 
-	glm::mat3 get_vp_matrix() const {
+	glm::mat3 get_vp_matrix() const
+	{
 		glm::mat3 p = glm::ortho2d(-m_aspect_ratio * m_vertical_units / 2.f,
-								   m_aspect_ratio * m_vertical_units / 2.f, -m_vertical_units / 2.f, m_vertical_units / 2.f);
+			m_aspect_ratio * m_vertical_units / 2.f, -m_vertical_units / 2.f,
+			m_vertical_units / 2.f);
 		glm::mat3 v = calculate_model_matrix();
 
 		return p * v;

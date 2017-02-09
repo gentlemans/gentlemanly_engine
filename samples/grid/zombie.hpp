@@ -1,11 +1,11 @@
 #pragma once
 
 #include <ge/actor.hpp>
+#include <ge/material_asset.hpp>
 #include <ge/mesh_actor.hpp>
 #include <ge/runtime.hpp>
-#include <ge/texture_asset.hpp>
 #include <ge/shader_asset.hpp>
-#include <ge/material_asset.hpp>
+#include <ge/texture_asset.hpp>
 #include "grid.hpp"
 #include "gridtick_interface.hpp"
 #include "piece.hpp"
@@ -16,6 +16,7 @@ class zombie : public piece
 	void damage_in_direction(Directions d);
 	bool attacking;
 	double Calculate_Resources();
+
 public:
 	ge::mesh_actor* m_mesh;
 

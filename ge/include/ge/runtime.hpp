@@ -102,27 +102,25 @@ struct runtime {
 		return nullptr;
 	}
 
-	template<typename Interface>
-	void register_interface() {
-		
+	template <typename Interface>
+	void register_interface()
+	{
 		using boost::typeindex::type_id;
-		
+
 		m_interfaces[type_id<Interface>()] = std::make_shared<Interface>();
 	}
-	
-	template<typename Interface>
-	Interface* get_interface() {
-		
+
+	template <typename Interface>
+	Interface* get_interface()
+	{
 		using boost::typeindex::type_id;
-		
+
 		auto iter = m_interfaces.find(type_id<Interface>());
-		if(iter == m_interfaces.end()) return nullptr;
-		
+		if (iter == m_interfaces.end()) return nullptr;
+
 		return static_cast<Interface*>(iter->second.get());
-		
 	}
-	
-	
+
 	/// Render the next frame
 	bool tick()
 	{

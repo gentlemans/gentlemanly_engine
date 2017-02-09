@@ -17,23 +17,18 @@ class grid : public ge::actor
 {
 	glm::ivec2 m_size;
 	double resources = 0;
-	unsigned int z_count=0;
+	unsigned int z_count = 0;
 	unsigned int max_z = 5;
 	const int z_spawn_delay = 1;
 	bool spawning = false;
+
 public:
 	std::mt19937 rand_gen;
 	ticktimer* timer;
 	int get_random(int lower, int higher);
 	double get_random(double lower, double higher);
-	double get_resources()
-	{
-		return resources;
-	}
-	void change_resources(double amount)
-	{
-		resources = resources + amount;
-	}
+	double get_resources() { return resources; }
+	void change_resources(double amount) { resources = resources + amount; }
 	void initialize(glm::ivec2 size, float tps);
 
 	std::vector<piece*> get_actors_from_coord(glm::ivec3 loc);
@@ -46,6 +41,4 @@ public:
 	int get_z_count();
 
 	static grid* global_grid;
-    
-
 };

@@ -62,8 +62,8 @@ public:
 
 		return ret;
 	}
-	
-	template<typename asset_type>
+
+	template <typename asset_type>
 	auto get_asset(const char* name);
 
 	/// Creates a root actor of type ActorType
@@ -149,11 +149,11 @@ public:
 	/// Gets the location of the actor relative to the parent
 	/// \return The relative location
 	glm::vec2 get_relative_location() const noexcept { return m_transform.location; }
-    /// Sets the rotation relative to the parent.
-    /// \param new_rotation the new rotation to apply, in radians counter-clockwise
+	/// Sets the rotation relative to the parent.
+	/// \param new_rotation the new rotation to apply, in radians counter-clockwise
 	void set_relative_rotation(float new_rotation) noexcept { m_transform.rotation = new_rotation; }
 	/// Gets the rotation of the actor relative to the parent
-    /// \return The relative rotation, in radians counter-clockwise
+	/// \return The relative rotation, in radians counter-clockwise
 	float get_relative_rotation() const noexcept { return m_transform.rotation; }
 	/// Sets the scale of the actor relative to the parent
 	/// \param new_scale The relative scale
@@ -197,14 +197,14 @@ public:
 
 	/// Calculates the model matrix for the actor
 	/// \return The model matrix
-    glm::mat3 calculate_model_matrix() const noexcept;
+	glm::mat3 calculate_model_matrix() const noexcept;
 
 	// parent manipulation
 	//////////////////////
 
 	/// Sets the parent of the actor, unparenting it from the previous parent
 	/// \param new_parent The new parent of the actor
-    void set_parent(actor* new_parent) noexcept;
+	void set_parent(actor* new_parent) noexcept;
 
 	/// Gets the parent actor
 	/// \return The parent actor if present, otherwise `nullptr`
@@ -220,7 +220,7 @@ public:
 		std::forward<F>(func)(*this);
 
 		for (auto child : m_children) {
-			if(!child) continue;
+			if (!child) continue;
 			child->propagate_to_children(std::forward<F>(func));
 		}
 	}
@@ -228,34 +228,35 @@ public:
 	/// The runtime object that was passed down from the parent actor
 	runtime* m_runtime;
 };
-} // namespace ge
+}  // namespace ge
 
 #include "ge/runtime.hpp"
 
-namespace ge {
-
+namespace ge
+{
 template <typename ActorType, typename Interface, typename... ExtraArgs>
 void actor::add_interface(ExtraArgs&&... extraArgs)
 {
-    using boost::typeindex::type_id;
+	using boost::typeindex::type_id;
 
-    static_assert(
-        std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
+	static_assert(
+		std::is_base_of<actor, ActorType>::value, "Must pass an actor type into add_interface");
 
-    auto* interface = m_runtime->get_interface<Interface>();
-    if(!interface) {
-        logger->warn("Tried to add interface " + type_id<Interface>().pretty_name() + " that wasn't registered. call runtime::register_interface");
-        return;
-    }
+	auto* interface = m_runtime->get_interface<Interface>();
+	if (!interface) {
+		logger->warn("Tried to add interface " + type_id<Interface>().pretty_name() +
+					 " that wasn't registered. call runtime::register_interface");
+		return;
+	}
 
-	// if you get an error here, that means you didn't have the right arguments to actor::add_interface
-    m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
-                         interface->template gen_interface<ActorType>(
-                             static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));
+	// if you get an error here, that means you didn't have the right arguments to
+	// actor::add_interface
+	m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
+		interface->template gen_interface<ActorType>(
+			static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));
 }
 
-
-template<typename asset_type>
+template <typename asset_type>
 auto actor::get_asset(const char* name)
 {
 	return m_runtime->m_asset_manager.get_asset<asset_type>(name);

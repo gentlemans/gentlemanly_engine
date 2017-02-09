@@ -16,10 +16,9 @@ int main()
 {
 	// create a runtime object
 	runtime r;
-	
+
 	r.register_interface<renderable>();
 	r.register_interface<tickable>();
-
 
 	// make sure it can find assets. This will fail if working directory isn't
 	// gentlemanly_engine/samples
@@ -43,7 +42,8 @@ int main()
 		root_actor.get(), "animation/jumpanimation.meshsettings", 40.f);
 
 	// create a camera to see through
-	auto camera = actor::factory<camera_actor>(root_actor.get(), 4, float(sdl.get_size().x) / float(sdl.get_size().y));
+	auto camera = actor::factory<camera_actor>(
+		root_actor.get(), 4, float(sdl.get_size().x) / float(sdl.get_size().y));
 	sdl.set_camera(camera.get());
 
 #ifdef EMSCRIPTEN

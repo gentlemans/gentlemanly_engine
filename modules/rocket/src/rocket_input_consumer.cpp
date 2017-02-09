@@ -147,46 +147,47 @@ int ge_mb_to_rocket(mouse_button mb)
 
 struct input_passer_visitor : boost::static_visitor<bool> {
 	input_passer_visitor(Rocket::Core::Context* arg_cont) : context{arg_cont} {}
-    bool operator()(input_keyboard k)
+	bool operator()(input_keyboard k)
 	{
 		if (k.m_pressed) {
-            context->ProcessKeyDown(
-                ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state));
+			context->ProcessKeyDown(
+				ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state));
 		} else {
-            context->ProcessKeyUp(
-                ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state));
+			context->ProcessKeyUp(
+				ge_to_rocket_key(k.m_input_key), ge_mods_to_rocket(k.m_modifier_state));
 		}
-        return true;
+		return true;
 	}
 
-    bool operator()(input_mouse_button mb)
+	bool operator()(input_mouse_button mb)
 	{
-        // see if there is an element under the cursor
-        bool isElementThere = context->GetElementAtPoint({(float)mb.m_location.x, (float)mb.m_location.y}) != nullptr;
-        if(!isElementThere) {
-            return false;
-        }
-		if (mb.m_pressed) {
-            context->ProcessMouseButtonDown(
-                ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state));
-		} else {
-            context->ProcessMouseButtonUp(
-                ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state));
+		// see if there is an element under the cursor
+		bool isElementThere =
+			context->GetElementAtPoint({(float)mb.m_location.x, (float)mb.m_location.y}) != nullptr;
+		if (!isElementThere) {
+			return false;
 		}
-        return true;
+		if (mb.m_pressed) {
+			context->ProcessMouseButtonDown(
+				ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state));
+		} else {
+			context->ProcessMouseButtonUp(
+				ge_mb_to_rocket(mb.m_button), ge_mods_to_rocket(mb.m_modifier_state));
+		}
+		return true;
 	}
 
-    bool operator()(input_mouse_move mm)
+	bool operator()(input_mouse_move mm)
 	{
 		context->ProcessMouseMove(int(mm.m_new_location.x), int(mm.m_new_location.y),
 			ge_mods_to_rocket(mm.m_modifier_state));
-        return true;
+		return true;
 	}
 
-    bool operator()(input_scroll_wheel sw)
+	bool operator()(input_scroll_wheel sw)
 	{
 		context->ProcessMouseWheel(int(sw.amount.y), ge_mods_to_rocket(sw.m_modifier_state));
-        return true;
+		return true;
 	}
 
 	Rocket::Core::Context* context;
@@ -196,5 +197,5 @@ bool rocket_input_consumer::handle_input(const input_event& event)
 {
 	auto visitor = input_passer_visitor{m_context};
 
-    return event.apply_visitor(visitor);
+	return event.apply_visitor(visitor);
 }

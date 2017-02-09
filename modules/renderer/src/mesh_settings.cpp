@@ -28,7 +28,7 @@ struct parameter_setter_visitor : boost::static_visitor<void> {
 struct attr_applying_visitor : boost::static_visitor<size_t> {
 	mesh const* m;
 	shader const* shad;
-	std::pair<const std::string, shader::attribute> const * attr;
+	std::pair<const std::string, shader::attribute> const* attr;
 
 	template <typename T>
 	size_t operator()(T atrtype)

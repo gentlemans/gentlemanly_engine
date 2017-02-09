@@ -4,8 +4,8 @@
 #pragma once
 
 #include <functional>
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include "ge/actor.hpp"
 
@@ -14,14 +14,14 @@ struct gridtick_interface {
 		interface_storage(const std::function<void()> call) : callback(call) {}
 		std::function<void()> callback;
 	};
-	
-	std::vector<std::weak_ptr<ge::actor>> attached; 
-	
+
+	std::vector<std::weak_ptr<ge::actor>> attached;
+
 	template <typename ActorType>
 	std::shared_ptr<interface_storage> gen_interface(ActorType* act)
 	{
 		attached.push_back(ge::actor::shared(act));
-		
+
 		return std::make_shared<interface_storage>([act]() {
 
 			// If you get an error here, then you need to define the tick_grid function

@@ -22,7 +22,7 @@ struct input_subsystem : subsystem {
 	using consumer_func = bool(input_event event, input_consumer_base* ptr);
 
 	/// The index in \c consumers of the current consumer
-    std::deque<size_t> consumer_list;
+	std::deque<size_t> consumer_list;
 
 	/// No config needed
 	struct config {
@@ -41,12 +41,12 @@ struct input_subsystem : subsystem {
 		if (before_size == 0) return true;  // No events
 
 		for (auto& ev : buffered_events) {
-            for(auto idIter = consumer_list.begin(); idIter != consumer_list.end(); ++idIter) {
+			for (auto idIter = consumer_list.begin(); idIter != consumer_list.end(); ++idIter) {
 				if (consumers.size() <= *idIter) return true;
-                if(consumers[*idIter].first(ev, consumers[*idIter].second)) {
-					break; // done processing this event
+				if (consumers[*idIter].first(ev, consumers[*idIter].second)) {
+					break;  // done processing this event
 				}
-            }
+			}
 		}
 		// empty the buffer--conserve elements that were added during the callbacks.
 		buffered_events.erase(buffered_events.begin(), buffered_events.begin() + before_size);
@@ -85,7 +85,7 @@ struct input_consumer : input_consumer_base {
 
 protected:
 	/// This function is to be ran from the base class and it forwards all input to this class.
-    void steal_input() { input_sub->consumer_list.push_front(consumer_id); }
+	void steal_input() { input_sub->consumer_list.push_front(consumer_id); }
 private:
 	size_t consumer_id;
 	input_subsystem* input_sub;

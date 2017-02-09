@@ -21,7 +21,6 @@ public:
 
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 		mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("zombiespawner.texture"));
-
 	}
 };
 

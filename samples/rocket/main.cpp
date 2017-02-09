@@ -26,7 +26,8 @@ int main(int argc, char** argv)
 
 		auto root = actor::root_factory(&r);
 
-		auto camera = actor::factory<camera_actor>(root.get(), 10, float(sdl.get_size().x) / float(sdl.get_size().y));
+		auto camera = actor::factory<camera_actor>(
+			root.get(), 10, float(sdl.get_size().x) / float(sdl.get_size().y));
 
 		sdl.set_background_color({.2f, .2f, .2f});
 		sdl.set_camera(camera.get());

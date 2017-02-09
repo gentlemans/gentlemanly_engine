@@ -35,9 +35,9 @@ void splitVertArray(Rocket::Core::Vertex* vertices, int num_vertices, std::vecto
 
 		tex_coord.emplace_back(vertices[id].tex_coord.x, vertices[id].tex_coord.y);
 
-        // convert it to a scale from 0 to 1
-        colors.emplace_back(vertices[id].colour.red / 255.f, vertices[id].colour.green / 255.f,
-            vertices[id].colour.blue / 255.f, vertices[id].colour.alpha / 255.f);
+		// convert it to a scale from 0 to 1
+		colors.emplace_back(vertices[id].colour.red / 255.f, vertices[id].colour.green / 255.f,
+			vertices[id].colour.blue / 255.f, vertices[id].colour.alpha / 255.f);
 	}
 }
 

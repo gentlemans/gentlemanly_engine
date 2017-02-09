@@ -218,8 +218,7 @@ bool sdl_subsystem::update(std::chrono::duration<float> delta)
 
 	// render!
 	if (m_camera) {
-		m_camera->render_actors(
-			*m_runtime->get_root_actor());
+		m_camera->render_actors(*m_runtime->get_root_actor());
 	}
 
 	// call other things that want to render

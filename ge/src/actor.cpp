@@ -9,41 +9,37 @@ actor::~actor()
 		child->m_parent = nullptr;
 	}
 
-	if(has_parent()) {
-		std::remove_if(get_parent()->m_children.begin(), get_parent()->m_children.end(), [this](auto& sp) {
-			return sp.get() == this;
-		});
+	if (has_parent()) {
+		std::remove_if(get_parent()->m_children.begin(), get_parent()->m_children.end(),
+			[this](auto& sp) { return sp.get() == this; });
 	}
 }
 
 glm::mat3 actor::calculate_model_matrix() const noexcept
 {
-    glm::mat3 this_model;
+	glm::mat3 this_model;
 
-    this_model *= glm::translate(glm::mat3{}, get_relative_location());
-    this_model *= glm::scale(glm::mat3{}, get_relative_scale());
-    this_model *= glm::rotate(glm::mat3{}, get_relative_rotation());
+	this_model *= glm::translate(glm::mat3{}, get_relative_location());
+	this_model *= glm::scale(glm::mat3{}, get_relative_scale());
+	this_model *= glm::rotate(glm::mat3{}, get_relative_rotation());
 
-    return has_parent() ? get_parent()->calculate_model_matrix() * this_model : this_model;
+	return has_parent() ? get_parent()->calculate_model_matrix() * this_model : this_model;
 }
 
-void actor::set_parent(actor *new_parent) noexcept
+void actor::set_parent(actor* new_parent) noexcept
 {
-    auto old_parent = get_parent();
+	auto old_parent = get_parent();
 
-    m_parent = new_parent;
+	m_parent = new_parent;
 
-    if(new_parent != nullptr) {
-        new_parent->m_children.insert(shared_from_this());
-    }
+	if (new_parent != nullptr) {
+		new_parent->m_children.insert(shared_from_this());
+	}
 
-    // unparent from old parent
-    if (old_parent != nullptr) {
+	// unparent from old parent
+	if (old_parent != nullptr) {
 		size_t numremoved = old_parent->m_children.erase(shared_from_this());
 		assert(numremoved);
-    }
-
+	}
 }
-
-
 }
