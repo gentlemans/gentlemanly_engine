@@ -13,6 +13,8 @@ public:
 		// increases the minimum speed that zombies can have
 		set_upgrade("Max Damage Up", 1);
 		// increases the maximum damage of zombies
+		set_upgrade("Minimum Damage Up", 1);
+		// increases the minimum damage that zombies can do
 		set_upgrade("Max Health Up", 1);
 		// increases the maximum amount of health that zombies can start with
 		set_upgrade("Minimum Health Up", 1);
