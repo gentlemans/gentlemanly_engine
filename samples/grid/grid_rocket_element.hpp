@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "grid.hpp"
+#include "turret.hpp"
 
 class grid_rocket_element : public Rocket::Core::Element
 {
