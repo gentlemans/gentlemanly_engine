@@ -119,3 +119,31 @@ void grid::try_spawn_z()
 	else
 		spawning = false;
 }
+
+int grid::get_z_count()
+	{
+		return z_count;
+	}
+
+void grid::increment_z_count(bool positive)
+	{
+		if (positive)
+			z_count++;
+		else
+		{
+			z_count--;
+			try_spawn_z();
+		}
+	}
+
+double grid::get_random(double lower, double higher)
+	{
+		std::uniform_int_distribution<> uniform_double(lower, higher);
+		return uniform_double(rand_gen);
+	}
+
+int grid::get_random(int lower, int higher)
+	{
+		std::uniform_int_distribution<> uniform_int(lower, higher);
+		return uniform_int(rand_gen);
+	}

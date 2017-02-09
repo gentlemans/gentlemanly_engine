@@ -24,16 +24,8 @@ class grid : public ge::actor
 public:
 	std::mt19937 rand_gen;
 	ticktimer* timer;
-	int get_random(int lower, int higher)
-	{
-		std::uniform_int_distribution<> uniform_int(lower, higher);
-		return uniform_int(rand_gen);
-	}
-	double get_random(double lower, double higher)
-	{
-		std::uniform_int_distribution<> uniform_double(lower, higher);
-		return uniform_double(rand_gen);
-	}
+	int get_random(int lower, int higher);
+	double get_random(double lower, double higher);
 	double get_resources()
 	{
 		return resources;
@@ -50,20 +42,8 @@ public:
 	void try_spawn_z();
 
 	glm::ivec2 get_size() { return m_size; }
-	void increment_z_count(bool positive)
-	{
-		if (positive)
-			z_count++;
-		else
-		{
-			z_count--;
-			try_spawn_z();
-		}
-	}
-	int get_z_count()
-	{
-		return z_count;
-	}
+	void increment_z_count(bool positive);
+	int get_z_count();
 
 	static grid* global_grid;
     
