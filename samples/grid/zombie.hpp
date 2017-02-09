@@ -25,14 +25,7 @@ public:
 	ge::material red_mat;
 
 	void initialize(glm::ivec3 location, stats stat);
-	void damage(double damage, piece* calling) override
-	{
-		m_mesh->m_mesh_settings.m_material = red_mat;
-		m_grid->timer->add_timer(1, [this] {
-			m_mesh->m_mesh_settings.m_material = zombie_mat;
-		}, shared(this));
-		modify_health(-damage);
-	}
+	void damage(double damage, piece* calling) override;
 	void move_closer_to_center();
 	void move_random();
 	void move_off_spawner();

@@ -68,46 +68,14 @@ public:
 	> sig_die;
 
 	void initialize(glm::ivec3 loc);
-	void set_grid_location(glm::ivec3 loc)
-	{
-        glm::ivec3 old = get_grid_location();
-
-		set_relative_location({loc.x, loc.y});
-		m_level = loc.z;
-
-        sig_move(this, get_grid_location(), old);
-	}
+	void set_grid_location(glm::ivec3 loc);
 	glm::ivec3 get_grid_location() const
 	{
 		return {int(get_relative_location().x), int(get_relative_location().y), m_level};
 	}
-	Directions get_direction_to (glm::ivec2 initial, glm::ivec2 final)
-	{
-		int changeX = final.x - initial.x;
-		int changeY = final.y - initial.y;
-		Directions togo = NONE;
-		if (changeX != 0 && changeY != 0)
-			togo = NONE;
-		if (changeX == 0 && changeY == 0)
-			togo = NONE;
-		if (changeY > 0)
-			togo = NORTH;
-		if (changeY < 0)
-			togo = SOUTH;
-		if (changeX > 0)
-			togo = EAST;
-		if (changeX < 0)
-			togo = WEST;
-		return togo;
-	}
+	Directions get_direction_to (glm::ivec2 initial, glm::ivec2 final);
 
-	void rotate(Directions direction)
-	{
-		if (direction == NONE)
-			return;
-		set_relative_rotation(direction*glm::half_pi<float>());
-		my_direction = direction;
-	}
+	void rotate(Directions direction);
 	
 	Directions get_rotation() const {
 		return my_direction;

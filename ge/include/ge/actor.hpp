@@ -62,6 +62,9 @@ public:
 
 		return ret;
 	}
+	
+	template<typename asset_type>
+	auto get_asset(const char* name);
 
 	/// Creates a root actor of type ActorType
 	/// \param runtime The runtime object to create it under
@@ -249,6 +252,13 @@ void actor::add_interface(ExtraArgs&&... extraArgs)
     m_interfaces.emplace(boost::typeindex::type_id<Interface>(),
                          interface->template gen_interface<ActorType>(
                              static_cast<ActorType*>(this), std::forward<ExtraArgs>(extraArgs)...));
+}
+
+
+template<typename asset_type>
+auto actor::get_asset(const char* name)
+{
+	return m_runtime->m_asset_manager.get_asset<asset_type>(name);
 }
 
 }  // namespace ge

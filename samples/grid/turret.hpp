@@ -24,10 +24,10 @@ public:
 		modify_health(-damage);
 	}
 	void calculate_upgrades() override;
-	void initialize(glm::uvec3 location, Directions direction)
+	void initialize(glm::uvec2 location, Directions direction)
 	{
 		rotate(direction);
-		piece::initialize(location);
+		piece::initialize({location.x, location.y, 2});
 		add_interface<turret, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 		initial.damage = 50;

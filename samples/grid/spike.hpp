@@ -18,12 +18,12 @@ class spike : public piece
 	boost::signals2::scoped_connection die_connect;
 
 public:
-	void initialize(glm::uvec3 location)
+	void initialize(glm::uvec2 location)
 	{
-		piece::initialize(location);
+		piece::initialize({location.x, location.y, 1});
 		add_interface<spike, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
-		mesh->m_mesh_settings.m_material.set_parameter("Texture", m_runtime->m_asset_manager.get_asset<ge::texture_asset>("spike.texture"));
+		mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("spike.texture"));
 
 		die_connect = sig_die.connect([](piece* p) {
 			p->set_parent(NULL);

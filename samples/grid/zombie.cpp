@@ -217,14 +217,14 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 		initial = stat;
 		add_interface<zombie, gridtick_interface>();
 		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
-        m_mesh->m_mesh_settings.m_material.m_shader = m_runtime->m_asset_manager.get_asset<ge::shader_asset>("zombie.shader");
+        m_mesh->set_shader(get_asset<ge::shader_asset>("zombie.shader"));
 		
 		if(m_grid->get_random(0, 1)) {
 			m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
-				m_runtime->m_asset_manager.get_asset<ge::texture_asset>("zombie2.texture");
+				get_asset<ge::texture_asset>("zombie2.texture");
 		} else {
 			m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
-				m_runtime->m_asset_manager.get_asset<ge::texture_asset>("zombie.texture");
+				get_asset<ge::texture_asset>("zombie.texture");
 
 		}
 		
@@ -234,7 +234,7 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 		zombie_mat = m_mesh->m_mesh_settings.m_material;
 
 		red_mat = m_mesh->m_mesh_settings.m_material;
-		red_mat.m_shader = m_runtime->m_asset_manager.get_asset<ge::shader_asset>("mask.shader");
+		red_mat.m_shader = get_asset<ge::shader_asset>("mask.shader");
 
 		die_connect = sig_die.connect([this](piece* p) {
 			m_grid->increment_z_count(false);
@@ -242,4 +242,13 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 			p->set_parent(NULL);
 		});
 		m_grid->increment_z_count(true);
+	}
+
+void zombie::damage(double damage, piece* calling)
+	{
+		m_mesh->m_mesh_settings.m_material = red_mat;
+		m_grid->timer->add_timer(1, [this] {
+			m_mesh->m_mesh_settings.m_material = zombie_mat;
+		}, shared(this));
+		modify_health(-damage);
 	}

@@ -69,24 +69,24 @@ int main()
 	// initialize the grid
     auto g = actor::factory<grid>(root.get(), glm::ivec2{11, 11}, 20.f);
 	actor::factory<zombieupgrade>(g.get(), glm::ivec3(-2,-2,-2));
-	actor::factory<wall>(g.get(), glm::ivec3(4, 4, 2));
-	actor::factory<wall>(g.get(), glm::ivec3(4, 6, 2));
-	actor::factory<wall>(g.get(), glm::ivec3(6, 4, 2));
-	actor::factory<wall>(g.get(), glm::ivec3(6, 6, 2));
+	actor::factory<wall>(g.get(), glm::ivec2(4, 4));
+	actor::factory<wall>(g.get(), glm::ivec2(4, 6));
+	actor::factory<wall>(g.get(), glm::ivec2(6, 4));
+	actor::factory<wall>(g.get(), glm::ivec2(6, 6));
 
-	actor::factory<spike>(g.get(), glm::ivec3(3, 4, 1));
-	actor::factory<spike>(g.get(), glm::ivec3(3, 6, 1));
+	actor::factory<spike>(g.get(), glm::ivec2(3, 4));
+	actor::factory<spike>(g.get(), glm::ivec2(3, 6));
 
-	actor::factory<turret>(g.get(), glm::ivec3(4, 5, 2), piece::WEST);
-	actor::factory<turret>(g.get(), glm::ivec3(5, 6, 2), piece::NORTH);
-	actor::factory<turret>(g.get(), glm::ivec3(6, 5, 2), piece::EAST);
-	actor::factory<turret>(g.get(), glm::ivec3(5, 4, 2), piece::SOUTH);
+	actor::factory<turret>(g.get(), glm::ivec2(4, 5), piece::WEST);
+	actor::factory<turret>(g.get(), glm::ivec2(5, 6), piece::NORTH);
+	actor::factory<turret>(g.get(), glm::ivec2(6, 5), piece::EAST);
+	actor::factory<turret>(g.get(), glm::ivec2(5, 4), piece::SOUTH);
 	
 	for (int x = 0; x < 12; x++) {
-		actor::factory<zombiespawner>(g.get(), glm::ivec3(-1, x, 2));
-		actor::factory<zombiespawner>(g.get(), glm::ivec3(11, x-1, 2));
-		actor::factory<zombiespawner>(g.get(), glm::ivec3(x-1, -1, 2));
-		actor::factory<zombiespawner>(g.get(), glm::ivec3(x, 11, 2));
+		actor::factory<zombiespawner>(g.get(), glm::ivec2(-1, x));
+		actor::factory<zombiespawner>(g.get(), glm::ivec2(11, x-1));
+		actor::factory<zombiespawner>(g.get(), glm::ivec2(x-1, -1));
+		actor::factory<zombiespawner>(g.get(), glm::ivec2(x, 11));
 	}
 	g->try_spawn_z();
 
