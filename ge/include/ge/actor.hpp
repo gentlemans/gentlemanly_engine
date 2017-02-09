@@ -57,7 +57,7 @@ public:
 		ret->set_parent(parent);
 		ret->m_runtime = parent->m_runtime;
 
-		// if you get an error here, you passed the wrong parameters to initialize
+		// if you get an error here, you passed the wrong parameters to initialize or initialize isn't public
 		ret->initialize(std::forward<InitParams>(init_params)...);
 
 		return ret;

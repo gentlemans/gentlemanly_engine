@@ -7,6 +7,7 @@
 #include <ge/runtime.hpp>
 #include <ge/sdl_subsystem.hpp>
 #include <ge/timer_subsystem.hpp>
+#include <ge/actor_ticker_subsystem.hpp>
 
 #include <glm/glm.hpp>
 
@@ -41,21 +42,11 @@ int main()
 	r.add_subsystem<timer_subsystem>({});
 	auto& sdl = r.add_subsystem<sdl_subsystem>(sdl_subsystem::config{"Example!", {640, 960}});
 	auto& rocket = r.add_subsystem<rocket_subsystem>({});
+	r.add_subsystem<actor_ticker_subsystem>({});
 
 	r.register_interface<renderable>();
+	r.register_interface<tickable>();
 	r.register_interface<gridtick_interface>();
-
-	// load UI
-	auto doc = r.m_asset_manager.get_asset<rocket_document_asset>("gridui/doc.rocketdocument");
-	doc->Show();
-
-	auto griddoc = rocket.m_context->CreateDocument("body");
-	griddoc->Show();
-
-	auto pieceSelector =
-		r.m_asset_manager.get_asset<rocket_document_asset>("gridui/piecebrowser.rocketdocument");
-	pieceSelector->Show();
-	pieceSelector->PullToFront();
 
 	auto root = actor::root_factory(&r);
 
@@ -91,38 +82,6 @@ int main()
 	}
 	g->try_spawn_z();
 
-	grid_rocket_instancer::registerInstancer();
-
-	// create virtual rocket elements
-	auto vp = camera->get_vp_matrix();
-	auto tmpActor = actor::factory<piece>(g.get(), glm::ivec3(0, 0, 0));
-	for (int x = 0; x < 11; ++x) {
-		for (int y = 0; y < 11; ++y) {
-			auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x - .5, y + .5, 1);
-			auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + .5, y + 1.5, 1);
-
-			start += 1;
-			start.x *= (float)sdl.get_size().x / 2.f;
-			start.y *= (float)sdl.get_size().y / 2.f;
-
-			end += 1;
-			end.x *= (float)sdl.get_size().x / 2.f;
-			end.y *= (float)sdl.get_size().y / 2.f;
-
-			auto xml = Rocket::Core::XMLAttributes();
-			xml.Set("idx", x);
-			xml.Set("idy", y);
-			xml.Set("start", Rocket::Core::Vector2f{start.x, sdl.get_size().y - start.y});
-			xml.Set("size", Rocket::Core::Vector2f{end.x - start.x, end.y - start.y});
-
-			auto elem =
-				Rocket::Core::Factory::InstanceElement(nullptr, "grid_rocket", "grid_rocket", xml);
-			griddoc->AppendChild(elem);
-
-			auto str = "grid_" + std::to_string(x) + "_" + std::to_string(y);
-			elem->SetId(str.c_str());
-		}
-	}
 
 #ifndef WIN32
 // 	Rocket::Debugger::Initialise(rocket.m_context);
@@ -132,7 +91,7 @@ int main()
 	rocket_input_consumer ic{&r};
 	ic.steal_input();
 
-	actor::factory<hud>(root.get(), g.get(), doc.get());
+	actor::factory<hud>(root.get(), g.get(), camera.get());
 
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop_arg(

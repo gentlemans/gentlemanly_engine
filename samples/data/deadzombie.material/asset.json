@@ -1,0 +1,10 @@
+{
+  "asset_type": "material",
+  "shader": "animation/animation.shader",
+  "parameters": {
+    "dimx": 2,
+    "dimy": 2,
+    "Texture": "deadzombie.texture"
+  }
+} 
+ 

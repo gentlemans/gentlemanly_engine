@@ -1,5 +1,8 @@
 #include "zombie.hpp"
 #include "connector.hpp"
+
+#include <ge/animation_actor.hpp>
+
 void zombie::move_closer_to_center()
 {
 	glm::ivec2 myLocation = get_grid_location();
@@ -215,8 +218,8 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 		
 		// create a corpse
 		auto corpse = factory<piece>(m_grid, glm::ivec3{get_grid_location().x, get_grid_location().y, 1});
-		auto corpsemesh = factory<ge::mesh_actor>(corpse.get(), "texturedmodel/textured.meshsettings");
-		corpsemesh->set_mat_param("Texture", get_asset<ge::texture_asset>("deadzombie.texture"));
+		auto corpsemesh = factory<ge::animation_actor>(corpse.get(), "texturedmodel/textured.meshsettings", 3.f);
+		corpsemesh->m_mesh->m_mesh_settings.m_material = *get_asset<ge::material_asset>("deadzombie.material");
 		
 		// destroy it in 20 ticks
 		m_grid->timer->add_timer(20, [c = corpse.get()]{
