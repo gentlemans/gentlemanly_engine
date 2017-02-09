@@ -21,7 +21,7 @@ class open_piece_browser_instancer : public Rocket::Core::EventListenerInstancer
 	// Instance an event listener object.
 	// @param value Value of the event.
 	Rocket::Core::EventListener* InstanceEventListener(const Rocket::Core::String& value, Rocket::Core::Element* element) override {
-		
+		return nullptr;
 	}
 
 	// Releases this event listener instancer.Element* elementElElement* elementement* element
