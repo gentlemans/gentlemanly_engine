@@ -24,6 +24,7 @@ public:
 	boost::signals2::scoped_connection take_damage;
 	ge::material zombie_mat;
 	ge::material red_mat;
+	ge::material dead_mat;
 
 	void initialize(glm::ivec3 location, stats stat);
 	void damage(double damage, piece* calling) override;

@@ -205,11 +205,24 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 
 	red_mat = m_mesh->m_mesh_settings.m_material;
 	red_mat.m_shader = get_asset<ge::shader_asset>("mask.shader");
+	
+	dead_mat = zombie_mat;
+	dead_mat.set_parameter("Texture", get_asset<ge::texture_asset>("deadzombie.texture"));
 
-	die_connect = sig_die.connect([this](piece* p) {
+	die_connect = sig_die.connect([this](piece*) {
 		m_grid->increment_z_count(false);
 		m_grid->change_resources(Calculate_Resources());
-		p->set_parent(NULL);
+		
+		// create a corpse
+		auto corpse = factory<piece>(m_grid, glm::ivec3{get_grid_location().x, get_grid_location().y, 1});
+		auto corpsemesh = factory<ge::mesh_actor>(corpse.get(), "texturedmodel/textured.meshsettings");
+		corpsemesh->set_mat_param("Texture", get_asset<ge::texture_asset>("deadzombie.texture"));
+		
+		// destroy it in 20 ticks
+		m_grid->timer->add_timer(20, [c = corpse.get()]{
+			c->set_parent(nullptr);
+		}, corpse);
+		set_parent(nullptr);
 	});
 	m_grid->increment_z_count(true);
 }
