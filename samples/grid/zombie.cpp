@@ -192,16 +192,14 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 	m_mesh->set_shader(get_asset<ge::shader_asset>("zombie.shader"));
 
 	if (m_grid->get_random(0, 1)) {
-		m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
-			get_asset<ge::texture_asset>("zombie2.texture");
+		m_mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("zombie2.texture"));
 	} else {
-		m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
-			get_asset<ge::texture_asset>("zombie.texture");
+		m_mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("zombie.texture"));
 	}
 
 	std::uniform_real_distribution<> dist{0, 2};
-	m_mesh->m_mesh_settings.m_material.m_property_values["Discoloration"] =
-		glm::vec3(dist(m_grid->rand_gen), dist(m_grid->rand_gen), dist(m_grid->rand_gen));
+	m_mesh->set_mat_param("Discoloration",
+		glm::vec3(dist(m_grid->rand_gen), dist(m_grid->rand_gen), dist(m_grid->rand_gen)));
 
 	zombie_mat = m_mesh->m_mesh_settings.m_material;
 
