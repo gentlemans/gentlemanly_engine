@@ -9,5 +9,7 @@
 	<div>
 	  Resource Amount: <span id="resamt"></span>
 	</div>
+	<br />
+	<button onclick="showpiecemenu">Towers</button>
   </body>
 </rml>

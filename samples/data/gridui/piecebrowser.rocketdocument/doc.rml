@@ -6,8 +6,14 @@
 				padding: 20px;
 				background-color: rgb(0%, 70%, 70%);
 			}
+			.price {
+				color: red;
+			}
 			img {
-				vertical-align: text-top;
+				vertical-align: text-centerfile:///home/russellg/gentlemanly_engine/samples/data/texturedmodel/textured.shader/asset.json
+file:///home/russellg/gentlemanly_engine/samples/data/texturedmodel/textured.shader/frag.glsl
+file:///home/russellg/gentlemanly_engine/samples/data/texturedmodel/textured.shader/vert.glsl
+;
 			}
 			body {
 				padding: 20px;
@@ -20,6 +26,9 @@
 	<body>
 		<div class="piece">
 			<img src="../../turret/turret.texture/turret.png" width="40px" height="40px"/> Turret!
+			<span class="price"> 
+				$1319
+			</span>
 		</div>
 	</body>
 </rml>

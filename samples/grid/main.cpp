@@ -19,6 +19,7 @@
 #include "turret.hpp"
 #include "zombie.hpp"
 #include "zombiespawner.hpp"
+#include "hud.hpp"
 #include "grid_rocket_element.hpp"
 #include "spike.hpp"
 #include "zombieupgrade.hpp"
@@ -30,39 +31,6 @@
 #endif
 
 using namespace ge;
-
-struct hud : actor {
-  
-  grid* g;
-  Rocket::Core::ElementDocument* rdoc = nullptr;
-  Rocket::Core::ElementText* text = nullptr;
-	Rocket::Core::ElementText* resourceamount = nullptr;
-  
-  void initialize(grid* gr, Rocket::Core::ElementDocument* doc){
-    g = gr;
-    rdoc = doc;
-    add_interface<hud, gridtick_interface>();
-    
-    auto zcount = doc->GetElementById("zcount");
-	if(!zcount) return;
-    text = rdoc->CreateTextNode("0");
-    zcount->AppendChild(text);
-
-	  auto resCount = doc->GetElementById("resamt");
-	  resourceamount = rdoc->CreateTextNode("0");
-	  resCount->AppendChild(resourceamount);
-
-  }
-  
-  void tick_grid() {
-    int zcount = g->get_z_count();
-    
-	if(!text) return;
-    text->SetText(std::to_string(zcount).c_str());
-	resourceamount->SetText(std::to_string(g->get_resources()).c_str());
-  }
-  
-};
 
 int main()
 {
@@ -158,8 +126,8 @@ int main()
     }
 
 #ifndef WIN32
-	Rocket::Debugger::Initialise(rocket.m_context);
-	Rocket::Debugger::SetVisible(true);
+// 	Rocket::Debugger::Initialise(rocket.m_context);
+// 	Rocket::Debugger::SetVisible(true);
 #endif
 
 	rocket_input_consumer ic{&r};

@@ -209,3 +209,37 @@ void zombie::tick_grid()
 		return;
 	}
 }
+
+void zombie::initialize(glm::ivec3 location, stats stat)
+	{
+		piece::initialize(location);
+		now = stat;
+		initial = stat;
+		add_interface<zombie, gridtick_interface>();
+		m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
+        m_mesh->m_mesh_settings.m_material.m_shader = m_runtime->m_asset_manager.get_asset<ge::shader_asset>("zombie.shader");
+		
+		if(m_grid->get_random(0, 1)) {
+			m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
+				m_runtime->m_asset_manager.get_asset<ge::texture_asset>("zombie2.texture");
+		} else {
+			m_mesh->m_mesh_settings.m_material.m_property_values["Texture"] =
+				m_runtime->m_asset_manager.get_asset<ge::texture_asset>("zombie.texture");
+
+		}
+		
+        std::uniform_real_distribution<> dist{0, 2};
+        m_mesh->m_mesh_settings.m_material.m_property_values["Discoloration"] = glm::vec3(dist(m_grid->rand_gen), dist(m_grid->rand_gen), dist(m_grid->rand_gen));
+
+		zombie_mat = m_mesh->m_mesh_settings.m_material;
+
+		red_mat = m_mesh->m_mesh_settings.m_material;
+		red_mat.m_shader = m_runtime->m_asset_manager.get_asset<ge::shader_asset>("mask.shader");
+
+		die_connect = sig_die.connect([this](piece* p) {
+			m_grid->increment_z_count(false);
+			m_grid->change_resources(Calculate_Resources());
+			p->set_parent(NULL);
+		});
+		m_grid->increment_z_count(true);
+	}

@@ -4,6 +4,7 @@
 
 class zombieupgrade : public piece
 {
+public:
 	void initialize(glm::ivec3 location)
 	{
 		piece::initialize(location);
