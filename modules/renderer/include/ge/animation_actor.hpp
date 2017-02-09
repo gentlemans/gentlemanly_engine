@@ -14,20 +14,22 @@ class animation_actor : public actor
 {
 public:
 	mesh_actor* m_mesh;
+	bool m_loops;
 
-	void initialize(const mesh_settings& mes, float fps)
+	void initialize(const mesh_settings& mes, float fps, bool loops = true)
 	{
 		m_mesh = factory<mesh_actor>(this, mes).get();
 		m_frames_per_second = fps;
+		m_loops = loops;
 		m_time_until_next_frame =
 			std::chrono::duration<float>(std::chrono::seconds(1)) / m_frames_per_second;
 
 		add_interface<animation_actor, tickable>();
 	}
 	// Just forward to the other one
-	void initialize(const char* asset_path, float fps)
+	void initialize(const char* asset_path, float fps, bool loops = true)
 	{
-		initialize(*m_runtime->m_asset_manager.get_asset<mesh_settings_asset>(asset_path), fps);
+		initialize(*m_runtime->m_asset_manager.get_asset<mesh_settings_asset>(asset_path), fps, loops);
 	}
 
 	void tick(std::chrono::duration<float> delta)
@@ -44,8 +46,24 @@ public:
 		current_frame += delta / time_per_frame;
 		m_time_until_next_frame -= delta;
 
-		current_frame %= *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimx") *
-						 *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimy");
+		auto num_frames = *m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimx") *
+							*m_mesh->m_mesh_settings.m_material.get_parameter<int>("dimy");
+		if (m_loops) {
+			current_frame %= num_frames;
+		} else {
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			current_frame = std::min(num_frames - 1, current_frame);
+		}
+		
 		m_mesh->m_mesh_settings.m_material.set_parameter("current_frame", current_frame);
 	}
 

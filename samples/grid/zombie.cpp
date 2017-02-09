@@ -211,10 +211,17 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 	m_mesh = factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings").get();
 	m_mesh->set_shader(get_asset<ge::shader_asset>("zombie.shader"));
 
-	if (m_grid->get_random(0, 1)) {
+	switch (m_grid->get_random(0, 2)) {
+	case 0:
 		m_mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("zombie2.texture"));
-	} else {
+		break;
+	case 1:
 		m_mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("zombie.texture"));
+		break;
+	case 2:
+		m_mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("zombie3.texture"));
+		break;
+		
 	}
 
 	std::uniform_real_distribution<> dist{0, 2};
@@ -235,11 +242,12 @@ void zombie::initialize(glm::ivec3 location, stats stat)
 		
 		// create a corpse
 		auto corpse = factory<piece>(m_grid, glm::ivec3{get_grid_location().x, get_grid_location().y, 1});
-		auto corpsemesh = factory<ge::animation_actor>(corpse.get(), "texturedmodel/textured.meshsettings", 3.f);
+		corpse->rotate(get_rotation());
+		auto corpsemesh = factory<ge::animation_actor>(corpse.get(), "texturedmodel/textured.meshsettings", 3.f, false);
 		corpsemesh->m_mesh->m_mesh_settings.m_material = *get_asset<ge::material_asset>("deadzombie.material");
 		
 		// destroy it in 20 ticks
-		m_grid->timer->add_timer(20, [c = corpse.get()]{
+		m_grid->timer->add_timer(40, [c = corpse.get()]{
 			c->set_parent(nullptr);
 		}, corpse);
 		set_parent(nullptr);
