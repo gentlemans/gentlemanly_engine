@@ -16,6 +16,7 @@ class zombie : public piece
 	void damage_in_direction(Directions d);
 	bool attacking;
 	double Calculate_Resources();
+	bool Check_for_other_zombies(std::vector<piece*> pvec);
 
 public:
 	ge::mesh_actor* m_mesh;

@@ -67,7 +67,7 @@ piece::stats grid::get_z_stats()
 {
 	std::vector<piece*> upgradesvec = get_actors_from_coord(glm::ivec3(-2, -2, -2));
 	piece* upgrades = upgradesvec[0];
-	double mn_h = upgrades->get_upgrade("Mimimum Health Up");
+	double mn_h = upgrades->get_upgrade("Minimum Health Up");
 	double mx_h = upgrades->get_upgrade("Max Health Up");
 	double mx_s = upgrades->get_upgrade("Max Speed Up");
 	double mn_s = upgrades->get_upgrade("Minimum Speed Up");
@@ -76,6 +76,10 @@ piece::stats grid::get_z_stats()
 	double health = get_random(100 * mn_h, 100 * mx_h);
 	double damage = get_random(10 * mn_d, 10 * mx_d);
 	int speed = get_random(15 / mn_s, 15 / mx_s);
+	if (health < 0 || damage < 0 || speed < 0)
+	{
+		std::cout << "Matthew Is trash at math";
+	}
 	piece::stats stat;
 	stat.damage = damage;
 	stat.speed = speed;
