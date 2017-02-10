@@ -15,31 +15,27 @@
 
 #include <Rocket/Core.h>
 
-class open_piece_browser_instancer : public Rocket::Core::EventListenerInstancer
-{
-	// Instance an event listener object.
-	// @param value Value of the event.
-	Rocket::Core::EventListener* InstanceEventListener(const Rocket::Core::String& value, Rocket::Core::Element* element) override {
-		return nullptr;
-	}
-
-	// Releases this event listener instancer.Element* elementElElement* elementement* element
-	void Release() override {
-		
-	}
-};
-
 class hud : public ge::actor
 {
 public:
+	
+	enum grid_mode {
+		hitting,
+		placing,
+	};
+	
+	static hud* instance;
+	
+	void initialize(grid* gr, ge::camera_actor* camera);
+	
+	void tick_grid();
+private:
+	
 	grid* g;
 	Rocket::Core::ElementDocument* rdoc = nullptr, *griddoc = nullptr, *pieceSelector;;
 	Rocket::Core::ElementText* text = nullptr;
 	Rocket::Core::ElementText* resourceamount = nullptr;
 
-	void initialize(grid* gr, ge::camera_actor* camera);
-	
-	void tick_grid();
 };
 
 #endif  // GRID_HUD_HPP

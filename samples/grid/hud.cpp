@@ -1,7 +1,11 @@
 #include "hud.hpp"
 
+hud* hud::instance = nullptr;
+
 void hud::initialize(grid* gr, ge::camera_actor* camera)
 {
+	instance = this;
+	
 	initialze_event_manager();
 	register_event("showpiecemenu", [this](Rocket::Core::Event& ev) { 
 			
