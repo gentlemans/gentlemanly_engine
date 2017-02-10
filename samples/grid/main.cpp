@@ -105,6 +105,4 @@ int main()
 	while (r.tick())
 		;
 #endif
-
-	int& a = *(int*)0;
 }
