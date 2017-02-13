@@ -35,6 +35,8 @@ private:
 	Rocket::Core::ElementDocument* rdoc = nullptr, *griddoc = nullptr, *pieceSelector;;
 	Rocket::Core::ElementText* text = nullptr;
 	Rocket::Core::ElementText* resourceamount = nullptr;
+	
+	Rocket::Core::Element* clickedElement = nullptr;
 
 };
 

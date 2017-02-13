@@ -8,10 +8,32 @@ void hud::initialize(grid* gr, ge::camera_actor* camera)
 	
 	initialze_event_manager();
 	register_event("showpiecemenu", [this](Rocket::Core::Event& ev) { 
-			
-		pieceSelector->Show();
-		pieceSelector->PullToFront();
+		
+		static bool isBeingShown = false;
+		
+		if(isBeingShown) {
+			pieceSelector->Hide();
+		} else {
+			pieceSelector->Show();
+			pieceSelector->PullToFront();
+		}
+		
+		isBeingShown = !isBeingShown;
+		
 	});
+    register_event("clickpiece", [this](Rocket::Core::Event& ev) {
+		if (clickedElement == ev.GetTargetElement()) {
+			clickedElement->SetPseudoClass("clicked", false);
+			clickedElement = nullptr;
+			
+			return;
+		}
+		if (clickedElement != nullptr) {
+			clickedElement->SetPseudoClass("clicked", false);
+		}
+		ev.GetTargetElement()->SetPseudoClass("clicked", true);
+		clickedElement = ev.GetTargetElement();
+    });
 
 	// load UI
 	auto doc = m_runtime->m_asset_manager.get_asset<ge::rocket_document_asset>(

@@ -5,15 +5,17 @@
 			.piece {
 				padding: 20px;
 				background-color: rgb(0%, 70%, 70%);
+				padding: 20px;
+				border: 20px;
+			}
+			.piece:clicked {
+				background-color: rgb(30%, 0%, 25%);
 			}
 			.price {
 				color: red;
 			}
 			img {
-				vertical-align: text-centerfile:///home/russellg/gentlemanly_engine/samples/data/texturedmodel/textured.shader/asset.json
-file:///home/russellg/gentlemanly_engine/samples/data/texturedmodel/textured.shader/frag.glsl
-file:///home/russellg/gentlemanly_engine/samples/data/texturedmodel/textured.shader/vert.glsl
-;
+				vertical-align: middle;
 			}
 			body {
 				padding: 20px;
@@ -24,10 +26,16 @@ file:///home/russellg/gentlemanly_engine/samples/data/texturedmodel/textured.sha
 	
 	</head>
 	<body>
-		<div class="piece">
-			<img src="../../turret/turret.texture/turret.png" width="40px" height="40px"/> Turret!
+		<div id="turret" onclick="clickpiece" class="piece">
+			<img src="../../turret/turret.texture/turret.png" width="40px" height="40px"/> Turret
 			<span class="price"> 
 				$1319
+			</span>
+		</div>
+		<div id="wall" onclick="clickpiece" class="piece">
+			<img src="../../wall.texture/wall.png" width="40px" height="40px"/> Wall
+			<span class="price"> 
+				$131
 			</span>
 		</div>
 	</body>
