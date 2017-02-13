@@ -83,10 +83,9 @@ int main()
 	g->try_spawn_z();
 
 
-#ifndef WIN32
-// 	Rocket::Debugger::Initialise(rocket.m_context);
-// 	Rocket::Debugger::SetVisible(true);
-#endif
+ 	Rocket::Debugger::Initialise(rocket.m_context);
+ 	Rocket::Debugger::SetVisible(true);
+
 
 	rocket_input_consumer ic{&r};
 	ic.steal_input();

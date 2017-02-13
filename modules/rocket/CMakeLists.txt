@@ -16,6 +16,7 @@ set(GE_ROCKET_PRIVATE_FILES
 
 add_library(gentlemanly_engine_rocket_subsystem ${GE_ROCKET_PUBLIC_FILES} ${GE_ROCKET_PRIVATE_FILES})
 
+target_compile_definitions(gentlemanly_engine_rocket_subsystem PUBLIC ROCKET_STATIC_LIB)
 
 target_link_libraries(gentlemanly_engine_rocket_subsystem
 PUBLIC
