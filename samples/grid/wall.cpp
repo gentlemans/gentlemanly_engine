@@ -44,7 +44,7 @@ void wall::initialize(glm::uvec2 location)
 
 void wall::tick_grid()
 {
-	if (countdown_to_action >= 0) {
+	if (countdown_to_action > 0) {
 		countdown_to_action--;
 		return;
 	}

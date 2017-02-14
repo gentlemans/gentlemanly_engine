@@ -1,4 +1,6 @@
 #include "turret.hpp"
+#include "bullet.hpp"
+#include "grid.hpp"
 
 void turret::calculate_upgrades()
 {
@@ -39,7 +41,7 @@ void turret::initialize(glm::uvec2 location, Directions direction)
 
 void turret::tick_grid()
 {
-	if (countdown_to_action >= 0) {
+	if (countdown_to_action > 0) {
 		countdown_to_action--;
 		return;
 	}
@@ -51,18 +53,5 @@ void turret::tick_grid()
 void turret::shoot()
 {
 	int range = 3;
-	auto squares = squares_in_direction(get_grid_location(), my_direction, range);
-	piece* tod;
-	for (int x = 0; x < range; x++) {
-		if (squares[x].size() != 0) {
-			if (hitStreak < 3) hitStreak++;
-			tod = squares[x][0];
-			break;
-		} else if (x == range - 1) {
-			hitStreak = 0;
-			return;
-		}
-	}
-	double calculated_damage = now.damage * pow(1.1, hitStreak);
-	tod->damage(calculated_damage, this);
+	bullet* shot_bullet = actor::factory<bullet>(m_grid, get_location_from_direction(get_grid_location(), my_direction, 1), my_direction, now, range).get();
 }

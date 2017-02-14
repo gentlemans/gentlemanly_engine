@@ -19,16 +19,33 @@ class bullet : public piece
 	std::array<int, 1> upgrades;
 
 public:
-	void initialize(glm::uvec2 location, Directions direction, stats stat)
+
+	bool hit = false;
+
+	int moves = 0;
+
+	void initialize(glm::uvec2 location, Directions direction, stats stat, int range)
 	{
 		piece::initialize({ location.x, location.y, 2 });
 		rotate(direction);
 		now = stat;
-		add_interface<turret, gridtick_interface>();
-		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
+		add_interface<bullet, gridtick_interface>();
+		mesh = ge::actor::factory<ge::mesh_actor>(this, "bullet/bullet.meshsettings").get();
 
 	}
-	void tick_grid();
+	bool colision_check()
+	{
+		
+	}
+	void tick_grid()
+	{
+		if (countdown_to_action > 0)
+		{
+			countdown_to_action--;
+			return;
+		}
+		if ()
+	}
 };
 
 #endif  // TURRET_HPP
