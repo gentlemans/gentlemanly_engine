@@ -3,17 +3,18 @@
 #include <unordered_map>
 
 namespace  {
-std::unordered_map<std::string, std::function<void (Rocket::Core::Event &)>> handlers;
+std::unordered_map<std::string, event_handler_func> handlers;
 
 class EventListener : public Rocket::Core::EventListener {
 public:
-	std::function<void (Rocket::Core::Event &)> m_func;
+	event_handler_func m_func;
+	std::string m_args;
 	
-	EventListener(std::function<void (Rocket::Core::Event &)> func) : m_func{std::move(func)} {}
+	EventListener(event_handler_func func, std::string args) : m_func{std::move(func)}, m_args{std::move(args)} {}
 	
-	/// Sends the event value through to Invader's event processing system.
+	
 	virtual void ProcessEvent(Rocket::Core::Event& event) {
-		m_func(event);
+		m_func(event, m_args);
 	}
 
 };
@@ -24,11 +25,16 @@ class EventInstancer : public Rocket::Core::EventListenerInstancer {
 		Rocket::Core::StringList commands;
 		Rocket::Core::StringUtilities::ExpandString(commands, value, ';');
 		
-		for (const auto& command : commands) {
+		for (const auto& commandRstring : commands) {
 			
-			auto iter = handlers.find(command.CString());
+			auto command = std::string{commandRstring.CString()};
+			
+			auto commandName = command.substr(0, command.find(' '));
+			auto commandArgs = command.substr(command.find(' ') + 1);
+			
+			auto iter = handlers.find(commandName);
 			if (iter != handlers.end()) {
-				return new EventListener(iter->second);
+				return new EventListener(iter->second, commandArgs);
 			}
 			
 		}
@@ -50,7 +56,7 @@ void initialze_event_manager()
 }
 
 
-void register_event(const char* name, std::function<void (Rocket::Core::Event &)> event)
+void register_event(const char* name, event_handler_func event)
 {
 	
 	handlers[name] = std::move(event);

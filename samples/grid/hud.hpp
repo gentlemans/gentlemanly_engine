@@ -10,7 +10,6 @@
 #include <ge/rocket_document_asset.hpp>
 
 #include "grid.hpp"
-#include "grid_rocket_element.hpp"
 #include "event_manager.hpp"
 
 #include <Rocket/Core.h>
@@ -28,15 +27,24 @@ public:
 	
 	void initialize(grid* gr, ge::camera_actor* camera);
 	
+	void grid_clicked(glm::ivec2 loc);
+	
+	bool pieceselector_visible();
+	void show_pieceselector();
+	void hide_pieceselector();
+	
 	void tick_grid();
 private:
 	
 	grid* g;
-	Rocket::Core::ElementDocument* rdoc = nullptr, *griddoc = nullptr, *pieceSelector;;
+	Rocket::Core::ElementDocument* rdoc = nullptr, *griddoc = nullptr, *pieceSelector;
 	Rocket::Core::ElementText* text = nullptr;
 	Rocket::Core::ElementText* resourceamount = nullptr;
 	
 	Rocket::Core::Element* clickedElement = nullptr;
+	
+	grid_mode m_mode = hitting;
+	bool m_pieceselector_visible;
 
 };
 

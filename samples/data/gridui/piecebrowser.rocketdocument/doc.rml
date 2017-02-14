@@ -26,13 +26,13 @@
 	
 	</head>
 	<body>
-		<div id="turret" onclick="clickpiece" class="piece">
+		<div id="turret" onclick="clickpiece turret" class="piece">
 			<img src="../../turret/turret.texture/turret.png" width="40px" height="40px"/> Turret
 			<span class="price"> 
 				$1319
 			</span>
 		</div>
-		<div id="wall" onclick="clickpiece" class="piece">
+		<div id="wall" onclick="clickpiece wall" class="piece">
 			<img src="../../wall.texture/wall.png" width="40px" height="40px"/> Wall
 			<span class="price"> 
 				$131

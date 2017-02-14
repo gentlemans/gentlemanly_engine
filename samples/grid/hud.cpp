@@ -1,4 +1,6 @@
 #include "hud.hpp"
+#include "grid_rocket_element.hpp"
+#include "wall.hpp"
 
 hud* hud::instance = nullptr;
 
@@ -7,32 +9,32 @@ void hud::initialize(grid* gr, ge::camera_actor* camera)
 	instance = this;
 	
 	initialze_event_manager();
-	register_event("showpiecemenu", [this](Rocket::Core::Event& ev) { 
+	register_event("showpiecemenu", [this](Rocket::Core::Event& ev, const std::string& args) { 
 		
-		static bool isBeingShown = false;
-		
-		if(isBeingShown) {
-			pieceSelector->Hide();
+		if(pieceselector_visible()) {
+			hide_pieceselector();
+			m_mode = hitting;
 		} else {
-			pieceSelector->Show();
-			pieceSelector->PullToFront();
+			show_pieceselector();
+			m_mode = placing;
 		}
-		
-		isBeingShown = !isBeingShown;
 		
 	});
-    register_event("clickpiece", [this](Rocket::Core::Event& ev) {
-		if (clickedElement == ev.GetTargetElement()) {
-			clickedElement->SetPseudoClass("clicked", false);
-			clickedElement = nullptr;
-			
-			return;
-		}
+    register_event("clickpiece", [this](Rocket::Core::Event& ev, const std::string& args) {
 		if (clickedElement != nullptr) {
+			
+			// if we clicked on the same one again
+			if(clickedElement->GetId().CString() == args) {
+				clickedElement->SetPseudoClass("clicked", false);
+				clickedElement = nullptr;
+				
+				
+				return;
+			}
 			clickedElement->SetPseudoClass("clicked", false);
 		}
-		ev.GetTargetElement()->SetPseudoClass("clicked", true);
-		clickedElement = ev.GetTargetElement();
+		clickedElement = ev.GetTargetElement()->GetOwnerDocument()->GetElementById(args.c_str());
+		clickedElement->SetPseudoClass("clicked", true);
     });
 
 	// load UI
@@ -89,11 +91,47 @@ void hud::initialize(grid* gr, ge::camera_actor* camera)
 			auto elem =
 				Rocket::Core::Factory::InstanceElement(nullptr, "grid_rocket", "grid_rocket", xml);
 			griddoc->AppendChild(elem);
+			elem->RemoveReference();
 
 			auto str = "grid_" + std::to_string(x) + "_" + std::to_string(y);
 			elem->SetId(str.c_str());
 		}
 	}
+}
+
+void hud::grid_clicked(glm::ivec2 loc) {
+	switch(m_mode) {
+		case hitting:
+			break;
+			
+		case placing:
+			if (clickedElement != nullptr) {
+				auto id = clickedElement->GetId();
+				if (id == "turret") {
+					actor::factory<turret>(grid::instance, loc, piece::NORTH);
+				} else if (id == "wall") {
+					actor::factory<wall>(grid::instance, loc);
+				}
+			}
+			show_pieceselector();
+			break;
+		
+	}
+}
+	bool hud::pieceselector_visible() {
+		return m_pieceselector_visible;
+	}
+
+void hud::show_pieceselector() {
+	pieceSelector->Show();
+	pieceSelector->PullToFront();
+	m_pieceselector_visible = true;
+}
+void hud::hide_pieceselector() {
+	
+	clickedElement->SetPseudoClass("clicked", false);
+	pieceSelector->Hide();
+	m_pieceselector_visible = false;
 }
 
 void hud::tick_grid()

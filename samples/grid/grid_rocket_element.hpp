@@ -11,6 +11,7 @@
 
 #include "grid.hpp"
 #include "turret.hpp"
+#include "hud.hpp"
 
 class grid_rocket_element : public Rocket::Core::Element
 {
@@ -24,41 +25,12 @@ public:
 		SetProperty("width", std::to_string(sizePx.x).c_str());
 		SetProperty("height", std::to_string(sizePx.y).c_str());
 
-		// 		SetProperty("background-color", ("rgb(0%, " + std::to_string(rand() % 256)+ "%, " +
-		// std::to_string(rand() % 256) + "%)").c_str());
-
-		//        const char* borderCol = "5px rgb(0%, 0%, 0%)";
-		/*
-				if(id.x == 0) {
-					SetProperty("border-left", borderCol);
-				}
-				if(id.x == 10) {
-					SetProperty("border-right", borderCol);
-				}
-				if(id.y == 0) {
-					SetProperty("border-bottom", borderCol);
-				}
-				if(id.y == 10) {
-					SetProperty("border-top", borderCol);
-				}*/
 	}
 
 	void ProcessEvent(Rocket::Core::Event& ev) override
 	{
 		if (ev.GetType() == "mousedown") {
-			auto g = grid::global_grid;
-
-			auto acts = g->get_actors_from_coord({m_id.x, m_id.y, 2});
-
-			if (acts.size() == 1 && typeid(*acts[0]) == typeid(turret)) {
-				acts[0]->rotate(piece::Directions((acts[0]->get_rotation() + 1) % 4));
-			} else {
-				ge::actor::factory<turret>(
-					grid::global_grid, glm::ivec3(m_id.x, m_id.y, 2), piece::NORTH);
-			}
-
-		} else if (ev.GetType() == "dragdrop") {
-			std::cout << "Dropped on!" << std::endl;
+			hud::instance->grid_clicked(m_id);
 		}
 	}
 

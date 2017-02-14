@@ -40,5 +40,5 @@ public:
 	void increment_z_count(bool positive);
 	int get_z_count();
 
-	static grid* global_grid;
+	static grid* instance;
 };
