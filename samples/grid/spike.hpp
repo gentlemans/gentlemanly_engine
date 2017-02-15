@@ -15,8 +15,6 @@ class spike : public piece
 {
 	ge::mesh_actor* mesh;
 
-	boost::signals2::scoped_connection die_connect;
-
 public:
 	void initialize(glm::uvec2 location)
 	{
@@ -25,7 +23,7 @@ public:
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 		mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("spike.texture"));
 
-		die_connect = sig_die.connect([](piece* p) { p->set_parent(NULL); });
+		sig_die.connect([](piece* p) { p->set_parent(NULL); });
 	}
 	void tick_grid()
 	{

@@ -15,9 +15,9 @@ class base : public piece
 public:
 	std::shared_ptr<ge::mesh_actor> m_mesh;
 
-	void initialize(glm::ivec3 loc)
+	void initialize(glm::ivec2 loc)
 	{
-		piece::initialize(loc);
+		piece::initialize({loc.x, loc.y, 2});
 
 		m_mesh = ge::actor::factory<ge::mesh_actor>(this, "texturedmodel/textured.meshsettings");
 		m_mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("base_texture"));

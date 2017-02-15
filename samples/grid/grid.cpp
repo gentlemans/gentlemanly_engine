@@ -19,7 +19,7 @@ void grid::initialize(glm::ivec2 size, float tps)
 
 	m_size = size;
 
-	auto b = ge::actor::factory<base>(this, glm::ivec3{size.x / 2, size.y / 2, 2});
+	auto b = ge::actor::factory<base>(this, size / 2);
 
 	auto timersub = m_runtime->get_subsystem<ge::timer_subsystem>();
 

@@ -39,7 +39,7 @@ void wall::initialize(glm::uvec2 location)
 	set_upgrade("Barbed Wire", 1);
 	// Adds a small amount of damage that zombies take every time they attack you
 
-	connect_track(sig_die, [](piece* p) { p->set_parent(NULL); }, shared(this));
+	sig_die.connect([](piece* p) { p->set_parent(NULL); });
 }
 
 void wall::tick_grid()

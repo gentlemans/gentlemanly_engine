@@ -1,0 +1,5 @@
+{
+  "asset_type": "mesh_settings",
+  "material": "bullet/bullet.material",
+  "mesh": "texturedmodel/square.mesh"
+} 
