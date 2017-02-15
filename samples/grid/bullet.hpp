@@ -46,17 +46,9 @@ public:
 	}
 	std::vector<piece*> colision_check(glm::ivec2 check_here)
 	{
-		std::vector<piece*> layer_1 = m_grid->get_actors_from_coord(glm::ivec3(check_here.x, check_here.y, 1));
 		std::vector<piece*> layer_2 = m_grid->get_actors_from_coord(glm::ivec3(check_here.x, check_here.y, 2));
 		std::vector<piece*> colided;
-		for (auto item : layer_1)
-		{
-			if (typeid(*item) == typeid(zombie))
-			{
-				colided.push_back(item);
-			}
-		}
-		for (auto item : layer_1)
+		for (auto item : layer_2)
 		{
 			if (typeid(*item) != typeid(zombiespawner))
 			{
@@ -67,7 +59,6 @@ public:
 	}
 	void tick_grid()
 	{
-		moves++;
 		if (moves >= b_range)
 		{
 			sig_die(this);
@@ -79,30 +70,21 @@ public:
 			countdown_to_action--;
 			return;
 		}
+		moves++;
+		countdown_to_action = 1;
 		auto m_location = get_grid_location();
-		std::vector<piece*> colision_vec = colision_check(glm::ivec2(m_location.x, m_location.y));
+		std::vector<piece*> colision_vec = colision_check(get_location_from_direction(m_location, my_direction, 1));
 		if (colision_vec.size() != 0)
-		{
-			colision_vec[0]->damage(now.damage, m_turret);
-			hit = true;
-			sig_die(this);
-			return;
-		}
-		else
-		{
-			colision_vec = colision_check(get_location_from_direction(m_location, my_direction, 1));
-			if (colision_vec.size() != 0)
 			{
 				colision_vec[0]->damage(now.damage, m_turret);
 				hit = true;
 				sig_die(this);
 				return;
-			}
-			else
+			}	
+		else
 			{
 				set_grid_location(glm::ivec3(get_location_from_direction(m_location, my_direction, 1),m_level));
 			}
-		}
 	}
 };
 

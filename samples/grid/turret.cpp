@@ -6,8 +6,8 @@
 void turret::calculate_upgrades()
 {
 	now = initial;
-	now.speed = now.speed - (2 * get_upgrade("Attack Speed Up"));
-	if (now.speed > 0) now.speed = 0;
+	now.speed = now.speed - (get_upgrade("Attack Speed Up"));
+	if (now.speed < 0) now.speed = 0;
 	int amount = get_upgrade("Damage Up");
 	for (int x = 0; x < amount; x++) {
 		now.damage = now.damage * 1.1;
@@ -42,19 +42,20 @@ void turret::initialize(glm::uvec2 location, Directions direction)
 
 void turret::tick_grid()
 {
+	modify_health(now.regen);
 	if (countdown_to_action > 0) {
 		countdown_to_action--;
 		return;
 	}
 	countdown_to_action = now.speed;
 	shoot();
-	modify_health(now.regen);
 }
 
 void turret::shoot()
 {
 	int range = 3;
-	bullet* shot_bullet = actor::factory<bullet>(m_grid, get_location_from_direction(get_grid_location(), my_direction, 1), my_direction, now, range, this).get();
+	glm::ivec3 m_location = get_grid_location();
+	bullet* shot_bullet = actor::factory<bullet>(m_grid, glm::ivec2(m_location.x, m_location.y), my_direction, now, range, this).get();
 	connect_track(shot_bullet->sig_die, [shot_bullet,this](piece* p) {
 		if (shot_bullet->hit)
 			hitStreak++;

@@ -52,7 +52,7 @@ void piece::modify_health(double amount)
 	now.health = now.health + amount;
 	if (now.health > initial.health) now.health = initial.health;
 	if (now.health < 0) now.health = 0;
-	if (amount > 0) sig_damaged(this, amount);
+	if (amount < 0) sig_damaged(this, amount);
 	if (now.health == 0) {
 		sig_die(this);
 	}

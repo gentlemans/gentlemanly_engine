@@ -44,10 +44,10 @@ void wall::initialize(glm::uvec2 location)
 
 void wall::tick_grid()
 {
+	modify_health(now.regen);
 	if (countdown_to_action > 0) {
 		countdown_to_action--;
 		return;
 	}
 	countdown_to_action = now.speed;
-	modify_health(-now.regen);
 }
