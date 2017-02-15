@@ -54,7 +54,7 @@ void turret::tick_grid()
 void turret::shoot()
 {
 	int range = 3;
-	bullet* shot_bullet = actor::factory<bullet>(m_grid, get_location_from_direction(get_grid_location(), my_direction, 1), my_direction, now, range).get();
+	bullet* shot_bullet = actor::factory<bullet>(m_grid, get_location_from_direction(get_grid_location(), my_direction, 1), my_direction, now, range, this).get();
 	connect_track(shot_bullet->sig_die, [shot_bullet,this](piece* p) {
 		if (shot_bullet->hit)
 			hitStreak++;
