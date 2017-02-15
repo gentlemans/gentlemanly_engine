@@ -21,7 +21,7 @@ class bullet : public piece
 public:
 
 	bool hit = false;
-
+	int b_range = 0;
 	int moves = 0;
 
 	void initialize(glm::uvec2 location, Directions direction, stats stat, int range)
@@ -29,6 +29,7 @@ public:
 		piece::initialize({ location.x, location.y, 2 });
 		rotate(direction);
 		now = stat;
+		b_range = range;
 		add_interface<bullet, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "bullet/bullet.meshsettings").get();
 
@@ -44,7 +45,7 @@ public:
 			countdown_to_action--;
 			return;
 		}
-		if ()
+		
 	}
 };
 
