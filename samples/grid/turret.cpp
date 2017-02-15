@@ -1,6 +1,7 @@
 #include "turret.hpp"
 #include "bullet.hpp"
 #include "grid.hpp"
+#include "connector.hpp"
 
 void turret::calculate_upgrades()
 {
@@ -54,4 +55,10 @@ void turret::shoot()
 {
 	int range = 3;
 	bullet* shot_bullet = actor::factory<bullet>(m_grid, get_location_from_direction(get_grid_location(), my_direction, 1), my_direction, now, range).get();
+	connect_track(shot_bullet->sig_die, [shot_bullet,this](piece* p) {
+		if (shot_bullet->hit)
+			hitStreak++;
+		else
+			hitStreak = 0;
+	}, shared(this));
 }
