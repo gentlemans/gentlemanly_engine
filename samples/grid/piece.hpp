@@ -31,7 +31,7 @@ protected:
 	stats initial;
 	stats now;
 	int countdown_to_action = 0;
-	void modify_health(double damage);
+	void modify_health(double amount);
 
 public:
 	virtual void calculate_upgrades(){};

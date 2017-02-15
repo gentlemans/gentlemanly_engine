@@ -22,7 +22,7 @@ void turret::initialize(glm::uvec2 location, Directions direction)
 	piece::initialize({location.x, location.y, 2});
 	add_interface<turret, gridtick_interface>();
 	mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
-	initial.damage = 50;
+	initial.damage = 15;
 	initial.health = 100;
 	initial.speed = 4;
 	initial.regen = 0;
