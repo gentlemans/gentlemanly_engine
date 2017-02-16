@@ -53,6 +53,11 @@ void turret::tick_grid()
 	shoot();
 }
 
+void calculate_hitstreak()
+{
+
+}
+
 void turret::shoot()
 {
 	int range = 3;
