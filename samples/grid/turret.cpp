@@ -27,10 +27,10 @@ void turret::initialize(glm::uvec2 location, Directions direction)
 	initial.speed = 10;
 	initial.regen = 0;
 	now = initial;
-	set_upgrade("Attack Speed Up", 1);
-	// Increases the action speed of the tower
 	set_upgrade("Damage Up", 1);
 	// Each upgrade adds a stacking 10% damage increase
+	set_upgrade("Attack Speed Up", 1);
+	// Increases the action speed of the tower
 	set_upgrade("Regen Up", 0);
 	// Adds one helth point regenerated per tick, given on peice action
 	set_upgrade("Increaded Accuracy", 1);
