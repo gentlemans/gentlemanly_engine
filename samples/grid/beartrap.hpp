@@ -24,6 +24,7 @@ public:
 		mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("spike.texture"));
 
 		sig_die.connect([](piece* p) { p->set_parent(NULL); });
+		now.speed = 0;
 	}
 	void tick_grid()
 	{
@@ -36,7 +37,8 @@ public:
 		glm::ivec3 myLocation = get_grid_location();
 		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x, myLocation.y, 2));
 		for (int x = 0; x < actors.size(); x++) {
-			actors[x]->damage(3, this);
+			actors[x]->active=false;
+			active = false;
 		}
 	}
 };
