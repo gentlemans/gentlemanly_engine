@@ -30,6 +30,7 @@ public:
 protected:
 	stats initial;
 	stats now;
+	bool active = true;
 	int countdown_to_action = 0;
 	void modify_health(double amount);
 

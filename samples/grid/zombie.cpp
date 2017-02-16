@@ -173,7 +173,7 @@ void zombie::tick_grid()
 		countdown_to_action--;
 		return;
 	} else
-		countdown_to_action = now.speed;
+		countdown_to_action =+ now.speed;
 	glm::ivec2 myLocation = get_grid_location();
 	glm::ivec2 gridCenter = get_grid_center();
 	std::vector<piece*> actors_at_my_location = m_grid->get_actors_from_coord(get_grid_location());

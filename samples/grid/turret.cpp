@@ -22,9 +22,9 @@ void turret::initialize(glm::uvec2 location, Directions direction)
 	piece::initialize({location.x, location.y, 2});
 	add_interface<turret, gridtick_interface>();
 	mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
-	initial.damage = 15;
+	initial.damage = 5;
 	initial.health = 100;
-	initial.speed = 4;
+	initial.speed = 10;
 	initial.regen = 0;
 	now = initial;
 	set_upgrade("Attack Speed Up", 1);
@@ -47,7 +47,9 @@ void turret::tick_grid()
 		countdown_to_action--;
 		return;
 	}
-	countdown_to_action = now.speed;
+	if (active == false)
+		return;
+	countdown_to_action =+ now.speed;
 	shoot();
 }
 
