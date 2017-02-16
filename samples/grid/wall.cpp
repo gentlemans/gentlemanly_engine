@@ -49,5 +49,5 @@ void wall::tick_grid()
 		countdown_to_action--;
 		return;
 	}
-	countdown_to_action = now.speed;
+	countdown_to_action =+ now.speed;
 }
