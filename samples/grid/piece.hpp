@@ -35,6 +35,17 @@ protected:
 	void modify_health(double amount);
 
 public:
+	void toggle_active()
+	{
+		if (active)
+			active = false;
+		else
+			active = true;
+	}
+	void set_active(bool set_to)
+	{
+		active = set_to;
+	}
 	virtual void calculate_upgrades(){};
 	bool has_upgrade(const std::string& test) const
 	{

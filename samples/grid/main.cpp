@@ -24,6 +24,7 @@
 #include "zombie.hpp"
 #include "zombiespawner.hpp"
 #include "zombieupgrade.hpp"
+#include "beartrap.hpp"
 
 #include <Rocket/Debugger/Debugger.h>
 
@@ -70,9 +71,13 @@ int main()
 	actor::factory<spike>(g.get(), glm::ivec2(3, 6));
 
 	actor::factory<turret>(g.get(), glm::ivec2(4, 5), piece::WEST);
+	actor::factory<beartrap>(g.get(), glm::ivec2(3, 5));
 	actor::factory<turret>(g.get(), glm::ivec2(5, 6), piece::NORTH);
+	actor::factory<beartrap>(g.get(), glm::ivec2(5, 7));
 	actor::factory<turret>(g.get(), glm::ivec2(6, 5), piece::EAST);
+	actor::factory<beartrap>(g.get(), glm::ivec2(7, 5));
 	actor::factory<turret>(g.get(), glm::ivec2(5, 4), piece::SOUTH);
+	actor::factory<beartrap>(g.get(), glm::ivec2(5, 3));
 
 	for (int x = 0; x < 12; x++) {
 		actor::factory<zombiespawner>(g.get(), glm::ivec2(-1, x));
