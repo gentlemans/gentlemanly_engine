@@ -33,6 +33,7 @@ protected:
 	bool active = true;
 	int countdown_to_action = 0;
 	void modify_health(double amount);
+	piece* trapping_p;
 
 public:
 	void toggle_active()
@@ -42,9 +43,13 @@ public:
 		else
 			active = true;
 	}
-	void set_active(bool set_to)
+	void set_active(bool set_to, piece* making_inactive)
 	{
 		active = set_to;
+		if (set_to)
+			trapping_p = NULL;
+		else
+			trapping_p = making_inactive;
 	}
 	virtual void calculate_upgrades(){};
 	bool has_upgrade(const std::string& test) const
@@ -65,6 +70,10 @@ public:
 	}
 
 	virtual void damage(double damage, piece* calling){};
+	virtual void move_trapped_piece(piece* move_this) 
+	{
+		std::cout << "please override virtual void move_trapped piece";
+	};
 	grid* m_grid;
 	int m_level;
 	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);

@@ -175,6 +175,7 @@ void zombie::tick_grid()
 	}
 	else if(active == false)
 	{
+		trapping_p->move_trapped_piece(this);
 		return;
 	}
 	countdown_to_action	= +now.speed;

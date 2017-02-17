@@ -27,6 +27,7 @@ public:
 		sig_die.connect([](piece* p) { p->set_parent(NULL); });
 		now.speed = 0;
 	}
+	void move_trapped_piece(piece* move_this) override {}
 	void tick_grid()
 	{
 		if (active == false)
@@ -45,12 +46,12 @@ public:
 		glm::ivec3 myLocation = get_grid_location();
 		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x, myLocation.y, 2));
 		for (int x = 0; x < actors.size(); x++) {
-			actors[x]->set_active(false);
+			actors[x]->set_active(false, this);
 			trapped_count++;
 			connect_track(actors[x]->sig_die, [this](piece* p) {
 				beartrap::trapped_count--;
 			}, shared(this));
-			set_active(false);
+			set_active(false, this);
 		}
 	}
 };
