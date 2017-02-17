@@ -170,6 +170,11 @@ double zombie::Calculate_Resources()
 void zombie::action()
 {
 
+	if(active == false)
+	{
+		trapping_p->move_trapped_piece(this);
+		return;
+	}
 	glm::ivec2 myLocation = get_grid_location();
 	glm::ivec2 gridCenter = get_grid_center();
 	std::vector<piece*> actors_at_my_location = m_grid->get_actors_at_coord(get_grid_location());

@@ -37,6 +37,7 @@ public:
 protected:
 	stats initial;
 	stats now;
+<<<<<<< HEAD
 
 public:
 	
@@ -87,6 +88,30 @@ public:
 	/// \name upgrade functions
 	/// \{
 	
+=======
+	bool active = true;
+	int countdown_to_action = 0;
+	void modify_health(double amount);
+	piece* trapping_p;
+
+public:
+	void toggle_active()
+	{
+		if (active)
+			active = false;
+		else
+			active = true;
+	}
+	void set_active(bool set_to, piece* making_inactive)
+	{
+		active = set_to;
+		if (set_to)
+			trapping_p = NULL;
+		else
+			trapping_p = making_inactive;
+	}
+	virtual void calculate_upgrades(){};
+>>>>>>> 4b338a795fee5ec4510e384c0c302a16ed338a06
 	bool has_upgrade(const std::string& test) const
 	{
 		return m_upgrades.find(test) != m_upgrades.end();
@@ -103,6 +128,7 @@ public:
 		m_upgrades[name] = val;
 		// TODO: signals
 	}
+<<<<<<< HEAD
 	
 	virtual void calculate_upgrades(){}
 	
@@ -113,6 +139,28 @@ private:
 public:
 	
 	/// \}
+=======
+
+	virtual void damage(double damage, piece* calling){};
+	virtual void move_trapped_piece(piece* move_this) 
+	{
+		std::cout << "please override virtual void move_trapped piece";
+	};
+	grid* m_grid;
+	int m_level;
+	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);
+	std::vector<std::vector<piece*>> squares_in_direction(
+		glm::ivec2 myLocation, Directions direction, int range);
+	glm::ivec2 get_location_from_direction(glm::ivec3 myLocation, Directions direction, int Length);
+
+	boost::signals2::signal<void(piece* p)> sig_moved;
+
+	boost::signals2::signal<void(piece* p, glm::ivec3 new_loc, glm::ivec3 old_loc)> sig_move;
+
+	boost::signals2::signal<void(piece* p, double amt)> sig_damaged;
+
+	boost::signals2::signal<void(piece* p)> sig_die;
+>>>>>>> 4b338a795fee5ec4510e384c0c302a16ed338a06
 
 	void initialize(glm::ivec3 loc);
 	void set_grid_location(glm::ivec3 loc);
