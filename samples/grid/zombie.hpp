@@ -32,5 +32,5 @@ public:
 	void move_closer_to_center();
 	void move_random();
 	void move_off_spawner();
-	void tick_grid();
+	void action() override;
 };

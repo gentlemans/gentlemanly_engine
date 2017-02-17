@@ -46,7 +46,7 @@ public:
 	}
 	std::vector<piece*> colision_check(glm::ivec2 check_here)
 	{
-		std::vector<piece*> layer_2 = m_grid->get_actors_from_coord(glm::ivec3(check_here.x, check_here.y, 2));
+		std::vector<piece*> layer_2 = m_grid->get_actors_at_coord(glm::ivec3(check_here.x, check_here.y, 2));
 		std::vector<piece*> colided;
 		for (auto item : layer_2)
 		{
@@ -63,17 +63,14 @@ public:
 		{
 			sig_die(this);
 			hit = false;
-			return;
 		}
-		if (countdown_to_action > 0)
-		{
-			countdown_to_action--;
-			return;
-		}
+		
+	}
+	void action() override {
+		
 		moves++;
-		countdown_to_action = 1;
 		auto m_location = get_grid_location();
-		std::vector<piece*> colision_vec = colision_check(get_location_from_direction(m_location, my_direction, 1));
+		std::vector<piece*> colision_vec = colision_check(get_location_from_direction(m_location, get_rotation(), 1));
 		if (colision_vec.size() != 0)
 			{
 				colision_vec[0]->damage(now.damage, m_turret);
@@ -83,9 +80,10 @@ public:
 			}	
 		else
 			{
-				set_grid_location(glm::ivec3(get_location_from_direction(m_location, my_direction, 1),m_level));
+				set_grid_location(glm::ivec3(get_location_from_direction(m_location, get_rotation(), 1), level()));
 			}
 	}
+	
 };
 
 #endif  // TURRET_HPP

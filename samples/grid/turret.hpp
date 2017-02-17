@@ -22,7 +22,7 @@ public:
 	void damage(double damage, piece* calling) override { modify_health(-damage); }
 	void calculate_upgrades() override;
 	void initialize(glm::uvec2 location, Directions direction);
-	void tick_grid();
+	void action() override {shoot();}
 	int hitStreak = 0;
 	void shoot();
 };

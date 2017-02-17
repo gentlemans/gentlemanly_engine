@@ -47,7 +47,7 @@ void grid::initialize(glm::ivec2 size, float tps)
 
 	timer = ge::actor::factory<ticktimer>(this).get();
 }
-std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
+std::vector<piece*> grid::get_actors_at_coord(glm::ivec3 loc)
 {
 	std::vector<piece*> ret;
 
@@ -55,7 +55,7 @@ std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 		piece* p = dynamic_cast<piece*>(child.get());
 		if (!p) continue;
 
-		if (p->get_relative_location() == glm::vec2{loc.x, loc.y} && p->m_level == loc.z) {
+		if (p->get_grid_location() == loc) {
 			ret.push_back(p);
 		}
 	}
@@ -63,9 +63,37 @@ std::vector<piece*> grid::get_actors_from_coord(glm::ivec3 loc)
 	return ret;
 }
 
+
+std::array<std::vector<piece*>, 4> grid::check_squares_around(glm::ivec2 myLocation, int level)
+{
+	std::array<std::vector<piece*>, 4> emptySquares;
+
+	emptySquares[piece::NORTH] = get_actors_at_coord({myLocation.x, myLocation.y + 1, level});
+	emptySquares[piece::WEST] = get_actors_at_coord({myLocation.x - 1, myLocation.y, level});
+	emptySquares[piece::SOUTH] = get_actors_at_coord({myLocation.x, myLocation.y - 1, level});
+	emptySquares[piece::EAST] = get_actors_at_coord({myLocation.x + 1, myLocation.y, level});
+
+	return emptySquares;
+}
+
+
+std::vector<std::vector<piece*>> grid::squares_in_direction(
+	glm::ivec2 starting, piece::Directions direction, int range)
+{
+	std::vector<std::vector<piece*>> squares;
+	squares.reserve(range);
+	for (int x = 0; x < range; x++) {
+		starting = get_location_from_direction(starting, direction, 1);
+		
+		squares.push_back(get_actors_at_coord(glm::ivec3(starting.x, starting.y, 2)));
+	}
+	return squares;
+}
+
+
 piece::stats grid::get_z_stats()
 {
-	std::vector<piece*> upgradesvec = get_actors_from_coord(glm::ivec3(-2, -2, -2));
+	std::vector<piece*> upgradesvec = get_actors_at_coord(glm::ivec3(-2, -2, -2));
 	piece* upgrades = upgradesvec[0];
 	double mn_h = upgrades->get_upgrade("Minimum Health Up");
 	double mx_h = upgrades->get_upgrade("Max Health Up");
@@ -143,3 +171,18 @@ int grid::get_random(int lower, int higher)
 	std::uniform_int_distribution<> uniform_int(lower, higher);
 	return uniform_int(rand_gen);
 }
+
+
+glm::ivec2 get_location_from_direction (
+	glm::ivec2 starting, piece::Directions direction, int Length)
+{
+	switch (direction) {
+	case piece::NORTH: starting.y += Length; break;
+	case piece::WEST: starting.x -= Length; break;
+	case piece::SOUTH: starting.y -= Length; break;
+	case piece::EAST: starting.x += Length; break;
+	default: break;
+	}
+	return starting;
+}
+

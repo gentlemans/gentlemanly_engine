@@ -20,7 +20,6 @@ void turret::initialize(glm::uvec2 location, Directions direction)
 {
 	rotate(direction);
 	piece::initialize({location.x, location.y, 2});
-	add_interface<turret, gridtick_interface>();
 	mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 	initial.damage = 5;
 	initial.health = 100;
@@ -40,19 +39,6 @@ void turret::initialize(glm::uvec2 location, Directions direction)
 	die_connect = sig_die.connect([](piece* p) { p->set_parent(NULL); });
 }
 
-void turret::tick_grid()
-{
-	modify_health(now.regen);
-	if (countdown_to_action > 0) {
-		countdown_to_action--;
-		return;
-	}
-	if (active == false)
-		return;
-	countdown_to_action =+ now.speed;
-	shoot();
-}
-
 void calculate_hitstreak()
 {
 
@@ -62,7 +48,7 @@ void turret::shoot()
 {
 	int range = 3;
 	glm::ivec3 m_location = get_grid_location();
-	bullet* shot_bullet = actor::factory<bullet>(m_grid, glm::ivec2(m_location.x, m_location.y), my_direction, now, range, this).get();
+	bullet* shot_bullet = actor::factory<bullet>(m_grid, glm::ivec2(m_location.x, m_location.y), get_rotation(), now, range, this).get();
 	connect_track(shot_bullet->sig_die, [shot_bullet,this](piece* p) {
 		if (shot_bullet->hit)
 			hitStreak++;

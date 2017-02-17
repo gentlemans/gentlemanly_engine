@@ -31,8 +31,20 @@ public:
 	void change_resources(double amount) { resources = resources + amount; }
 	void initialize(glm::ivec2 size, float tps);
 
-	std::vector<piece*> get_actors_from_coord(glm::ivec3 loc);
+	std::vector<piece*> get_actors_at_coord(glm::ivec3 loc);
+	
+	/// Check if there's stuff around a certain location
+	/// \param location The location to check around
+	/// \param level The level to try to detect things on
+	/// \return The four directions use vec[piece::NORTH], vec[piece::EAST] etc.
+	std::array<std::vector<piece*>, 4> check_squares_around(glm::ivec2 location, int level = 2);
 
+	
+	std::vector<std::vector<piece*>> squares_in_direction(
+		glm::ivec2 myLocation, piece::Directions direction, int range);
+
+
+	
 	piece::stats get_z_stats();
 	void try_spawn_z();
 
@@ -42,3 +54,7 @@ public:
 
 	static grid* instance;
 };
+
+	
+glm::ivec2 get_location_from_direction(glm::ivec2 starting, piece::Directions direction, int distance);
+

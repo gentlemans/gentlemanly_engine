@@ -11,6 +11,8 @@ class grid;
 
 class piece : public ge::actor
 {
+	/// \name stats stuff
+	/// \{
 public:
 	struct stats {
 		stats(double h = 1, double d = 1, double s = 1, double r = 0)
@@ -22,20 +24,69 @@ public:
 		double speed;
 		double regen;
 	};
-	enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5 };
 
-	std::unordered_map<std::string, int> m_upgrades;
-	Directions my_direction = NORTH;
-
+	void modify_health(double amount);
+	
+	// virtual function children can reimplement to get custom stuff happening when they're damaged 
+	// like detract from health
+	virtual void damage(double damage, piece* calling){}
+	
+	boost::signals2::signal<void(piece* p, double amt)> sig_damaged;
+	boost::signals2::signal<void(piece* p)> sig_die;
+	
 protected:
 	stats initial;
 	stats now;
-	bool active = true;
-	int countdown_to_action = 0;
-	void modify_health(double amount);
 
 public:
-	virtual void calculate_upgrades(){};
+	
+	/// \}
+	
+	/// \name transformation stuff
+	/// \{
+	
+	enum Directions { NORTH = 0, EAST = 3, SOUTH = 2, WEST = 1, NONE = 5 };
+
+	boost::signals2::signal<void(piece* p)> sig_moved;
+	boost::signals2::signal<void(piece* p, glm::ivec3 new_loc, glm::ivec3 old_loc)> sig_move;
+	
+	glm::ivec3 get_grid_location() const
+	{
+		return {int(get_relative_location().x), int(get_relative_location().y), m_level};
+	}
+	Directions get_direction_to(glm::ivec2 initial, glm::ivec2 final);
+
+	void rotate(Directions direction);
+
+	Directions get_rotation() const { return my_direction; }
+	
+	int level() const { return m_level; }
+	
+private:
+	int m_level;
+	Directions my_direction = NORTH;
+
+public:
+	
+	/// \}
+	
+	/// \name action stuff
+	/// \{
+	
+	/// virtual function that's called every `speed` ticks
+	virtual void action(){}
+	
+private:
+	
+	float countdown_to_action = 0;
+	bool active = true;
+	
+	/// \}
+	
+public:
+	/// \name upgrade functions
+	/// \{
+	
 	bool has_upgrade(const std::string& test) const
 	{
 		return m_upgrades.find(test) != m_upgrades.end();
@@ -52,34 +103,26 @@ public:
 		m_upgrades[name] = val;
 		// TODO: signals
 	}
-
-	virtual void damage(double damage, piece* calling){};
-	grid* m_grid;
-	int m_level;
-	std::array<std::vector<piece*>, 4> checkNearbySquares(glm::ivec2 myLocation);
-	std::vector<std::vector<piece*>> squares_in_direction(
-		glm::ivec2 myLocation, Directions direction, int range);
-	glm::ivec2 get_location_from_direction(glm::ivec3 myLocation, Directions direction, int Length);
-
-	boost::signals2::signal<void(piece* p)> sig_moved;
-
-	boost::signals2::signal<void(piece* p, glm::ivec3 new_loc, glm::ivec3 old_loc)> sig_move;
-
-	boost::signals2::signal<void(piece* p, double amt)> sig_damaged;
-
-	boost::signals2::signal<void(piece* p)> sig_die;
+	
+	virtual void calculate_upgrades(){}
+	
+private:
+	
+	std::unordered_map<std::string, int> m_upgrades;
+	
+public:
+	
+	/// \}
 
 	void initialize(glm::ivec3 loc);
 	void set_grid_location(glm::ivec3 loc);
-	glm::ivec3 get_grid_location() const
-	{
-		return {int(get_relative_location().x), int(get_relative_location().y), m_level};
-	}
-	Directions get_direction_to(glm::ivec2 initial, glm::ivec2 final);
+	
+	void tick_grid();
 
-	void rotate(Directions direction);
-
-	Directions get_rotation() const { return my_direction; }
+protected:
+	
+	grid* m_grid;
+	
 };
 
 #endif  // GE_PIECE_HPP

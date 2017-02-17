@@ -22,7 +22,6 @@ void wall::damage(double damage, piece* calling)
 void wall::initialize(glm::uvec2 location)
 {
 	piece::initialize({location.x, location.y, 2});
-	add_interface<wall, gridtick_interface>();
 	mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 	mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("wall.texture"));
 	initial.damage = 0;
@@ -40,14 +39,4 @@ void wall::initialize(glm::uvec2 location)
 	// Adds a small amount of damage that zombies take every time they attack you
 
 	sig_die.connect([](piece* p) { p->set_parent(NULL); });
-}
-
-void wall::tick_grid()
-{
-	modify_health(now.regen);
-	if (countdown_to_action > 0) {
-		countdown_to_action--;
-		return;
-	}
-	countdown_to_action =+ now.speed;
 }
