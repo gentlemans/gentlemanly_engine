@@ -87,8 +87,6 @@ int main()
 	}
 	g->try_spawn_z();
 
-	camera->center_piece({ 0, 0 });
-
 
 // 	Rocket::Debugger::Initialise(rocket.m_context);
 // 	Rocket::Debugger::SetVisible(true);

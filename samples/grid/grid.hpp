@@ -31,7 +31,11 @@ public:
 	void change_resources(double amount) { resources = resources + amount; }
 	void initialize(glm::ivec2 size, float tps);
 
+	// get the actors on a specific location and level
 	std::vector<piece*> get_actors_at_coord(glm::ivec3 loc);
+	
+	// get the actors at a location
+	std::vector<piece*> get_actors_at_coord(glm::ivec2 loc);
 	
 	/// Check if there's stuff around a certain location
 	/// \param location The location to check around

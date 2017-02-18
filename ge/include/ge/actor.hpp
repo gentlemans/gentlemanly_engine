@@ -13,6 +13,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
 #include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/norm.hpp>
 
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
@@ -260,6 +261,20 @@ template <typename asset_type>
 auto actor::get_asset(const char* name)
 {
 	return m_runtime->m_asset_manager.get_asset<asset_type>(name);
+}
+
+
+inline glm::vec2 interpolate_to(glm::vec2 start, glm::vec2 dest, glm::vec2 current, float totalSecs, float deltaT) {
+	auto distanceToGo = dest - start;
+	
+	// we're already there
+	if (glm::length2(distanceToGo) <= glm::length2(current - start)) {
+		return dest;
+	}
+	
+	auto distancePerSec = distanceToGo / totalSecs;
+	
+	return current + distancePerSec * deltaT;
 }
 
 }  // namespace ge

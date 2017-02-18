@@ -1,0 +1,40 @@
+<rml>
+	<head>
+	
+		<style>
+			body {
+				padding: 20px;
+				padding-left: 15%;
+				padding-right: 15%;
+				padding-top: 200px;
+				font-size: 100%;
+				font-family: "Roboto";
+			}
+
+			button {
+				padding: 20px;
+				background-color: black;
+				color: white;
+				
+			}
+
+			button:hover {
+				background-color: green;
+			}
+
+			button:active {
+				background-color: blue;
+			}
+
+		</style>
+	
+	</head>
+	<body>
+		<button onclick="goback">Back</button>
+		<button onclick="rotate north">NORTH</button>
+		<button onclick="rotate east">EAST</button>
+		<button onclick="rotate south">SOUTH</button>
+		<button onclick="rotate west">WEST</button>
+		<button onclick="delete">Delete</button>
+	</body>
+</rml>

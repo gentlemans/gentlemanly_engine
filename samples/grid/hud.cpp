@@ -1,50 +1,86 @@
-#include "hud.hpp"
 #include "grid_rocket_element.hpp"
+#include "hud.hpp"
 #include "wall.hpp"
+#include "zombie.hpp"
 
 hud* hud::instance = nullptr;
 
-void hud::initialize(grid* gr, ge::camera_actor* camera)
+void hud::initialize(grid* gr, grid_camera* camera)
 {
+	m_camera = camera;
 	instance = this;
-	
+
 	initialze_event_manager();
-	register_event("showpiecemenu", [this](Rocket::Core::Event& ev, const std::string& args) { 
-		
-		if(pieceselector_visible()) {
+	register_event("showpiecemenu", [this](Rocket::Core::Event& ev, const std::string& args) {
+
+		if (pieceselector_visible()) {
 			hide_pieceselector();
 			m_mode = hitting;
 		} else {
 			show_pieceselector();
 			m_mode = placing;
 		}
-		
+
 	});
-    register_event("clickpiece", [this](Rocket::Core::Event& ev, const std::string& args) {
+	register_event("clickpiece", [this](Rocket::Core::Event& ev, const std::string& args) {
 		if (clickedElement != nullptr) {
-			
 			// if we clicked on the same one again
-			if(clickedElement->GetId().CString() == args) {
+			if (clickedElement->GetId().CString() == args) {
 				clickedElement->SetPseudoClass("clicked", false);
 				clickedElement = nullptr;
-				
-				
+
 				return;
 			}
 			clickedElement->SetPseudoClass("clicked", false);
 		}
 		clickedElement = ev.GetTargetElement()->GetOwnerDocument()->GetElementById(args.c_str());
 		clickedElement->SetPseudoClass("clicked", true);
-    });
+		hide_pieceselector(); 
+		clickedElement->SetPseudoClass("clicked", false);
+		pieceSelector->Hide();
+		
+		griddoc->PullToFront();
+	});
+	
+	register_event("rotate", [this](Rocket::Core::Event&, const std::string& direction) {
+		if (detailing == nullptr) {
+			return;
+		}
+		
+		if (direction == "north") {
+			detailing->rotate(piece::NORTH);
+		} else if (direction == "south") {
+			detailing->rotate(piece::SOUTH);
+		} else if (direction == "west") {
+			detailing->rotate(piece::WEST);
+		} else if (direction == "east") {
+			detailing->rotate(piece::EAST);
+		}
+	});
+	
+
+	register_event("goback", [this](Rocket::Core::Event&, const std::string& ) {
+		back_action();
+	});
+	
+	register_event("delete", [this](Rocket::Core::Event&, const std::string&) {
+		if (detailing != nullptr) {
+			detailing->set_parent(nullptr);
+			back_action();
+		}
+	});
 
 	// load UI
 	auto doc = m_runtime->m_asset_manager.get_asset<ge::rocket_document_asset>(
 		"gridui/doc.rocketdocument");
 	doc->Show();
 
-	pieceSelector = m_runtime->m_asset_manager.get_asset<ge::rocket_document_asset>(
-		"gridui/piecebrowser.rocketdocument").get();
+	pieceSelector = m_runtime->m_asset_manager
+						.get_asset<ge::rocket_document_asset>("gridui/piecebrowser.rocketdocument")
+						.get();
 
+	details = m_runtime->m_asset_manager.get_asset<ge::rocket_document_asset>("gridui/details.rocketdocument").get();
+						
 	g = gr;
 	rdoc = doc.get();
 	add_interface<hud, gridtick_interface>();
@@ -92,6 +128,7 @@ void hud::initialize(grid* gr, ge::camera_actor* camera)
 				Rocket::Core::Factory::InstanceElement(nullptr, "grid_rocket", "grid_rocket", xml);
 			griddoc->AppendChild(elem);
 			elem->RemoveReference();
+			m_grid_elements[x][y] = elem;
 
 			auto str = "grid_" + std::to_string(x) + "_" + std::to_string(y);
 			elem->SetId(str.c_str());
@@ -99,37 +136,73 @@ void hud::initialize(grid* gr, ge::camera_actor* camera)
 	}
 }
 
-void hud::grid_clicked(glm::ivec2 loc) {
-	switch(m_mode) {
-		case hitting:
-			break;
-			
-		case placing:
-			if (clickedElement != nullptr) {
-				auto id = clickedElement->GetId();
-				if (id == "turret") {
-					actor::factory<turret>(grid::instance, loc, piece::NORTH);
-				} else if (id == "wall") {
-					actor::factory<wall>(grid::instance, loc);
-				}
+void hud::back_action() {
+	details->Hide();
+	
+	m_camera->smooth_move(m_camera->reset_location());
+	
+	griddoc->Show();
+	griddoc->PullToFront();
+}
+
+void hud::grid_clicked(glm::ivec2 loc)
+{
+	switch (m_mode) {
+	case hitting: {
+		// get the pieces here
+		auto pieces = g->get_actors_at_coord({loc.x, loc.y});
+
+		if (pieces.empty()) {
+			return;
+		}
+		// see if there's a tower there
+
+		piece* tower = nullptr;
+		for (auto p : pieces) {
+			if (typeid(*p) != typeid(zombie)) {
+				tower = p;
+
+				break;
 			}
-			show_pieceselector();
-			break;
-		
+		}
+
+		if (tower) {
+			// zoom it on it
+			m_camera->smooth_move(m_camera->center_piece_loc(loc));
+//			m_camera->m_vertical_units = 6;
+			griddoc->Hide();
+			detailing = tower;
+			
+			details->Show();
+			details->PullToFront();
+		}
+
+		break;
+	}
+	case placing:
+		if (clickedElement != nullptr) {
+			auto id = clickedElement->GetId();
+			if (id == "turret") {
+				actor::factory<turret>(grid::instance, loc, piece::NORTH);
+			} else if (id == "wall") {
+				actor::factory<wall>(grid::instance, loc);
+			}
+		}
+		break;
 	}
 }
-	bool hud::pieceselector_visible() {
-		return m_pieceselector_visible;
-	}
-
-void hud::show_pieceselector() {
+bool hud::pieceselector_visible() { return m_pieceselector_visible; }
+void hud::show_pieceselector()
+{
 	pieceSelector->Show();
 	pieceSelector->PullToFront();
 	m_pieceselector_visible = true;
 }
-void hud::hide_pieceselector() {
-	
-	clickedElement->SetPseudoClass("clicked", false);
+void hud::hide_pieceselector()
+{
+	if (clickedElement != nullptr) {
+		clickedElement->SetPseudoClass("clicked", false);
+	}
 	pieceSelector->Hide();
 	m_pieceselector_visible = false;
 }

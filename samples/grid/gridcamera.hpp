@@ -4,6 +4,7 @@
 #define GRID_GRID_CAMERA_HPP
 
 #include <ge/camera_actor.hpp>
+#include <ge/tickable.hpp>
 
 class grid_camera : public ge::camera_actor {
 public:
@@ -12,11 +13,33 @@ public:
 		m_grid_size = grid_size;
 		m_aspect_ratio = aspect_ratio;
 
-		reset();
+		set_relative_location(reset_location());
+		reset_zoom();
+		
+		starting = dest = get_relative_location();
+		add_interface<grid_camera, ge::tickable>();
 	}
 
-	void reset() {
+	glm::vec2 reset_location() const {
 
+
+		// move the camera to the default location
+
+		if (m_aspect_ratio < 1) {
+			auto m_flipped_ratio = 1 / m_aspect_ratio;
+
+			auto ratio_on_top = (m_flipped_ratio - 1) / 2;
+
+			auto amount_to_move = ratio_on_top * m_grid_size * m_aspect_ratio + 1;
+
+			return {0, amount_to_move};
+		} else {
+			return {0, 0};
+		}
+		
+	}
+	
+	void reset_zoom() {
 		if (m_aspect_ratio > 1) {
 			// this means that it's widescreen
 
@@ -28,26 +51,25 @@ public:
 			m_vertical_units = m_grid_size * (1 / m_aspect_ratio);
 		}
 
-		// move the camera to the default location
-
-		if (m_aspect_ratio < 1) {
-			auto m_flipped_ratio = 1 / m_aspect_ratio;
-
-			auto ratio_on_top = (m_flipped_ratio - 1) / 2;
-
-			auto amount_to_move = ratio_on_top * m_grid_size + .5;
-
-			set_relative_location(get_relative_location() + glm::vec2(0, amount_to_move));
-		}
+	}
+	
+	void tick(std::chrono::duration<float> delta) {
+		set_relative_location(ge::interpolate_to(starting, dest, get_relative_location(), .2, delta.count()));
 	}
 
 	int m_grid_size;
 
-	void center_piece(glm::ivec2 id) {
-		reset();
+	glm::vec2 center_piece_loc(glm::ivec2 id) {
 
-		set_relative_location(get_relative_location() + glm::vec2((m_grid_size - id.x) / 2.f, (m_grid_size - id.y - 1)));
+		return reset_location() + glm::vec2((m_grid_size / 2) - id.x, (m_grid_size - id.y - 1));
 	}
+	
+	void smooth_move(glm::vec2 moveTo) {
+		starting = get_relative_location();
+		dest = moveTo;
+	}
+	
+	glm::vec2 starting, dest;
 
 };
 

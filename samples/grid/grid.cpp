@@ -64,6 +64,22 @@ std::vector<piece*> grid::get_actors_at_coord(glm::ivec3 loc)
 }
 
 
+std::vector<piece*> grid::get_actors_at_coord(glm::ivec2 loc) {
+	std::vector<piece*> ret;
+
+	for (auto& child : m_children) {
+		piece* p = dynamic_cast<piece*>(child.get());
+		if (!p) continue;
+
+		if (p->get_grid_location().x == loc.x && p->get_grid_location().y == loc.y) {
+			ret.push_back(p);
+		}
+	}
+
+	return ret;
+}
+
+
 std::array<std::vector<piece*>, 4> grid::check_squares_around(glm::ivec2 myLocation, int level)
 {
 	std::array<std::vector<piece*>, 4> emptySquares;
