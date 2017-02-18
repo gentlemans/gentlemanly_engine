@@ -170,7 +170,7 @@ double zombie::Calculate_Resources()
 void zombie::action()
 {
 
-	if(active == false)
+	if(active() == false)
 	{
 		trapping_p->move_trapped_piece(this);
 		return;

@@ -59,7 +59,7 @@ void piece::tick_grid() {
 		countdown_to_action--;
 		return;
 	}
-	if (active == false)
+	if (active() == false)
 		return;
 	countdown_to_action += now.speed;
 	

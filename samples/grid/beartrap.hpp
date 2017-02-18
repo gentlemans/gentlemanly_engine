@@ -20,7 +20,6 @@ public:
 	void initialize(glm::uvec2 location)
 	{
 		piece::initialize({ location.x, location.y, 1 });
-		add_interface<beartrap, gridtick_interface>();
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "turret/turret.meshsettings").get();
 		mesh->set_mat_param("Texture", get_asset<ge::texture_asset>("beartrap.texture"));
 
@@ -28,23 +27,10 @@ public:
 		now.speed = 0;
 	}
 	void move_trapped_piece(piece* move_this) override {}
-	void tick_grid()
+	void action() override
 	{
-		if (active == false)
-		{
-			if (trapped_count == 0)
-				active = true;
-			else
-				return;
-		}
-		if (countdown_to_action >= 0) {
-			countdown_to_action--;
-			return;
-		}
-		else
-			countdown_to_action = now.speed;
 		glm::ivec3 myLocation = get_grid_location();
-		auto actors = m_grid->get_actors_from_coord(glm::ivec3(myLocation.x, myLocation.y, 2));
+		auto actors = m_grid->get_actors_at_coord(glm::ivec3(myLocation.x, myLocation.y, 2));
 		for (int x = 0; x < actors.size(); x++) {
 			actors[x]->set_active(false, this);
 			trapped_count++;
