@@ -20,6 +20,18 @@ public:
 		add_interface<grid_camera, ge::tickable>();
 	}
 
+	glm::mat3 dest_vp_mat() {
+		glm::vec2 oldloc = get_relative_location();
+		
+		set_relative_location(dest);
+		
+		glm::mat3 ret = get_vp_matrix();
+		
+		set_relative_location(oldloc);
+		
+		return ret;
+	}
+	
 	glm::vec2 reset_location() const {
 
 
@@ -57,7 +69,6 @@ public:
 		set_relative_location(ge::interpolate_to(starting, dest, get_relative_location(), .2, delta.count()));
 	}
 
-	int m_grid_size;
 
 	glm::vec2 center_piece_loc(glm::ivec2 id) {
 
@@ -70,6 +81,7 @@ public:
 	}
 	
 	glm::vec2 starting, dest;
+	int m_grid_size;
 
 };
 

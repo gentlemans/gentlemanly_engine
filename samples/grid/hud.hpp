@@ -38,6 +38,8 @@ public:
 	
 	void tick_grid();
 	
+	void generate_grid();
+	
 	void back_action();
 private:
 	

@@ -9,6 +9,9 @@ void hud::initialize(grid* gr, grid_camera* camera)
 {
 	m_camera = camera;
 	instance = this;
+	
+	// fill with zeros
+	m_grid_elements.fill({{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
 	initialze_event_manager();
 	register_event("showpiecemenu", [this](Rocket::Core::Event& ev, const std::string& args) {
@@ -96,27 +99,40 @@ void hud::initialize(grid* gr, grid_camera* camera)
 
 	grid_rocket_instancer::registerInstancer();
 
-	auto& sdl = *m_runtime->get_subsystem<ge::sdl_subsystem>();
 	auto& rocket = *m_runtime->get_subsystem<ge::rocket_subsystem>();
 
 	griddoc = rocket.m_context->CreateDocument("body");
 	griddoc->Show();
 
+	generate_grid();
+}
+
+void hud::generate_grid() {
+	
+	auto& sdl = *m_runtime->get_subsystem<ge::sdl_subsystem>();
+	
 	// create virtual rocket elements
-	auto vp = camera->get_vp_matrix();
+	auto vp = m_camera->dest_vp_mat();
 	auto tmpActor = actor::factory<piece>(g, glm::ivec3(0, 0, 0));
 	for (int x = 0; x < 11; ++x) {
 		for (int y = 0; y < 11; ++y) {
-			auto start = vp * tmpActor->calculate_model_matrix() * glm::vec3(x - .5, y + .5, 1);
-			auto end = vp * tmpActor->calculate_model_matrix() * glm::vec3(x + .5, y + 1.5, 1);
+			// if there's an existing element, delete it
+			if (m_grid_elements[x][y] != nullptr) {
+				griddoc->RemoveChild(m_grid_elements[x][y]);
+				m_grid_elements[x][y] = nullptr;
+			}
+			
+			auto mm = tmpActor->calculate_model_matrix();
+			auto start = vp * mm * glm::vec3(x - .5, y + .5, 1);
+			auto end = vp * mm * glm::vec3(x + .5, y + 1.5, 1);
 
 			start += 1;
-			start.x *= (float)sdl.get_size().x / 2.f;
-			start.y *= (float)sdl.get_size().y / 2.f;
+			start.x *= sdl.get_size().x / 2.f;
+			start.y *= sdl.get_size().y / 2.f;
 
 			end += 1;
-			end.x *= (float)sdl.get_size().x / 2.f;
-			end.y *= (float)sdl.get_size().y / 2.f;
+			end.x *= sdl.get_size().x / 2.f;
+			end.y *= sdl.get_size().y / 2.f;
 
 			auto xml = Rocket::Core::XMLAttributes();
 			xml.Set("idx", x);
@@ -141,7 +157,7 @@ void hud::back_action() {
 	
 	m_camera->smooth_move(m_camera->reset_location());
 	
-	griddoc->Show();
+	generate_grid();
 	griddoc->PullToFront();
 }
 
@@ -170,7 +186,9 @@ void hud::grid_clicked(glm::ivec2 loc)
 			// zoom it on it
 			m_camera->smooth_move(m_camera->center_piece_loc(loc));
 //			m_camera->m_vertical_units = 6;
-			griddoc->Hide();
+			generate_grid();
+			m_grid_elements[loc.x][loc.y]->SetProperty("background-color", "rgba(0%, 100%, 0%, 20%)");
+			
 			detailing = tower;
 			
 			details->Show();

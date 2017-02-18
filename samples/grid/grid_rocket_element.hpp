@@ -24,12 +24,14 @@ public:
 		SetProperty("top", std::to_string(startPx.y).c_str());
 		SetProperty("width", std::to_string(sizePx.x).c_str());
 		SetProperty("height", std::to_string(sizePx.y).c_str());
-
+		
+		
+		//SetProperty("background-color", ("rgba(0%, " + std::to_string(rand() % 100)+ "%, " + std::to_string(rand() % 100) + "%, 20%)").c_str());
 	}
 
 	void ProcessEvent(Rocket::Core::Event& ev) override
 	{
-		if (ev.GetType() == "mousedown") {
+		if (ev.GetType() == "click") {
 			hud::instance->grid_clicked(m_id);
 		}
 	}

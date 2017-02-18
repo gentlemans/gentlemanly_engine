@@ -3,12 +3,11 @@
 	
 		<style>
 			body {
-				padding: 20px;
-				padding-left: 15%;
-				padding-right: 15%;
-				padding-top: 200px;
 				font-size: 100%;
 				font-family: "Roboto";
+				position: absolute;
+				top: 20%;
+				left: 20%;
 			}
 
 			button {
