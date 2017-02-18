@@ -12,7 +12,7 @@
 
 			button {
 				padding: 20px;
-				background-color: black;
+				background-color: rgba(0%, 0%, 0%, 80%);
 				color: white;
 				
 			}
@@ -24,7 +24,13 @@
 			button:active {
 				background-color: blue;
 			}
-
+			
+			.upgradetext {
+				background-color: black;
+				color: white;
+				padding: 20px;
+			}
+			
 		</style>
 	
 	</head>
@@ -35,5 +41,17 @@
 		<button onclick="rotate south">SOUTH</button>
 		<button onclick="rotate west">WEST</button>
 		<button onclick="delete">Delete</button>
+		
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		
+		<div class="upgrade">
+			<span class="upgradetext">Health: 2</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button>+</button> <button>-</button>
+		</div> 
+		
 	</body>
 </rml>

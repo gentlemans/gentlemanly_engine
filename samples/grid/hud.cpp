@@ -159,6 +159,7 @@ void hud::back_action() {
 	
 	generate_grid();
 	griddoc->PullToFront();
+	detailing = nullptr;
 }
 
 void hud::grid_clicked(glm::ivec2 loc)
@@ -169,6 +170,10 @@ void hud::grid_clicked(glm::ivec2 loc)
 		auto pieces = g->get_actors_at_coord({loc.x, loc.y});
 
 		if (pieces.empty()) {
+			
+			if (detailing) {
+				details->PullToFront();
+			}
 			return;
 		}
 		// see if there's a tower there
@@ -182,8 +187,7 @@ void hud::grid_clicked(glm::ivec2 loc)
 			}
 		}
 
-		if (tower) {
-			// zoom it on it
+		if (tower || detailing) {
 			m_camera->smooth_move(m_camera->center_piece_loc(loc));
 //			m_camera->m_vertical_units = 6;
 			generate_grid();
@@ -194,6 +198,7 @@ void hud::grid_clicked(glm::ivec2 loc)
 			details->Show();
 			details->PullToFront();
 		}
+		
 
 		break;
 	}
