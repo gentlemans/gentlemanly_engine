@@ -59,6 +59,14 @@ struct sdl_subsystem : subsystem {
 	/// \return The size of the window
 	glm::uvec2 get_size() const;
 
+	/// Gets the aspect ration of the window
+	/// \return the aspect ratio
+	float get_aspect_ratio() const {
+		auto size = get_size();
+
+		return float(size.x) / size.y;
+	}
+
 	/// Set the size of the window
 	/// \param new_size Set the size of the window
 	void set_size(glm::uvec2 new_size);

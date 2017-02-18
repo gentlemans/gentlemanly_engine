@@ -19,6 +19,7 @@
 #include "hud.hpp"
 #include "piece.hpp"
 #include "spike.hpp"
+#include "gridcamera.hpp"
 #include "turret.hpp"
 #include "wall.hpp"
 #include "zombie.hpp"
@@ -51,9 +52,8 @@ int main()
 
 	auto root = actor::root_factory(&r);
 
-	auto camera = actor::factory<camera_actor>(
-		root.get(), 16.5, float(sdl.get_size().x) / float(sdl.get_size().y));
-	camera->set_relative_location(camera->get_relative_location() + glm::vec2(0, 2.75));
+	auto camera = actor::factory<grid_camera>(
+		root.get(), 11, sdl.get_aspect_ratio());
 
 	sdl.set_background_color({.2f, .2f, .2f});
 	sdl.set_camera(camera.get());
@@ -87,9 +87,11 @@ int main()
 	}
 	g->try_spawn_z();
 
+	camera->center_piece({ 0, 0 });
 
- 	Rocket::Debugger::Initialise(rocket.m_context);
- 	Rocket::Debugger::SetVisible(true);
+
+// 	Rocket::Debugger::Initialise(rocket.m_context);
+// 	Rocket::Debugger::SetVisible(true);
 
 
 	rocket_input_consumer ic{&r};
