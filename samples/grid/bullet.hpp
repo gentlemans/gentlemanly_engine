@@ -37,8 +37,6 @@ public:
 		now = initial;
 		b_range = range;
 
-		add_interface<bullet, gridtick_interface>();
-
 		mesh = ge::actor::factory<ge::mesh_actor>(this, "bullet/bullet.meshsettings").get();
 
 		connect_track(sig_die, [](piece* p) { p->set_parent(NULL); }, shared(this));
@@ -57,17 +55,14 @@ public:
 		}
 		return colided;
 	}
-	void tick_grid()
-	{
+
+	void action() override {
+
 		if (moves >= b_range)
 		{
 			sig_die(this);
 			hit = false;
 		}
-		
-	}
-	void action() override {
-		
 		moves++;
 		auto m_location = get_grid_location();
 		std::vector<piece*> colision_vec = colision_check(get_location_from_direction(m_location, get_rotation(), 1));
