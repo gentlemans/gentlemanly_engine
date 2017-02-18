@@ -187,13 +187,17 @@ void hud::grid_clicked(glm::ivec2 loc)
 			}
 		}
 
-		if (tower || detailing) {
+		if (tower) {
 			m_camera->smooth_move(m_camera->center_piece_loc(loc));
 //			m_camera->m_vertical_units = 6;
 			generate_grid();
 			m_grid_elements[loc.x][loc.y]->SetProperty("background-color", "rgba(0%, 100%, 0%, 20%)");
 			
 			detailing = tower;
+			
+		}
+		
+		if (detailing) {
 			
 			details->Show();
 			details->PullToFront();

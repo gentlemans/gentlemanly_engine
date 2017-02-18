@@ -16,7 +16,6 @@
 				color: white;
 				
 			}
-
 			button:hover {
 				background-color: green;
 			}
@@ -24,13 +23,20 @@
 			button:active {
 				background-color: blue;
 			}
-			
+
+
 			.upgradetext {
 				background-color: black;
 				color: white;
 				padding: 20px;
 			}
-			
+			.upgrade button {
+				padding-left: 30px;
+				padding-right: 30px;
+			}
+			h2 {
+				font-size: 220%;
+			}
 		</style>
 	
 	</head>
@@ -42,16 +48,36 @@
 		<button onclick="rotate west">WEST</button>
 		<button onclick="delete">Delete</button>
 		
-		<br />
-		<br />
-		<br />
-		<br />
-		<br />
 		
-		<div class="upgrade">
-			<span class="upgradetext">Health: 2</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button>+</button> <button>-</button>
-		</div> 
+		<br />
+		<br />
+		<br />
+		<h2>Upgrades</h2>
 		
+		<br />
+			
+		<div>
+		
+			<br />
+			
+			<div class="upgrade">
+				<span class="upgradetext">Health: 2</span>
+				<button>-</button> <button>+</button>
+			</div> 
+			
+		</div>
+		<div>
+		
+			<br />
+			<br />
+			<br />
+			<br />
+			
+			<div class="upgrade">
+				<span class="upgradetext">Other Shit: 2</span>
+				<button>-</button> <button>+</button>
+			</div> 
+			
+		</div>
 	</body>
 </rml>
