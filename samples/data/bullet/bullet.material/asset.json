@@ -1,9 +1,0 @@
-{
-  "asset_type": "material",
-  "shader": "texturedmodel/textured.shader",
-  "parameters": {
-   
-    "Texture": "bullet/bullet.texture"
-  }
-} 
-

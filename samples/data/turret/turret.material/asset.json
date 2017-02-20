@@ -1,8 +1,0 @@
-{
-  "asset_type": "material",
-  "shader": "texturedmodel/textured.shader",
-  "parameters": {
-   
-    "Texture": "turret/turret.texture"
-  }
-} 
