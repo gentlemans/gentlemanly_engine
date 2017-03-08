@@ -147,6 +147,8 @@ if(WIN32)
 	option(SKIP_DIRECTX9_SAMPLE "Skip build of DirectX 9 related sample.  Only applies if BUILD_SAMPLES is ON and SKIP_DIRECTX_SAMPLES is OFF" OFF)
 	option(SKIP_DIRECTX10_SAMPLE "Skip build of DirectX 10 related sample.  Only applies if BUILD_SAMPLES is ON and SKIP_DIRECTX_SAMPLES is OFF" OFF)
 endif()
+option(BUILD_CONTRIB "Build contrib libraries" ON)
+
 
 if(APPLE)
 	if(IOS)
@@ -182,6 +184,8 @@ IF(WIN32)
     endif()
   endif()
 ENDIF(WIN32)
+
+
 
 
 #===================================
@@ -373,6 +377,47 @@ if(BUILD_LUA_BINDINGS)
 endif()
 
 
+# Build contrib libraries
+if(BUILD_CONTRIB)
+	set(ContribProgressBar_HDR_FILES
+	)
+
+	set(ContribProgressBar_PUB_HDR_FILES
+		${PROJECT_SOURCE_DIR}/Contrib/Include/Rocket/ProgressBar//ElementProgressBar.h
+		${PROJECT_SOURCE_DIR}/Contrib/Include/Rocket/ProgressBar//Header.h
+		${PROJECT_SOURCE_DIR}/Contrib/Include/Rocket/ProgressBar.h
+	)
+
+	set(ContribProgressBar_SRC_FILES
+		${PROJECT_SOURCE_DIR}/Contrib/Source/ProgressBar//ElementProgressBar.cpp
+		${PROJECT_SOURCE_DIR}/Contrib/Source/ProgressBar//ProgressBar.cpp
+	)
+
+	include_directories(
+	    ${PROJECT_SOURCE_DIR}/Contrib/Include
+		)
+		
+    set(LIBRARIES ProgressBar)
+
+    foreach(library ${LIBRARIES})
+        set(NAME Rocket${library})
+
+        add_library(${NAME} ${Contrib${library}_SRC_FILES}
+                            ${Contrib${library}_HDR_FILES}
+                            ${Contrib${library}_PUB_HDR_FILES}
+        )
+
+        set_target_properties(${NAME} PROPERTIES PREFIX "")
+
+        install(TARGETS ${NAME}
+                LIBRARY DESTINATION lib
+            	ARCHIVE DESTINATION lib
+            	RUNTIME DESTINATION bin
+        )
+    endforeach(library)
+endif()
+
+
 #===================================
 # Link libraries ===================
 #===================================
@@ -403,6 +448,10 @@ if(BUILD_LUA_BINDINGS)
 		target_link_libraries(RocketCoreLua Rocket ${LUA_BINDINGS_LINK_LIBS})
 		target_link_libraries(RocketControlsLua Rocket RocketCoreLua ${LUA_BINDINGS_LINK_LIBS})
 	endif(NOT BUILD_FRAMEWORK)
+endif()
+
+if(BUILD_CONTRIB)
+	target_link_libraries(RocketProgressBar RocketCore)
 endif()
 
 
