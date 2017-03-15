@@ -94,9 +94,20 @@ public:
 
 		auto abs_path = resolve_asset_path(name);
 
+		if (abs_path.empty()) {
+			logger->warn("Could not find asset: " + abs_path);
+			return nullptr;
+		}
+
 		nlohmann::json root;
-		std::ifstream asset_file(abs_path + "/asset.json");
-		asset_file >> root;
+		try {
+			std::ifstream asset_file(abs_path + "/asset.json");
+			
+			asset_file >> root;
+		} catch(std::exception& e) {
+			logger->warn("failed to load json file: "s + e.what());
+			return nullptr;
+		}
 
 		std::string asset_type_from_json = root["asset_type"];
 

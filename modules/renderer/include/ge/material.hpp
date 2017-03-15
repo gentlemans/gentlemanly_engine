@@ -47,7 +47,7 @@ public:
 
 #ifndef _NDEBUG
 		// check if the shader has this parameter
-		if (m_shader->m_parameters.find(key) == m_shader->m_parameters.end()) {
+		if (m_shader && m_shader->m_parameters.find(key) == m_shader->m_parameters.end()) {
 			logger->warn(
 				"Setting parameter in material \""s + key + "\" that doesn't exist in the shader");
 		}
