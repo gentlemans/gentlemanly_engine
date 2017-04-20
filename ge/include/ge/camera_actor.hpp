@@ -29,12 +29,24 @@ struct camera_actor : actor {
 	void render_actors(actor& root)
 	{
 		glm::mat3 vp = get_vp_matrix();
+		
+		// collect the actors into a map
+		std::map<int, std::vector<actor*>> renderOrderSorted;
 
-		root.propagate_to_children([&vp](actor& act) {
+		root.propagate_to_children([&](actor& act) {
 			if (act.implements_interface<renderable>()) {
-				act.get_interface_storage<renderable>()->renderfunc(vp);
+				auto& interface_storage = *act.get_interface_storage<renderable>();
+				
+				renderOrderSorted[interface_storage.renderOrder].push_back(&act);
 			}
 		});
+		
+		// then render
+		for (const auto& vec : renderOrderSorted) {
+			for (const auto& act : vec.second) {
+				act->get_interface_storage<renderable>()->renderfunc(vp);
+			}
+		}
 	}
 
 	glm::mat3 get_vp_matrix() const

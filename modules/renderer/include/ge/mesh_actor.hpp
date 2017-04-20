@@ -31,6 +31,11 @@ struct mesh_actor : actor {
 	{
 		m_mesh_settings.m_material.m_shader = std::move(sh);
 	}
+	
+	/// low renders first/on bottom
+	void set_render_order(int newRenderOrder) {
+		get_interface_storage<renderable>()->renderOrder = newRenderOrder;
+	}
 
 	void set_mat_param(const char* name, shader::parameter_type value)
 	{

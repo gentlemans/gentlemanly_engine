@@ -15,20 +15,20 @@ struct renderable {
 	struct interface_storage {
 		/// Constructor so make_shared can be used
 		/// \param arg The func
-		interface_storage(std::function<void(const glm::mat3&)> arg) : renderfunc(std::move(arg)) {}
+		interface_storage(std::function<void(const glm::mat3&)> arg, int renderOrd) : renderfunc(std::move(arg)), renderOrder{renderOrd} {}
 		/// The render function object
 		std::function<void(const glm::mat3&)> renderfunc;
+		int renderOrder;
 	};
 
 	/// The interface generation function
 	/// \param act The actor pointer
 	template <typename ActorType>
-	static std::shared_ptr<interface_storage> gen_interface(ActorType* act)
-	{
+	static std::shared_ptr<interface_storage> gen_interface(ActorType* act, int renderOrder = 100) {
 		/// If you get an error here, you need to implement a render
 		/// function with the signature: void render(const glm::mat3& vp)
 		return std::make_shared<interface_storage>(
-			[act](const glm::mat3& arg) { act->render(arg); });
+			[act](const glm::mat3& arg) { act->render(arg); }, renderOrder);
 	}
 };
 }
