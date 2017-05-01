@@ -1,4 +1,7 @@
 #include "ge/texture_asset.hpp"
+#include "ge/runtime.hpp"
+
+#include "ge/sdl_subsystem.hpp"
 
 namespace ge
 {
@@ -6,6 +9,10 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 	const std::string& arg_name, const std::string& abs_filepath, const nlohmann::json& json_data)
 {
 	using namespace std::string_literals;
+	
+	if (manager.m_runtime->get_subsystem<sdl_subsystem>() == nullptr) {
+		return std::make_shared<texture>();
+	}
 
 	std::string type_str = json_data["type"];
 	type type_to_load;
@@ -22,6 +29,9 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 
 	switch (type_to_load) {
 	case type::DDS: {
+		// throw an error
+		assert(false && "DDS not implemented on iOS! We should research that.");
+#if 0
 		// just load file and sent it to the texture
 		std::ifstream ifs{boost::filesystem::absolute(filepath, abs_filepath).string()};
 		std::string dds_data(
@@ -31,6 +41,7 @@ std::shared_ptr<texture> texture_asset::load_asset(asset_manager& manager,
 		// check ret
 		if (!*ret) return nullptr;
 		return ret;
+#endif
 	} break;
 	case type::PNG: {
 		// use lodepng then pass the raw RGBA data
